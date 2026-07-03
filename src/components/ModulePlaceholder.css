@@ -1,0 +1,99 @@
+/* Module Placeholder Styling - Scoped with .dbs- prefixes */
+
+.dbs-placeholder-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 40px 20px;
+}
+
+.dbs-placeholder-card {
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dbs-placeholder-icon-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--dbs-warning-light);
+  color: var(--dbs-warning);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  box-shadow: var(--dbs-shadow-sm);
+  animation: dbs-float 3s infinite ease-in-out;
+}
+
+@keyframes dbs-float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+.dbs-construction-icon {
+  animation: dbs-sway 2s infinite ease-in-out;
+}
+
+@keyframes dbs-sway {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.dbs-placeholder-card h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--dbs-text);
+}
+
+.dbs-placeholder-status-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: var(--dbs-warning-light);
+  color: var(--dbs-warning);
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--dbs-warning);
+}
+
+.dbs-placeholder-desc {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--dbs-text-muted);
+}
+
+.dbs-placeholder-actions {
+  margin-top: 12px;
+}
+
+.dbs-placeholder-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--dbs-primary);
+  color: white;
+  border: none;
+  border-radius: var(--dbs-radius-sm);
+  padding: 10px 20px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--dbs-transition);
+  outline: none;
+}
+
+.dbs-placeholder-back-btn:hover {
+  background-color: var(--dbs-primary-hover);
+  box-shadow: 0 4px 12px var(--dbs-primary-light);
+}

@@ -1,2 +1,130 @@
-/* For information on how to create your own theme, please refer to:
-http://ionicframework.com/docs/theming/ */
+/* DBS ERP CSS Variables System */
+
+:root {
+  /* Default Theme (dbs-theme-blue) */
+  --dbs-primary: #2563eb;
+  --dbs-primary-hover: #1d4ed8;
+  --dbs-primary-light: #eff6ff;
+  --dbs-secondary: #475569;
+  --dbs-success: #10b981;
+  --dbs-success-light: #ecfdf5;
+  --dbs-warning: #f59e0b;
+  --dbs-warning-light: #fef3c7;
+  --dbs-danger: #ef4444;
+  --dbs-danger-light: #fef2f2;
+  --dbs-background: #f8fafc;
+  --dbs-surface: #ffffff;
+  --dbs-border: #e2e8f0;
+  --dbs-text: #0f172a;
+  --dbs-text-muted: #64748b;
+  --dbs-sidebar-bg: #1e293b;
+  --dbs-sidebar-text: #f1f5f9;
+  --dbs-sidebar-hover: #334155;
+  
+  /* Component Defaults */
+  --dbs-radius: 16px;
+  --dbs-radius-sm: 8px;
+  --dbs-radius-lg: 24px;
+  --dbs-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --dbs-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --dbs-shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+  --dbs-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --dbs-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --dbs-font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* 🔵 Blue Theme (Corporate Default) */
+body.dbs-theme-blue {
+  --dbs-primary: #2563eb;
+  --dbs-primary-hover: #1d4ed8;
+  --dbs-primary-light: #eff6ff;
+  --dbs-background: #f8fafc;
+  --dbs-surface: #ffffff;
+  --dbs-border: #e2e8f0;
+  --dbs-text: #0f172a;
+  --dbs-text-muted: #64748b;
+}
+
+/* 🍊 DBASE Orange Theme */
+body.dbs-theme-orange {
+  --dbs-primary: #f97316;
+  --dbs-primary-hover: #ea580c;
+  --dbs-primary-light: #fff7ed;
+  --dbs-background: #fffbf9;
+  --dbs-surface: #ffffff;
+  --dbs-border: #fed7aa;
+  --dbs-text: #431407;
+  --dbs-text-muted: #9a3412;
+}
+
+/* 🟢 Emerald Theme */
+body.dbs-theme-emerald {
+  --dbs-primary: #10b981;
+  --dbs-primary-hover: #059669;
+  --dbs-primary-light: #ecfdf5;
+  --dbs-background: #f9fbf9;
+  --dbs-surface: #ffffff;
+  --dbs-border: #a7f3d0;
+  --dbs-text: #064e3b;
+  --dbs-text-muted: #047857;
+}
+
+/* 🟣 Purple Theme */
+body.dbs-theme-purple {
+  --dbs-primary: #8b5cf6;
+  --dbs-primary-hover: #7c3aed;
+  --dbs-primary-light: #faf5ff;
+  --dbs-background: #fafafc;
+  --dbs-surface: #ffffff;
+  --dbs-border: #e9d5ff;
+  --dbs-text: #4c1d95;
+  --dbs-text-muted: #6d28d9;
+}
+
+/* 🔘 Slate Theme */
+body.dbs-theme-slate {
+  --dbs-primary: #475569;
+  --dbs-primary-hover: #334155;
+  --dbs-primary-light: #f1f5f9;
+  --dbs-background: #f8fafc;
+  --dbs-surface: #ffffff;
+  --dbs-border: #cbd5e1;
+  --dbs-text: #0f172a;
+  --dbs-text-muted: #475569;
+}
+
+/* 🌑 Dark Theme */
+body.dbs-theme-dark {
+  --dbs-primary: #3b82f6;
+  --dbs-primary-hover: #2563eb;
+  --dbs-primary-light: #1e3a8a;
+  --dbs-background: #0f172a;
+  --dbs-surface: #1e293b;
+  --dbs-border: #334155;
+  --dbs-text: #f8fafc;
+  --dbs-text-muted: #94a3b8;
+  --dbs-sidebar-bg: #0b0f19;
+  --dbs-sidebar-hover: #1e293b;
+}
+
+/* 🏁 High Contrast Theme */
+body.dbs-theme-highcontrast {
+  --dbs-primary: #000000;
+  --dbs-primary-hover: #000000;
+  --dbs-primary-light: #ffffff;
+  --dbs-background: #ffffff;
+  --dbs-surface: #ffffff;
+  --dbs-border: #000000;
+  --dbs-text: #000000;
+  --dbs-text-muted: #000000;
+  --dbs-sidebar-bg: #000000;
+  --dbs-sidebar-text: #ffffff;
+  --dbs-sidebar-hover: #333333;
+  --dbs-radius: 0px;
+  --dbs-radius-sm: 0px;
+  --dbs-radius-lg: 0px;
+  --dbs-shadow-sm: none;
+  --dbs-shadow: none;
+  --dbs-shadow-md: none;
+  --dbs-shadow-lg: none;
+}

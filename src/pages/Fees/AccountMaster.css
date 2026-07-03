@@ -1,0 +1,39 @@
+/* Account Master Ledger Stylesheet - Scoped with .dbs- prefixes */
+
+.dbs-accountmaster-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dbs-accountmaster-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.dbs-accountmaster-form-column,
+.dbs-accountmaster-list-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dbs-account-name-td {
+  font-weight: 600;
+  color: var(--dbs-text);
+}
+
+.dbs-opening-bal-td {
+  font-family: monospace;
+  font-weight: 700;
+  color: var(--dbs-success);
+  font-size: 0.92rem;
+}
+
+@media (max-width: 1024px) {
+  .dbs-accountmaster-grid-layout {
+    grid-template-columns: 1fr;
+  }
+}

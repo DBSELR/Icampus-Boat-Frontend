@@ -1,0 +1,148 @@
+@import "./variables.css";
+
+/* --- Global Resets & Theme Transitions --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--dbs-font-family);
+  background-color: var(--dbs-background);
+  color: var(--dbs-text);
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dbs-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-text-muted);
+}
+
+/* --- Skeleton Loading Animation --- */
+.dbs-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--dbs-border) 25%,
+    var(--dbs-background) 50%,
+    var(--dbs-border) 75%
+  );
+  background-size: 200% 100%;
+  animation: dbs-skeleton-pulse 1.5s infinite linear;
+  border-radius: var(--dbs-radius-sm);
+  display: inline-block;
+}
+
+@keyframes dbs-skeleton-pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* --- Empty State Styles --- */
+.dbs-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  background: var(--dbs-surface);
+  border: 1px dashed var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  color: var(--dbs-text-muted);
+}
+
+.dbs-empty-state-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 16px;
+  color: var(--dbs-border);
+}
+
+.dbs-empty-state-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--dbs-text);
+}
+
+.dbs-empty-state-desc {
+  font-size: 0.9rem;
+  max-width: 320px;
+  line-height: 1.4;
+}
+
+/* --- Toast Custom Scopes --- */
+.dbs-toast-success {
+  background-color: var(--dbs-success-light) !important;
+  border: 1px solid var(--dbs-success) !important;
+  color: var(--dbs-success) !important;
+}
+
+.dbs-toast-error {
+  background-color: var(--dbs-danger-light) !important;
+  border: 1px solid var(--dbs-danger) !important;
+  color: var(--dbs-danger) !important;
+}
+
+/* --- Global Forms & Typography Elements --- */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--dbs-text);
+  line-height: 1.25;
+}
+
+p {
+  color: var(--dbs-text-muted);
+  line-height: 1.5;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--dbs-text);
+  background-color: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  padding: 10px 14px;
+  outline: none;
+  transition: var(--dbs-transition);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--dbs-primary);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+}
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dbs-text);
+  margin-bottom: 6px;
+}
+
+/* Ionic adjustments to play nice with custom full-page layouts */
+ion-content {
+  --background: var(--dbs-background) !important;
+  --color: var(--dbs-text) !important;
+}

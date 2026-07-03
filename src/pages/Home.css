@@ -1,0 +1,220 @@
+/* Home Landing Grid Screen - Scoped with .dbs- prefixes */
+
+.dbs-landing-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 0;
+  animation: dbs-fade-in 0.3s ease-out;
+}
+
+/* Central Branding Area */
+.dbs-landing-central-brand {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.dbs-landing-brand-header h2 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--dbs-text-muted);
+  text-transform: uppercase;
+}
+
+.dbs-landing-brand-header h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--dbs-primary), var(--dbs-primary-hover));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 4px 0;
+}
+
+.dbs-landing-brand-header p {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--dbs-text-muted);
+}
+
+/* Orbit Diagram Simulation */
+.dbs-orbit-diagram-wrapper {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.dbs-orbit-core {
+  width: 54px;
+  height: 54px;
+  background-color: var(--dbs-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px var(--dbs-primary-light);
+  z-index: 5;
+}
+
+.dbs-orbit-ring {
+  position: absolute;
+  border: 1px dashed var(--dbs-border);
+  border-radius: 50%;
+}
+
+.dbs-orbit-ring-1 {
+  width: 100px;
+  height: 100px;
+  animation: dbs-spin-clockwise 15s infinite linear;
+}
+
+.dbs-orbit-ring-2 {
+  width: 140px;
+  height: 140px;
+  animation: dbs-spin-counter 20s infinite linear;
+}
+
+.dbs-orbit-node {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  color: var(--dbs-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--dbs-shadow-sm);
+  z-index: 4;
+}
+
+/* Node Positions along the ring orbital paths */
+.dbs-node-1 {
+  top: 10px;
+  left: 20px;
+  animation: dbs-orbital-orbit 10s infinite linear;
+}
+.dbs-node-2 {
+  bottom: 12px;
+  right: 15px;
+}
+.dbs-node-3 {
+  top: 70px;
+  right: -5px;
+}
+
+@keyframes dbs-spin-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes dbs-spin-counter {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* Modules Grid */
+.dbs-landing-modules-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.dbs-landing-module-card {
+  background-color: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: var(--dbs-shadow);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.dbs-landing-card-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--dbs-transition);
+}
+
+.dbs-landing-card-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--dbs-text);
+  text-align: center;
+}
+
+/* Theme Color Accent Variations for Modules */
+.dbs-color-blue .dbs-landing-card-icon-box { background-color: rgba(37, 99, 235, 0.08); color: #2563eb; }
+.dbs-color-orange .dbs-landing-card-icon-box { background-color: rgba(249, 115, 22, 0.08); color: #f97316; }
+.dbs-color-emerald .dbs-landing-card-icon-box { background-color: rgba(16, 185, 129, 0.08); color: #10b981; }
+.dbs-color-purple .dbs-landing-card-icon-box { background-color: rgba(139, 92, 246, 0.08); color: #8b5cf6; }
+.dbs-color-teal .dbs-landing-card-icon-box { background-color: rgba(20, 184, 166, 0.08); color: #14b8a6; }
+.dbs-color-pink .dbs-landing-card-icon-box { background-color: rgba(236, 72, 153, 0.08); color: #ec4899; }
+.dbs-color-slate .dbs-landing-card-icon-box { background-color: rgba(100, 116, 139, 0.08); color: #64748b; }
+
+/* Hover Effects */
+.dbs-landing-module-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--dbs-shadow-md);
+}
+
+.dbs-landing-module-card:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+.dbs-color-blue:hover { border-color: #2563eb; }
+.dbs-color-orange:hover { border-color: #f97316; }
+.dbs-color-emerald:hover { border-color: #10b981; }
+.dbs-color-purple:hover { border-color: #8b5cf6; }
+.dbs-color-teal:hover { border-color: #14b8a6; }
+.dbs-color-pink:hover { border-color: #ec4899; }
+.dbs-color-slate:hover { border-color: #64748b; }
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .dbs-landing-modules-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .dbs-landing-modules-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .dbs-landing-brand-header h1 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dbs-landing-modules-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

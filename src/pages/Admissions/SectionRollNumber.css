@@ -1,0 +1,38 @@
+/* Section Roll Number Mapping - Scoped with .dbs- prefixes */
+
+.dbs-sectionroll-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dbs-form-actions-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid var(--dbs-border);
+  padding-top: 20px;
+  margin-top: 10px;
+}
+
+.dbs-branch-td {
+  font-size: 0.85rem;
+  color: var(--dbs-text-muted);
+}
+
+.dbs-pill-success {
+  background-color: var(--dbs-success-light);
+  color: var(--dbs-success);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--dbs-success);
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .dbs-form-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
