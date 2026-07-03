@@ -82,6 +82,70 @@ const SUBMENUS: Record<string, { name: string; path: string; icon: React.Compone
     { name: "Upload Bank Transaction Details", path: "/fees/upload-bank", icon: Upload },
     { name: "Exam Fee Upload Bank Transaction Details", path: "/fees/upload-exam-bank", icon: UploadCloud },
     { name: "Online Exam Fee Collection", path: "/fees/online-exam-fee", icon: CreditCard }
+  ],
+  payroll: [
+    { name: "Dashboard", path: "/payroll", icon: LayoutDashboard },
+    { name: "Employee Details", path: "/payroll/emp-details", icon: Users }
+  ],
+  accounting: [
+    { name: "Dashboard", path: "/accounting", icon: LayoutDashboard },
+    { name: "Payment Heads", path: "/accounting/payment-heads", icon: BookOpen }
+  ],
+  attendance: [
+    { name: "Dashboard", path: "/attendance", icon: LayoutDashboard },
+    { name: "Class Timetable", path: "/attendance/timetable", icon: Calendar }
+  ],
+  examinations: [
+    { name: "Dashboard", path: "/examinations", icon: LayoutDashboard },
+    { name: "Marks Entry", path: "/examinations/marks-entry", icon: FileText }
+  ],
+  stores: [
+    { name: "Dashboard", path: "/stores", icon: LayoutDashboard },
+    { name: "Product Master", path: "/stores/product-master", icon: Settings }
+  ],
+  library: [
+    { name: "Dashboard", path: "/library", icon: LayoutDashboard },
+    { name: "Library Master", path: "/library/library-master", icon: BookOpen }
+  ],
+  transport: [
+    { name: "Dashboard", path: "/transport", icon: LayoutDashboard },
+    { name: "Route Master", path: "/transport/route-master", icon: Settings }
+  ],
+  discipline: [
+    { name: "Dashboard", path: "/discipline", icon: LayoutDashboard },
+    { name: "Student History", path: "/discipline/student-history", icon: ShieldAlert }
+  ],
+  performance: [
+    { name: "Dashboard", path: "/performance", icon: LayoutDashboard },
+    { name: "Report Card", path: "/performance/report-card", icon: FileText }
+  ],
+  hostels: [
+    { name: "Dashboard", path: "/hostels", icon: LayoutDashboard },
+    { name: "Fee Due List", path: "/hostels/due-list", icon: FileText }
+  ],
+  medicare: [
+    { name: "Dashboard", path: "/medicare", icon: LayoutDashboard },
+    { name: "Medicare Register", path: "/medicare/register", icon: Heart }
+  ],
+  "front-office": [
+    { name: "Dashboard", path: "/front-office", icon: LayoutDashboard },
+    { name: "Notifications", path: "/front-office/notification", icon: Bell }
+  ],
+  groups: [
+    { name: "Dashboard", path: "/groups", icon: LayoutDashboard },
+    { name: "Group Allocation", path: "/groups/allocation", icon: Users }
+  ],
+  tappal: [
+    { name: "Dashboard", path: "/tappal", icon: LayoutDashboard },
+    { name: "Inward Posts", path: "/tappal/inward-posts", icon: FileText }
+  ],
+  establishment: [
+    { name: "Dashboard", path: "/establishment", icon: LayoutDashboard },
+    { name: "Room Management", path: "/establishment/room-management", icon: School }
+  ],
+  settings: [
+    { name: "Dashboard", path: "/settings", icon: LayoutDashboard },
+    { name: "Financial Academic Year", path: "/settings/financial-academic-year", icon: Calendar }
   ]
 };
 
