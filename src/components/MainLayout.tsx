@@ -5,10 +5,16 @@ import {
   Palette, Calendar, ChevronDown, ChevronRight, ChevronLeft, Menu, X, LogOut, Pin, Star, CheckSquare,
   AlertTriangle, LayoutDashboard, UserCheck, ShieldAlert, Award, FileText, Settings2, Trash2, Edit2,
   UserPlus, Hash, Shuffle, CheckCircle2, FileCheck, ArrowUpCircle, FileDown, RefreshCw, UserX,
+<<<<<<< Updated upstream
   Layers, Sliders, Receipt, Heart, Globe, HelpCircle, Percent, Upload, UploadCloud, Table, ShieldUser, Timer, Group, UserRoundKey, SaveCheck, ListPlus, Trash, SquarePen, PencilOff, CalendarCheck, ChartNoAxesCombined, ListFilterPlus, UsersRound, UserRound, ShieldPlus, Blocks, CircleOff
+=======
+  Layers, Sliders, Receipt, Heart, Globe, HelpCircle, Percent, Upload, UploadCloud,
+  Building, Blocks, GraduationCap, FolderTree, BookCheck
+>>>>>>> Stashed changes
 } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import "./MainLayout.css";
+
 
 // Available Themes
 const THEMES = [
@@ -167,7 +173,14 @@ const SUBMENUS: Record<string, { name: string; path: string; icon: React.Compone
   ],
   settings: [
     { name: "Dashboard", path: "/settings", icon: LayoutDashboard },
-    { name: "Financial Academic Year", path: "/settings/financial-academic-year", icon: Calendar }
+    { name: "Financial Academic Year", path: "/settings/financial-academic-year", icon: Calendar },
+    { name: "Department Master", path: "/settings/department-master", icon: Building },
+    { name: "Programme Master", path: "/settings/programme-master", icon: GraduationCap },
+    { name: "Regu Master", path: "/settings/regu-master", icon: BookCheck },
+    { name: "Branch Master", path: "/settings/branch-master", icon: FolderTree },
+    { name: "Subject Master", path: "/settings/subject-master", icon: BookOpen },
+    { name: "Faculty Master", path: "/settings/faculty-master", icon: Users },
+    { name: "Section Master", path: "/settings/section-master", icon: Blocks },
   ]
 };
 

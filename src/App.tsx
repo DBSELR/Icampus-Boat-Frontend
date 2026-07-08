@@ -62,6 +62,7 @@ import TappalDashboard from "./pages/Tappal/TappalDashboard";
 import InwardPosts from "./pages/Tappal/InwardPosts";
 import TransportDashboard from "./pages/Transport/TransportDashboard";
 import RouteMaster from "./pages/Transport/RouteMaster";
+<<<<<<< Updated upstream
 import GroupChange from "./pages/Admissions/Forms/GroupChange";
 import TcIssue from "./pages/Admissions/Forms/TcIssue";
 import StudyCertificate from "./pages/Admissions/Forms/StudyCertificate";
@@ -93,6 +94,15 @@ import MidAttendanceBlock from "./pages/Attendance/Forms/MidAttendanceBlock";
 import StopAttendancePostingDates from "./pages/Attendance/Forms/StopAttendancePostingDates";
 import AddAttendance from "./pages/Attendance/Forms/AddAttendance";
 import AdmissionView from "./pages/Admissions/Forms/AdmissionView";
+=======
+import DepartmentMaster from "./pages/Settings/DepartmentMaster/DepartmentMaster";
+import ProgrammeMaster from "./pages/Settings/ProgrammeMaster/ProgrammeMaster";
+import ReguMaster from "./pages/Settings/ReguMaster/ReguMaster";
+import BranchMaster from "./pages/Settings/BranchMaster/BranchMaster";
+import SubjectMaster from "./pages/Settings/SubjectMaster/SubjectMaster";
+import FacultyMaster from "./pages/Settings/FacultyMaster/FacultyMaster";
+import SectionMaster from "./pages/Settings/SectionMaster/SectionMaster";
+>>>>>>> Stashed changes
 
 setupIonicReact();
 
@@ -241,6 +251,13 @@ const App: React.FC = () => {
                 
                 <Route exact path="/settings" component={SettingsDashboard} />
                 <Route exact path="/settings/financial-academic-year" component={FinancialAcadamicYear} />
+                <Route exact path="/settings/department-master" component={DepartmentMaster} />
+                <Route exact path="/settings/programme-master" component={ProgrammeMaster} />
+                <Route exact path="/settings/regu-master" component={ReguMaster} />
+                <Route exact path="/settings/branch-master" component={BranchMaster} />
+                <Route exact path="/settings/subject-master" component={SubjectMaster} />
+                <Route exact path="/settings/faculty-master" component={FacultyMaster} />
+                <Route exact path="/settings/section-master" component={SectionMaster} />
 
                 <Redirect from="*" to="/home" />
               </Switch>

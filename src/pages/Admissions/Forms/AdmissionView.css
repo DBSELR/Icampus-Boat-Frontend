@@ -10,7 +10,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--dbs-border);
+  border-bottom: 1px solid dbs-stepper-slide(--dbs-border);
   padding-bottom: 16px;
 }
 
