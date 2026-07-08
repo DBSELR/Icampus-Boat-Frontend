@@ -5,12 +5,11 @@ import {
   Palette, Calendar, ChevronDown, ChevronRight, ChevronLeft, Menu, X, LogOut, Pin, Star, CheckSquare,
   AlertTriangle, LayoutDashboard, UserCheck, ShieldAlert, Award, FileText, Settings2, Trash2, Edit2,
   UserPlus, Hash, Shuffle, CheckCircle2, FileCheck, ArrowUpCircle, FileDown, RefreshCw, UserX,
-<<<<<<< Updated upstream
-  Layers, Sliders, Receipt, Heart, Globe, HelpCircle, Percent, Upload, UploadCloud, Table, ShieldUser, Timer, Group, UserRoundKey, SaveCheck, ListPlus, Trash, SquarePen, PencilOff, CalendarCheck, ChartNoAxesCombined, ListFilterPlus, UsersRound, UserRound, ShieldPlus, Blocks, CircleOff
-=======
-  Layers, Sliders, Receipt, Heart, Globe, HelpCircle, Percent, Upload, UploadCloud,
-  Building, Blocks, GraduationCap, FolderTree, BookCheck
->>>>>>> Stashed changes
+  Layers, Sliders, Receipt, Heart, Globe, HelpCircle, Percent, Upload, UploadCloud, Table, ShieldUser, Timer, Group, UserRoundKey, SaveCheck, ListPlus, Trash, SquarePen, PencilOff, CalendarCheck, ChartNoAxesCombined, ListFilterPlus, UsersRound, UserRound, ShieldPlus, Blocks, CircleOff,
+  Building,
+  GraduationCap,
+  BookCheck,
+  FolderTree
 } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import "./MainLayout.css";
