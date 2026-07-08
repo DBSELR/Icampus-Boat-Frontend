@@ -1,0 +1,302 @@
+/* ============================
+   Fee Head Master
+============================ */
+
+.dbs-feehead-container {
+  padding: 20px;
+  background: #f6f8fc;
+  min-height: 100vh;
+}
+
+/* Header */
+
+.dbs-feehead-header {
+  margin-bottom: 18px;
+}
+
+.dbs-feehead-header h2 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  color: #1d2746;
+}
+
+.dbs-feehead-header p {
+  margin-top: 5px;
+  color: #68768f;
+  font-size: 15px;
+}
+
+/* Layout */
+
+.dbs-feehead-layout {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 1100px) {
+  .dbs-feehead-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Cards */
+
+.dbs-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(20, 40, 80, 0.08);
+  padding: 25px;
+}
+
+.dbs-card h3 {
+  margin: 0 0 20px;
+  color: #1b2746;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* Form */
+
+.dbs-form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.dbs-input-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.dbs-input-box label {
+  margin-bottom: 7px;
+  font-weight: 600;
+  color: #374151;
+  font-size: 14px;
+}
+
+.dbs-input-box input,
+.dbs-input-box select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d5dbe8;
+  font-size: 15px;
+  outline: none;
+  transition: 0.25s;
+  background: #fff;
+}
+
+.dbs-input-box input:focus,
+.dbs-input-box select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Two Column */
+
+.dbs-form-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 768px) {
+  .dbs-form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Buttons */
+
+.dbs-button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.dbs-btn {
+  padding: 11px 22px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: .25s;
+}
+
+
+
+/* Table */
+
+.dbs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dbs-table thead {
+  background: #f5f7fb;
+}
+
+.dbs-table th {
+  padding: 15px;
+  text-align: left;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.dbs-table td {
+  padding: 15px;
+  border-top: 1px solid #eef2f7;
+  font-size: 15px;
+  color: #1e293b;
+}
+
+.dbs-table tbody tr:hover {
+  background: #f8fbff;
+}
+
+/* Badge */
+
+.dbs-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: #dbeafe;
+  color: #2563eb;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Amount */
+
+.dbs-amount {
+  text-align: right;
+  font-weight: 600;
+}
+
+/* Action Buttons */
+
+.dbs-action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.dbs-icon-btn {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #dbe3f0;
+  background: #fff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.dbs-icon-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.dbs-edit {
+  color: #2563eb;
+}
+
+.dbs-edit:hover {
+  background: #eff6ff;
+}
+
+.dbs-delete {
+  color: #ef4444;
+}
+
+.dbs-delete:hover {
+  background: #fef2f2;
+}
+
+/* Modal */
+
+.dbs-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.dbs-modal {
+  width: 420px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, .18);
+}
+
+.dbs-modal h3 {
+  margin: 15px 0;
+  color: #1e293b;
+}
+
+.dbs-modal p {
+  color: #64748b;
+  margin-bottom: 25px;
+}
+
+.dbs-modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.dbs-warning-icon {
+  color: #f97316;
+}
+
+/* Empty Grid */
+
+.dbs-empty {
+  text-align: center;
+  padding: 50px;
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+/* Scroll */
+
+.dbs-table-wrapper {
+  overflow-x: auto;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .dbs-card {
+    padding: 18px;
+  }
+
+  .dbs-card h3 {
+    font-size: 20px;
+  }
+
+  .dbs-table th,
+  .dbs-table td {
+    padding: 12px;
+  }
+
+  .dbs-button-row {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
