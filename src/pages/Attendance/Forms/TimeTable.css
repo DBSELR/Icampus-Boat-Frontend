@@ -1,0 +1,90 @@
+.dbs-timetable-grid{
+
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px 40px;
+
+}
+
+.dbs-double-select div{
+
+    display:flex;
+    gap:10px;
+
+}
+
+.dbs-double-select select{
+
+    flex:1;
+
+}
+
+.dbs-lecturer-row div{
+
+    display:flex;
+    gap:10px;
+
+}
+
+.dbs-lecturer-row select{
+
+    flex:1;
+
+}
+
+.dbs-btn-add{
+
+    background:#2bb7b3;
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:6px;
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+}
+
+.dbs-btn-add:hover{
+
+    background:#219c99;
+
+}
+
+.dbs-form-delete-btn{
+
+    background:#ef4444;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    cursor:pointer;
+
+}
+
+.dbs-form-delete-btn:hover{
+
+    background:#dc2626;
+
+}
+
+.dbs-data-table td{
+
+    height:48px;
+
+}
+
+@media(max-width:900px){
+
+    .dbs-timetable-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

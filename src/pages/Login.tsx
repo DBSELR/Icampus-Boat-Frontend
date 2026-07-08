@@ -4,10 +4,13 @@ import { User, Lock, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import "./Login.css";
+import { loginApi } from "../apis/AuthApis";
+import { Formik, Form, ErrorMessage } from "formik";
+import { loginValidationSchema } from "../Validations/AuthValidations";
 
 export const Login: React.FC = () => {
   const history = useHistory();
-  const [username, setUsername] = useState("");
+  const [userId, setuserId] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -15,48 +18,22 @@ export const Login: React.FC = () => {
   const [showIntro, setShowIntro] = useState(true);
 
   useEffect(() => {
-    // Auto transition to login screen after 2.6s
     const timer = setTimeout(() => {
       setShowIntro(false);
     }, 2600);
     return () => clearTimeout(timer);
   }, []);
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!username.trim() || !password.trim()) {
-      toast.error("Please fill in all credentials fields");
-      return;
-    }
-
-    setLoading(true);
-    // Simulate API authorization
-    setTimeout(() => {
-      setLoading(false);
-      if (
-        (username === "admin" && password === "admin") ||
-        (username === "NT125" && password === "NT125") ||
-        (username === "demo" && password === "demo")
-      ) {
-        localStorage.setItem("user", JSON.stringify({ username, role: "Super Admin" }));
-        toast.success("Welcome back! Authentication successful.");
-        history.push("/home");
-      } else {
-        toast.error("Invalid credentials. Try our 'Demo Login' button!");
-      }
-    }, 1200);
-  };
-
   const triggerDemoLogin = () => {
     toast.info("Auto-filling demo credentials...");
-    setUsername("admin");
+    setuserId("admin");
     setPassword("admin");
     setRememberMe(true);
-    
+
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      localStorage.setItem("user", JSON.stringify({ username: "admin", role: "Super Admin" }));
+      localStorage.setItem("user", JSON.stringify({ userId: "admin", role: "Super Admin" }));
       toast.success("Demo Login Authorized!");
       history.push("/home");
     }, 800);
@@ -92,7 +69,7 @@ export const Login: React.FC = () => {
                 className="dbs-intro-logo-container"
                 initial={{ scale: 0.6, opacity: 0, y: 20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
-                transition={{ 
+                transition={{
                   type: "spring",
                   stiffness: 80,
                   damping: 15,
@@ -103,7 +80,7 @@ export const Login: React.FC = () => {
                   src="/images/dbs-logo-short.png"
                   alt="DBS Logo"
                   className="dbs-intro-logo"
-                  animate={{ 
+                  animate={{
                     filter: [
                       "drop-shadow(0 0 10px rgba(37, 99, 235, 0.3))",
                       "drop-shadow(0 0 30px rgba(37, 99, 235, 0.7))",
@@ -114,10 +91,10 @@ export const Login: React.FC = () => {
                 />
                 <div className="dbs-intro-logo-glow-ring"></div>
               </motion.div>
-              
+
               {/* Cinematic Typography Titles */}
               <div className="dbs-intro-text-box">
-                <motion.h1 
+                <motion.h1
                   className="dbs-intro-title"
                   initial={{ opacity: 0, letterSpacing: "1px" }}
                   animate={{ opacity: 1, letterSpacing: "8px" }}
@@ -125,8 +102,8 @@ export const Login: React.FC = () => {
                 >
                   iCAMPUS BOAT
                 </motion.h1>
-                
-                <motion.p 
+
+                <motion.p
                   className="dbs-intro-subtitle"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -134,8 +111,8 @@ export const Login: React.FC = () => {
                 >
                   D BASE SOLUTIONS
                 </motion.p>
-                
-                <motion.span 
+
+                <motion.span
                   className="dbs-intro-tagline"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 0.8 }}
@@ -147,7 +124,7 @@ export const Login: React.FC = () => {
 
               {/* Progress Scan Bar */}
               <div className="dbs-intro-progress-track">
-                <motion.div 
+                <motion.div
                   className="dbs-intro-progress-bar"
                   initial={{ width: 0 }}
                   animate={{ width: "100%" }}
@@ -179,7 +156,7 @@ export const Login: React.FC = () => {
           >
             {/* Logo and Header */}
             <div className="dbs-login-card-header">
-              <motion.div 
+              <motion.div
                 className="dbs-login-logo-mark"
                 initial={{ scale: 0.6, rotate: -20, opacity: 0 }}
                 animate={{ scale: 1, rotate: 0, opacity: 1 }}
@@ -204,77 +181,122 @@ export const Login: React.FC = () => {
             </div>
 
             {/* Login Core Box */}
-            <motion.div 
+            <motion.div
               className="dbs-login-form-box"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             >
               <h2>LOGIN | DBS-ERP</h2>
-              
-              <form onSubmit={handleLoginSubmit} className="dbs-login-form">
-                <div className="dbs-login-input-group">
-                  <label htmlFor="username">Username</label>
-                  <div className="dbs-login-input-field-wrapper">
-                    <User size={18} className="dbs-login-field-icon" />
-                    <input
-                      type="text"
-                      id="username"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      placeholder="Enter employee username"
-                      autoComplete="username"
-                    />
-                  </div>
-                </div>
 
-                <div className="dbs-login-input-group">
-                  <label htmlFor="password">Password</label>
-                  <div className="dbs-login-input-field-wrapper">
-                    <Lock size={18} className="dbs-login-field-icon" />
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      id="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Enter password code"
-                      autoComplete="current-password"
-                    />
+              <Formik
+                initialValues={{
+                  userId: "",
+                  password: "",
+                }}
+                validationSchema={loginValidationSchema}
+                onSubmit={async (values) => {
+                  setLoading(true);
+
+                  const res = await loginApi(values);
+
+                  setLoading(false);
+
+                  if (res.success) {
+                    localStorage.setItem("user", JSON.stringify(res.data));
+                    toast.success(res.message);
+                    history.push("/home");
+                  } else {
+                    toast.error(res.message);
+                  }
+                }}
+              >
+                {({ values, handleChange, handleBlur, errors, touched }) => (
+                  <Form className="dbs-login-form">
+
+                    {/* userId */}
+                    <div className="dbs-login-input-group">
+                      <label>userId</label>
+
+                      <div className="dbs-login-input-field-wrapper">
+                        <User size={18} className="dbs-login-field-icon" />
+
+                        <input
+                          name="userId"
+                          value={values.userId}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          placeholder="Enter employee userId"
+                        />
+                      </div>
+
+                      {touched.userId && errors.userId && (
+                        <div className="dbs-error-text">{errors.userId}</div>
+                      )}
+                    </div>
+
+                    {/* password */}
+                    <div className="dbs-login-input-group">
+                      <label>Password</label>
+
+                      <div className="dbs-login-input-field-wrapper">
+                        <Lock size={18} className="dbs-login-field-icon" />
+
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          id="password"
+                          name="password"
+                          value={values.password}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          placeholder="Enter password code"
+                          autoComplete="current-password"
+                        />
+                        <button
+                          type="button"
+                          className="dbs-password-toggle-btn"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                        </button>
+
+                      </div>
+
+                      {touched.password && errors.password && (
+                        <div className="dbs-error-text">{errors.password}</div>
+                      )}
+                    </div>
+
+                    {/* remember me (unchanged) */}
+                    <div className="dbs-login-actions-row">
+                      <label className="dbs-login-checkbox-label">
+                        <input
+                          type="checkbox"
+                          checked={rememberMe}
+                          onChange={(e) => setRememberMe(e.target.checked)}
+                        />
+                        <span>Remember me</span>
+                      </label>
+                    </div>
+
+                    {/* submit */}
                     <button
-                      type="button"
-                      className="dbs-password-toggle-btn"
-                      onClick={() => setShowPassword(!showPassword)}
+                      type="submit"
+                      className="dbs-login-submit-btn"
+                      disabled={loading}
                     >
-                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                      {loading ? "Loading..." : "Login to Dashboard"}
                     </button>
-                  </div>
-                </div>
 
-                <div className="dbs-login-actions-row">
-                  <label className="dbs-login-checkbox-label">
-                    <input
-                      type="checkbox"
-                      checked={rememberMe}
-                      onChange={(e) => setRememberMe(e.target.checked)}
-                    />
-                    <span>Remember me</span>
-                  </label>
-                </div>
-
-                <button type="submit" className="dbs-login-submit-btn" disabled={loading}>
-                  {loading ? (
-                    <span className="dbs-login-loading-spinner" />
-                  ) : (
-                    "Login to Dashboard"
-                  )}
-                </button>
-              </form>
+                  </Form>
+                )}
+              </Formik>
 
               {/* Reset password suggestion */}
               <div className="dbs-login-reset-pwd-box">
                 <span>Forgot your password?</span>
-                <button 
-                  className="dbs-reset-pwd-link" 
+                <button
+                  className="dbs-reset-pwd-link"
                   onClick={() => toast.info("Password reset instructions dispatched to registered mobile number.")}
                 >
                   No Worries, Click Here To RESET PASSWORD.
@@ -286,9 +308,9 @@ export const Login: React.FC = () => {
               </div>
 
               {/* Explicit demo access button */}
-              <button 
-                type="button" 
-                className="dbs-login-demo-btn" 
+              <button
+                type="button"
+                className="dbs-login-demo-btn"
                 onClick={triggerDemoLogin}
                 disabled={loading}
               >
@@ -297,7 +319,7 @@ export const Login: React.FC = () => {
             </motion.div>
 
             {/* Footer info */}
-            <motion.div 
+            <motion.div
               className="dbs-login-card-footer"
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
@@ -311,5 +333,6 @@ export const Login: React.FC = () => {
     </div>
   );
 };
+
 
 export default Login;

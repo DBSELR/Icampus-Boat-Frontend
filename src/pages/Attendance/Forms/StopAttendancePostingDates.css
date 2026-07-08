@@ -1,0 +1,126 @@
+.dbs-checkbox > div{
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+    height:42px;
+
+}
+
+
+.dbs-checkbox input{
+
+    width:18px;
+    height:18px;
+
+}
+
+
+
+.dbs-dashboard-card{
+
+    margin-top:20px;
+    background:#fff;
+    border-radius:10px;
+    padding:20px;
+
+}
+
+
+
+.dbs-datatable-header-area h3{
+
+    margin:0;
+
+}
+
+
+.dbs-datatable-header-area p{
+
+    margin-top:5px;
+    color:#666;
+
+}
+
+
+
+.dbs-empty-state{
+
+    text-align:center;
+    padding:50px 20px;
+
+}
+
+
+
+.dbs-empty-state-icon{
+
+    width:40px;
+    height:40px;
+    color:#9ca3af;
+
+}
+
+
+
+.dbs-empty-state-title{
+
+    font-size:18px;
+    font-weight:600;
+    margin-top:15px;
+
+}
+
+
+
+.dbs-empty-state-desc{
+
+    color:#6b7280;
+    margin-top:5px;
+
+}
+
+
+
+.dbs-data-table{
+
+    width:100%;
+    border-collapse:collapse;
+
+}
+
+
+
+.dbs-data-table th,
+.dbs-data-table td{
+
+    padding:12px;
+    border-bottom:1px solid #e5e7eb;
+    text-align:center;
+
+}
+
+
+
+.dbs-btn-edit,
+.dbs-btn-delete{
+
+    border:none;
+    background:none;
+    cursor:pointer;
+
+}
+
+
+.dbs-btn-edit{
+
+    color:#2563eb;
+
+}
+
+
+.dbs-btn-delete{
+
+    color:#ef4444;
+
+}

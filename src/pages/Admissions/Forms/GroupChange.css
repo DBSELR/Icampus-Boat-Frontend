@@ -1,0 +1,57 @@
+.dbs-groupchange-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ✅ 3 COLUMNS GRID */
+.dbs-form-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+/* responsive */
+@media (max-width: 1024px) {
+  .dbs-form-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .dbs-form-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* textarea */
+.dbs-input-box textarea {
+  resize: vertical;
+  min-height: 42px;
+}
+
+/* actions */
+.dbs-form-actions-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid var(--dbs-border);
+  padding-top: 20px;
+  margin-top: 10px;
+}
+
+/* branch column */
+.dbs-branch-td {
+  font-size: 0.85rem;
+  color: var(--dbs-text-muted);
+}
+
+/* empty state */
+.dbs-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}

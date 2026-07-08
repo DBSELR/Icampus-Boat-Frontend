@@ -23,16 +23,16 @@ import MainLayout from "./components/MainLayout";
 import ModulePlaceholder from "./components/ModulePlaceholder";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import AdmissionsEntry from "./pages/Admissions/AdmissionsEntry";
-import SectionRollNumber from "./pages/Admissions/SectionRollNumber";
-import AdmissionsDashboard from "./pages/Admissions/AdmissionsDashboard";
+import AdmissionsEntry from "./pages/Admissions/Forms/AdmissionsEntry";
+import SectionRollNumber from "./pages/Admissions/Forms/SectionRollNumber";
+import AdmissionsDashboard from "./pages/Admissions/Forms/AdmissionsDashboard";
 import AccountMaster from "./pages/Fees/AccountMaster";
 
 /* New Modules Pages */
 import AccountingDashboard from "./pages/Accounting/AccountingDashboard";
 import PaymentHeads from "./pages/Accounting/PaymentHeads";
-import AttendanceDashboard from "./pages/Attendance/AttendanceDashboard";
-import TimeTable from "./pages/Attendance/TimeTable/TimeTable";
+import AttendanceDashboard from "./pages/Attendance/Forms/AttendanceDashboard";
+import TimeTable from "./pages/Attendance/Forms/TimeTable";
 import DisciplineDashboard from "./pages/Discipline/DisciplineDashboard";
 import StudentHistory from "./pages/Discipline/StudentHistory";
 import EstablishmentDashboard from "./pages/Establishment/EstablishmentDashboard";
@@ -62,6 +62,37 @@ import TappalDashboard from "./pages/Tappal/TappalDashboard";
 import InwardPosts from "./pages/Tappal/InwardPosts";
 import TransportDashboard from "./pages/Transport/TransportDashboard";
 import RouteMaster from "./pages/Transport/RouteMaster";
+import GroupChange from "./pages/Admissions/Forms/GroupChange";
+import TcIssue from "./pages/Admissions/Forms/TcIssue";
+import StudyCertificate from "./pages/Admissions/Forms/StudyCertificate";
+import CourseCompleted from "./pages/Admissions/Forms/CourseCompleted";
+import NoObjectionCertificate from "./pages/Admissions/Forms/NoObjectionCertificate";
+import BonafideCertificate from "./pages/Admissions/Forms/BonafideCertificate";
+import StudentPromotion from "./pages/Admissions/Forms/StudentPromotion";
+import StudentDataExcelExport from "./pages/Admissions/Forms/StudentDataExcelExport";
+import SectionChange from "./pages/Admissions/Forms/SectionChange";
+import DeleteInActiveStudents from "./pages/Admissions/Forms/DeleteInActiveStudents";
+import TimeAdjustment from "./pages/Attendance/Forms/TimeAdjustment";
+import AttendanceByStaff from "./pages/Attendance/Forms/AttendanceByStaff";
+import AttendanceByAdmin from "./pages/Attendance/Forms/AttendanceByAdmin";
+import TimetableExtraHours from "./pages/Attendance/Forms/TimetableExtraHours";
+import Batches from "./pages/Attendance/Forms/Batches";
+import AdminPermissions from "./pages/Attendance/Forms/AdminPermissions";
+import CheckAttendance from "./pages/Attendance/Forms/CheckAttendance";
+import BatchDelete from "./pages/Attendance/Forms/BatchDelete";
+import EditEFRMDate from "./pages/Attendance/Forms/EditEFRMDate";
+import ModifyAttendance from "./pages/Attendance/Forms/ModifyAttendance";
+import DayWiseAttendance from "./pages/Attendance/Forms/DayWiseAttendance";
+import AttendanceDeletion from "./pages/Attendance/Forms/AttendanceDeletion";
+import AttendanceLateralEntry from "./pages/Attendance/Forms/AttendanceLateralEntry";
+import ConsolidatedAttendanceAnalysis from "./pages/Attendance/Forms/ConsolidatedAttendanceAnalysis";
+import BatchesMH from "./pages/Attendance/Forms/BatchesMH";
+import AttendanceBystaffMH from "./pages/Attendance/Forms/AttendanceBystaffMH";
+import AttendanceByAdminMH from "./pages/Attendance/Forms/AttendanceByAdminMH";
+import MidAttendanceBlock from "./pages/Attendance/Forms/MidAttendanceBlock";
+import StopAttendancePostingDates from "./pages/Attendance/Forms/StopAttendancePostingDates";
+import AddAttendance from "./pages/Attendance/Forms/AddAttendance";
+import AdmissionView from "./pages/Admissions/Forms/AdmissionView";
 
 setupIonicReact();
 
@@ -108,16 +139,17 @@ const App: React.FC = () => {
 
                 {/* Submenu placeholders */}
                 <Route exact path="/admissions/dashboard" component={AdmissionsDashboard} />
-                <Route exact path="/admissions/group-change" render={() => <ModulePlaceholder moduleName="Admissions Group Change" />} />
-                <Route exact path="/admissions/tc-issuing" render={() => <ModulePlaceholder moduleName="Admissions TC Issuing" />} />
-                <Route exact path="/admissions/study-cert" render={() => <ModulePlaceholder moduleName="Admissions Study Certificate" />} />
-                <Route exact path="/admissions/course-completed" render={() => <ModulePlaceholder moduleName="Admissions Course Completed" />} />
-                <Route exact path="/admissions/noc" render={() => <ModulePlaceholder moduleName="Admissions No Objection Certificate" />} />
-                <Route exact path="/admissions/bonafide" render={() => <ModulePlaceholder moduleName="Admissions Bonafide Certificate" />} />
-                <Route exact path="/admissions/promotion" render={() => <ModulePlaceholder moduleName="Admissions Student Promotion" />} />
-                <Route exact path="/admissions/excel-export" render={() => <ModulePlaceholder moduleName="Admissions Excel Export" />} />
-                <Route exact path="/admissions/section-change" render={() => <ModulePlaceholder moduleName="Admissions Section Change" />} />
-                <Route exact path="/admissions/inactive-delete" render={() => <ModulePlaceholder moduleName="Admissions InActive Student Delete" />} />
+                <Route exact path="/admissions/group-change" render={() => <GroupChange />} />
+                <Route exact path="/admissions/tc-issuing" render={() => <TcIssue />} />
+                <Route exact path="/admissions/study-cert" render={() => <StudyCertificate />} />
+                <Route exact path="/admissions/course-completed" render={() => <CourseCompleted />} />
+                <Route exact path="/admissions/noc" render={() => <NoObjectionCertificate />} />
+                <Route exact path="/admissions/bonafide" render={() => <BonafideCertificate />} />
+                <Route exact path="/admissions/promotion" render={() => <StudentPromotion />} />
+                <Route exact path="/admissions/excel-export" render={() => <StudentDataExcelExport />} />
+                <Route exact path="/admissions/AdmissionView" render={() => <AdmissionView />} />
+                <Route exact path="/admissions/section-change" render={() => <SectionChange />} />
+                <Route exact path="/admissions/inactive-delete" render={() => <DeleteInActiveStudents />} />
                 
                 <Route exact path="/fees/dashboard" component={FeesDashboard} />
                 <Route exact path="/fees/heads-master" render={() => <ModulePlaceholder moduleName="Fees Heads Master" />} />
@@ -142,12 +174,34 @@ const App: React.FC = () => {
                 {/* Primary navigation routes */}
                 <Route exact path="/payroll" component={PayrollDashboard} />
                 <Route exact path="/payroll/emp-details" component={EmpDetails} />
+
+          
                 
                 <Route exact path="/accounting" component={AccountingDashboard} />
                 <Route exact path="/accounting/payment-heads" component={PaymentHeads} />
                 
                 <Route exact path="/attendance" component={AttendanceDashboard} />
                 <Route exact path="/attendance/timetable" component={TimeTable} />
+                <Route exact path="/attendance/timeAdjustment" component={TimeAdjustment} />
+                <Route exact path="/attendance/AttendanceByStaff" component={AttendanceByStaff} />
+                <Route exact path="/attendance/AttendanceByAdmin" component={AttendanceByAdmin} />
+                <Route exact path="/attendance/TimetableExtraHours" component={TimetableExtraHours} />
+                <Route exact path="/attendance/Batches" component={Batches} />
+                <Route exact path="/attendance/AdminPermissions" component={AdminPermissions} />
+                <Route exact path="/attendance/CheckAttendance" component={CheckAttendance} />
+                <Route exact path="/attendance/AddAttendance" component={AddAttendance} />
+                <Route exact path="/attendance/BatchDelete" component={BatchDelete} />
+                <Route exact path="/attendance/EditEFRMDate" component={EditEFRMDate} />
+                <Route exact path="/attendance/ModifyAttendance" component={ModifyAttendance} />
+                <Route exact path="/attendance/DayWiseAttendance" component={DayWiseAttendance} />
+                <Route exact path="/attendance/AttendanceDeletion" component={AttendanceDeletion} />
+                <Route exact path="/attendance/AttendanceLateralEntry" component={AttendanceLateralEntry} />
+                <Route exact path="/attendance/ConsolidatedAttendanceAnalysis" component={ConsolidatedAttendanceAnalysis} />
+                <Route exact path="/attendance/BatchesMH" component={BatchesMH} />
+                <Route exact path="/attendance/AttendanceBystaffMH" component={AttendanceBystaffMH} />
+                <Route exact path="/attendance/AttendanceByAdminMH" component={AttendanceByAdminMH} />
+                <Route exact path="/attendance/MidAttendanceBlock" component={MidAttendanceBlock} />
+                <Route exact path="/attendance/StopAttendancePostingDates" component={StopAttendancePostingDates} />
                 
                 <Route exact path="/examinations" component={ExaminationsDashboard} />
                 <Route exact path="/examinations/marks-entry" component={MarksEntry} />

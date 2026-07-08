@@ -1,0 +1,347 @@
+import React, { useState } from "react";
+import { Save, Edit3, Trash2, HelpCircle, AlertTriangle, Printer } from "lucide-react";
+import { toast } from "sonner";
+import "./CourseCompleted.css";
+
+interface CourseCompletedRecord {
+    id: number;
+    certificateNo: string;
+    regNo: string;
+    studentName: string;
+    fatherName: string;
+    programme: string;
+    branch: string;
+    year: string;
+    fromAcademicYear: string;
+    toAcademicYear: string;
+    certificateType: string;
+    conduct: string;
+    date: string;
+}
+
+const CourseCompleted: React.FC = () => {
+    const [records, setRecords] = useState<CourseCompletedRecord[]>([]);
+    const [deleteId, setDeleteId] = useState<number | null>(null);
+
+    const [form, setForm] = useState({
+        certificateNo: "",
+        date: "",
+        regNo: "",
+        admissionDate: "",
+        studentName: "",
+        fatherName: "",
+        programme: "",
+        branch: "",
+        year: "",
+        fromAcademicYear: "",
+        toAcademicYear: "",
+        certificateType: "",
+        conduct: "",
+    });
+
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const resetForm = () => {
+        setForm({
+            certificateNo: "",
+            date: "",
+            regNo: "",
+            admissionDate: "",
+            studentName: "",
+            fatherName: "",
+            programme: "",
+            branch: "",
+            year: "",
+            fromAcademicYear: "",
+            toAcademicYear: "",
+            certificateType: "",
+            conduct: "",
+        });
+    };
+
+    const handleSave = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const newRecord: CourseCompletedRecord = {
+            id: Date.now(),
+            certificateNo: form.certificateNo,
+            regNo: form.regNo,
+            studentName: form.studentName,
+            fatherName: form.fatherName,
+            programme: form.programme,
+            branch: form.branch,
+            year: form.year,
+            fromAcademicYear: form.fromAcademicYear,
+            toAcademicYear: form.toAcademicYear,
+            certificateType: form.certificateType,
+            conduct: form.conduct,
+            date: form.date,
+        };
+
+        setRecords((prev) => [newRecord, ...prev]);
+        toast.success("Certificate saved successfully");
+        resetForm();
+    };
+
+    const handlePrint = () => {
+        window.print();
+    };
+
+    const handleDelete = () => {
+        if (deleteId) {
+            setRecords(records.filter((r) => r.id !== deleteId));
+            toast.success("Record deleted successfully");
+            setDeleteId(null);
+        }
+    };
+
+    return (
+        <div className="dbs-groupchange-container">
+
+            {/* HEADER */}
+            <div className="dbs-admissions-form-header">
+                <div>
+                    <h2>Course Completed Certificate</h2>
+                    <p>Manage study completion certificate records</p>
+                </div>
+            </div>
+
+            {/* FORM */}
+            <form onSubmit={handleSave} className="dbs-admissions-stepper-form-card">
+                <div className="dbs-form-card">
+
+                    <h3>Certificate Details</h3>
+
+                    <div className="dbs-form-grid-3">
+
+                        <div className="dbs-input-box">
+                            <label>Certificate No</label>
+                            <input name="certificateNo" value={form.certificateNo} onChange={handleChange} />
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Date</label>
+                            <input type="date" name="date" value={form.date} onChange={handleChange} />
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Reg No</label>
+                            <input name="regNo" value={form.regNo} onChange={handleChange} />
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Admission Date</label>
+                            <input type="date" name="admissionDate" value={form.admissionDate} onChange={handleChange} />
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Student Name</label>
+                            <input name="studentName" value={form.studentName} onChange={handleChange} />
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Father Name</label>
+                            <input name="fatherName" value={form.fatherName} onChange={handleChange} />
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Programme</label>
+                            <input name="programme" value={form.programme} onChange={handleChange} />
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Branch</label>
+                            <input name="branch" value={form.branch} onChange={handleChange} />
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Year</label>
+                            <select name="year" value={form.year} onChange={handleChange}>
+                                <option value="">Select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>From Academic Year</label>
+                            <select
+                                name="fromAcademicYear"
+                                value={form.fromAcademicYear}
+                                onChange={handleChange}
+                            >
+                                <option value="">Select</option>
+                                <option>2020-2021</option>
+                                <option>2021-2022</option>
+                                <option>2022-2023</option>
+                                <option>2023-2024</option>
+                                <option>2024-2025</option>
+                            </select>
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>To Academic Year</label>
+                            <select
+                                name="toAcademicYear"
+                                value={form.toAcademicYear}
+                                onChange={handleChange}
+                            >
+                                <option value="">Select</option>
+                                <option>2020-2021</option>
+                                <option>2021-2022</option>
+                                <option>2022-2023</option>
+                                <option>2023-2024</option>
+                                <option>2024-2025</option>
+                            </select>
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Certificate Type</label>
+                            <select
+                                name="certificateType"
+                                value={form.certificateType}
+                                onChange={handleChange}
+                            >
+                                <option value="">Select</option>
+                                <option>Bonafide</option>
+                                <option>Course Completion</option>
+                                <option>Study Certificate</option>
+                                <option>Conduct Certificate</option>
+                            </select>
+                        </div>
+                        <div className="dbs-input-box">
+                            <label>Conduct</label>
+                            <select name="conduct" value={form.conduct} onChange={handleChange}>
+                                <option value="">Select</option>
+                                <option>Excellent</option>
+                                <option>Very Good</option>
+                                <option>Good</option>
+                                <option>Satisfactory</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    {/* ACTIONS */}
+                    <div className="dbs-form-actions-row">
+                        <button type="button" className="dbs-form-cancel-btn" onClick={resetForm}>
+                            Cancel
+                        </button>
+
+                        <button type="submit" className="dbs-form-save-btn">
+                            <Save size={16} />
+                            Save
+                        </button>
+
+                        <button type="button" className="dbs-form-reprint-btn" onClick={handlePrint}>
+                            <Printer size={16} />
+                            Reprint
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+
+            {/* TABLE */}
+            <div className="dbs-dashboard-card dbs-datatable-card">
+
+                <div className="dbs-datatable-header-area">
+                    <div>
+                        <h3>Certificate Registry</h3>
+                        <p>Course completion records</p>
+                    </div>
+                </div>
+
+                <div className="dbs-table-container">
+
+                    {records.length === 0 ? (
+                        <div className="dbs-empty-state">
+                            <HelpCircle className="dbs-empty-state-icon" />
+                            <div className="dbs-empty-state-title">
+                                No Records Found
+                            </div>
+                            <div className="dbs-empty-state-desc">
+                                Add certificate details using the form above.
+                            </div>
+                        </div>
+                    ) : (
+                        <table className="dbs-data-table">
+                            <thead>
+                                <tr>
+                                    <th>Cert No</th>
+                                    <th>Reg No</th>
+                                    <th>Student</th>
+                                    <th>Programme</th>
+                                    <th>Branch</th>
+                                    <th>Year</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {records.map((item) => (
+                                    <tr key={item.id}>
+                                        <td><strong>{item.certificateNo}</strong></td>
+                                        <td>{item.regNo}</td>
+                                        <td>{item.studentName}</td>
+                                        <td>{item.programme}</td>
+                                        <td>{item.branch}</td>
+                                        <td>Year {item.year}</td>
+
+                                        <td>
+                                            <div className="dbs-table-actions-row">
+
+                                                <button className="dbs-table-action-icon-btn dbs-btn-edit">
+                                                    <Edit3 size={14} />
+                                                </button>
+
+                                                <button
+                                                    className="dbs-table-action-icon-btn dbs-btn-delete"
+                                                    onClick={() => setDeleteId(item.id)}
+                                                >
+                                                    <Trash2 size={14} />
+                                                </button>
+
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                ))}
+                            </tbody>
+
+                        </table>
+                    )}
+
+                </div>
+            </div>
+
+            {/* DELETE MODAL */}
+            {deleteId && (
+                <div className="dbs-search-overlay-modal">
+                    <div className="dbs-search-modal-box dbs-confirm-modal-box">
+
+                        <AlertTriangle size={36} />
+
+                        <h3>Delete Record?</h3>
+                        <p>Are you sure you want to delete this record?</p>
+
+                        <div className="dbs-confirm-modal-actions">
+                            <button onClick={() => setDeleteId(null)}>Cancel</button>
+                            <button onClick={handleDelete}>Delete</button>
+                        </div>
+
+                    </div>
+                </div>
+            )}
+
+        </div>
+    );
+};
+
+export default CourseCompleted;

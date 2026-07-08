@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { 
-  School, CreditCard, Wallet, BookOpen, Users, Settings, Search, Bell, Moon, Sun, 
+import {
+  School, CreditCard, Wallet, BookOpen, Users, Settings, Search, Bell, Moon, Sun,
   Palette, Calendar, ChevronDown, ChevronRight, ChevronLeft, Menu, X, LogOut, Pin, Star, CheckSquare,
   AlertTriangle, LayoutDashboard, UserCheck, ShieldAlert, Award, FileText, Settings2, Trash2, Edit2,
   UserPlus, Hash, Shuffle, CheckCircle2, FileCheck, ArrowUpCircle, FileDown, RefreshCw, UserX,
-  Layers, Sliders, Receipt, Heart, Globe, HelpCircle, Percent, Upload, UploadCloud
+  Layers, Sliders, Receipt, Heart, Globe, HelpCircle, Percent, Upload, UploadCloud, Table, ShieldUser, Timer, Group, UserRoundKey, SaveCheck, ListPlus, Trash, SquarePen, PencilOff, CalendarCheck, ChartNoAxesCombined, ListFilterPlus, UsersRound, UserRound, ShieldPlus, Blocks, CircleOff
 } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import "./MainLayout.css";
@@ -58,6 +58,7 @@ const SUBMENUS: Record<string, { name: string; path: string; icon: React.Compone
     { name: "Bonafide Certificate", path: "/admissions/bonafide", icon: FileText },
     { name: "Student Promotion", path: "/admissions/promotion", icon: ArrowUpCircle },
     { name: "Student Data Excel Export", path: "/admissions/excel-export", icon: FileDown },
+    { name: "Admission view", path: "/admissions/AdmissionView", icon: FileDown },
     { name: "Section Change", path: "/admissions/section-change", icon: RefreshCw },
     { name: "InActive Student Delete", path: "/admissions/inactive-delete", icon: UserX }
   ],
@@ -85,7 +86,8 @@ const SUBMENUS: Record<string, { name: string; path: string; icon: React.Compone
   ],
   payroll: [
     { name: "Dashboard", path: "/payroll", icon: LayoutDashboard },
-    { name: "Employee Details", path: "/payroll/emp-details", icon: Users }
+    { name: "Employee Details", path: "/payroll/emp-details", icon: Users },
+    { name: "test", path: "/payroll", icon: LayoutDashboard },
   ],
   accounting: [
     { name: "Dashboard", path: "/accounting", icon: LayoutDashboard },
@@ -93,7 +95,27 @@ const SUBMENUS: Record<string, { name: string; path: string; icon: React.Compone
   ],
   attendance: [
     { name: "Dashboard", path: "/attendance", icon: LayoutDashboard },
-    { name: "Class Timetable", path: "/attendance/timetable", icon: Calendar }
+    { name: "Time Table Settings", path: "/attendance/timetable", icon: Calendar },
+    { name: "Time Table Adjustment", path: "/attendance/timeAdjustment", icon: Table },
+    { name: "Attendance By Staff", path: "/attendance/AttendanceByStaff", icon: Users },
+    { name: "Attendance By Admin", path: "/attendance/AttendanceByAdmin", icon: ShieldUser },
+    { name: "Time Table Extra Hours", path: "/attendance/TimetableExtraHours", icon: Timer },
+    { name: "Batches", path: "/attendance/Batches", icon: Group },
+    { name: "Admin Permissions", path: "/attendance/AdminPermissions", icon: UserRoundKey },
+    { name: "Check Attendance", path: "/attendance/CheckAttendance", icon: SaveCheck },
+    { name: "Add Attendance", path: "/attendance/AddAttendance", icon: ListPlus },
+    { name: "Batch Delete", path: "/attendance/BatchDelete", icon: Trash },
+    { name: "Edit EFRM Date", path: "/attendance/EditEFRMDate", icon: SquarePen },
+    { name: "Modify Attendance", path: "/attendance/ModifyAttendance", icon: PencilOff },
+    { name: "DayWise Attendance", path: "/attendance/DayWiseAttendance", icon: CalendarCheck },
+    { name: "Attendance Deletion", path: "/attendance/AttendanceDeletion", icon: Trash2 },
+    { name: "Attendance Lateral Entry", path: "/attendance/AttendanceLateralEntry", icon: ListFilterPlus },
+    { name: "Consolidated Attendance Analysis", path: "/attendance/ConsolidatedAttendanceAnalysis", icon: ChartNoAxesCombined },
+    { name: "Batches MH", path: "/attendance/BatchesMH", icon: UsersRound },
+    { name: "Attendance By staff MH", path: "/attendance/AttendanceBystaffMH", icon: UserRound },
+    { name: "Attendance By Admin MH", path: "/attendance/AttendanceByAdminMH", icon: ShieldPlus },
+    { name: "Mid Attendance Block", path: "/attendance/MidAttendanceBlock", icon: Blocks },
+    { name: "Stop Attendance Posting Dates", path: "/attendance/StopAttendancePostingDates", icon: CircleOff }
   ],
   examinations: [
     { name: "Dashboard", path: "/examinations", icon: LayoutDashboard },
@@ -156,24 +178,24 @@ interface MainLayoutProps {
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const history = useHistory();
   const location = useLocation();
-  
+
   // Navigation & UI States
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeModule, setActiveModule] = useState<string>("home");
   const [academicYear, setAcademicYear] = useState<string>(() => localStorage.getItem("academicYear") || "");
   const [themeMode, setThemeMode] = useState<string>(() => localStorage.getItem("themeColor") || "dbs-theme-blue");
-  
+
   // Dropdown & Panel States
   const [showNotifications, setShowNotifications] = useState(false);
   const [showThemeSelector, setShowThemeSelector] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [rightPanelOpen, setRightPanelOpen] = useState(false);
-  
+
   // Global Ctrl+K Search Command Palette
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSearchIndex, setSelectedSearchIndex] = useState(0);
-  
+
   // Ref pointers to capture clicks outside dropdowns
   const notificationRef = useRef<HTMLDivElement>(null);
   const themeRef = useRef<HTMLDivElement>(null);
@@ -198,7 +220,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     { title: "General Capital Fund A/C", subtitle: "Fee Account Master - Opening: ₹10,00,000", type: "account", path: "/fees/account-master" }
   ];
 
-  const filteredSearchItems = searchItems.filter(item => 
+  const filteredSearchItems = searchItems.filter(item =>
     item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     item.subtitle.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -257,7 +279,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       if (e.key === "Escape") {
         setSearchOpen(false);
       }
-      
+
       // Up / Down keys in search command bar
       if (searchOpen) {
         if (e.key === "ArrowDown") {
@@ -310,7 +332,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const getBreadcrumbs = () => {
     const parts = location.pathname.split("/").filter(Boolean);
     const crumbs = [{ name: "Home", path: "/home" }];
-    
+
     let currentPath = "";
     parts.forEach((part, index) => {
       currentPath += `/${part}`;
@@ -332,17 +354,17 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       {!isLandingPage && (
         <aside className={`dbs-left-sidebar ${sidebarOpen ? "dbs-sidebar-open" : "dbs-sidebar-closed"}`}>
           <div className="dbs-sidebar-brand-area">
-            <div 
-              className="dbs-sidebar-logo-circle" 
-              onClick={() => history.push("/home")} 
+            <div
+              className="dbs-sidebar-logo-circle"
+              onClick={() => history.push("/home")}
               style={{ cursor: "pointer" }}
             >
               <span>DBS</span>
             </div>
             {sidebarOpen && (
-              <span 
-                className="dbs-sidebar-brand-name" 
-                onClick={() => history.push("/home")} 
+              <span
+                className="dbs-sidebar-brand-name"
+                onClick={() => history.push("/home")}
                 style={{ cursor: "pointer" }}
               >
                 DBS ERP
@@ -381,7 +403,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
       {/* --- MAIN CORE PANEL --- */}
       <div className="dbs-main-core-panel">
-        
+
         {/* --- TOP HEADER --- */}
         <header className="dbs-top-header">
           <div className="dbs-header-left">
@@ -390,12 +412,12 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 <Menu size={20} />
               </button>
             )}
-            
+
             {/* Breadcrumbs or Logo on landing page */}
             {isLandingPage ? (
-              <div 
-                className="dbs-landing-header-brand" 
-                onClick={() => history.push("/home")} 
+              <div
+                className="dbs-landing-header-brand"
+                onClick={() => history.push("/home")}
                 style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "10px" }}
               >
                 <div className="dbs-sidebar-logo-circle">
@@ -407,7 +429,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               <div className="dbs-breadcrumbs-nav">
                 {getBreadcrumbs().map((crumb, idx, arr) => (
                   <React.Fragment key={idx}>
-                    <button 
+                    <button
                       className={`dbs-breadcrumb-btn ${idx === arr.length - 1 ? "dbs-breadcrumb-active" : ""}`}
                       onClick={() => history.push(crumb.path)}
                       disabled={idx === arr.length - 1}
@@ -422,7 +444,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           </div>
 
           <div className="dbs-header-right">
-            
+
             {/* Ctrl+K Global Search Trigger */}
             {!isLandingPage && (
               <button className="dbs-header-search-trigger" onClick={() => setSearchOpen(true)}>
@@ -449,8 +471,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
             {/* Theme Selector */}
             <div className="dbs-header-dropdown-wrapper" ref={themeRef}>
-              <button 
-                className="dbs-header-icon-btn" 
+              <button
+                className="dbs-header-icon-btn"
                 onClick={() => setShowThemeSelector(!showThemeSelector)}
                 title="Theme Colors"
               >
@@ -481,8 +503,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
             {/* Notifications Bell */}
             <div className="dbs-header-dropdown-wrapper" ref={notificationRef}>
-              <button 
-                className="dbs-header-icon-btn" 
+              <button
+                className="dbs-header-icon-btn"
                 onClick={() => setShowNotifications(!showNotifications)}
                 title="Notifications"
               >
@@ -519,8 +541,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             </div>
 
             {/* Quick Panel Toggle */}
-            <button 
-              className={`dbs-header-icon-btn ${rightPanelOpen ? "dbs-header-icon-btn-active" : ""}`} 
+            <button
+              className={`dbs-header-icon-btn ${rightPanelOpen ? "dbs-header-icon-btn-active" : ""}`}
               onClick={() => setRightPanelOpen(!rightPanelOpen)}
               title="Quick Notes & Panel"
             >
@@ -594,7 +616,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             <X size={18} />
           </button>
         </div>
-        
+
         <div className="dbs-right-panel-body">
           {/* Mini Calendar simulation */}
           <div className="dbs-utility-card">

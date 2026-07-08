@@ -1,0 +1,22 @@
+.dbs-form-actions-row{
+    display:flex;
+    gap:15px;
+    margin-top:30px;
+}
+
+.dbs-view-btn{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:10px 22px;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.dbs-view-btn:hover{
+    opacity:0.9;
+}

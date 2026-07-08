@@ -1,0 +1,169 @@
+import React from "react";
+import { Save, X } from "lucide-react";
+import "./TimetableExtraHours.css";
+
+const TimetableExtraHours = () => {
+
+    return (
+
+        <div className="dbs-groupchange-container">
+
+            <div className="dbs-admissions-form-header">
+                <div>
+                    <h2>Timetable Extra Hours</h2>
+                    <p>Create & Manage Extra Hour Timetable</p>
+                </div>
+            </div>
+
+            <div className="dbs-admissions-stepper-form-card">
+
+                <div className="dbs-form-card">
+
+                    <h3>Extra Hour Details</h3>
+
+                    <div className="dbs-timetable-grid">
+
+                        {/* LEFT */}
+
+                        <div className="dbs-input-box">
+                            <label>Shift</label>
+
+                            <select>
+                                <option>Select Shift</option>
+                            </select>
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Programme</label>
+
+                            <select>
+                                <option>Select Programme</option>
+                            </select>
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Branch</label>
+
+                            <select>
+                                <option>Select Branch</option>
+                            </select>
+                        </div>
+
+                        <div className="dbs-input-box dbs-double-select">
+
+                            <label>Year & Semester</label>
+
+                            <div>
+
+                                <select>
+                                    <option>Select Year</option>
+                                </select>
+
+                                <select>
+                                    <option>Select Semester</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div className="dbs-input-box dbs-double-select">
+
+                            <label>Stream & Section</label>
+
+                            <div>
+
+                                <select>
+                                    <option>Select Stream</option>
+                                </select>
+
+                                <select>
+                                    <option>Select Section</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Day</label>
+
+                            <select>
+                                <option>Select Day</option>
+                            </select>
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Period Type</label>
+
+                            <select>
+                                <option>Select Period Type</option>
+                            </select>
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Subject(s)</label>
+
+                            <select>
+                                <option>Select Subject</option>
+                            </select>
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Lecturer</label>
+
+                            <select>
+                                <option>Select Lecturer</option>
+                            </select>
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Department</label>
+
+                            <select>
+                                <option>Select Department</option>
+                            </select>
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Date</label>
+
+                            <input type="date" />
+                        </div>
+
+                        <div className="dbs-input-box">
+                            <label>Period(s) Timings</label>
+
+                            <input
+                                type="text"
+                                placeholder="10:00 AM"
+                            />
+                        </div>
+
+                    </div>
+
+                    <div className="dbs-form-actions-row">
+
+                        <button className="dbs-form-save-btn">
+                            <Save size={16} />
+                            Save
+                        </button>
+
+                        <button className="dbs-form-cancel-btn">
+                            <X size={16} />
+                            Cancel
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    );
+
+};
+
+export default TimetableExtraHours;

@@ -1,11 +1,11 @@
-﻿import React from 'react';
+﻿import React from 'react'
 
-const FrontOfficeDashboard: React.FC = () => {
+const FrontOfficeDashboard = () => {
   return (
     <div>
-      <h1>FrontOfficeDashboard</h1>
+      
     </div>
-  );
-};
+  )
+}
 
-export default FrontOfficeDashboard;
+export default FrontOfficeDashboard

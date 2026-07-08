@@ -709,3 +709,20 @@
     font-size: 0.9rem;
   }
 }
+
+.dbs-input-error {
+  border: 1px solid #ef4444 !important;
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.2);
+}
+
+.dbs-error-slot {
+  min-height: 18px;   /* IMPORTANT: prevents layout shift */
+  margin-top: 4px;
+}
+
+.dbs-error-text {
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 500;
+}
+

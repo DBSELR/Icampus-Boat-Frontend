@@ -1,0 +1,237 @@
+.dbs-timetable-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:20px 40px;
+
+}
+
+
+
+.dbs-input-box{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+
+.dbs-input-box label{
+
+    margin-bottom:8px;
+
+    font-weight:500;
+
+    color:#333;
+
+}
+
+
+
+.dbs-input-box input,
+.dbs-input-box select,
+.dbs-input-box textarea{
+
+    width:100%;
+
+    padding:10px 12px;
+
+    border:1px solid #d9d9d9;
+
+    border-radius:6px;
+
+    background:#fff;
+
+    font-size:14px;
+
+}
+
+
+
+.dbs-input-box input,
+.dbs-input-box select{
+
+    height:42px;
+
+}
+
+
+
+.dbs-input-box textarea{
+
+    resize:none;
+
+}
+
+
+
+.dbs-input-box input:focus,
+.dbs-input-box select:focus,
+.dbs-input-box textarea:focus{
+
+    outline:none;
+
+    border-color:#2bb7b3;
+
+}
+
+
+
+/* Combined Fields */
+
+.dbs-double-select > div{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+
+
+.dbs-double-select input,
+.dbs-double-select select{
+
+    flex:1;
+
+}
+
+
+
+/* Checkbox */
+
+.dbs-checkbox > div{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    height:42px;
+
+}
+
+
+
+.dbs-checkbox input{
+
+    width:auto;
+
+}
+
+
+
+/* Full Width */
+
+.dbs-full-width{
+
+    grid-column:1 / -1;
+
+}
+
+
+
+/* Note */
+
+.dbs-attendance-note{
+
+    color:red;
+
+    font-weight:600;
+
+}
+
+
+
+/* Buttons */
+
+.dbs-form-actions-row{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:30px;
+
+}
+
+
+
+.dbs-form-save-btn{
+
+    background:#2bb7b3;
+
+    color:#fff;
+
+    border:none;
+
+    padding:10px 22px;
+
+    border-radius:6px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    cursor:pointer;
+
+}
+
+
+
+.dbs-form-delete-btn{
+
+    background:#ef4444;
+
+    color:#fff;
+
+    border:none;
+
+    padding:10px 22px;
+
+    border-radius:6px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    cursor:pointer;
+
+}
+
+
+
+.dbs-form-save-btn:hover,
+.dbs-form-delete-btn:hover{
+
+    opacity:0.9;
+
+}
+
+
+
+@media(max-width:900px){
+
+    .dbs-timetable-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .dbs-double-select > div{
+
+        flex-direction:column;
+
+    }
+
+}

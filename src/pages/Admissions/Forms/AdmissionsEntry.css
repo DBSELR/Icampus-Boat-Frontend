@@ -1,0 +1,875 @@
+/* Admissions Form Stylesheet - Scoped with .dbs- prefixes */
+
+.dbs-admissions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dbs-admissions-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--dbs-border);
+  padding-bottom: 16px;
+}
+
+.dbs-admissions-form-header h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--dbs-text);
+  margin-bottom: 4px;
+}
+
+.dbs-admissions-form-header p {
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
+}
+
+/* Auto save indicator styling */
+.dbs-autosave-indicator {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.dbs-autosave-saving {
+  color: var(--dbs-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dbs-autosave-saved {
+  color: var(--dbs-success);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dbs-spin {
+  animation: dbs-spin-animation 1s infinite linear;
+}
+
+@keyframes dbs-spin-animation {
+  to { transform: rotate(360deg); }
+}
+
+/* --- Stepper Header --- */
+.dbs-stepper-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  padding: 20px 24px;
+  box-shadow: var(--dbs-shadow-sm);
+  overflow-x: auto;
+  gap: 16px;
+}
+
+.dbs-stepper-node-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  flex: 1;
+}
+
+.dbs-stepper-node-container:last-child {
+  flex: none;
+}
+
+.dbs-stepper-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--dbs-border);
+  background-color: var(--dbs-background);
+  color: var(--dbs-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  transition: var(--dbs-transition);
+}
+
+.dbs-step-active {
+  border-color: var(--dbs-primary);
+  background-color: var(--dbs-primary-light);
+  color: var(--dbs-primary);
+}
+
+.dbs-step-completed {
+  border-color: var(--dbs-success);
+  background-color: var(--dbs-success);
+  color: white;
+}
+
+.dbs-stepper-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dbs-text-muted);
+  white-space: nowrap;
+  transition: var(--dbs-transition);
+}
+
+.dbs-label-active {
+  color: var(--dbs-primary);
+  font-weight: 700;
+}
+
+.dbs-stepper-bar-connector {
+  height: 2px;
+  background-color: var(--dbs-border);
+  flex: 1;
+  min-width: 20px;
+}
+
+.dbs-bar-completed {
+  background-color: var(--dbs-success);
+}
+
+/* --- Form Wrapper Card --- */
+.dbs-admissions-stepper-form-card {
+  background-color: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  padding: 24px;
+}
+
+.dbs-stepper-slide {
+  animation: dbs-fade-in-slide 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes dbs-fade-in-slide {
+  from { opacity: 0; transform: translateX(10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.dbs-form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dbs-form-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dbs-text);
+  border-bottom: 1px solid var(--dbs-border);
+  padding-bottom: 10px;
+}
+
+/* Form layouts */
+.dbs-form-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.dbs-form-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.dbs-form-grid-image {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+.dbs-input-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.dbs-input-box label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--dbs-text);
+  margin-bottom: 6px;
+}
+
+.dbs-grid-col-span-2 {
+  grid-column: span 2;
+}
+
+/* Photo Box card adjustments */
+.dbs-photo-upload-card {
+  align-items: center;
+  text-align: center;
+}
+
+.dbs-photo-preview-box {
+  width: 130px;
+  height: 150px;
+  border: 2px dashed var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  background-color: var(--dbs-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.dbs-preview-student-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dbs-no-img-text {
+  font-size: 0.75rem;
+  color: var(--dbs-text-muted);
+  font-weight: 600;
+  max-width: 90px;
+}
+
+.dbs-photo-actions-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 160px;
+}
+
+.dbs-photo-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: var(--dbs-radius-sm);
+  cursor: pointer;
+  width: 100%;
+  border: 1px solid var(--dbs-border);
+  background-color: var(--dbs-surface);
+  color: var(--dbs-text);
+  transition: var(--dbs-transition);
+  outline: none;
+}
+
+.dbs-btn-camera:hover {
+  background-color: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+}
+
+.dbs-btn-upload:hover {
+  background-color: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+}
+
+/* Drag and Drop Zone */
+.dbs-file-dropzone {
+  border: 2px dashed var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  background-color: var(--dbs-background);
+  padding: 40px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--dbs-transition);
+  gap: 12px;
+}
+
+.dbs-file-dropzone:hover,
+.dbs-dropzone-active {
+  border-color: var(--dbs-primary);
+  background-color: var(--dbs-primary-light);
+}
+
+.dbs-dropzone-icon {
+  color: var(--dbs-text-muted);
+  transition: var(--dbs-transition);
+}
+
+.dbs-file-dropzone:hover .dbs-dropzone-icon {
+  color: var(--dbs-primary);
+}
+
+.dbs-file-dropzone p {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--dbs-text);
+}
+
+.dbs-dropzone-sub {
+  font-size: 0.75rem;
+  color: var(--dbs-text-muted);
+}
+
+/* Review details step styling */
+.dbs-review-card h3 {
+  margin-bottom: 8px;
+}
+
+.dbs-review-warning {
+  background-color: var(--dbs-primary-light);
+  color: var(--dbs-primary);
+  border-left: 3px solid var(--dbs-primary);
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 0 var(--dbs-radius-sm) var(--dbs-radius-sm) 0;
+  margin-bottom: 12px;
+}
+
+.dbs-review-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  background-color: var(--dbs-background);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  padding: 20px;
+}
+
+.dbs-review-item {
+  font-size: 0.9rem;
+  color: var(--dbs-text);
+}
+
+.dbs-review-item strong {
+  font-weight: 700;
+  color: var(--dbs-text-muted);
+  margin-right: 8px;
+}
+
+.dbs-print-acknowledgement-row {
+  margin-top: 16px;
+}
+
+.dbs-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dbs-checkbox-label input {
+  accent-color: var(--dbs-primary);
+}
+
+/* Actions Row Buttons */
+.dbs-stepper-actions-row {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--dbs-border);
+  padding-top: 20px;
+  margin-top: 24px;
+}
+
+.dbs-stepper-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  color: var(--dbs-text);
+  padding: 10px 18px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--dbs-transition);
+  outline: none;
+}
+
+.dbs-stepper-back-btn:hover:not(:disabled) {
+  background: var(--dbs-background);
+  border-color: var(--dbs-text-muted);
+}
+
+.dbs-stepper-back-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dbs-stepper-next-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--dbs-primary);
+  color: white;
+  border: none;
+  border-radius: var(--dbs-radius-sm);
+  padding: 10px 18px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--dbs-transition);
+  outline: none;
+}
+
+.dbs-stepper-next-btn:hover {
+  background-color: var(--dbs-primary-hover);
+  box-shadow: 0 4px 12px var(--dbs-primary-light);
+}
+
+/* --- DATATABLE STYLING --- */
+.dbs-datatable-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dbs-datatable-header-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--dbs-border);
+  padding-bottom: 16px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dbs-datatable-header-area h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.dbs-datatable-header-area p {
+  font-size: 0.8rem;
+}
+
+.dbs-datatable-filters-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dbs-search-box-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dbs-search-box-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--dbs-text-muted);
+  pointer-events: none;
+}
+
+.dbs-table-search-input {
+  padding: 8px 12px 8px 36px;
+  font-size: 0.85rem;
+  width: 200px;
+}
+
+.dbs-table-select-filter {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Core Student Datatable */
+.dbs-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.dbs-data-table th {
+  padding: 12px 16px;
+  font-weight: 700;
+  color: var(--dbs-text-muted);
+  border-bottom: 2px solid var(--dbs-border);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  user-select: none;
+  background-color: var(--dbs-background);
+}
+
+.dbs-data-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--dbs-border);
+  color: var(--dbs-text);
+}
+
+.dbs-data-table tr:hover td {
+  background-color: var(--dbs-background);
+}
+
+.dbs-table-student-name {
+  font-weight: 700;
+  color: var(--dbs-text);
+}
+
+.dbs-table-branch-td {
+  font-size: 0.82rem;
+  color: var(--dbs-text-muted);
+}
+
+.dbs-table-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dbs-table-action-icon-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: 1px solid var(--dbs-border);
+  background-color: var(--dbs-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--dbs-transition);
+  outline: none;
+}
+
+.dbs-btn-edit {
+  color: var(--dbs-primary);
+}
+
+.dbs-btn-edit:hover {
+  background-color: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+}
+
+.dbs-btn-delete {
+  color: var(--dbs-danger);
+}
+
+.dbs-btn-delete:hover {
+  background-color: var(--dbs-danger-light);
+  border-color: var(--dbs-danger);
+}
+
+/* Pagination row */
+.dbs-table-pagination-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  color: var(--dbs-text-muted);
+  border-top: 1px solid var(--dbs-border);
+  padding-top: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.dbs-pagination-buttons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dbs-pagination-nav-btn {
+  background-color: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  padding: 6px 12px;
+  border-radius: var(--dbs-radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: var(--dbs-transition);
+}
+
+.dbs-pagination-nav-btn:hover:not(:disabled) {
+  border-color: var(--dbs-text-muted);
+}
+
+.dbs-pagination-nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dbs-pagination-page-btn {
+  background-color: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--dbs-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: var(--dbs-transition);
+}
+
+.dbs-pagination-page-btn:hover {
+  border-color: var(--dbs-text-muted);
+}
+
+.dbs-page-active {
+  background-color: var(--dbs-primary) !important;
+  color: white !important;
+  border-color: var(--dbs-primary) !important;
+}
+
+/* --- WEBCAM MODAL INTERNAL STYLING --- */
+.dbs-webcam-modal-box {
+  max-width: 520px;
+}
+
+.dbs-webcam-console-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.dbs-webcam-stream-simulation-frame {
+  width: 100%;
+  height: 300px;
+  background-color: black;
+  border-radius: var(--dbs-radius);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dbs-webcam-simulation-canvas {
+  width: 180px;
+  height: 220px;
+  position: relative;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  border-radius: var(--dbs-radius-sm);
+  border: 2px solid white;
+}
+
+.dbs-simulated-video-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dbs-webcam-crop-frame-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 2px dashed rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.dbs-webcam-status-overlay {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ef4444;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.dbs-webcam-toolbar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dbs-toolbar-adjust-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--dbs-transition);
+  outline: none;
+}
+
+.dbs-toolbar-adjust-btn:hover {
+  background-color: var(--dbs-background);
+}
+
+.dbs-webcam-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 14px 20px;
+  background-color: var(--dbs-background);
+  border-top: 1px solid var(--dbs-border);
+  gap: 12px;
+}
+
+.dbs-form-cancel-btn {
+  background-color: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--dbs-radius-sm);
+  cursor: pointer;
+  outline: none;
+}
+
+.dbs-form-cancel-btn:hover {
+  background-color: var(--dbs-background);
+}
+
+.dbs-form-save-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--dbs-primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: var(--dbs-radius-sm);
+  cursor: pointer;
+  outline: none;
+}
+
+.dbs-form-save-btn:hover {
+  background-color: var(--dbs-primary-hover);
+}
+
+/* --- CONFIRMATION DIALOG OVERLAYS --- */
+.dbs-confirm-modal-box {
+  max-width: 420px;
+  text-align: center;
+  padding: 30px;
+}
+
+.dbs-confirm-modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.dbs-warning-danger-icon {
+  color: var(--dbs-danger);
+}
+
+.dbs-confirm-modal-body h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.dbs-confirm-modal-body p {
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.dbs-confirm-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.dbs-confirm-btn-cancel {
+  background-color: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  padding: 10px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
+
+.dbs-confirm-btn-cancel:hover {
+  background-color: var(--dbs-background);
+}
+
+.dbs-confirm-btn-delete {
+  background-color: var(--dbs-danger);
+  color: white;
+  border: none;
+  border-radius: var(--dbs-radius-sm);
+  padding: 10px 18px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+}
+
+.dbs-confirm-btn-delete:hover {
+  background-color: #dc2626;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+}
+
+.dbs-z-index-high {
+  z-index: 250 !important;
+}
+
+/* --- RESPONSIVE ADAPTATIONS --- */
+@media (max-width: 1024px) {
+  .dbs-form-grid-image {
+    grid-template-columns: 1fr;
+  }
+  .dbs-photo-upload-card {
+    order: -1; /* Place upload preview above form */
+  }
+}
+
+@media (max-width: 768px) {
+  .dbs-form-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dbs-review-grid {
+    grid-template-columns: 1fr;
+  }
+  .dbs-datatable-header-area {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .dbs-datatable-filters-row {
+    width: 100%;
+  }
+  .dbs-search-box-wrapper,
+  .dbs-table-search-input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .dbs-form-grid-3,
+  .dbs-form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .dbs-stepper-header-wrapper {
+    padding: 14px;
+  }
+  .dbs-stepper-circle {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+  .dbs-stepper-label {
+    display: none; /* Hide labels on tiny screens, show numbers only */
+  }
+}
