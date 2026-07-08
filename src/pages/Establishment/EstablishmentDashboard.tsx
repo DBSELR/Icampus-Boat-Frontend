@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import { rfc5322Email } from 'zod/v4/core/regexes.cjs';
 
 const EstablishmentDashboard: React.FC = () => {
   return (
@@ -9,3 +10,4 @@ const EstablishmentDashboard: React.FC = () => {
 };
 
 export default EstablishmentDashboard;
+

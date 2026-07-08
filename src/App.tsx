@@ -27,6 +27,7 @@ import AdmissionsEntry from "./pages/Admissions/Forms/AdmissionsEntry";
 import SectionRollNumber from "./pages/Admissions/Forms/SectionRollNumber";
 import AdmissionsDashboard from "./pages/Admissions/Forms/AdmissionsDashboard";
 import AccountMaster from "./pages/Fees/AccountMaster";
+import HeadsMaster from "./pages/Fees/HeadsMaster";
 
 /* New Modules Pages */
 import AccountingDashboard from "./pages/Accounting/AccountingDashboard";
@@ -146,7 +147,8 @@ const App: React.FC = () => {
                 
                 {/* Fees Module */}
                 <Route exact path="/fees/account-master" component={AccountMaster} />
-
+               <Route exact path="/fees/Heads-Master" component={HeadsMaster} />
+               
                 {/* Submenu placeholders */}
                 <Route exact path="/admissions/dashboard" component={AdmissionsDashboard} />
                 <Route exact path="/admissions/group-change" render={() => <GroupChange />} />
