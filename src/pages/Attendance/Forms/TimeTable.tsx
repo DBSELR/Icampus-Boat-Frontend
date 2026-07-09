@@ -132,7 +132,7 @@ const TimeTable: React.FC = () => {
                             <div>
                                 <select />
                                 <button className="dbs-btn-add">
-                                    <Plus size={16}/>
+                                    <Plus size={16} />
                                     Add
                                 </button>
                             </div>
@@ -143,17 +143,17 @@ const TimeTable: React.FC = () => {
                     <div className="dbs-form-actions-row">
 
                         <button className="dbs-form-save-btn">
-                            <Save size={16}/>
+                            <Save size={16} />
                             Save
                         </button>
 
                         <button className="dbs-form-cancel-btn">
-                            <X size={16}/>
+                            <X size={16} />
                             Cancel
                         </button>
 
                         <button className="dbs-form-delete-btn">
-                            <Trash2 size={16}/>
+                            <Trash2 size={16} />
                             Delete
                         </button>
 
@@ -171,35 +171,35 @@ const TimeTable: React.FC = () => {
 
                         <thead>
 
-                        <tr>
+                            <tr>
 
-                            <th>Day</th>
+                                <th>Day</th>
 
-                            {periods.map(p=>(
-                                <th key={p}>{p}</th>
-                            ))}
+                                {periods.map(p => (
+                                    <th key={p}>{p}</th>
+                                ))}
 
-                        </tr>
+                            </tr>
 
                         </thead>
 
                         <tbody>
 
-                        {days.map(day=>(
+                            {days.map(day => (
 
-                            <tr key={day}>
+                                <tr key={day}>
 
-                                <td><strong>{day}</strong></td>
+                                    <td><strong>{day}</strong></td>
 
-                                {periods.map(p=>(
+                                    {periods.map(p => (
 
-                                    <td key={p}></td>
+                                        <td key={p}></td>
 
-                                ))}
+                                    ))}
 
-                            </tr>
+                                </tr>
 
-                        ))}
+                            ))}
 
                         </tbody>
 

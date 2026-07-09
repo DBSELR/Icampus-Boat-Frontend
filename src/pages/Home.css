@@ -110,23 +110,35 @@
   left: 20px;
   animation: dbs-orbital-orbit 10s infinite linear;
 }
+
 .dbs-node-2 {
   bottom: 12px;
   right: 15px;
 }
+
 .dbs-node-3 {
   top: 70px;
   right: -5px;
 }
 
 @keyframes dbs-spin-clockwise {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes dbs-spin-counter {
-  from { transform: rotate(360deg); }
-  to { transform: rotate(0deg); }
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
 }
 
 /* Modules Grid */
@@ -171,13 +183,40 @@
 }
 
 /* Theme Color Accent Variations for Modules */
-.dbs-color-blue .dbs-landing-card-icon-box { background-color: rgba(37, 99, 235, 0.08); color: #2563eb; }
-.dbs-color-orange .dbs-landing-card-icon-box { background-color: rgba(249, 115, 22, 0.08); color: #f97316; }
-.dbs-color-emerald .dbs-landing-card-icon-box { background-color: rgba(16, 185, 129, 0.08); color: #10b981; }
-.dbs-color-purple .dbs-landing-card-icon-box { background-color: rgba(139, 92, 246, 0.08); color: #8b5cf6; }
-.dbs-color-teal .dbs-landing-card-icon-box { background-color: rgba(20, 184, 166, 0.08); color: #14b8a6; }
-.dbs-color-pink .dbs-landing-card-icon-box { background-color: rgba(236, 72, 153, 0.08); color: #ec4899; }
-.dbs-color-slate .dbs-landing-card-icon-box { background-color: rgba(100, 116, 139, 0.08); color: #64748b; }
+.dbs-color-blue .dbs-landing-card-icon-box {
+  background-color: rgba(37, 99, 235, 0.08);
+  color: #2563eb;
+}
+
+.dbs-color-orange .dbs-landing-card-icon-box {
+  background-color: rgba(249, 115, 22, 0.08);
+  color: #f97316;
+}
+
+.dbs-color-emerald .dbs-landing-card-icon-box {
+  background-color: rgba(16, 185, 129, 0.08);
+  color: #10b981;
+}
+
+.dbs-color-purple .dbs-landing-card-icon-box {
+  background-color: rgba(139, 92, 246, 0.08);
+  color: #8b5cf6;
+}
+
+.dbs-color-teal .dbs-landing-card-icon-box {
+  background-color: rgba(20, 184, 166, 0.08);
+  color: #14b8a6;
+}
+
+.dbs-color-pink .dbs-landing-card-icon-box {
+  background-color: rgba(236, 72, 153, 0.08);
+  color: #ec4899;
+}
+
+.dbs-color-slate .dbs-landing-card-icon-box {
+  background-color: rgba(100, 116, 139, 0.08);
+  color: #64748b;
+}
 
 /* Hover Effects */
 .dbs-landing-module-card:hover {
@@ -189,13 +228,33 @@
   transform: translateY(-1px) scale(0.99);
 }
 
-.dbs-color-blue:hover { border-color: #2563eb; }
-.dbs-color-orange:hover { border-color: #f97316; }
-.dbs-color-emerald:hover { border-color: #10b981; }
-.dbs-color-purple:hover { border-color: #8b5cf6; }
-.dbs-color-teal:hover { border-color: #14b8a6; }
-.dbs-color-pink:hover { border-color: #ec4899; }
-.dbs-color-slate:hover { border-color: #64748b; }
+.dbs-color-blue:hover {
+  border-color: #2563eb;
+}
+
+.dbs-color-orange:hover {
+  border-color: #f97316;
+}
+
+.dbs-color-emerald:hover {
+  border-color: #10b981;
+}
+
+.dbs-color-purple:hover {
+  border-color: #8b5cf6;
+}
+
+.dbs-color-teal:hover {
+  border-color: #14b8a6;
+}
+
+.dbs-color-pink:hover {
+  border-color: #ec4899;
+}
+
+.dbs-color-slate:hover {
+  border-color: #64748b;
+}
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
@@ -208,6 +267,7 @@
   .dbs-landing-modules-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
   .dbs-landing-brand-header h1 {
     font-size: 1.8rem;
   }
