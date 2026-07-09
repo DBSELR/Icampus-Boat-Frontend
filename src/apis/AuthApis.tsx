@@ -31,7 +31,7 @@ export const loginApi = async (
             `${API_BASE}Auth/Login`,
             data
         );
-
+        console.log(response)
         return {
             success: true,
             data: response.data,
