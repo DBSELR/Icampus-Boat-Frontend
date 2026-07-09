@@ -55,8 +55,8 @@ import PayrollDashboard from "./pages/Payroll/PayrollDashboard";
 import EmpDetails from "./pages/Payroll/EmpDetails";
 import PerformanceDashboard from "./pages/Performance/PerformanceDashboard";
 import ReportCard from "./pages/Performance/ReportCard";
-import SettingsDashboard from "./pages/Settings/SettingsDashboard";
-import FinancialAcadamicYear from "./pages/Settings/FinancialAcadamicYear";
+import SettingsDashboard from "./pages/Settings/Forms/SettingsDashboard";
+import FinancialAcadamicYear from "./pages/Settings/Forms/FinancialAcadamicYear";
 import StoresDashboard from "./pages/Stores/StoresDashboard";
 import ProductMaster from "./pages/Stores/ProductMaster";
 import TappalDashboard from "./pages/Tappal/TappalDashboard";
@@ -96,13 +96,13 @@ import StopAttendancePostingDates from "./pages/Attendance/Forms/StopAttendanceP
 import AddAttendance from "./pages/Attendance/Forms/AddAttendance";
 import AdmissionView from "./pages/Admissions/Forms/AdmissionView";
 
-import DepartmentMaster from "./pages/Settings/DepartmentMaster/DepartmentMaster";
-import ProgrammeMaster from "./pages/Settings/ProgrammeMaster/ProgrammeMaster";
-import ReguMaster from "./pages/Settings/ReguMaster/ReguMaster";
-import BranchMaster from "./pages/Settings/BranchMaster/BranchMaster";
-import SubjectMaster from "./pages/Settings/SubjectMaster/SubjectMaster";
-import FacultyMaster from "./pages/Settings/FacultyMaster/FacultyMaster";
-import SectionMaster from "./pages/Settings/SectionMaster/SectionMaster";
+import ProgrammeMaster from "./pages/Settings/Forms/ProgrammeMaster";
+import ReguMaster from "./pages/Settings/Forms/ReguMaster";
+import BranchMaster from "./pages/Settings/Forms/BranchMaster";
+import SubjectMaster from "./pages/Settings/Forms/SubjectMaster";
+import FacultyMaster from "./pages/Settings/Forms/FacultyMaster";
+import SectionMaster from "./pages/Settings/Forms/SectionMaster";
+import DepartmentMaster from "./pages/Settings/Forms/DepartmentMaster";
 
 
 setupIonicReact();

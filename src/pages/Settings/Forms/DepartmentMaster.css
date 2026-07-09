@@ -140,6 +140,7 @@
   background-color: var(--dbs-background);
 }
 
+
 /* Responsive */
 @media (max-width: 1024px) {
   .dbs-form-grid-4 {
@@ -153,4 +154,31 @@
   .dbs-form-grid-2 {
     grid-template-columns: 1fr;
   }
+}
+
+
+
+.dbs-btn-edit {
+    background-color: var(--dbs-primary);
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.dbs-btn-edit:hover {
+  background-color: white;
+  border: 2px solid var(--dbs-primary);
+  color: var(--dbs-primary);
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.dbs-btn-delete {
+  color: var(--dbs-danger);
+}
+
+.dbs-btn-delete:hover {
+  background-color: var(--dbs-danger-light);
+  border-color: var(--dbs-danger);
 }
