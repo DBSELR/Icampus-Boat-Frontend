@@ -1,87 +1,3 @@
-// import axios from "axios";
-// import { API_BASE } from "../config";
-
-// interface LoginRequest {
-//     userId: string;
-//     password: string;
-// }
-
-// interface LoginSuccessResponse {
-//     success: true;
-//     data: any; // replace with proper user type if you have it
-//     message: string;
-// }
-
-// interface LoginErrorResponse {
-//     success: false;
-//     data: null;
-//     message: string;
-//     status?: number;
-// }
-
-// type LoginResponse = LoginSuccessResponse | LoginErrorResponse;
-
-
-
-
-// export const loadMenus = (userId: string, password: string) => {
-//   return axios.get(`${API_BASE}Auth/Load_Menu`, {
-//     params: {
-//       UserId: userId,
-//       Password: password,
-//     },
-//   });
-// };
-
-// export const loadSubMenus = (userId: string, password: string) => {
-//   return axios.get(`${API_BASE}Auth/Load_Sub_Menu`, {
-//     params: {
-//       UserId: userId,
-//       Password: password,
-//     },
-//   });
-// };
-// export const loginApi = async (
-//     data: LoginRequest
-// ): 
-// Promise<LoginResponse> => {
-//     try {
-//         console.log("Base Url=====??", API_BASE);
-//         console.log("Data======??", data);
-//         // const response = await axios.post(
-//         //     `${API_BASE}Auth/Login`,
-//         //     data
-//         // );
-//         const response = await axios.get(
-//     `${API_BASE}Auth/Login`,
-//     {
-//         params: {
-//             UserId: data.userId,
-//             Password: data.password,
-//         },
-//     }
-// );
-//         console.log(response)
-//         return {
-//             success: true,
-//             data: response.data,
-//             message: response.data?.message || "Login successful",
-//         };
-
-//     } catch (error: any) {
-//         const message =
-//             error.response?.data?.message ||
-//             error.message ||
-//             "Login failed";
-
-//         return {
-//             success: false,
-//             data: null,
-//             message,
-//             status: error.response?.status,
-//         };
-//     };
-// }
 import axios from "axios";
 import { API_BASE } from "../config";
 
@@ -105,8 +21,6 @@ interface LoginErrorResponse {
 
 type LoginResponse = LoginSuccessResponse | LoginErrorResponse;
 
-<<<<<<< Updated upstream
-
 // Load Submenus
 export const loadSubMenus = async () => {
     const token = localStorage.getItem("token");
@@ -125,36 +39,23 @@ export const loadSubMenus = async () => {
 };
 
 // Login API
-
-=======
-const extractLoginPayload = (responseData: any) => {
-    if (!responseData || typeof responseData !== "object") {
-        return null;
-    }
-
-    return responseData.data ?? responseData.result ?? responseData.payload ?? responseData.user ?? responseData;
-};
-
->>>>>>> Stashed changes
 export const loginApi = async (
     data: LoginRequest
-): 
-Promise<LoginResponse> => {
+): Promise<LoginResponse> => {
     try {
-<<<<<<< Updated upstream
         console.log("Base Url=====??", API_BASE);
         console.log("Data======??", data);
 
         const response = await axios.get(
-    `${API_BASE}Auth/Login`,
-    {
-        params: {
-            UserId: data.userId,
-            Password: data.password,
-        },
-    }
-);
-        console.log(response)
+            `${API_BASE}Auth/Login`,
+            {
+                params: {
+                    UserId: data.userId,
+                    Password: data.password,
+                },
+            }
+        );
+        console.log(response);
         // ✅ Save JWT Token
         localStorage.setItem("token", response.data.token);
 
@@ -164,43 +65,6 @@ Promise<LoginResponse> => {
             success: true,
             data: response.data,
             message: response.data?.message || "Login successful",
-        };
-=======
-        const response = await axios.post(
-            `${API_BASE}Auth/Login`,
-            data,
-            {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-        );
->>>>>>> Stashed changes
-
-        const responseData = response.data;
-        const payload = extractLoginPayload(responseData);
-        const isSuccess =
-            response.status === 200 ||
-            responseData?.success === true ||
-            responseData?.isSuccess === true ||
-            !!payload?.token ||
-            !!payload?.accessToken ||
-            !!payload?.jwt ||
-            !!responseData?.token ||
-            !!responseData?.accessToken;
-
-        if (isSuccess) {
-            return {
-                success: true,
-                data: payload ?? responseData,
-                message: responseData?.message || responseData?.detail || "Login successful",
-            };
-        }
-
-        return {
-            success: false,
-            data: null,
-            message: responseData?.message || responseData?.detail || "Login failed",
         };
     } catch (error: any) {
         console.error("Login error:", error);
@@ -216,5 +80,5 @@ Promise<LoginResponse> => {
             message,
             status: error.response?.status,
         };
-    };
-}
+    }
+};

@@ -2,12 +2,7 @@ import { useEffect, useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-<<<<<<< Updated upstream
 import DynamicRoute from "./DynamicRoutes";
-=======
-import ProtectedRoute from "./components/ProtectedRoute";
-import { RouteConfig } from "./Routes/RouteConfig";
->>>>>>> Stashed changes
 
 /* Core CSS */
 import "@ionic/react/css/core.css";
@@ -145,7 +140,6 @@ const App: React.FC = () => {
   return (
     <IonApp>
       <IonReactRouter>
-<<<<<<< Updated upstream
         {!user ? (
           <IonRouterOutlet>
             <Switch>
@@ -648,45 +642,6 @@ const App: React.FC = () => {
 </Switch>
           </MainLayout>
         )}
-=======
-        
-           {!user ? (
-
-      // NOT LOGGED IN
-      <IonRouterOutlet>
-        <Switch>
-          <Route exact path="/login" component={Login} />
-          <Redirect to="/login" />
-        </Switch>
-      </IonRouterOutlet>
-
-    ) : (
-
-      // LOGGED IN
-      <MainLayout>
-        <Switch>
-
-          {/* Dashboard */}
-          <Route exact path="/home" component={Home} />
-
-          {/* Dynamic Protected Routes */}
-          {RouteConfig.map((route) => (
-            <ProtectedRoute
-              key={route.path}
-              exact
-              path={route.path}
-              component={route.component}
-            />
-          ))}
-
-          {/* Default */}
-          <Redirect to="/home" />
-
-        </Switch>
-      </MainLayout>
-
-    )}
->>>>>>> Stashed changes
       </IonReactRouter>
     </IonApp>
   );
