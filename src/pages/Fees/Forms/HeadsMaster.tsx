@@ -37,7 +37,7 @@ const sampleData: FeeHead[] = [
   }
 ];
 
-export default function FeeHeadMaster() {
+export const HeadMaster: React.FC =() =>{
 
  const [rows, setRows] = useState(sampleData);
 
@@ -259,3 +259,5 @@ export default function FeeHeadMaster() {
   );
 
 }
+
+export default HeadMaster;

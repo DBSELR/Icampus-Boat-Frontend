@@ -200,6 +200,7 @@ export const Login: React.FC = () => {
                   validationSchema={loginValidationSchema}
                   onSubmit={async (values) => {
 
+<<<<<<< Updated upstream
                     localStorage.clear();
 
                     try {
@@ -258,6 +259,52 @@ export const Login: React.FC = () => {
                       setLoading(false);
                     }
                   }}
+=======
+                  try {
+                    const res = await loginApi(values);
+
+                    if (res.success) {
+                      const payload = (res.data && typeof res.data === "object") ? res.data : {};
+                      const token = payload.token || payload.accessToken || payload.jwt || payload.authToken || "";
+                      const userGroup = payload.userGroup || payload.role || payload.userRole || payload.user?.userGroup || "User";
+                      const menuData = Array.isArray(payload.forms)
+                        ? payload.forms
+                        : Array.isArray(payload.menus)
+                          ? payload.menus
+                          : Array.isArray(payload.menu)
+                            ? payload.menu
+                            : Array.isArray(payload.user?.forms)
+                              ? payload.user.forms
+                              : Array.isArray(payload.user?.menus)
+                                ? payload.user.menus
+                                : Array.isArray(payload.user?.menu)
+                                  ? payload.user.menu
+                                  : [];
+
+                      if (token) {
+                        localStorage.setItem("token", token);
+                      }
+
+                      const userData = {
+                        ...payload,
+                        userGroup,
+                        forms: menuData,
+                        menus: menuData,
+                        menu: menuData,
+                        user: payload.user || {}
+                      };
+
+                      localStorage.setItem("user", JSON.stringify(userData));
+                      toast.success(res.message || "Login successful");
+                      history.push("/home");
+                    } else {
+                      toast.error(res.message || "Login failed. Please check your credentials.");
+                    }
+                  } finally {
+                    setLoading(false);
+                  }
+                }}
+>>>>>>> Stashed changes
               >
                 {({ values, handleChange, handleBlur, errors, touched }) => (
                   <Form className="dbs-login-form">

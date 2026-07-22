@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import "./Home.css";
 
 // 18 Modules Grid matching original DBS Campus ERP
+<<<<<<< Updated upstream
 // const LANDING_MODULES = [
 //   { id: "admissions", name: "Admissions", icon: School, path: "/admissions/dashboard", color: "blue" },
 //   { id: "fees", name: "Fees", icon: CreditCard, path: "/fees/account-master", color: "orange" },
@@ -28,6 +29,8 @@ import "./Home.css";
 //   { id: "establishment", name: "Establishment", icon: School, path: "/establishment", color: "purple" },
 //   { id: "settings", name: "Settings", icon: Settings2, path: "/settings", color: "slate" }
 // ];
+=======
+>>>>>>> Stashed changes
 
 const LANDING_MODULES = [
   { id: "admissions", name: "Admissions", icon: School,  color: "blue" },
@@ -49,6 +52,22 @@ const LANDING_MODULES = [
   { id: "establishment", name: "Establishment", icon: School,  color: "purple" },
   { id: "settings", name: "Settings", icon: Settings2,  color: "slate" }
 ];
+
+
+
+const user=JSON.parse(localStorage.getItem("user")||"{}");
+
+const forms=user.forms||[];
+
+// const moduleNames=[
+//     ...new Set(
+//         forms.map((x:any)=>x.menuName.toLowerCase())
+//     )
+// ];
+
+// const modules=MODULES.filter(
+//     x=>moduleNames.includes(x.id.toLowerCase())
+// );
 
 // Helper icons that aren't native to Lucide
 function BusIcon(props: any) {

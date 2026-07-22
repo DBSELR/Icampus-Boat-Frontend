@@ -15,6 +15,16 @@ import { Toaster, toast } from "sonner";
 import "./MainLayout.css";
 
 
+export interface SubMenuItem {
+  menuId: number;
+  subMenuId: number;
+  text: string;
+  reactRoute: string;
+  icon?: string;
+  module: string;
+}
+
+
 // Available Themes
 const THEMES = [
   { id: "dbs-theme-blue", name: "Blue (Default)", color: "#2563eb" },
@@ -192,6 +202,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const history = useHistory();
   const location = useLocation();
 
+<<<<<<< Updated upstream
   const [menus, setMenus] = useState<any[]>([]);
   const [subMenus, setSubMenus] = useState<any[]>([]);
 
@@ -222,12 +233,67 @@ useEffect(() => {
 //     discipline: "15",
 //     "employee-profile": "22",
 // };
+=======
+  // const user = JSON.parse(localStorage.getItem("user") || "{}");
+  // const menus = user.forms || [];
+
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+  const rawMenus = Array.isArray(user.forms)
+    ? user.forms
+    : Array.isArray(user.menus)
+      ? user.menus
+      : Array.isArray(user.menu)
+        ? user.menu
+        : JSON.parse(localStorage.getItem("menus") || "[]");
+
+  const menus = Array.isArray(rawMenus) ? rawMenus : [];
+>>>>>>> Stashed changes
 
   // Navigation & UI States
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeModule, setActiveModule] = useState<string>("home");
+  const [subMenus, setSubMenus] = useState<Record<string, SubMenuItem[]>>({});
   const [academicYear, setAcademicYear] = useState<string>(() => localStorage.getItem("academicYear") || "");
   const [themeMode, setThemeMode] = useState<string>(() => localStorage.getItem("themeColor") || "dbs-theme-blue");
+
+  // Filter menus by active module (after activeModule state is declared)
+
+
+
+const moduleMenus = (menus as any[])
+  .filter((m: any) => {
+    const menuName = String(
+      m?.menuName || m?.name || m?.subMenuName || ""
+    ).toLowerCase();
+
+    const route = String(
+      m?.route || m?.reactRoute || m?.url || m?.path || ""
+    ).toLowerCase();
+
+    const activeKey = activeModule.toLowerCase();
+
+    return (
+      menuName.includes(activeKey) ||
+      route.includes(`/${activeKey}`) ||
+      route.includes(activeKey)
+    );
+  })
+  .map((m: any) => ({
+    ...m,
+    subMenuName:
+      m?.subMenuName || m?.text || m?.name || m?.menuName || "",
+    route:
+      m?.route || m?.reactRoute || m?.url || m?.path || "",
+  }))
+  .filter((m: any) => m.subMenuName || m.route);
+console.log("Active Module :", activeModule);
+console.log("Filtered Menus :", moduleMenus);
+console.log("Current Path:", location.pathname);
+console.log("Active Module:", activeModule);
+
+
+
 
   // Dropdown & Panel States
   const [showNotifications, setShowNotifications] = useState(false);
@@ -278,7 +344,10 @@ useEffect(() => {
     localStorage.setItem("themeColor", themeMode);
   }, [themeMode]);
 
+
+
   // Sync active module category based on route
+<<<<<<< Updated upstream
  useEffect(() => {
     const path = location.pathname.toLowerCase();
 console.log("Current Path:", path);
@@ -298,6 +367,32 @@ console.log("Current Path:", path);
 );
 
 
+=======
+  // useEffect(() => {
+  //   const path = location.pathname;
+  //   if (path.startsWith("/admissions")) {
+  //     setActiveModule("admissions");
+  //   } else if (path.startsWith("/fees")) {
+  //     setActiveModule("fees");
+  //   } else if (path === "/home" || path === "/") {
+  //     setActiveModule("home");
+  //   } else {
+  //     // Find matching module id from path
+  //     const matched = MODULES.find(m => path.startsWith(m.path));
+  //     setActiveModule(matched ? matched.id : "home");
+  //   }
+  // }, [location.pathname]);
+
+useEffect(() => {
+  const path = location.pathname.toLowerCase();
+
+  const matchedModule = MODULES.find(module =>
+    path.startsWith(`/${module.id}`)
+  );
+
+  setActiveModule(matchedModule?.id || "home");
+}, [location.pathname]);
+>>>>>>> Stashed changes
 
   // Click outside listener for dropdown panels
   useEffect(() => {
@@ -453,7 +548,12 @@ const submenuIcons: Record<string, any> = {
 
 
           {/* Submenu Area for selected module (like Admissions or Fees) */}
+<<<<<<< Updated upstream
           {/* {sidebarOpen && activeModule && SUBMENUS[activeModule] && (
+=======
+{/*           
+          {sidebarOpen && activeModule && SUBMENUS[activeModule] && (
+>>>>>>> Stashed changes
             <div className="dbs-sidebar-submenu-area">
               <div className="dbs-submenu-title">{activeModule.toUpperCase()} SERVICES</div>
               <nav className="dbs-submenu-nav">
@@ -475,13 +575,18 @@ const submenuIcons: Record<string, any> = {
               </nav>
             </div>
           )} */}
+<<<<<<< Updated upstream
           {sidebarOpen && activeModule && (
+=======
+   {sidebarOpen && activeModule && moduleMenus.length > 0 && (
+>>>>>>> Stashed changes
   <div className="dbs-sidebar-submenu-area">
     <div className="dbs-submenu-title">
       {activeModule.toUpperCase()} SERVICES
     </div>
 
     <nav className="dbs-submenu-nav">
+<<<<<<< Updated upstream
     {filteredSubMenus.map((sub) => {
     const Icon = submenuIcons[sub.sMenuName] || FileText;
 
@@ -504,6 +609,24 @@ const submenuIcons: Record<string, any> = {
     </nav>
   </div>
 )}
+=======
+   {moduleMenus.map((menu) => (
+    <button
+      key={menu.subMenuId}
+      className={`dbs-submenu-link ${
+        location.pathname === menu.route ? "dbs-submenu-active" : ""
+      }`}
+      onClick={() => history.push(menu.route)}
+    >
+      <ChevronRight size={15} />
+      <span>{menu.subMenuName}</span>
+    </button>
+  ))}
+    </nav>
+  </div>
+)}
+
+>>>>>>> Stashed changes
         </aside>
       )}
       

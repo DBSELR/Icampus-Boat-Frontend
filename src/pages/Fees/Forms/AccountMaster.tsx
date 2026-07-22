@@ -21,7 +21,7 @@ export const AccountMaster: React.FC = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
 
   // Form State
-  const [accountNumber, setAccountNumber] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");               
   const [shortName, setShortName] = useState("");
   const [accountName, setAccountName] = useState("");
   const [openingBalance, setOpeningBalance] = useState("");

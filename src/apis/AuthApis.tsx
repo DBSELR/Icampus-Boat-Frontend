@@ -105,6 +105,7 @@ interface LoginErrorResponse {
 
 type LoginResponse = LoginSuccessResponse | LoginErrorResponse;
 
+<<<<<<< Updated upstream
 
 // Load Submenus
 export const loadSubMenus = async () => {
@@ -125,11 +126,22 @@ export const loadSubMenus = async () => {
 
 // Login API
 
+=======
+const extractLoginPayload = (responseData: any) => {
+    if (!responseData || typeof responseData !== "object") {
+        return null;
+    }
+
+    return responseData.data ?? responseData.result ?? responseData.payload ?? responseData.user ?? responseData;
+};
+
+>>>>>>> Stashed changes
 export const loginApi = async (
     data: LoginRequest
 ): 
 Promise<LoginResponse> => {
     try {
+<<<<<<< Updated upstream
         console.log("Base Url=====??", API_BASE);
         console.log("Data======??", data);
 
@@ -153,12 +165,50 @@ Promise<LoginResponse> => {
             data: response.data,
             message: response.data?.message || "Login successful",
         };
+=======
+        const response = await axios.post(
+            `${API_BASE}Auth/Login`,
+            data,
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+>>>>>>> Stashed changes
 
+        const responseData = response.data;
+        const payload = extractLoginPayload(responseData);
+        const isSuccess =
+            response.status === 200 ||
+            responseData?.success === true ||
+            responseData?.isSuccess === true ||
+            !!payload?.token ||
+            !!payload?.accessToken ||
+            !!payload?.jwt ||
+            !!responseData?.token ||
+            !!responseData?.accessToken;
+
+        if (isSuccess) {
+            return {
+                success: true,
+                data: payload ?? responseData,
+                message: responseData?.message || responseData?.detail || "Login successful",
+            };
+        }
+
+        return {
+            success: false,
+            data: null,
+            message: responseData?.message || responseData?.detail || "Login failed",
+        };
     } catch (error: any) {
+        console.error("Login error:", error);
         const message =
             error.response?.data?.message ||
+            error.response?.data?.detail ||
             error.message ||
-            "Login failed";
+            "Login failed. Please check your credentials or try again later.";
 
         return {
             success: false,

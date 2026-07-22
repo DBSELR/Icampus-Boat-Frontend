@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
+<<<<<<< Updated upstream
 import DynamicRoute from "./DynamicRoutes";
+=======
+import ProtectedRoute from "./components/ProtectedRoute";
+import { RouteConfig } from "./Routes/RouteConfig";
+>>>>>>> Stashed changes
 
 /* Core CSS */
 import "@ionic/react/css/core.css";
@@ -16,6 +21,7 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
+
 /* Global Themes */
 import "./theme/global.css";
 
@@ -27,8 +33,8 @@ import Home from "./pages/Home";
 import AdmissionsEntry from "./pages/Admissions/Forms/Admissions";
 import SectionRollNumber from "./pages/Admissions/Forms/SectionandRollNum";
 import AdmissionsDashboard from "./pages/Admissions/Forms/AdmissionsDashboard";
-import AccountMaster from "./pages/Fees/AccountMaster";
-import HeadsMaster from "./pages/Fees/HeadsMaster";
+import AccountMaster from "./pages/Fees/Forms/AccountMaster";
+import HeadsMaster from "./pages/Fees/Forms/HeadsMaster";
 
 /* New Modules Pages */
 import AccountingDashboard from "./pages/Accounting/AccountingDashboard";
@@ -41,7 +47,7 @@ import EstablishmentDashboard from "./pages/Establishment/EstablishmentDashboard
 import RoomManagementMaster from "./pages/Establishment/RoomManagementMaster";
 import ExaminationsDashboard from "./pages/Examinations/ExaminationsDashboard";
 import MarksEntry from "./pages/Examinations/MarksEntry";
-import FeesDashboard from "./pages/Fees/FeesDashboard";
+import FeesDashboard from "./pages/Fees/Forms/FeesDashboard";
 import FrontOfficeDashboard from "./pages/Front Office/FrontOfficeDashboard";
 import Notification from "./pages/Front Office/Notification";
 import GroupsDashboard from "./pages/Groups/GroupsDashboard";
@@ -112,6 +118,12 @@ const App: React.FC = () => {
   // Track auth session dynamically
   const [user, setUser] = useState<string | null>(localStorage.getItem("user"));
 
+  const storedUser = localStorage.getItem("user");
+
+  const authUser = storedUser
+    ? JSON.parse(storedUser)
+    : null;
+
   useEffect(() => {
     const checkUserSession = () => {
       setUser(localStorage.getItem("user"));
@@ -127,9 +139,13 @@ const App: React.FC = () => {
     };
   }, []);
 
+
+
+
   return (
     <IonApp>
       <IonReactRouter>
+<<<<<<< Updated upstream
         {!user ? (
           <IonRouterOutlet>
             <Switch>
@@ -632,6 +648,45 @@ const App: React.FC = () => {
 </Switch>
           </MainLayout>
         )}
+=======
+        
+           {!user ? (
+
+      // NOT LOGGED IN
+      <IonRouterOutlet>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Redirect to="/login" />
+        </Switch>
+      </IonRouterOutlet>
+
+    ) : (
+
+      // LOGGED IN
+      <MainLayout>
+        <Switch>
+
+          {/* Dashboard */}
+          <Route exact path="/home" component={Home} />
+
+          {/* Dynamic Protected Routes */}
+          {RouteConfig.map((route) => (
+            <ProtectedRoute
+              key={route.path}
+              exact
+              path={route.path}
+              component={route.component}
+            />
+          ))}
+
+          {/* Default */}
+          <Redirect to="/home" />
+
+        </Switch>
+      </MainLayout>
+
+    )}
+>>>>>>> Stashed changes
       </IonReactRouter>
     </IonApp>
   );
