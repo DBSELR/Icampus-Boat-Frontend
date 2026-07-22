@@ -4,9 +4,12 @@ import { User, Lock, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import "./Login.css";
-import { loginApi } from "../apis/AuthApis";
+// import { loginApi } from "../apis/AuthApis";
+import { loginApi, loadSubMenus,} from "../apis/AuthApis";
 import { Formik, Form, ErrorMessage } from "formik";
 import { loginValidationSchema } from "../Validations/AuthValidations";
+
+
 
 export const Login: React.FC = () => {
   const history = useHistory();
@@ -194,22 +197,67 @@ export const Login: React.FC = () => {
                   userId: "",
                   password: "",
                 }}
-                validationSchema={loginValidationSchema}
-                onSubmit={async (values) => {
-                  setLoading(true);
+                  validationSchema={loginValidationSchema}
+                  onSubmit={async (values) => {
 
-                  const res = await loginApi(values);
+                    localStorage.clear();
 
-                  setLoading(false);
+                    try {
+                      setLoading(true);
 
-                  if (res.success) {
-                    localStorage.setItem("user", JSON.stringify(res.data));
-                    toast.success(res.message);
-                    history.push("/home");
-                  } else {
-                    toast.error(res.message);
-                  }
-                }}
+                      const loginRes = await loginApi(values);
+                      console.log(loginRes.data);
+                      console.log("Login Response:", loginRes);
+
+                      if (!loginRes.success) {
+                        toast.error(loginRes.message);
+                        return;
+                      }
+
+                     localStorage.setItem("token", loginRes.data.token);
+
+                     localStorage.setItem("user",JSON.stringify(loginRes.data.user));
+
+                      console.log(loginRes.data);
+                      console.log(localStorage.getItem("token"));
+
+                      const subMenuRes = await loadSubMenus();
+
+                      
+                      if (subMenuRes.status === 200) {
+                        localStorage.setItem(
+                          "subMenus",
+                          JSON.stringify(subMenuRes.data)
+                        );
+                      }
+                      
+                    
+                      const menus = [
+                        ...new Map(
+                          subMenuRes.data.map((x: any) => [
+                            x.menuId,
+                            {
+                              menuId: x.menuId,
+                              menuName: x.menuName,
+                              subGroup: x.subGroup,
+                            },
+                          ])
+                        ).values(),
+                      ];
+
+                      localStorage.setItem("menus", JSON.stringify(menus));
+
+                      const saved = JSON.parse(localStorage.getItem("subMenus") || "[]");
+                      console.log("First Saved Object:", saved[0]);
+
+                      history.push("/home");
+
+                    } catch (err) {
+                      console.error("ERROR:", err);
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
               >
                 {({ values, handleChange, handleBlur, errors, touched }) => (
                   <Form className="dbs-login-form">

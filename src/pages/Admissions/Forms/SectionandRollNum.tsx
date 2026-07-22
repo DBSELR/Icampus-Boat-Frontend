@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Save, Trash2, Edit3, AlertTriangle, HelpCircle } from "lucide-react";
 import { toast } from "sonner";
-import "./SectionRollNumber.css";
+import "./SectionandRollNum.css";
 
 interface Allocation {
   cid: number;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Save, Edit3, Trash2, HelpCircle, AlertTriangle, Printer } from "lucide-react";
 import { toast } from "sonner";
-import "./TcIssue.css";
+import "./Tcissues.css";
 
 interface TcRecord {
     id: number;

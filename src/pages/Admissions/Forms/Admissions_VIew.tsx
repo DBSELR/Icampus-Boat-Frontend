@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { useDropzone } from "react-dropzone";
-import "./AdmissionsEntry.css";
+import "./Admissions_VIew.css";
 
 // Form steps
 const STEPS = [
@@ -34,7 +34,7 @@ const INITIAL_STUDENTS = [
   { sNo: "9799/25-26", admNo: "25MBA148", regNo: "25MBA148", admDate: "2025-10-22", name: "MARAM NARENDRABABU", course: "03-MBA", branch: "125-MASTER OF BUSINESS ADMINISTRATION", year: "1", sem: "1", section: "D", photo: "", sscSchool: "Narayana E-Techno", sscMarks: "87", fatherName: "M. Subba Rao", fatherMobile: "7722334455" }
 ];
 
-export const AdmissionsEntry: React.FC = () => {
+export const AdmissionView: React.FC = () => {
   const location = useLocation();
   const [students, setStudents] = useState(INITIAL_STUDENTS);
   
@@ -914,4 +914,4 @@ export const AdmissionsEntry: React.FC = () => {
   );
 };
 
-export default AdmissionsEntry;
+export default AdmissionView;

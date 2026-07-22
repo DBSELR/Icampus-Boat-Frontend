@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
+import DynamicRoute from "./DynamicRoutes";
 
 /* Core CSS */
 import "@ionic/react/css/core.css";
@@ -23,8 +24,8 @@ import MainLayout from "./components/MainLayout";
 import ModulePlaceholder from "./components/ModulePlaceholder";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import AdmissionsEntry from "./pages/Admissions/Forms/AdmissionsEntry";
-import SectionRollNumber from "./pages/Admissions/Forms/SectionRollNumber";
+import AdmissionsEntry from "./pages/Admissions/Forms/Admissions";
+import SectionRollNumber from "./pages/Admissions/Forms/SectionandRollNum";
 import AdmissionsDashboard from "./pages/Admissions/Forms/AdmissionsDashboard";
 import AccountMaster from "./pages/Fees/AccountMaster";
 import HeadsMaster from "./pages/Fees/HeadsMaster";
@@ -64,16 +65,16 @@ import InwardPosts from "./pages/Tappal/InwardPosts";
 import TransportDashboard from "./pages/Transport/TransportDashboard";
 import RouteMaster from "./pages/Transport/RouteMaster";
 
-import GroupChange from "./pages/Admissions/Forms/GroupChange";
-import TcIssue from "./pages/Admissions/Forms/TcIssue";
+import GroupChange from "./pages/Admissions/Forms/Group_change";
+import TcIssue from "./pages/Admissions/Forms/Tcissues";
 import StudyCertificate from "./pages/Admissions/Forms/StudyCertificate";
 import CourseCompleted from "./pages/Admissions/Forms/CourseCompleted";
 import NoObjectionCertificate from "./pages/Admissions/Forms/NoObjectionCertificate";
-import BonafideCertificate from "./pages/Admissions/Forms/BonafideCertificate";
+import BonafideCertificate from "./pages/Admissions/Forms/Bonafide";
 import StudentPromotion from "./pages/Admissions/Forms/StudentPromotion";
-import StudentDataExcelExport from "./pages/Admissions/Forms/StudentDataExcelExport";
+import StudentDataExcelExport from "./pages/Admissions/Forms/StudentData";
 import SectionChange from "./pages/Admissions/Forms/SectionChange";
-import DeleteInActiveStudents from "./pages/Admissions/Forms/DeleteInActiveStudents";
+import DeleteInActiveStudents from "./pages/Admissions/Forms/Del_InActive_Student";
 import TimeAdjustment from "./pages/Attendance/Forms/TimeAdjustment";
 import AttendanceByStaff from "./pages/Attendance/Forms/AttendanceByStaff";
 import AttendanceByAdmin from "./pages/Attendance/Forms/AttendanceByAdmin";
@@ -94,7 +95,7 @@ import AttendanceByAdminMH from "./pages/Attendance/Forms/AttendanceByAdminMH";
 import MidAttendanceBlock from "./pages/Attendance/Forms/MidAttendanceBlock";
 import StopAttendancePostingDates from "./pages/Attendance/Forms/StopAttendancePostingDates";
 import AddAttendance from "./pages/Attendance/Forms/AddAttendance";
-import AdmissionView from "./pages/Admissions/Forms/AdmissionView";
+import AdmissionView from "./pages/Admissions/Forms/Admissions_VIew";
 
 import ProgrammeMaster from "./pages/Settings/Forms/ProgrammeMaster";
 import ReguMaster from "./pages/Settings/Forms/ReguMaster";
@@ -138,131 +139,497 @@ const App: React.FC = () => {
           </IonRouterOutlet>
         ) : (
           <MainLayout>
-            <Switch>
+
+            {/* <Switch>
                 <Route exact path="/home" component={Home} />
-                
-                {/* Admissions Module */}
-                <Route exact path="/admissions/entry" component={AdmissionsEntry} />
-                <Route exact path="/admissions/section-roll" component={SectionRollNumber} />
-                
-                {/* Fees Module */}
-                <Route exact path="/fees/account-master" component={AccountMaster} />
-               <Route exact path="/fees/Heads-Master" component={HeadsMaster} />
-               
-                {/* Submenu placeholders */}
-                <Route exact path="/admissions/dashboard" component={AdmissionsDashboard} />
-                <Route exact path="/admissions/group-change" render={() => <GroupChange />} />
-                <Route exact path="/admissions/tc-issuing" render={() => <TcIssue />} />
-                <Route exact path="/admissions/study-cert" render={() => <StudyCertificate />} />
-                <Route exact path="/admissions/course-completed" render={() => <CourseCompleted />} />
-                <Route exact path="/admissions/noc" render={() => <NoObjectionCertificate />} />
-                <Route exact path="/admissions/bonafide" render={() => <BonafideCertificate />} />
-                <Route exact path="/admissions/promotion" render={() => <StudentPromotion />} />
-                <Route exact path="/admissions/excel-export" render={() => <StudentDataExcelExport />} />
-                <Route exact path="/admissions/AdmissionView" render={() => <AdmissionView />} />
-                <Route exact path="/admissions/section-change" render={() => <SectionChange />} />
-                <Route exact path="/admissions/inactive-delete" render={() => <DeleteInActiveStudents />} />
-                
-                <Route exact path="/fees/dashboard" component={FeesDashboard} />
-                <Route exact path="/fees/heads-master" render={() => <ModulePlaceholder moduleName="Fees Heads Master" />} />
-                <Route exact path="/fees/misc-heads" render={() => <ModulePlaceholder moduleName="Fees Miscellaneous Heads" />} />
-                <Route exact path="/fees/fee-master" render={() => <ModulePlaceholder moduleName="Fees Fee Master" />} />
-                <Route exact path="/fees/misc-challan" render={() => <ModulePlaceholder moduleName="Fees Miscellaneous Fee Challan" />} />
-                <Route exact path="/fees/collection" render={() => <ModulePlaceholder moduleName="Fees Fee Collection" />} />
-                <Route exact path="/fees/modify-receipt" render={() => <ModulePlaceholder moduleName="Fees Modify Fee Receipt" />} />
-                <Route exact path="/fees/donation" render={() => <ModulePlaceholder moduleName="Fees Donation Collection" />} />
-                <Route exact path="/fees/fee-payment-cert" render={() => <ModulePlaceholder moduleName="Fees Certificate of Fee Payment" />} />
-                <Route exact path="/fees/online-fee" render={() => <ModulePlaceholder moduleName="Fees Online Fee Collection" />} />
-                <Route exact path="/fees/admission-modes" render={() => <ModulePlaceholder moduleName="Fees Admission Modes" />} />
-                <Route exact path="/fees/concession" render={() => <ModulePlaceholder moduleName="Fees Fee Concession" />} />
-                <Route exact path="/fees/fine" render={() => <ModulePlaceholder moduleName="Fees Fee Fine" />} />
-                <Route exact path="/fees/cancellation" render={() => <ModulePlaceholder moduleName="Fees Receipt Cancellation" />} />
-                <Route exact path="/fees/verification" render={() => <ModulePlaceholder moduleName="Fees Fee Verification" />} />
-                <Route exact path="/fees/refund" render={() => <ModulePlaceholder moduleName="Fees Fee Refund" />} />
-                <Route exact path="/fees/upload-bank" render={() => <ModulePlaceholder moduleName="Fees Upload Bank Transaction" />} />
-                <Route exact path="/fees/upload-exam-bank" render={() => <ModulePlaceholder moduleName="Fees Exam Fee Upload Bank Transaction" />} />
-                <Route exact path="/fees/online-exam-fee" render={() => <ModulePlaceholder moduleName="Fees Online Exam Fee Collection" />} />
 
-                {/* Primary navigation routes */}
-                <Route exact path="/payroll" component={PayrollDashboard} />
-                <Route exact path="/payroll/emp-details" component={EmpDetails} />
-
-          
-                
-                <Route exact path="/accounting" component={AccountingDashboard} />
-                <Route exact path="/accounting/payment-heads" component={PaymentHeads} />
-                
-                <Route exact path="/attendance" component={AttendanceDashboard} />
-                <Route exact path="/attendance/timetable" component={TimeTable} />
-                <Route exact path="/attendance/timeAdjustment" component={TimeAdjustment} />
-                <Route exact path="/attendance/AttendanceByStaff" component={AttendanceByStaff} />
-                <Route exact path="/attendance/AttendanceByAdmin" component={AttendanceByAdmin} />
-                <Route exact path="/attendance/TimetableExtraHours" component={TimetableExtraHours} />
-                <Route exact path="/attendance/Batches" component={Batches} />
-                <Route exact path="/attendance/AdminPermissions" component={AdminPermissions} />
-                <Route exact path="/attendance/CheckAttendance" component={CheckAttendance} />
-                <Route exact path="/attendance/AddAttendance" component={AddAttendance} />
-                <Route exact path="/attendance/BatchDelete" component={BatchDelete} />
-                <Route exact path="/attendance/EditEFRMDate" component={EditEFRMDate} />
-                <Route exact path="/attendance/ModifyAttendance" component={ModifyAttendance} />
-                <Route exact path="/attendance/DayWiseAttendance" component={DayWiseAttendance} />
-                <Route exact path="/attendance/AttendanceDeletion" component={AttendanceDeletion} />
-                <Route exact path="/attendance/AttendanceLateralEntry" component={AttendanceLateralEntry} />
-                <Route exact path="/attendance/ConsolidatedAttendanceAnalysis" component={ConsolidatedAttendanceAnalysis} />
-                <Route exact path="/attendance/BatchesMH" component={BatchesMH} />
-                <Route exact path="/attendance/AttendanceBystaffMH" component={AttendanceBystaffMH} />
-                <Route exact path="/attendance/AttendanceByAdminMH" component={AttendanceByAdminMH} />
-                <Route exact path="/attendance/MidAttendanceBlock" component={MidAttendanceBlock} />
-                <Route exact path="/attendance/StopAttendancePostingDates" component={StopAttendancePostingDates} />
-                
-                <Route exact path="/examinations" component={ExaminationsDashboard} />
-                <Route exact path="/examinations/marks-entry" component={MarksEntry} />
-                
-                <Route exact path="/stores" component={StoresDashboard} />
-                <Route exact path="/stores/product-master" component={ProductMaster} />
-                
-                <Route exact path="/library" component={LibraryDashboard} />
-                <Route exact path="/library/library-master" component={LibraryMaster} />
-                
-                <Route exact path="/transport" component={TransportDashboard} />
-                <Route exact path="/transport/route-master" component={RouteMaster} />
-                
-                <Route exact path="/discipline" component={DisciplineDashboard} />
-                <Route exact path="/discipline/student-history" component={StudentHistory} />
-                
-                <Route exact path="/performance" component={PerformanceDashboard} />
-                <Route exact path="/performance/report-card" component={ReportCard} />
-                
-                <Route exact path="/hostels" component={HostelsDashboard} />
-                <Route exact path="/hostels/due-list" component={FeeDueList} />
-                
-                <Route exact path="/medicare" component={MedicareDashboard} />
-                <Route exact path="/medicare/register" component={Medicare} />
-                
-                <Route exact path="/front-office" component={FrontOfficeDashboard} />
-                <Route exact path="/front-office/notification" component={Notification} />
-                
-                <Route exact path="/groups" component={GroupsDashboard} />
-                <Route exact path="/groups/allocation" component={GroupAllocation} />
-                
-                <Route exact path="/tappal" component={TappalDashboard} />
-                <Route exact path="/tappal/inward-posts" component={InwardPosts} />
-                
-                <Route exact path="/establishment" component={EstablishmentDashboard} />
-                <Route exact path="/establishment/room-management" component={RoomManagementMaster} />
-                
-                <Route exact path="/settings" component={SettingsDashboard} />
-                <Route exact path="/settings/financial-academic-year" component={FinancialAcadamicYear} />
-                <Route exact path="/settings/department-master" component={DepartmentMaster} />
-                <Route exact path="/settings/programme-master" component={ProgrammeMaster} />
-                <Route exact path="/settings/regu-master" component={ReguMaster} />
-                <Route exact path="/settings/branch-master" component={BranchMaster} />
-                <Route exact path="/settings/subject-master" component={SubjectMaster} />
-                <Route exact path="/settings/faculty-master" component={FacultyMaster} />
-                <Route exact path="/settings/section-master" component={SectionMaster} />
-
+              
+                <Route exact path="/stores/forms/PurchaseVoucher" render={() => <ModulePlaceholder moduleName="PurchaseVoucher" />} />
+                <Route exact path="/performance/forms/StudentHistory" render={() => <ModulePlaceholder moduleName="StudentHistory" />} />
+                <Route exact path="/settings/forms/FinancialAcadamicYear" component={FinancialAcadamicYear} />
+                <Route exact path="/admissions/forms/AdmissionsEntry" component={AdmissionsEntry} />
+                <Route exact path="/front-office/reports/VisitorPass" render={() => <ModulePlaceholder moduleName="VisitorPass" />} />
+                <Route exact path="/examinations/forms/MarksEntry" component={MarksEntry} />
+                <Route exact path="/fee/forms/FeeFineMaster" render={() => <ModulePlaceholder moduleName="FeeFineMaster" />} />
+                <Route exact path="/hostel/forms/HostelFeeHeadMaster" render={() => <ModulePlaceholder moduleName="HostelFeeHeadMaster" />} />
+                <Route exact path="/transport/forms/BusTermFeeMaster" render={() => <ModulePlaceholder moduleName="BusTermFeeMaster" />} />
+                <Route exact path="/fee/forms/AccountMaster" component={AccountMaster} />
+                <Route exact path="/payroll/forms/EmpDetails" component={EmpDetails} />
+                <Route exact path="/stores/forms/ProductMaster" component={ProductMaster} />
+                <Route exact path="/attendance/forms/TimeTable" component={TimeTable} />
+                <Route exact path="/medicare/forms/Medicare" component={Medicare} />
+                <Route exact path="/discipline/forms/StudentHistory" component={StudentHistory} />
+                <Route exact path="/accounting/forms/PaymentHeads" component={PaymentHeads} />
+                <Route exact path="/performance/forms/FacultyFeedbackPermissions" render={() => <ModulePlaceholder moduleName="FacultyFeedbackPermissions" />} />
+                <Route exact path="/groups/forms/AlumniRegistration" render={() => <ModulePlaceholder moduleName="AlumniRegistration" />} />
+                <Route exact path="/establishment/forms/RoomManagementMaster" component={RoomManagementMaster} />
+                <Route exact path="/settings/forms/CasteMaster" render={() => <ModulePlaceholder moduleName="CasteMaster" />} />
+                <Route exact path="/admissions/forms/SectionRollNumber" component={SectionRollNumber} />
+                <Route exact path="/front-office/reports/Enquiries" render={() => <ModulePlaceholder moduleName="Enquiries" />} />
+                <Route exact path="/examinations/forms/AdminMarksEntry" render={() => <ModulePlaceholder moduleName="AdminMarksEntry" />} />
+                <Route exact path="/attendance/forms/AddAttendance" component={AddAttendance} />
+                <Route exact path="/hostel/forms/HostelFeeTermMaster" render={() => <ModulePlaceholder moduleName="HostelFeeTermMaster" />} />
+                <Route exact path="/transport/forms/BusFeeMaster" render={() => <ModulePlaceholder moduleName="BusFeeMaster" />} />
+                <Route exact path="/fee/forms/FeeMaster" render={() => <ModulePlaceholder moduleName="FeeMaster" />} />
+                <Route exact path="/payroll/forms/SalaryScale" render={() => <ModulePlaceholder moduleName="SalaryScale" />} />
+                <Route exact path="/stores/forms/VendorMaster" render={() => <ModulePlaceholder moduleName="VendorMaster" />} />
+                <Route exact path="/attendance/forms/TimeTableAdjustments" render={() => <ModulePlaceholder moduleName="TimeTableAdjustments" />} />
+                <Route exact path="/accounting/forms/Payments" render={() => <ModulePlaceholder moduleName="Payments" />} />
+                <Route exact path="/groups/forms/Blog" render={() => <ModulePlaceholder moduleName="Blog" />} />
+                <Route exact path="/establishment/forms/HallBookingRequest" render={() => <ModulePlaceholder moduleName="HallBookingRequest" />} />
+                <Route exact path="/settings/forms/DepartmentMaster" component={DepartmentMaster} />
+                <Route exact path="/admissions/forms/StudentData" render={() => <ModulePlaceholder moduleName="StudentData" />} />
+                <Route exact path="/library/forms/BookEntry" render={() => <ModulePlaceholder moduleName="BookEntry" />} />
+                <Route exact path="/hostel/forms/HostelFeeMaster" render={() => <ModulePlaceholder moduleName="HostelFeeMaster" />} />
+                <Route exact path="/transport/forms/TermBusFeePay" render={() => <ModulePlaceholder moduleName="TermBusFeePay" />} />
+                <Route exact path="/fee/forms/HeadMaster" render={() => <ModulePlaceholder moduleName="HeadMaster" />} />
+                <Route exact path="/payroll/forms/EmpSalPaySlipGen" render={() => <ModulePlaceholder moduleName="EmpSalPaySlipGen" />} />
+                <Route exact path="/stores/forms/StockInward" render={() => <ModulePlaceholder moduleName="StockInward" />} />
+                <Route exact path="/attendance/forms/AttendanceByStaff" component={AttendanceByStaff} />
+                <Route exact path="/accounting/forms/EditPayments" render={() => <ModulePlaceholder moduleName="EditPayments" />} />
+                <Route exact path="/establishment/forms/AssetManagement" render={() => <ModulePlaceholder moduleName="AssetManagement" />} />
+                <Route exact path="/settings/forms/ProgrammeMaster" component={ProgrammeMaster} />
+                <Route exact path="/admissions/forms/GroupChange" component={GroupChange} />
+                <Route exact path="/library/forms/FrequencyMaster" render={() => <ModulePlaceholder moduleName="FrequencyMaster" />} />
+                <Route exact path="/hostel/forms/FeePayment" render={() => <ModulePlaceholder moduleName="FeePayment" />} />
+                <Route exact path="/transport/forms/RouteMaster" component={RouteMaster} />
+                <Route exact path="/fee/forms/MiscHeadsMaster" render={() => <ModulePlaceholder moduleName="MiscHeadsMaster" />} />
+                <Route exact path="/payroll/forms/EmpOnlineEpf" render={() => <ModulePlaceholder moduleName="EmpOnlineEpf" />} />
+                <Route exact path="/stores/forms/PurchaseReturns" render={() => <ModulePlaceholder moduleName="PurchaseReturns" />} />
+                <Route exact path="/attendance/forms/AttendanceByAdmin" component={AttendanceByAdmin} />
+                <Route exact path="/settings/forms/BranchMaster" component={BranchMaster} />
+                <Route exact path="/admissions/forms/TcIssue" component={TcIssue} />
+                <Route exact path="/fee/reports/Certificates" render={() => <ModulePlaceholder moduleName="Certificates" />} />
+                <Route exact path="/hostel/forms/FeeDueList" component={FeeDueList} />
+                <Route exact path="/transport/forms/VehicleMaster" render={() => <ModulePlaceholder moduleName="VehicleMaster" />} />
+                <Route exact path="/fee/forms/MiscFeeChallana" render={() => <ModulePlaceholder moduleName="MiscFeeChallana" />} />
+                <Route exact path="/stores/forms/SalesInvoice" render={() => <ModulePlaceholder moduleName="SalesInvoice" />} />
+                <Route exact path="/settings/forms/Subjects" render={() => <ModulePlaceholder moduleName="Subjects" />} />
+                <Route exact path="/admissions/forms/StudyCertificate" component={StudyCertificate} />
+                <Route exact path="/examinations/reports/SubjectWiseCIEPG" render={() => <ModulePlaceholder moduleName="SubjectWiseCIEPG" />} />
+                <Route exact path="/hostel/forms/RoomMaster" render={() => <ModulePlaceholder moduleName="RoomMaster" />} />
+                <Route exact path="/transport/forms/DriverMaster" render={() => <ModulePlaceholder moduleName="DriverMaster" />} />
+                <Route exact path="/fee/forms/FeeChallana" render={() => <ModulePlaceholder moduleName="FeeChallana" />} />
+                <Route exact path="/stores/forms/SalesReturn" render={() => <ModulePlaceholder moduleName="SalesReturn" />} />
+                <Route exact path="/settings/forms/FacultyMaster" component={FacultyMaster} />
+                <Route exact path="/admissions/forms/CourseCompleted" component={CourseCompleted} />
+                <Route exact path="/library/forms/LibPurchaseRequest" render={() => <ModulePlaceholder moduleName="LibPurchaseRequest" />} />
+                <Route exact path="/hostel/forms/RoomAllotment" render={() => <ModulePlaceholder moduleName="RoomAllotment" />} />
+                <Route exact path="/transport/forms/StudentVehicleAllotment" render={() => <ModulePlaceholder moduleName="StudentVehicleAllotment" />} />
+                <Route exact path="/fee/forms/FeebankChallana" render={() => <ModulePlaceholder moduleName="FeebankChallana" />} />
+                <Route exact path="/stores/forms/StockIssuing" render={() => <ModulePlaceholder moduleName="StockIssuing" />} />
+                <Route exact path="/settings/forms/SectionMaster" component={SectionMaster} />
+                <Route exact path="/admissions/forms/NoObjectionCertificate" component={NoObjectionCertificate} />
+                <Route exact path="/hostel/forms/RoomTransfer" render={() => <ModulePlaceholder moduleName="RoomTransfer" />} />
+                <Route exact path="/transport/forms/MeterReading" render={() => <ModulePlaceholder moduleName="MeterReading" />} />
+                <Route exact path="/fee/forms/EditFeeChallana" render={() => <ModulePlaceholder moduleName="EditFeeChallana" />} />
+                <Route exact path="/stores/forms/PurchaseRequest" render={() => <ModulePlaceholder moduleName="PurchaseRequest" />} />
+                <Route exact path="/settings/forms/ReAdmission" render={() => <ModulePlaceholder moduleName="ReAdmission" />} />
+                <Route exact path="/admissions/forms/BonafideCertificate" component={BonafideCertificate} />
+                <Route exact path="/hostel/forms/Attendence" render={() => <ModulePlaceholder moduleName="Attendence" />} />
+                <Route exact path="/fee/forms/ManagementFeeCollection" render={() => <ModulePlaceholder moduleName="ManagementFeeCollection" />} />
+                <Route exact path="/stores/forms/ClassBooks" render={() => <ModulePlaceholder moduleName="ClassBooks" />} />
+                <Route exact path="/settings/forms/UserAccess" render={() => <ModulePlaceholder moduleName="UserAccess" />} />
+                <Route exact path="/admissions/forms/Expendituremaster" render={() => <ModulePlaceholder moduleName="Expendituremaster" />} />
+                <Route exact path="/hostel/forms/StudentGatePass" render={() => <ModulePlaceholder moduleName="StudentGatePass" />} />
+                <Route exact path="/admissions/forms/Expenditure" render={() => <ModulePlaceholder moduleName="Expenditure" />} />
+                <Route exact path="/hostel/forms/GatePassIn" render={() => <ModulePlaceholder moduleName="GatePassIn" />} />
+                <Route exact path="/hostel/forms/DeAllocation" render={() => <ModulePlaceholder moduleName="DeAllocation" />} />
+                <Route exact path="/admissions/reports/AdmissionList" render={() => <ModulePlaceholder moduleName="AdmissionList" />} />
+                <Route exact path="/examinations/reports/InternalMarks" render={() => <ModulePlaceholder moduleName="InternalMarks" />} />
+                <Route exact path="/payroll/reports/SalaryBill" render={() => <ModulePlaceholder moduleName="SalaryBill" />} />
+                <Route exact path="/attendance/reports/AttendanceReport" render={() => <ModulePlaceholder moduleName="AttendanceReport" />} />
+                <Route exact path="/admissions/reports/BonafideCertificate" render={() => <ModulePlaceholder moduleName="BonafideCertificate" />} />
+                <Route exact path="/examinations/reports/InternalMarksNotice" render={() => <ModulePlaceholder moduleName="InternalMarksNotice" />} />
+                <Route exact path="/payroll/reports/EpfStatement" render={() => <ModulePlaceholder moduleName="EpfStatement" />} />
+                <Route exact path="/admissions/reports/CourseComplete" render={() => <ModulePlaceholder moduleName="CourseComplete" />} />
+                <Route exact path="/payroll/reports/IncomeTaxStatement" render={() => <ModulePlaceholder moduleName="IncomeTaxStatement" />} />
+                <Route exact path="/admissions/reports/NoObjection" render={() => <ModulePlaceholder moduleName="NoObjection" />} />
+                <Route exact path="/payroll/reports/PaySlips" render={() => <ModulePlaceholder moduleName="PaySlips" />} />
+                <Route exact path="/admissions/reports/NoticeBoard" render={() => <ModulePlaceholder moduleName="NoticeBoard" />} />
+                <Route exact path="/payroll/reports/GlisStatement" render={() => <ModulePlaceholder moduleName="GlisStatement" />} />
+                <Route exact path="/admissions/reports/ReAdmited" render={() => <ModulePlaceholder moduleName="ReAdmited" />} />
+                <Route exact path="/admissions/reports/Study" render={() => <ModulePlaceholder moduleName="Study" />} />
+                <Route exact path="/admissions/reports/Transfer" render={() => <ModulePlaceholder moduleName="Transfer" />} />
+                <Route exact path="/stores/forms/IndentRequest" render={() => <ModulePlaceholder moduleName="IndentRequest" />} />
+                <Route exact path="/tappal/forms/InwardPosts" component={InwardPosts} />
+                <Route exact path="/tappal/forms/OutwardPosts" render={() => <ModulePlaceholder moduleName="OutwardPosts" />} />
+                <Route exact path="/tappal/forms/TappalTransactions" render={() => <ModulePlaceholder moduleName="TappalTransactions" />} />
+                <Route exact path="/fee/forms/CertificateFeePayment" render={() => <ModulePlaceholder moduleName="CertificateFeePayment" />} />
+                <Route exact path="/attendance/reports/TimeTableReport" render={() => <ModulePlaceholder moduleName="TimeTableReport" />} />
+                <Route exact path="/attendance/reports/FacultyTimeTable" render={() => <ModulePlaceholder moduleName="FacultyTimeTable" />} />
+                <Route exact path="/settings/forms/LeaveType" render={() => <ModulePlaceholder moduleName="LeaveType" />} />
+                <Route exact path="/payroll/reports/LeavesReport" render={() => <ModulePlaceholder moduleName="LeavesReport" />} />
+                <Route exact path="/payroll/reports/NetStatement" render={() => <ModulePlaceholder moduleName="NetStatement" />} />
+                <Route exact path="/settings/forms/RequestSettings" render={() => <ModulePlaceholder moduleName="RequestSettings" />} />
+                <Route exact path="/payroll/forms/LeaveRequest" render={() => <ModulePlaceholder moduleName="LeaveRequest" />} />
+                <Route exact path="/payroll/forms/ReceivedRequests" render={() => <ModulePlaceholder moduleName="ReceivedRequests" />} />
+                <Route exact path="/stores/forms/HallBookingRequest" render={() => <ModulePlaceholder moduleName="HallBookingRequest" />} />
+                <Route exact path="/admissions/reports/AddressSlips" render={() => <ModulePlaceholder moduleName="AddressSlips" />} />
+                <Route exact path="/settings/forms/FormRegistration" render={() => <ModulePlaceholder moduleName="FormRegistration" />} />
+                <Route exact path="/front-office/forms/VisitorPass" render={() => <ModulePlaceholder moduleName="VisitorPassForm" />} />
+                <Route exact path="/settings/forms/SmsSettings" render={() => <ModulePlaceholder moduleName="SmsSettings" />} />
+                <Route exact path="/fee/reports/DFCR" render={() => <ModulePlaceholder moduleName="DFCR" />} />
+                <Route exact path="/fee/forms/FeeChallanaonline" render={() => <ModulePlaceholder moduleName="FeeChallanaonline" />} />
+                <Route exact path="/settings/forms/Authorizations" render={() => <ModulePlaceholder moduleName="Authorizations" />} />
+                <Route exact path="/attendance/forms/TimetableExtraHours" component={TimetableExtraHours} />
+                <Route exact path="/payroll/reports/LicStatement" render={() => <ModulePlaceholder moduleName="LicStatement" />} />
+                <Route exact path="/payroll/reports/ConsolidateStatement" render={() => <ModulePlaceholder moduleName="ConsolidateStatement" />} />
+                <Route exact path="/payroll/reports/NetPayCertificate" render={() => <ModulePlaceholder moduleName="NetPayCertificate" />} />
+                <Route exact path="/payroll/reports/LicCertificate" render={() => <ModulePlaceholder moduleName="LicCertificate" />} />
+                <Route exact path="/payroll/reports/GlisCertificate" render={() => <ModulePlaceholder moduleName="GlisCertificate" />} />
+                <Route exact path="/attendance/reports/PeriodAdjustment" render={() => <ModulePlaceholder moduleName="PeriodAdjustment" />} />
+                <Route exact path="/payroll/reports/EmployeeList" render={() => <ModulePlaceholder moduleName="EmployeeList" />} />
+                <Route exact path="/payroll/reports/PtaxCertificate" render={() => <ModulePlaceholder moduleName="PtaxCertificate" />} />
+                <Route exact path="/admissions/reports/AdmissionRegister" render={() => <ModulePlaceholder moduleName="AdmissionRegister" />} />
+                <Route exact path="/settings/forms/RegnoGeneration" render={() => <ModulePlaceholder moduleName="RegnoGeneration" />} />
+                <Route exact path="/admissions/reports/AdmissionReport" render={() => <ModulePlaceholder moduleName="AdmissionReport" />} />
+                <Route exact path="/admissions/reports/StudentInfo" render={() => <ModulePlaceholder moduleName="StudentInfo" />} />
+                <Route exact path="/admissions/reports/TcIssuedList" render={() => <ModulePlaceholder moduleName="TcIssuedList" />} />
+                <Route exact path="/library/forms/BlockStudent" render={() => <ModulePlaceholder moduleName="BlockStudent" />} />
+                <Route exact path="/settings/forms/Accessibility" render={() => <ModulePlaceholder moduleName="Accessibility" />} />
+                <Route exact path="/settings/forms/SpecialAccess" render={() => <ModulePlaceholder moduleName="SpecialAccess" />} />
+                <Route exact path="/accounting/forms/BudgetHeads" render={() => <ModulePlaceholder moduleName="BudgetHeads" />} />
+                <Route exact path="/payroll/forms/EmployeeProfile" render={() => <ModulePlaceholder moduleName="EmployeeProfile" />} />
+                <Route exact path="/payroll/forms/EmpFacultyMaster" render={() => <ModulePlaceholder moduleName="EmpFacultyMaster" />} />
+                <Route exact path="/payroll/forms/EmployeeAuthentication" render={() => <ModulePlaceholder moduleName="EmployeeAuthentication" />} />
+                <Route exact path="/payroll/forms/EmployeeRequests" render={() => <ModulePlaceholder moduleName="EmployeeRequests" />} />
+                <Route exact path="/settings/forms/ChangePassword" render={() => <ModulePlaceholder moduleName="ChangePassword" />} />
+                <Route exact path="/settings/forms/PeriodSettings" render={() => <ModulePlaceholder moduleName="PeriodSettings" />} />
+                <Route exact path="/attendance/reports/PeriodCancel" render={() => <ModulePlaceholder moduleName="PeriodCancel" />} />
+                <Route exact path="/payroll/reports/EmpAttendanceReport" render={() => <ModulePlaceholder moduleName="EmpAttendanceReport" />} />
+                <Route exact path="/payroll/reports/EmpTimeTable" render={() => <ModulePlaceholder moduleName="EmpTimeTable" />} />
+                <Route exact path="/payroll/reports/EmpPeriodAdjustment" render={() => <ModulePlaceholder moduleName="EmpPeriodAdjustment" />} />
+                <Route exact path="/attendance/reports/ExtraPeriod" render={() => <ModulePlaceholder moduleName="ExtraPeriod" />} />
+                <Route exact path="/payroll/reports/EmpWorkReport" render={() => <ModulePlaceholder moduleName="EmpWorkReport" />} />
+                <Route exact path="/accounting/forms/Budget" render={() => <ModulePlaceholder moduleName="Budget" />} />
+                <Route exact path="/accounting/reports/PaymentsReport" render={() => <ModulePlaceholder moduleName="PaymentsReport" />} />
+                <Route exact path="/payroll/reports/EmpExtraPeriod" render={() => <ModulePlaceholder moduleName="EmpExtraPeriod" />} />
+                <Route exact path="/payroll/reports/EmpPaySlip" render={() => <ModulePlaceholder moduleName="EmpPaySlip" />} />
+                <Route exact path="/payroll/reports/EmpLeavesReport" render={() => <ModulePlaceholder moduleName="EmpLeavesReport" />} />
+                <Route exact path="/payroll/reports/EmpWorkReportPersonal" render={() => <ModulePlaceholder moduleName="EmpWorkReportPersonal" />} />
+                <Route exact path="/payroll/forms/HodEmpDetails" render={() => <ModulePlaceholder moduleName="HodEmpDetails" />} />
+                <Route exact path="/payroll/forms/HodFacultyMaster" render={() => <ModulePlaceholder moduleName="HodFacultyMaster" />} />
+                <Route exact path="/payroll/forms/HodAuthentication" render={() => <ModulePlaceholder moduleName="HodAuthentication" />} />
+                <Route exact path="/library/reports/UserWiseBookHistory" render={() => <ModulePlaceholder moduleName="UserWiseBookHistory" />} />
+                <Route exact path="/library/reports/DeptWiseBookHistory" render={() => <ModulePlaceholder moduleName="DeptWiseBookHistory" />} />
+                <Route exact path="/payroll/reports/HodAttendanceReport" render={() => <ModulePlaceholder moduleName="HodAttendanceReport" />} />
+                <Route exact path="/payroll/reports/HodFacultyTimeTable" render={() => <ModulePlaceholder moduleName="HodFacultyTimeTable" />} />
+                <Route exact path="/payroll/reports/HodPeriodAdjustment" render={() => <ModulePlaceholder moduleName="HodPeriodAdjustment" />} />
+                <Route exact path="/payroll/reports/HodExtraPeriod" render={() => <ModulePlaceholder moduleName="HodExtraPeriod" />} />
+                <Route exact path="/admissions/reports/AdmissionStatement" render={() => <ModulePlaceholder moduleName="AdmissionStatement" />} />
+                <Route exact path="/payroll/reports/HodLeavesReport" render={() => <ModulePlaceholder moduleName="HodLeavesReport" />} />
+                <Route exact path="/payroll/reports/HodWorkReport" render={() => <ModulePlaceholder moduleName="HodWorkReport" />} />
+                <Route exact path="/payroll/reports/HodMarksReport" render={() => <ModulePlaceholder moduleName="HodMarksReport" />} />
+                <Route exact path="/payroll/reports/EmpMarksReport" render={() => <ModulePlaceholder moduleName="EmpMarksReport" />} />
+                <Route exact path="/accounting/reports/BudgetBalanceSheet" render={() => <ModulePlaceholder moduleName="BudgetBalanceSheet" />} />
+                <Route exact path="/attendance/reports/WorkReport" render={() => <ModulePlaceholder moduleName="WorkReport" />} />
+                <Route exact path="/settings/forms/UserGroup" render={() => <ModulePlaceholder moduleName="UserGroup" />} />
+                <Route exact path="/examinations/forms/ResultEntry" render={() => <ModulePlaceholder moduleName="ResultEntry" />} />
+                <Route exact path="/fee/reports/FeeDuesList" render={() => <ModulePlaceholder moduleName="FeeDuesList" />} />
+                <Route exact path="/transport/reports/VehicleDetails" render={() => <ModulePlaceholder moduleName="VehicleDetails" />} />
+                <Route exact path="/fee/reports/FeeStructure" render={() => <ModulePlaceholder moduleName="FeeStructure" />} />
+                <Route exact path="/stores/reports/StockOutward" render={() => <ModulePlaceholder moduleName="StockOutward" />} />
+                <Route exact path="/hostel/reports/HostelFeeDues" render={() => <ModulePlaceholder moduleName="HostelFeeDues" />} />
+                <Route exact path="/tappal/reports/TappalTransactions" render={() => <ModulePlaceholder moduleName="TappalTransactions" />} />
+                <Route exact path="/tappal/reports/TappalOutward" render={() => <ModulePlaceholder moduleName="TappalOutward" />} />
+                <Route exact path="/hostel/reports/HostelAllotedList" render={() => <ModulePlaceholder moduleName="HostelAllotedList" />} />
+                <Route exact path="/hostel/reports/HostelDeAllocationList" render={() => <ModulePlaceholder moduleName="HostelDeAllocationList" />} />
+                <Route exact path="/hostel/reports/HostelBedDetails" render={() => <ModulePlaceholder moduleName="HostelBedDetails" />} />
+                <Route exact path="/hostel/reports/HostelStdGatePassList" render={() => <ModulePlaceholder moduleName="HostelStdGatePassList" />} />
+                <Route exact path="/library/reports/BookIssued" render={() => <ModulePlaceholder moduleName="BookIssued" />} />
+                <Route exact path="/stores/forms/GoodsOutIn" render={() => <ModulePlaceholder moduleName="GoodsOutIn" />} />
+                <Route exact path="/library/forms/BookRecord" render={() => <ModulePlaceholder moduleName="BookRecord" />} />
+                <Route exact path="/accounting/reports/AbstractDFCR" render={() => <ModulePlaceholder moduleName="AbstractDFCR" />} />
+                <Route exact path="/transport/reports/MeterReadings" render={() => <ModulePlaceholder moduleName="MeterReadings" />} />
+                <Route exact path="/transport/reports/RouteMaster" render={() => <ModulePlaceholder moduleName="RouteMaster" />} />
+                <Route exact path="/library/reports/BooksReport" render={() => <ModulePlaceholder moduleName="BooksReport" />} />
+                <Route exact path="/payroll/forms/MyAccessibility" render={() => <ModulePlaceholder moduleName="MyAccessibility" />} />
+                <Route exact path="/settings/forms/ResetPassword" render={() => <ModulePlaceholder moduleName="ResetPassword" />} />
+                <Route exact path="/library/reports/StaffDueList" render={() => <ModulePlaceholder moduleName="StaffDueList" />} />
+                <Route exact path="/fee/forms/Admfeetypemaster" render={() => <ModulePlaceholder moduleName="Admfeetypemaster" />} />
+                <Route exact path="/admissions/forms/AdmissionView" component={AdmissionView} />
+                <Route exact path="/payroll/reports/HodClassTimeTable" render={() => <ModulePlaceholder moduleName="HodClassTimeTable" />} />
+                <Route exact path="/payroll/reports/HodFacultyPeriodAdjustment" render={() => <ModulePlaceholder moduleName="HodFacultyPeriodAdjustment" />} />
+                <Route exact path="/transport/reports/StdVehicleAllot" render={() => <ModulePlaceholder moduleName="StdVehicleAllot" />} />
+                <Route exact path="/transport/reports/DriverMaster" render={() => <ModulePlaceholder moduleName="DriverMaster" />} />
+                <Route exact path="/payroll/reports/HodPeriodCancel" render={() => <ModulePlaceholder moduleName="HodPeriodCancel" />} />
+                <Route exact path="/library/reports/LibMasters" render={() => <ModulePlaceholder moduleName="LibMasters" />} />
+                <Route exact path="/stores/reports/VendorDetails" render={() => <ModulePlaceholder moduleName="VendorDetails" />} />
+                <Route exact path="/stores/reports/StockInward" render={() => <ModulePlaceholder moduleName="StockInward" />} />
+                <Route exact path="/stores/reports/StockReturns" render={() => <ModulePlaceholder moduleName="StockReturns" />} />
+                <Route exact path="/stores/reports/RoomManagement" render={() => <ModulePlaceholder moduleName="RoomManagement" />} />
+                <Route exact path="/transport/reports/TransportDues" render={() => <ModulePlaceholder moduleName="TransportDues" />} />
+                <Route exact path="/tappal/reports/TappalInwardPosts" render={() => <ModulePlaceholder moduleName="TappalInwardPosts" />} />
+                <Route exact path="/stores/reports/GoodsInOut" render={() => <ModulePlaceholder moduleName="GoodsInOut" />} />
+                <Route exact path="/establishment/reports/AssetManagement" render={() => <ModulePlaceholder moduleName="AssetManagement" />} />
+                <Route exact path="/library/reports/BookRenewed" render={() => <ModulePlaceholder moduleName="BookRenewed" />} />
+                <Route exact path="/library/reports/BookDamage" render={() => <ModulePlaceholder moduleName="BookDamage" />} />
+                <Route exact path="/library/reports/BookLost" render={() => <ModulePlaceholder moduleName="BookLost" />} />
+                <Route exact path="/library/reports/BookReturn" render={() => <ModulePlaceholder moduleName="BookReturn" />} />
+                <Route exact path="/settings/reports/CasteMaster" render={() => <ModulePlaceholder moduleName="CasteMaster" />} />
+                <Route exact path="/settings/reports/DepartmentMaster" render={() => <ModulePlaceholder moduleName="DepartmentMaster" />} />
+                <Route exact path="/settings/reports/ProgWiseBranches" render={() => <ModulePlaceholder moduleName="ProgWiseBranches" />} />
+                <Route exact path="/settings/reports/SectionMaster" render={() => <ModulePlaceholder moduleName="SectionMaster" />} />
+                <Route exact path="/payroll/forms/EmpProfessionalTax" render={() => <ModulePlaceholder moduleName="EmpProfessionalTax" />} />
+                <Route exact path="/admissions/reports/SectionRollNumber" render={() => <ModulePlaceholder moduleName="SectionRollNumber" />} />
+                <Route exact path="/front-office/forms/Notifications" render={() => <ModulePlaceholder moduleName="Notifications" />} />
+                <Route exact path="/front-office/forms/DeptNotifications" render={() => <ModulePlaceholder moduleName="DeptNotifications" />} />
+                <Route exact path="/medicare/reports/MedicareStatus" render={() => <ModulePlaceholder moduleName="MedicareStatus" />} />
+                <Route exact path="/library/reports/StudentDueList" render={() => <ModulePlaceholder moduleName="StudentDueList" />} />
+                <Route exact path="/library/reports/JournalsHistory" render={() => <ModulePlaceholder moduleName="JournalsHistory" />} />
+                <Route exact path="/settings/reports/SubjectMaster" render={() => <ModulePlaceholder moduleName="SubjectMaster" />} />
+                <Route exact path="/library/reports/JournalsRecord" render={() => <ModulePlaceholder moduleName="JournalsRecord" />} />
+                <Route exact path="/settings/reports/UserGroups" render={() => <ModulePlaceholder moduleName="UserGroups" />} />
+                <Route exact path="/settings/forms/DBBackup" render={() => <ModulePlaceholder moduleName="DBBackup" />} />
+                <Route exact path="/admissions/reports/StudentInformationA4" render={() => <ModulePlaceholder moduleName="StudentInformationA4" />} />
+                <Route exact path="/settings/reports/SectionwiseStudentCount" render={() => <ModulePlaceholder moduleName="SectionwiseStudentCount" />} />
+                <Route exact path="/settings/reports/SendSmsDetails" render={() => <ModulePlaceholder moduleName="SendSmsDetails" />} />
+                <Route exact path="/attendance/forms/Batches" component={Batches} />
+                <Route exact path="/fee/forms/AdmissionModes" render={() => <ModulePlaceholder moduleName="AdmissionModes" />} />
+                <Route exact path="/admissions/reports/SectionwiseStudentCount" render={() => <ModulePlaceholder moduleName="SectionwiseStudentCount" />} />
+                <Route exact path="/admissions/reports/SectionwiseStudentDetails" render={() => <ModulePlaceholder moduleName="SectionwiseStudentDetails" />} />
+                <Route exact path="/attendance/reports/AbsentList" render={() => <ModulePlaceholder moduleName="AbsentList" />} />
+                <Route exact path="/settings/reports/ExternalLink1" render={() => <ModulePlaceholder moduleName="ExternalLink1" />} />
+                <Route exact path="/admissions/reports/RollsList" render={() => <ModulePlaceholder moduleName="RollsList" />} />
+                <Route exact path="/payroll/forms/LicMaster" render={() => <ModulePlaceholder moduleName="LicMaster" />} />
+                <Route exact path="/admissions/forms/StudentPromotion" component={StudentPromotion} />
+                <Route exact path="/payroll/reports/PtaxStatement" render={() => <ModulePlaceholder moduleName="PtaxStatement" />} />
+                <Route exact path="/payroll/reports/EsiStatement" render={() => <ModulePlaceholder moduleName="EsiStatement" />} />
+                <Route exact path="/payroll/reports/BudgetSalaryStatement" render={() => <ModulePlaceholder moduleName="BudgetSalaryStatement" />} />
+                <Route exact path="/settings/reports/ExternalLink2" render={() => <ModulePlaceholder moduleName="ExternalLink2" />} />
+                <Route exact path="/library/forms/BookReservation" render={() => <ModulePlaceholder moduleName="BookReservation" />} />
+                <Route exact path="/settings/forms/Holidays" render={() => <ModulePlaceholder moduleName="Holidays" />} />
+                <Route exact path="/attendance/forms/AttendanceLateralEntry" component={AttendanceLateralEntry} />
+                <Route exact path="/payroll/reports/EmployeeDetails" render={() => <ModulePlaceholder moduleName="EmployeeDetails" />} />
+                <Route exact path="/admissions/reports/StudentDetails" render={() => <ModulePlaceholder moduleName="StudentDetails" />} />
+                <Route exact path="/fee/forms/FeeConcession" render={() => <ModulePlaceholder moduleName="FeeConcession" />} />
+                <Route exact path="/settings/forms/SendSmsOnline" render={() => <ModulePlaceholder moduleName="SendSmsOnline" />} />
+                <Route exact path="/settings/forms/Feedback" render={() => <ModulePlaceholder moduleName="Feedback" />} />
+                <Route exact path="/settings/forms/ExamMidMaster" render={() => <ModulePlaceholder moduleName="ExamMidMaster" />} />
+                <Route exact path="/admissions/reports/CastwiseBranchwiseStrength" render={() => <ModulePlaceholder moduleName="CastwiseBranchwiseStrength" />} />
+                <Route exact path="/admissions/reports/CategorywiseStudentStrength" render={() => <ModulePlaceholder moduleName="CategorywiseStudentStrength" />} />
+                <Route exact path="/admissions/reports/CategorywiseBranchStrength" render={() => <ModulePlaceholder moduleName="CategorywiseBranchStrength" />} />
+                <Route exact path="/admissions/reports/GenderwiseStudentStrength" render={() => <ModulePlaceholder moduleName="GenderwiseStudentStrength" />} />
+                <Route exact path="/admissions/reports/TotalStudentsStrengthasonRolls" render={() => <ModulePlaceholder moduleName="TotalStudentsStrengthasonRolls" />} />
+                <Route exact path="/admissions/reports/CategorywiseStudentsLists" render={() => <ModulePlaceholder moduleName="CategorywiseStudentsLists" />} />
+                <Route exact path="/attendance/reports/AttendancePercentage" render={() => <ModulePlaceholder moduleName="AttendancePercentage" />} />
+                <Route exact path="/settings/forms/LearningMethodsMaster" render={() => <ModulePlaceholder moduleName="LearningMethodsMaster" />} />
+                <Route exact path="/attendance/forms/AdminPermissions" component={AdminPermissions} />
+                <Route exact path="/attendance/reports/AttendanceNotPostedByFaculty" render={() => <ModulePlaceholder moduleName="AttendanceNotPostedByFaculty" />} />
+                <Route exact path="/discipline/forms/GrievanceMaster" render={() => <ModulePlaceholder moduleName="GrievanceMaster" />} />
+                <Route exact path="/discipline/forms/GrievanceSettings" render={() => <ModulePlaceholder moduleName="GrievanceSettings" />} />
+                <Route exact path="/discipline/forms/GrievanceRegistration" render={() => <ModulePlaceholder moduleName="GrievanceRegistration" />} />
+                <Route exact path="/attendance/forms/CheckAttendance" component={CheckAttendance} />
+                <Route exact path="/attendance/reports/AbsentListSms" render={() => <ModulePlaceholder moduleName="AbsentListSms" />} />
+                <Route exact path="/payroll/forms/PersonalLoanMaster" render={() => <ModulePlaceholder moduleName="PersonalLoanMaster" />} />
+                <Route exact path="/payroll/forms/BasicIncrements" render={() => <ModulePlaceholder moduleName="BasicIncrements" />} />
+                <Route exact path="/fee/reports/ReceiptNoWiseDFCR" render={() => <ModulePlaceholder moduleName="ReceiptNoWiseDFCR" />} />
+                <Route exact path="/payroll/reports/ConsolidateAnnualStatement" render={() => <ModulePlaceholder moduleName="ConsolidateAnnualStatement" />} />
+                <Route exact path="/payroll/forms/EmployeeDetailsExport" render={() => <ModulePlaceholder moduleName="EmployeeDetailsExport" />} />
+                <Route exact path="/payroll/forms/EmployeeDeductions" render={() => <ModulePlaceholder moduleName="EmployeeDeductions" />} />
+                <Route exact path="/library/forms/BookMasters" render={() => <ModulePlaceholder moduleName="BookMasters" />} />
+                <Route exact path="/fee/reports/StudentFee" render={() => <ModulePlaceholder moduleName="StudentFee" />} />
+                <Route exact path="/library/forms/GoodsReceipt" render={() => <ModulePlaceholder moduleName="GoodsReceipt" />} />
+                <Route exact path="/library/forms/SubscriptionItems" render={() => <ModulePlaceholder moduleName="SubscriptionItems" />} />
+                <Route exact path="/library/forms/InvoicePayment" render={() => <ModulePlaceholder moduleName="InvoicePayment" />} />
+                <Route exact path="/library/reports/IssuesAndReturns" render={() => <ModulePlaceholder moduleName="IssuesAndReturns" />} />
+                <Route exact path="/examinations/forms/AttendanceMarks" render={() => <ModulePlaceholder moduleName="AttendanceMarks" />} />
+                <Route exact path="/library/forms/JournalsBinding" render={() => <ModulePlaceholder moduleName="JournalsBinding" />} />
+                <Route exact path="/library/forms/SubscriptionPayments" render={() => <ModulePlaceholder moduleName="SubscriptionPayments" />} />
+                <Route exact path="/payroll/reports/EmpIndividualPaySlip" render={() => <ModulePlaceholder moduleName="EmpIndividualPaySlip" />} />
+                <Route exact path="/library/reports/Acquision" render={() => <ModulePlaceholder moduleName="Acquision" />} />
+                <Route exact path="/library/reports/Accessions" render={() => <ModulePlaceholder moduleName="Accessions" />} />
+                <Route exact path="/library/forms/JrnlsPenaltySlab" render={() => <ModulePlaceholder moduleName="JrnlsPenaltySlab" />} />
+                <Route exact path="/transport/reports/RoutewiseTransportFeeDue" render={() => <ModulePlaceholder moduleName="RoutewiseTransportFeeDue" />} />
+                <Route exact path="/payroll/forms/PayrollGroupingMaster" render={() => <ModulePlaceholder moduleName="PayrollGroupingMaster" />} />
+                <Route exact path="/payroll/reports/AnnualSalaryAbstract" render={() => <ModulePlaceholder moduleName="AnnualSalaryAbstract" />} />
+                <Route exact path="/payroll/reports/PayrollGroupSummary" render={() => <ModulePlaceholder moduleName="PayrollGroupSummary" />} />
+                <Route exact path="/payroll/reports/SalariesAquittance" render={() => <ModulePlaceholder moduleName="SalariesAquittance" />} />
+                <Route exact path="/payroll/reports/ChequesList" render={() => <ModulePlaceholder moduleName="ChequesList" />} />
+                <Route exact path="/library/forms/ReferenceIssueCopy" render={() => <ModulePlaceholder moduleName="ReferenceIssueCopy" />} />
+                <Route exact path="/library/forms/BindingTransactions" render={() => <ModulePlaceholder moduleName="BindingTransactions" />} />
+                <Route exact path="/library/reports/StockVerification" render={() => <ModulePlaceholder moduleName="StockVerification" />} />
+                <Route exact path="/library/reports/MemberHistory" render={() => <ModulePlaceholder moduleName="MemberHistory" />} />
+                <Route exact path="/admissions/forms/DeleteInActiveStudents" component={DeleteInActiveStudents} />
+                <Route exact path="/attendance/forms/EditAttendance" render={() => <ModulePlaceholder moduleName="EditAttendance" />} />
+                <Route exact path="/examinations/reports/ConsolidatedInternalMarks" render={() => <ModulePlaceholder moduleName="ConsolidatedInternalMarks" />} />
+                <Route exact path="/library/reports/BookEditionCount" render={() => <ModulePlaceholder moduleName="BookEditionCount" />} />
+                <Route exact path="/attendance/forms/EditEfromDate" component={EditEFRMDate} />
+                <Route exact path="/settings/forms/AttendanceDatesMaster" render={() => <ModulePlaceholder moduleName="AttendanceDatesMaster" />} />
+                <Route exact path="/settings/forms/InternalDatesMaster" render={() => <ModulePlaceholder moduleName="InternalDatesMaster" />} />
+                <Route exact path="/examinations/reports/AccyrPerformanceUG" render={() => <ModulePlaceholder moduleName="AccyrPerformanceUG" />} />
+                <Route exact path="/examinations/reports/AccyrPerformancePG" render={() => <ModulePlaceholder moduleName="AccyrPerformancePG" />} />
+                <Route exact path="/examinations/reports/AccyrPerformanceR14UG" render={() => <ModulePlaceholder moduleName="AccyrPerformanceR14UG" />} />
+                <Route exact path="/settings/forms/CategoryMaster" render={() => <ModulePlaceholder moduleName="CategoryMaster" />} />
+                <Route exact path="/library/reports/DailyFineCollection" render={() => <ModulePlaceholder moduleName="DailyFineCollection" />} />
+                <Route exact path="/discipline/forms/StudentsLoginControl" render={() => <ModulePlaceholder moduleName="StudentsLoginControl" />} />
+                <Route exact path="/attendance/forms/AttendanceDeletion" component={AttendanceDeletion} />
+                <Route exact path="/settings/forms/LoginStatus" render={() => <ModulePlaceholder moduleName="LoginStatus" />} />
+                <Route exact path="/library/forms/MemberInformation" render={() => <ModulePlaceholder moduleName="MemberInformation" />} />
+                <Route exact path="/admissions/reports/NominalRolls" render={() => <ModulePlaceholder moduleName="NominalRolls" />} />
+                <Route exact path="/examinations/reports/InternalMarksR14UG" render={() => <ModulePlaceholder moduleName="InternalMarksR14UG" />} />
+                <Route exact path="/examinations/reports/SubjectWiseCIEUG" render={() => <ModulePlaceholder moduleName="SubjectWiseCIEUG" />} />
+                <Route exact path="/examinations/reports/SessionalMarks" render={() => <ModulePlaceholder moduleName="SessionalMarks" />} />
+                <Route exact path="/examinations/reports/AssignmentMarks" render={() => <ModulePlaceholder moduleName="AssignmentMarks" />} />
+                <Route exact path="/examinations/reports/OnlineQuizMarks" render={() => <ModulePlaceholder moduleName="OnlineQuizMarks" />} />
+                <Route exact path="/admissions/forms/StudentDataExcelExport" component={StudentDataExcelExport} />
+                <Route exact path="/library/reports/IssuesAndReturnsReferenceOnly" render={() => <ModulePlaceholder moduleName="IssuesAndReturnsReferenceOnly" />} />
+                <Route exact path="/library/reports/Journals" render={() => <ModulePlaceholder moduleName="Journals" />} />
+                <Route exact path="/library/reports/Queries" render={() => <ModulePlaceholder moduleName="Queries" />} />
+                <Route exact path="/admissions/forms/SectionChange" component={SectionChange} />
+                <Route exact path="/attendance/forms/BatchDelete" component={BatchDelete} />
+                <Route exact path="/fee/forms/ReceiptConcellation" render={() => <ModulePlaceholder moduleName="ReceiptConcellation" />} />
+                <Route exact path="/library/forms/DamagedList" render={() => <ModulePlaceholder moduleName="DamagedList" />} />
+                <Route exact path="/settings/forms/ReguMaster" component={ReguMaster} />
+                <Route exact path="/fee/forms/Feeverification" render={() => <ModulePlaceholder moduleName="Feeverification" />} />
+                <Route exact path="/fee/reports/RefundAmount" render={() => <ModulePlaceholder moduleName="RefundAmount" />} />
+                <Route exact path="/payroll/reports/LoanEmiDetails" render={() => <ModulePlaceholder moduleName="LoanEmiDetails" />} />
+                <Route exact path="/hostel/forms/HFeeMaster" render={() => <ModulePlaceholder moduleName="HFeeMaster" />} />
+                <Route exact path="/hostel/forms/BlockWiseDeAllocation" render={() => <ModulePlaceholder moduleName="BlockWiseDeAllocation" />} />
+                <Route exact path="/hostel/reports/HostelConcessionFee" render={() => <ModulePlaceholder moduleName="HostelConcessionFee" />} />
+                <Route exact path="/hostel/reports/HostelFeeRefund" render={() => <ModulePlaceholder moduleName="HostelFeeRefund" />} />
+                <Route exact path="/hostel/reports/HostelDailyFee" render={() => <ModulePlaceholder moduleName="HostelDailyFee" />} />
+                <Route exact path="/transport/forms/TransportDueDetails" render={() => <ModulePlaceholder moduleName="TransportDueDetails" />} />
+                <Route exact path="/hostel/reports/HostelYearwisePendingFee" render={() => <ModulePlaceholder moduleName="HostelYearwisePendingFee" />} />
+                <Route exact path="/fee/forms/UploadbrankTransactions" render={() => <ModulePlaceholder moduleName="UploadbrankTransactions" />} />
+                <Route exact path="/payroll/reports/GenderWiseSalaryDetails" render={() => <ModulePlaceholder moduleName="GenderWiseSalaryDetails" />} />
+                <Route exact path="/library/reports/Test1" render={() => <ModulePlaceholder moduleName="Test1" />} />
+                <Route exact path="/hostel/reports/Test" render={() => <ModulePlaceholder moduleName="Test" />} />
+                <Route exact path="/hostel/forms/ModifyHostelFeeReceipt" render={() => <ModulePlaceholder moduleName="ModifyHostelFeeReceipt" />} />
+                <Route exact path="/hostel/forms/HostelReceiptCancellation" render={() => <ModulePlaceholder moduleName="HostelReceiptCancellation" />} />
+                <Route exact path="/settings/forms/FeedBackMaster" render={() => <ModulePlaceholder moduleName="FeedBackMaster" />} />
+                <Route exact path="/settings/forms/FacultyFeedbackPermissions" render={() => <ModulePlaceholder moduleName="FacultyFeedbackPermissions" />} />
+                <Route exact path="/performance/forms/FeedBackMaster" render={() => <ModulePlaceholder moduleName="FeedBackMaster" />} />
+                <Route exact path="/performance/forms/AddFeedback" render={() => <ModulePlaceholder moduleName="AddFeedback" />} />
+                <Route exact path="/performance/forms/FeedbackUpdation" render={() => <ModulePlaceholder moduleName="FeedbackUpdation" />} />
+                <Route exact path="/accounting/reports/ConsolidatedFeedback" render={() => <ModulePlaceholder moduleName="ConsolidatedFeedback" />} />
+                <Route exact path="/performance/reports/IndividualFeedbackAnalysis" render={() => <ModulePlaceholder moduleName="IndividualFeedbackAnalysis" />} />
+                <Route exact path="/performance/reports/FeedbackAnalysis" render={() => <ModulePlaceholder moduleName="FeedbackAnalysis" />} />
+                <Route exact path="/examinations/reports/ConsolidatedReport" render={() => <ModulePlaceholder moduleName="ConsolidatedReport" />} />
+                <Route exact path="/fee/reports/CurrentPrevReceiptNoWiseDFCR" render={() => <ModulePlaceholder moduleName="CurrentPrevReceiptNoWiseDFCR" />} />
+                <Route exact path="/settings/forms/StudentDataUpload" render={() => <ModulePlaceholder moduleName="StudentDataUpload" />} />
+                <Route exact path="/library/forms/NoDuesEntry" render={() => <ModulePlaceholder moduleName="NoDuesEntry" />} />
+                <Route exact path="/library/forms/LibraryMainEntrance" render={() => <ModulePlaceholder moduleName="LibraryMainEntrance" />} />
+                <Route exact path="/library/forms/DigitalBlock" render={() => <ModulePlaceholder moduleName="DigitalBlock" />} />
+                <Route exact path="/library/forms/LibraryLogStatus" render={() => <ModulePlaceholder moduleName="LibraryLogStatus" />} />
+                <Route exact path="/settings/forms/ExternalLink3" render={() => <ModulePlaceholder moduleName="ExternalLink3" />} />
+                <Route exact path="/settings/forms/SmsTemplateRegistration" render={() => <ModulePlaceholder moduleName="SmsTemplateRegistration" />} />
+                <Route exact path="/settings/forms/SubCasteMaster" render={() => <ModulePlaceholder moduleName="SubCasteMaster" />} />
+                <Route exact path="/attendance/forms/ConsolidatedAttendanceAnalysis" component={ConsolidatedAttendanceAnalysis} />
+                <Route exact path="/library/forms/DamageFineCollectionReport" render={() => <ModulePlaceholder moduleName="DamageFineCollectionReport" />} />
+                <Route exact path="/library/reports/DamageFineCollectionReport" render={() => <ModulePlaceholder moduleName="DamageFineCollectionReport" />} />
+                <Route exact path="/examinations/reports/RegnoWiseElectives" render={() => <ModulePlaceholder moduleName="RegnoWiseElectives" />} />
+                <Route exact path="/fee/reports/FeeDuplicates" render={() => <ModulePlaceholder moduleName="FeeDuplicates" />} />
+                <Route exact path="/settings/forms/SubjectsMinHon" render={() => <ModulePlaceholder moduleName="SubjectsMinHon" />} />
+                <Route exact path="/examinations/forms/MarksEntryMH" render={() => <ModulePlaceholder moduleName="MarksEntryMH" />} />
+                <Route exact path="/settings/forms/DesignationMaster" render={() => <ModulePlaceholder moduleName="DesignationMaster" />} />
+                <Route exact path="/fee/reports/FeeBalanceSheet" render={() => <ModulePlaceholder moduleName="FeeBalanceSheet" />} />
+                <Route exact path="/examinations/forms/PracticalMarksEntry" render={() => <ModulePlaceholder moduleName="PracticalMarksEntry" />} />
+                <Route exact path="/examinations/forms/Marksheads" render={() => <ModulePlaceholder moduleName="Marksheads" />} />
+                <Route exact path="/attendance/forms/BatchesMH" component={BatchesMH} />
+                <Route exact path="/attendance/forms/AttendanceMH" render={() => <ModulePlaceholder moduleName="AttendanceMH" />} />
+                <Route exact path="/attendance/reports/SubwiseStudentList" render={() => <ModulePlaceholder moduleName="SubwiseStudentList" />} />
+                <Route exact path="/attendance/forms/AdminAttendanceMH" render={() => <ModulePlaceholder moduleName="AdminAttendanceMH" />} />
+                <Route exact path="/examinations/forms/AdminMarksEntryMH" render={() => <ModulePlaceholder moduleName="AdminMarksEntryMH" />} />
+                <Route exact path="/examinations/forms/ExternalMarksEntry" render={() => <ModulePlaceholder moduleName="ExternalMarksEntry" />} />
+                <Route exact path="/examinations/forms/AdminExternalMarksEntry" render={() => <ModulePlaceholder moduleName="AdminExternalMarksEntry" />} />
+                <Route exact path="/library/forms/BookReservation" render={() => <ModulePlaceholder moduleName="BookReservation" />} />
+                <Route exact path="/library/forms/LibraryInOut" render={() => <ModulePlaceholder moduleName="LibraryInOut" />} />
+                <Route exact path="/payroll/reports/EmpBasicIncrements" render={() => <ModulePlaceholder moduleName="EmpBasicIncrements" />} />
+                <Route exact path="/fee/reports/TransportDues" render={() => <ModulePlaceholder moduleName="TransportDues" />} />
+                <Route exact path="/fee/reports/CumulativeFeeDue" render={() => <ModulePlaceholder moduleName="CumulativeFeeDue" />} />
+                <Route exact path="/attendance/forms/DayToDayAttendance" render={() => <ModulePlaceholder moduleName="DayToDayAttendance" />} />
+                <Route exact path="/hostel/reports/HostelOccupancy" render={() => <ModulePlaceholder moduleName="HostelOccupancy" />} />
+                <Route exact path="/hostel/reports/HostelRoomMaster" render={() => <ModulePlaceholder moduleName="HostelRoomMaster" />} />
+                <Route exact path="/hostel/reports/HostelRoomTransfer" render={() => <ModulePlaceholder moduleName="HostelRoomTransfer" />} />
+                <Route exact path="/settings/forms/SubjectsMH" render={() => <ModulePlaceholder moduleName="SubjectsMH" />} />
+                <Route exact path="/payroll/reports/Certificates" render={() => <ModulePlaceholder moduleName="Certificates" />} />
+                <Route exact path="/performance/reports/ConsolidatedFeedbackBelowEightyPercent" render={() => <ModulePlaceholder moduleName="ConsolidatedFeedbackBelowEightyPercent" />} />
+                <Route exact path="/examinations/reports/ConsolidatedAttendanceAnalysis" render={() => <ModulePlaceholder moduleName="ConsolidatedAttendanceAnalysis" />} />
+                <Route exact path="/attendance/reports/ConsolidatedAttendanceAnalysis" render={() => <ModulePlaceholder moduleName="ConsolidatedAttendanceAnalysis" />} />
+                <Route exact path="/examinations/reports/InternalMarksAnalysis" render={() => <ModulePlaceholder moduleName="InternalMarksAnalysis" />} />
+                <Route exact path="/examinations/reports/InternalMarksAnalysisSubjectSectionWise" render={() => <ModulePlaceholder moduleName="InternalMarksAnalysisSubjectSectionWise" />} />
+                <Route exact path="/performance/reports/FeedbackNotPosted" render={() => <ModulePlaceholder moduleName="FeedbackNotPosted" />} />
+                <Route exact path="/settings/forms/CategoryOfAdmission" render={() => <ModulePlaceholder moduleName="CategoryOfAdmission" />} />
+                <Route exact path="/settings/forms/FeedbackUpdation" render={() => <ModulePlaceholder moduleName="FeedbackUpdation" />} />
+                <Route exact path="/examinations/forms/TechRequest" render={() => <ModulePlaceholder moduleName="TechRequest" />} />
+                <Route exact path="/fee/reports/FinancialYearwiseDueList" render={() => <ModulePlaceholder moduleName="FinancialYearwiseDueList" />} />
+                <Route exact path="/fee/reports/FeeDemand" render={() => <ModulePlaceholder moduleName="FeeDemand" />} />
+                <Route exact path="/payroll/forms/PromotionRatifiedDetails" render={() => <ModulePlaceholder moduleName="PromotionRatifiedDetails" />} />
+                <Route exact path="/fee/reports/FeeAuditReports" render={() => <ModulePlaceholder moduleName="FeeAuditReports" />} />
+                <Route exact path="/attendance/reports/DayWiseAttendance" component={DayWiseAttendance} />
+                <Route exact path="/library/forms/BookStatusChange" render={() => <ModulePlaceholder moduleName="BookStatusChange" />} />
+                <Route exact path="/stores/forms/RoomManagement" render={() => <ModulePlaceholder moduleName="RoomManagement" />} />
+                <Route exact path="/attendance/reports/SectionwiseSubjectAttendanceReport" render={() => <ModulePlaceholder moduleName="SectionwiseSubjectAttendanceReport" />} />
+                <Route exact path="/hostel/reports/HostelMonthWiseAttendance" render={() => <ModulePlaceholder moduleName="HostelMonthWiseAttendance" />} />
+                <Route exact path="/attendance/reports/ConsolidateAttendance" render={() => <ModulePlaceholder moduleName="ConsolidateAttendance" />} />
+                <Route exact path="/attendance/reports/AttendanceShortlistAnalysis" render={() => <ModulePlaceholder moduleName="AttendanceShortlistAnalysis" />} />
+                <Route exact path="/examinations/reports/InternalMarksAnalysisBelow50Perc" render={() => <ModulePlaceholder moduleName="InternalMarksAnalysisBelow50Perc" />} />
+                <Route exact path="/hostel/reports/HostelFeeDuesList" render={() => <ModulePlaceholder moduleName="HostelFeeDuesList" />} />
+                <Route exact path="/attendance/forms/StopAttendancePostingDates" component={StopAttendancePostingDates} />
+                <Route exact path="/hostel/reports/HostelAttendanceReport" render={() => <ModulePlaceholder moduleName="HostelAttendanceReport" />} />
+                <Route exact path="/fee/forms/Reimbursementfeebulkupload" render={() => <ModulePlaceholder moduleName="Reimbursementfeebulkupload" />} />
+                <Route exact path="/settings/forms/ConcessionCategorytypes" render={() => <ModulePlaceholder moduleName="ConcessionCategorytypes" />} />
+                <Route exact path="/transport/forms/RouteMasterIncrement" render={() => <ModulePlaceholder moduleName="RouteMasterIncrement" />} />
+                <Route exact path="/admissions/reports/CategoryWiseStudentsEnrolledList" render={() => <ModulePlaceholder moduleName="CategoryWiseStudentsEnrolledList" />} />
+                <Route exact path="/admissions/reports/AcyrwiseStdCount" render={() => <ModulePlaceholder moduleName="AcyrwiseStdCount" />} />
+                <Route exact path="/attendance/reports/PeriodWiseConsolidate" render={() => <ModulePlaceholder moduleName="PeriodWiseConsolidate" />} />
+                <Route exact path="/fee/forms/Examfeeuploadbanktransaction-details" render={() => <ModulePlaceholder moduleName="Examfeeuploadbanktransaction-details" />} />
+                <Route exact path="/fee/forms/OnlineExamFeeCollection" render={() => <ModulePlaceholder moduleName="OnlineExamFeeCollection" />} />
+                <Route exact path="/hostel/forms/AddHostelAttendance" render={() => <ModulePlaceholder moduleName="AddHostelAttendance" />} />
+                <Route exact path="/hostel/forms/HostelFeeChallanOnline" render={() => <ModulePlaceholder moduleName="HostelFeeChallanOnline" />} />
+                <Route exact path="/attendance/forms/MHSubjectsMapping" render={() => <ModulePlaceholder moduleName="MHSubjectsMapping" />} />
+                <Route exact path="/hostel/forms/HostelUploadBankTransaction" render={() => <ModulePlaceholder moduleName="HostelUploadBankTransaction" />} />
+                <Route exact path="/transport/reports/StudentBusIdentityCard" render={() => <ModulePlaceholder moduleName="StudentBusIdentityCard" />} />
+                <Route exact path="/attendance/reports/SubjectWiseAttendanceReport" render={() => <ModulePlaceholder moduleName="SubjectWiseAttendanceReport" />} />
+                <Route exact path="/hostel/reports/HostelDFCR" render={() => <ModulePlaceholder moduleName="HostelDFCR" />} />
+                <Route exact path="/examinations/reports/ConsolidateReportMH" render={() => <ModulePlaceholder moduleName="ConsolidateReportMH" />} />
+                <Route exact path="/admissions/reports/YearWiseStudentCount" render={() => <ModulePlaceholder moduleName="YearWiseStudentCount" />} />
+                <Route exact path="/library/forms/Subscriptions" render={() => <ModulePlaceholder moduleName="Subscriptions" />} />
+                <Route exact path="/library/forms/Acquisitions" render={() => <ModulePlaceholder moduleName="Acquisitions" />} />
+                <Route exact path="/library/forms/Misc" render={() => <ModulePlaceholder moduleName="Misc" />} />
+                <Route exact path="/attendance/reports/AddAttendanceReport" render={() => <ModulePlaceholder moduleName="AddAttendanceReport" />} />
+                <Route exact path="/fee/forms/FeeRefundAmount" render={() => <ModulePlaceholder moduleName="FeeRefundAmount" />} />
+                <Route exact path="/hostel/forms/HostelFeeChallana" render={() => <ModulePlaceholder moduleName="HostelFeeChallana" />} />
+                <Route exact path="/hostel/forms/HostelFeeRefundAmount" render={() => <ModulePlaceholder moduleName="HostelFeeRefundAmount" />} />
+                <Route exact path="/hostel/forms/HostelFeeConcession" render={() => <ModulePlaceholder moduleName="HostelFeeConcession" />} />
+                <Route exact path="/performance/reports/ConsolidatedFeedback" render={() => <ModulePlaceholder moduleName="ConsolidatedFeedback" />} />
+                <Route exact path="/examinations/forms/ExamFeeCollection" render={() => <ModulePlaceholder moduleName="ExamFeeCollection" />} />
+                <Route exact path="/library/forms/IssuesAndReturns" render={() => <ModulePlaceholder moduleName="IssuesAndReturns" />} />
+                <Route exact path="/library/forms/IssueAndReturnJournals" render={() => <ModulePlaceholder moduleName="IssueAndReturnJournals" />} />
+                <Route exact path="/examinations/reports/FinalConsolidateReportMH" render={() => <ModulePlaceholder moduleName="FinalConsolidateReportMH" />} />
+                <Route exact path="/attendance/forms/MidAttendanceBlock" component={MidAttendanceBlock} />
+                <Route exact path="/hostel/forms/AttendanceByAdmin" render={() => <ModulePlaceholder moduleName="AttendanceByAdmin" />} />
+                <Route exact path="/fee/forms/OnlineExamFeeCollection" render={() => <ModulePlaceholder moduleName="OnlineExamFeeCollection" />} />
+                <Route exact path="/library/reports/IssuesAndReturnsJournals" render={() => <ModulePlaceholder moduleName="IssuesAndReturnsJournals" />} />
+                <Route exact path="/library/forms/GlobalSearch" render={() => <ModulePlaceholder moduleName="GlobalSearch" />} />
+                <Route exact path="/library/reports/Masters" render={() => <ModulePlaceholder moduleName="Masters" />} />
+                <Route exact path="/library/reports/DayWiseInAndOutLog" render={() => <ModulePlaceholder moduleName="DayWiseInAndOutLog" />} />
+                <Route exact path="/library/reports/Misc" render={() => <ModulePlaceholder moduleName="Misc" />} />
+                <Route exact path="/library/reports/Titles" render={() => <ModulePlaceholder moduleName="Titles" />} />
+                <Route exact path="/fee/forms/Moneyrefund" render={() => <ModulePlaceholder moduleName="Moneyrefund" />} />
+                <Route exact path="/attendance/reports/FacultyTaughtSubjects" render={() => <ModulePlaceholder moduleName="FacultyTaughtSubjects" />} />
+                <Route exact path="/fee/reports/FeeConcessionList" render={() => <ModulePlaceholder moduleName="FeeConcessionList" />} />
+                <Route exact path="/examinations/forms/MarksEntryMH" render={() => <ModulePlaceholder moduleName="MarksEntryMH" />} />
+                <Route exact path="/examinations/forms/OnlineExamFeeCollection" render={() => <ModulePlaceholder moduleName="OnlineExamFeeCollection" />} />
+                <Route exact path="/examinations/forms/ExamFeeUploadBankTransaction" render={() => <ModulePlaceholder moduleName="ExamFeeUploadBankTransaction" />} />
                 <Redirect from="*" to="/home" />
-              </Switch>
+              </Switch> */}
+              <Switch>
+
+    <Route exact path="/home" component={Home} />
+
+    <Route
+        path="/:module/:type/:page"
+        render={({ location }) => (
+            <DynamicRoute path={location.pathname} />
+        )}
+    />
+
+    <Redirect to="/home" />
+
+</Switch>
           </MainLayout>
         )}
       </IonReactRouter>

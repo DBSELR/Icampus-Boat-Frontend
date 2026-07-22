@@ -49,147 +49,179 @@ const MODULES = [
 ];
 
 // Submenus for active modules with specific icons
-const SUBMENUS: Record<string, { name: string; path: string; icon: React.ComponentType<any> }[]> = {
-  admissions: [
-    { name: "Dashboard", path: "/admissions/dashboard", icon: LayoutDashboard },
-    { name: "Students List", path: "/admissions/entry#list", icon: Users },
-    { name: "Admissions Entry", path: "/admissions/entry", icon: UserPlus },
-    { name: "Section and Roll No.", path: "/admissions/section-roll", icon: Hash },
-    { name: "Group Change", path: "/admissions/group-change", icon: Shuffle },
-    { name: "TC Issuing", path: "/admissions/tc-issuing", icon: LogOut },
-    { name: "Study Certificate", path: "/admissions/study-cert", icon: FileText },
-    { name: "Course Completed", path: "/admissions/course-completed", icon: CheckCircle2 },
-    { name: "No Objection Certificate", path: "/admissions/noc", icon: FileCheck },
-    { name: "Bonafide Certificate", path: "/admissions/bonafide", icon: FileText },
-    { name: "Student Promotion", path: "/admissions/promotion", icon: ArrowUpCircle },
-    { name: "Student Data Excel Export", path: "/admissions/excel-export", icon: FileDown },
-    { name: "Admission view", path: "/admissions/AdmissionView", icon: FileDown },
-    { name: "Section Change", path: "/admissions/section-change", icon: RefreshCw },
-    { name: "InActive Student Delete", path: "/admissions/inactive-delete", icon: UserX }
-  ],
-  fees: [
-    { name: "Dashboard", path: "/fees/dashboard", icon: LayoutDashboard },
-    { name: "Account Master", path: "/fees/account-master", icon: BookOpen },
-    { name: "Fee Heads Master", path: "/fees/heads-master", icon: Layers },
-    { name: "Miscellaneous Heads", path: "/fees/misc-heads", icon: Settings },
-    { name: "Fee Master", path: "/fees/fee-master", icon: Sliders },
-    { name: "Miscellaneous Fee Challan", path: "/fees/misc-challan", icon: Receipt },
-    { name: "Fee Collection", path: "/fees/collection", icon: CreditCard },
-    { name: "Modify Fee Receipt", path: "/fees/modify-receipt", icon: Edit2 },
-    { name: "Donation Collection", path: "/fees/donation", icon: Heart },
-    { name: "Certificate of Fee Payment", path: "/fees/fee-payment-cert", icon: FileCheck },
-    { name: "Online Fee Collection", path: "/fees/online-fee", icon: Globe },
-    { name: "Admission Modes", path: "/fees/admission-modes", icon: HelpCircle },
-    { name: "Fee Concession", path: "/fees/concession", icon: Percent },
-    { name: "Fee Fine", path: "/fees/fine", icon: AlertTriangle },
-    { name: "Receipt Cancellation", path: "/fees/cancellation", icon: Trash2 },
-    { name: "Fee Verification", path: "/fees/verification", icon: CheckSquare },
-    { name: "Fee Refund", path: "/fees/refund", icon: RefreshCw },
-    { name: "Upload Bank Transaction Details", path: "/fees/upload-bank", icon: Upload },
-    { name: "Exam Fee Upload Bank Transaction Details", path: "/fees/upload-exam-bank", icon: UploadCloud },
-    { name: "Online Exam Fee Collection", path: "/fees/online-exam-fee", icon: CreditCard }
-  ],
-  payroll: [
-    { name: "Dashboard", path: "/payroll", icon: LayoutDashboard },
-    { name: "Employee Details", path: "/payroll/emp-details", icon: Users },
-    { name: "test", path: "/payroll", icon: LayoutDashboard },
-  ],
-  accounting: [
-    { name: "Dashboard", path: "/accounting", icon: LayoutDashboard },
-    { name: "Payment Heads", path: "/accounting/payment-heads", icon: BookOpen }
-  ],
-  attendance: [
-    { name: "Dashboard", path: "/attendance", icon: LayoutDashboard },
-    { name: "Time Table Settings", path: "/attendance/timetable", icon: Calendar },
-    { name: "Time Table Adjustment", path: "/attendance/timeAdjustment", icon: Table },
-    { name: "Attendance By Staff", path: "/attendance/AttendanceByStaff", icon: Users },
-    { name: "Attendance By Admin", path: "/attendance/AttendanceByAdmin", icon: ShieldUser },
-    { name: "Time Table Extra Hours", path: "/attendance/TimetableExtraHours", icon: Timer },
-    { name: "Batches", path: "/attendance/Batches", icon: Group },
-    { name: "Admin Permissions", path: "/attendance/AdminPermissions", icon: UserRoundKey },
-    { name: "Check Attendance", path: "/attendance/CheckAttendance", icon: SaveCheck },
-    { name: "Add Attendance", path: "/attendance/AddAttendance", icon: ListPlus },
-    { name: "Batch Delete", path: "/attendance/BatchDelete", icon: Trash },
-    { name: "Edit EFRM Date", path: "/attendance/EditEFRMDate", icon: SquarePen },
-    { name: "Modify Attendance", path: "/attendance/ModifyAttendance", icon: PencilOff },
-    { name: "DayWise Attendance", path: "/attendance/DayWiseAttendance", icon: CalendarCheck },
-    { name: "Attendance Deletion", path: "/attendance/AttendanceDeletion", icon: Trash2 },
-    { name: "Attendance Lateral Entry", path: "/attendance/AttendanceLateralEntry", icon: ListFilterPlus },
-    { name: "Consolidated Attendance Analysis", path: "/attendance/ConsolidatedAttendanceAnalysis", icon: ChartNoAxesCombined },
-    { name: "Batches MH", path: "/attendance/BatchesMH", icon: UsersRound },
-    { name: "Attendance By staff MH", path: "/attendance/AttendanceBystaffMH", icon: UserRound },
-    { name: "Attendance By Admin MH", path: "/attendance/AttendanceByAdminMH", icon: ShieldPlus },
-    { name: "Mid Attendance Block", path: "/attendance/MidAttendanceBlock", icon: Blocks },
-    { name: "Stop Attendance Posting Dates", path: "/attendance/StopAttendancePostingDates", icon: CircleOff }
-  ],
-  examinations: [
-    { name: "Dashboard", path: "/examinations", icon: LayoutDashboard },
-    { name: "Marks Entry", path: "/examinations/marks-entry", icon: FileText }
-  ],
-  stores: [
-    { name: "Dashboard", path: "/stores", icon: LayoutDashboard },
-    { name: "Product Master", path: "/stores/product-master", icon: Settings }
-  ],
-  library: [
-    { name: "Dashboard", path: "/library", icon: LayoutDashboard },
-    { name: "Library Master", path: "/library/library-master", icon: BookOpen }
-  ],
-  transport: [
-    { name: "Dashboard", path: "/transport", icon: LayoutDashboard },
-    { name: "Route Master", path: "/transport/route-master", icon: Settings }
-  ],
-  discipline: [
-    { name: "Dashboard", path: "/discipline", icon: LayoutDashboard },
-    { name: "Student History", path: "/discipline/student-history", icon: ShieldAlert }
-  ],
-  performance: [
-    { name: "Dashboard", path: "/performance", icon: LayoutDashboard },
-    { name: "Report Card", path: "/performance/report-card", icon: FileText }
-  ],
-  hostels: [
-    { name: "Dashboard", path: "/hostels", icon: LayoutDashboard },
-    { name: "Fee Due List", path: "/hostels/due-list", icon: FileText }
-  ],
-  medicare: [
-    { name: "Dashboard", path: "/medicare", icon: LayoutDashboard },
-    { name: "Medicare Register", path: "/medicare/register", icon: Heart }
-  ],
-  "front-office": [
-    { name: "Dashboard", path: "/front-office", icon: LayoutDashboard },
-    { name: "Notifications", path: "/front-office/notification", icon: Bell }
-  ],
-  groups: [
-    { name: "Dashboard", path: "/groups", icon: LayoutDashboard },
-    { name: "Group Allocation", path: "/groups/allocation", icon: Users }
-  ],
-  tappal: [
-    { name: "Dashboard", path: "/tappal", icon: LayoutDashboard },
-    { name: "Inward Posts", path: "/tappal/inward-posts", icon: FileText }
-  ],
-  establishment: [
-    { name: "Dashboard", path: "/establishment", icon: LayoutDashboard },
-    { name: "Room Management", path: "/establishment/room-management", icon: School }
-  ],
-  settings: [
-    { name: "Dashboard", path: "/settings", icon: LayoutDashboard },
-    { name: "Financial Academic Year", path: "/settings/financial-academic-year", icon: Calendar },
-    { name: "Department Master", path: "/settings/department-master", icon: Building },
-    { name: "Programme Master", path: "/settings/programme-master", icon: GraduationCap },
-    { name: "Regu Master", path: "/settings/regu-master", icon: BookCheck },
-    { name: "Branch Master", path: "/settings/branch-master", icon: FolderTree },
-    { name: "Subject Master", path: "/settings/subject-master", icon: BookOpen },
-    { name: "Faculty Master", path: "/settings/faculty-master", icon: Users },
-    { name: "Section Master", path: "/settings/section-master", icon: Blocks },
-  ]
-};
+// const SUBMENUS: Record<string, { name: string; path: string; icon: React.ComponentType<any> }[]> = {
+//   admissions: [
+//     { name: "Dashboard", path: "/admissions/dashboard", icon: LayoutDashboard },
+//     { name: "Students List", path: "/admissions/entry#list", icon: Users },
+//     { name: "Admissions Entry", path: "/admissions/entry", icon: UserPlus },
+//     { name: "Section and Roll No.", path: "/admissions/section-roll", icon: Hash },
+//     { name: "Group Change", path: "/admissions/group-change", icon: Shuffle },
+//     { name: "TC Issuing", path: "/admissions/tc-issuing", icon: LogOut },
+//     { name: "Study Certificate", path: "/admissions/study-cert", icon: FileText },
+//     { name: "Course Completed", path: "/admissions/course-completed", icon: CheckCircle2 },
+//     { name: "No Objection Certificate", path: "/admissions/noc", icon: FileCheck },
+//     { name: "Bonafide Certificate", path: "/admissions/bonafide", icon: FileText },
+//     { name: "Student Promotion", path: "/admissions/promotion", icon: ArrowUpCircle },
+//     { name: "Student Data Excel Export", path: "/admissions/excel-export", icon: FileDown },
+//     { name: "Admission view", path: "/admissions/AdmissionView", icon: FileDown },
+//     { name: "Section Change", path: "/admissions/section-change", icon: RefreshCw },
+//     { name: "InActive Student Delete", path: "/admissions/inactive-delete", icon: UserX }
+//   ],
+//   fees: [
+//     { name: "Dashboard", path: "/fees/dashboard", icon: LayoutDashboard },
+//     { name: "Account Master", path: "/fees/account-master", icon: BookOpen },
+//     { name: "Fee Heads Master", path: "/fees/heads-master", icon: Layers },
+//     { name: "Miscellaneous Heads", path: "/fees/misc-heads", icon: Settings },
+//     { name: "Fee Master", path: "/fees/fee-master", icon: Sliders },
+//     { name: "Miscellaneous Fee Challan", path: "/fees/misc-challan", icon: Receipt },
+//     { name: "Fee Collection", path: "/fees/collection", icon: CreditCard },
+//     { name: "Modify Fee Receipt", path: "/fees/modify-receipt", icon: Edit2 },
+//     { name: "Donation Collection", path: "/fees/donation", icon: Heart },
+//     { name: "Certificate of Fee Payment", path: "/fees/fee-payment-cert", icon: FileCheck },
+//     { name: "Online Fee Collection", path: "/fees/online-fee", icon: Globe },
+//     { name: "Admission Modes", path: "/fees/admission-modes", icon: HelpCircle },
+//     { name: "Fee Concession", path: "/fees/concession", icon: Percent },
+//     { name: "Fee Fine", path: "/fees/fine", icon: AlertTriangle },
+//     { name: "Receipt Cancellation", path: "/fees/cancellation", icon: Trash2 },
+//     { name: "Fee Verification", path: "/fees/verification", icon: CheckSquare },
+//     { name: "Fee Refund", path: "/fees/refund", icon: RefreshCw },
+//     { name: "Upload Bank Transaction Details", path: "/fees/upload-bank", icon: Upload },
+//     { name: "Exam Fee Upload Bank Transaction Details", path: "/fees/upload-exam-bank", icon: UploadCloud },
+//     { name: "Online Exam Fee Collection", path: "/fees/online-exam-fee", icon: CreditCard }
+//   ],
+//   payroll: [
+//     { name: "Dashboard", path: "/payroll", icon: LayoutDashboard },
+//     { name: "Employee Details", path: "/payroll/emp-details", icon: Users },
+//     { name: "test", path: "/payroll", icon: LayoutDashboard },
+//   ],
+//   accounting: [
+//     { name: "Dashboard", path: "/accounting", icon: LayoutDashboard },
+//     { name: "Payment Heads", path: "/accounting/payment-heads", icon: BookOpen }
+//   ],
+//   attendance: [
+//     { name: "Dashboard", path: "/attendance", icon: LayoutDashboard },
+//     { name: "Time Table Settings", path: "/attendance/timetable", icon: Calendar },
+//     { name: "Time Table Adjustment", path: "/attendance/timeAdjustment", icon: Table },
+//     { name: "Attendance By Staff", path: "/attendance/AttendanceByStaff", icon: Users },
+//     { name: "Attendance By Admin", path: "/attendance/AttendanceByAdmin", icon: ShieldUser },
+//     { name: "Time Table Extra Hours", path: "/attendance/TimetableExtraHours", icon: Timer },
+//     { name: "Batches", path: "/attendance/Batches", icon: Group },
+//     { name: "Admin Permissions", path: "/attendance/AdminPermissions", icon: UserRoundKey },
+//     { name: "Check Attendance", path: "/attendance/CheckAttendance", icon: SaveCheck },
+//     { name: "Add Attendance", path: "/attendance/AddAttendance", icon: ListPlus },
+//     { name: "Batch Delete", path: "/attendance/BatchDelete", icon: Trash },
+//     { name: "Edit EFRM Date", path: "/attendance/EditEFRMDate", icon: SquarePen },
+//     { name: "Modify Attendance", path: "/attendance/ModifyAttendance", icon: PencilOff },
+//     { name: "DayWise Attendance", path: "/attendance/DayWiseAttendance", icon: CalendarCheck },
+//     { name: "Attendance Deletion", path: "/attendance/AttendanceDeletion", icon: Trash2 },
+//     { name: "Attendance Lateral Entry", path: "/attendance/AttendanceLateralEntry", icon: ListFilterPlus },
+//     { name: "Consolidated Attendance Analysis", path: "/attendance/ConsolidatedAttendanceAnalysis", icon: ChartNoAxesCombined },
+//     { name: "Batches MH", path: "/attendance/BatchesMH", icon: UsersRound },
+//     { name: "Attendance By staff MH", path: "/attendance/AttendanceBystaffMH", icon: UserRound },
+//     { name: "Attendance By Admin MH", path: "/attendance/AttendanceByAdminMH", icon: ShieldPlus },
+//     { name: "Mid Attendance Block", path: "/attendance/MidAttendanceBlock", icon: Blocks },
+//     { name: "Stop Attendance Posting Dates", path: "/attendance/StopAttendancePostingDates", icon: CircleOff }
+//   ],
+//   examinations: [
+//     { name: "Dashboard", path: "/examinations", icon: LayoutDashboard },
+//     { name: "Marks Entry", path: "/examinations/marks-entry", icon: FileText }
+//   ],
+//   stores: [
+//     { name: "Dashboard", path: "/stores", icon: LayoutDashboard },
+//     { name: "Product Master", path: "/stores/product-master", icon: Settings }
+//   ],
+//   library: [
+//     { name: "Dashboard", path: "/library", icon: LayoutDashboard },
+//     { name: "Library Master", path: "/library/library-master", icon: BookOpen }
+//   ],
+//   transport: [
+//     { name: "Dashboard", path: "/transport", icon: LayoutDashboard },
+//     { name: "Route Master", path: "/transport/route-master", icon: Settings }
+//   ],
+//   discipline: [
+//     { name: "Dashboard", path: "/discipline", icon: LayoutDashboard },
+//     { name: "Student History", path: "/discipline/student-history", icon: ShieldAlert }
+//   ],
+//   performance: [
+//     { name: "Dashboard", path: "/performance", icon: LayoutDashboard },
+//     { name: "Report Card", path: "/performance/report-card", icon: FileText }
+//   ],
+//   hostels: [
+//     { name: "Dashboard", path: "/hostels", icon: LayoutDashboard },
+//     { name: "Fee Due List", path: "/hostels/due-list", icon: FileText }
+//   ],
+//   medicare: [
+//     { name: "Dashboard", path: "/medicare", icon: LayoutDashboard },
+//     { name: "Medicare Register", path: "/medicare/register", icon: Heart }
+//   ],
+//   "front-office": [
+//     { name: "Dashboard", path: "/front-office", icon: LayoutDashboard },
+//     { name: "Notifications", path: "/front-office/notification", icon: Bell }
+//   ],
+//   groups: [
+//     { name: "Dashboard", path: "/groups", icon: LayoutDashboard },
+//     { name: "Group Allocation", path: "/groups/allocation", icon: Users }
+//   ],
+//   tappal: [
+//     { name: "Dashboard", path: "/tappal", icon: LayoutDashboard },
+//     { name: "Inward Posts", path: "/tappal/inward-posts", icon: FileText }
+//   ],
+//   establishment: [
+//     { name: "Dashboard", path: "/establishment", icon: LayoutDashboard },
+//     { name: "Room Management", path: "/establishment/room-management", icon: School }
+//   ],
+//   settings: [
+//     { name: "Dashboard", path: "/settings", icon: LayoutDashboard },
+//     { name: "Financial Academic Year", path: "/settings/financial-academic-year", icon: Calendar },
+//     { name: "Department Master", path: "/settings/department-master", icon: Building },
+//     { name: "Programme Master", path: "/settings/programme-master", icon: GraduationCap },
+//     { name: "Regu Master", path: "/settings/regu-master", icon: BookCheck },
+//     { name: "Branch Master", path: "/settings/branch-master", icon: FolderTree },
+//     { name: "Subject Master", path: "/settings/subject-master", icon: BookOpen },
+//     { name: "Faculty Master", path: "/settings/faculty-master", icon: Users },
+//     { name: "Section Master", path: "/settings/section-master", icon: Blocks },
+//   ]
+// };
 
 interface MainLayoutProps {
   children: React.ReactNode;
 }
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+  
   const history = useHistory();
   const location = useLocation();
+
+  const [menus, setMenus] = useState<any[]>([]);
+  const [subMenus, setSubMenus] = useState<any[]>([]);
+
+useEffect(() => {
+    const storedMenus = JSON.parse(localStorage.getItem("menus") || "[]");
+    setMenus(storedMenus);
+}, []);
+useEffect(() => {
+    const storedSubMenus = JSON.parse(localStorage.getItem("subMenus") || "[]");
+    setSubMenus(storedSubMenus);
+}, []);
+
+console.log("Current URL:", location.pathname);
+useEffect(() => {
+    console.log("Total SubMenus:", subMenus.length);
+
+    if (subMenus.length > 0) {
+        console.log("First SubMenu:", subMenus[0]);
+    }
+}, [subMenus]);
+
+// const moduleMenuIds: Record<string, string> = {
+//     admissions: "3",
+//     examinations: "5",
+//     fees: "9",
+//     payroll: "10",
+//     attendance: "13",
+//     discipline: "15",
+//     "employee-profile": "22",
+// };
 
   // Navigation & UI States
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -212,6 +244,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const notificationRef = useRef<HTMLDivElement>(null);
   const themeRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
+
+
 
   // Mock Notifications list
   const [notifications, setNotifications] = useState([
@@ -245,20 +279,25 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   }, [themeMode]);
 
   // Sync active module category based on route
-  useEffect(() => {
-    const path = location.pathname;
-    if (path.startsWith("/admissions")) {
-      setActiveModule("admissions");
-    } else if (path.startsWith("/fees")) {
-      setActiveModule("fees");
-    } else if (path === "/home" || path === "/") {
-      setActiveModule("home");
-    } else {
-      // Find matching module id from path
-      const matched = MODULES.find(m => path.startsWith(m.path));
-      setActiveModule(matched ? matched.id : "home");
+ useEffect(() => {
+    const path = location.pathname.toLowerCase();
+console.log("Current Path:", path);
+    if (path === "/" || path === "/home") {
+        setActiveModule("home");
+        return;
     }
-  }, [location.pathname]);
+
+    const moduleName = path.split("/")[1]; // admissions, fee, payroll...
+
+    const matched = MODULES.find(
+        (m) => m.id.toLowerCase() === moduleName
+    );
+
+    setActiveModule(matched ? matched.id : "home");
+}, [location.pathname]
+);
+
+
 
   // Click outside listener for dropdown panels
   useEffect(() => {
@@ -360,6 +399,31 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const unreadCount = notifications.filter(n => !n.read).length;
   const isLandingPage = location.pathname === "/home" || location.pathname === "/";
 
+
+const currentPath = location.pathname.toLowerCase();
+
+
+const selectedMenuId = localStorage.getItem("selectedMenuId");
+
+const filteredSubMenus = subMenus.filter(
+    (s: any) =>
+        String(s.menuId) === String(selectedMenuId) &&
+        s.route?.includes("/Forms/")
+);
+
+
+const submenuIcons: Record<string, any> = {
+    "Dashboard": LayoutDashboard,
+    "Admissions Entry": UserPlus,
+    "Section and Roll No.": Hash,
+    "Group Change": Shuffle,
+    "TC Issuing": LogOut,
+    "Study Certificate": FileText,
+    "Bonafide Certificate": FileCheck,
+    "Fee Collection": CreditCard,
+    "Account Master": BookOpen,
+    "Receipt Cancellation": Trash2,
+};
   return (
     <div className="dbs-layout-container">
       {/* --- LEFT SIDEBAR --- */}
@@ -389,7 +453,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
 
           {/* Submenu Area for selected module (like Admissions or Fees) */}
-          {sidebarOpen && activeModule && SUBMENUS[activeModule] && (
+          {/* {sidebarOpen && activeModule && SUBMENUS[activeModule] && (
             <div className="dbs-sidebar-submenu-area">
               <div className="dbs-submenu-title">{activeModule.toUpperCase()} SERVICES</div>
               <nav className="dbs-submenu-nav">
@@ -407,11 +471,42 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                     </button>
                   );
                 })}
+                
               </nav>
             </div>
-          )}
+          )} */}
+          {sidebarOpen && activeModule && (
+  <div className="dbs-sidebar-submenu-area">
+    <div className="dbs-submenu-title">
+      {activeModule.toUpperCase()} SERVICES
+    </div>
+
+    <nav className="dbs-submenu-nav">
+    {filteredSubMenus.map((sub) => {
+    const Icon = submenuIcons[sub.sMenuName] || FileText;
+
+    return (
+        <button
+            key={sub.sMenuId}
+            className={`dbs-submenu-link ${
+                location.pathname.toLowerCase() ===
+                sub.route.toLowerCase()
+                    ? "dbs-submenu-active"
+                    : ""
+            }`}
+            onClick={() => history.push(sub.route)}
+        >
+            <Icon size={16} className="dbs-submenu-icon" />
+            <span>{sub.sMenuName}</span>
+        </button>
+    );
+})}
+    </nav>
+  </div>
+)}
         </aside>
       )}
+      
 
       {/* --- MAIN CORE PANEL --- */}
       <div className="dbs-main-core-panel">
@@ -664,7 +759,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           </div>
 
           {/* Quick Actions Shortcuts */}
-          <div className="dbs-utility-card">
+          {/* <div className="dbs-utility-card">
             <div className="dbs-utility-card-header">
               <Star size={14} />
               <span>Favorites / Shortcuts</span>
@@ -683,7 +778,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 <span>Account Master Ledger</span>
               </button>
             </div>
-          </div>
+          </div> */}
 
           {/* Quick Notes */}
           <div className="dbs-utility-card">

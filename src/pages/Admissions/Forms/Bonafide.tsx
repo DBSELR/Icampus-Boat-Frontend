@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Save, Edit3, Trash2, HelpCircle, AlertTriangle, Printer } from "lucide-react";
 import { toast } from "sonner";
-import "./BonafideCertificate.css";
+import "./Bonafide.css";
 
 interface BonafideRecord {
     id: number;

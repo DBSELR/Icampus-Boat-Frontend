@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
-import "./DeleteInActiveStudents.css";
+import "./Del_InActive_Student.css";
 
 const DeleteInActiveStudents: React.FC = () => {
   const [form, setForm] = useState({

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Save, Edit3, Trash2, HelpCircle, AlertTriangle } from "lucide-react";
 import { toast } from "sonner";
-import "./GroupChange.css";
+import "./Group_change.css";
 
 interface GroupChangeRecord {
     id: number;

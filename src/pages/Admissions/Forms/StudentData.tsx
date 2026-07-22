@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Search, X, FileSpreadsheet } from "lucide-react";
 import { toast } from "sonner";
-import "./StudentDataExcelExport.css";
+import "./StudentData.css";
 
 const options = [
   "Reg No",
