@@ -8,7 +8,6 @@ import { toast } from "sonner";
 import "./Home.css";
 
 // 18 Modules Grid matching original DBS Campus ERP
-<<<<<<< Updated upstream
 // const LANDING_MODULES = [
 //   { id: "admissions", name: "Admissions", icon: School, path: "/admissions/dashboard", color: "blue" },
 //   { id: "fees", name: "Fees", icon: CreditCard, path: "/fees/account-master", color: "orange" },
@@ -29,8 +28,6 @@ import "./Home.css";
 //   { id: "establishment", name: "Establishment", icon: School, path: "/establishment", color: "purple" },
 //   { id: "settings", name: "Settings", icon: Settings2, path: "/settings", color: "slate" }
 // ];
-=======
->>>>>>> Stashed changes
 
 const LANDING_MODULES = [
   { id: "admissions", name: "Admissions", icon: School,  color: "blue" },
