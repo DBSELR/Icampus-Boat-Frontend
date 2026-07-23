@@ -46,13 +46,11 @@ export const loginApi = async (
         console.log("Base Url=====??", API_BASE);
         console.log("Data======??", data);
 
-        const response = await axios.get(
+        const response = await axios.post(
             `${API_BASE}Auth/Login`,
             {
-                params: {
-                    UserId: data.userId,
-                    Password: data.password,
-                },
+                USERID: data.userId,
+                Password: data.password,
             }
         );
         console.log(response);

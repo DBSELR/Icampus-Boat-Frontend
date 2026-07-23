@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { 
-  School, CreditCard, Wallet, BookOpen, Users, Settings, UserCheck, Award, 
+import {
+  School, CreditCard, Wallet, BookOpen, Users, Settings, UserCheck, Award,
   ShieldAlert, FileText, Settings2, ShieldQuestion, HelpCircle, Heart, Bell
 } from "lucide-react";
 import { toast } from "sonner";
@@ -30,31 +30,31 @@ import "./Home.css";
 // ];
 
 const LANDING_MODULES = [
-  { id: "admissions", name: "Admissions", icon: School,  color: "blue" },
-  { id: "fees", name: "Fees", icon: CreditCard,  color: "orange" },
-  { id: "payroll", name: "Payroll", icon: Wallet,  color: "emerald" },
+  { id: "admissions", name: "Admissions", icon: School, color: "blue" },
+  { id: "fees", name: "Fees", icon: CreditCard, color: "orange" },
+  { id: "payroll", name: "Payroll", icon: Wallet, color: "emerald" },
   { id: "accounts", name: "Accounts", icon: CalculatorIcon, color: "purple" },
   { id: "attendance", name: "Attendance", icon: UserCheck, color: "teal" },
   { id: "examinations", name: "Examinations", icon: Award, color: "pink" },
-  { id: "stores", name: "Stores", icon: Settings,  color: "slate" },
-  { id: "library", name: "Library", icon: BookOpen,color: "blue" },
-  { id: "transport", name: "Transport", icon: BusIcon,color: "orange" },
-  { id: "discipline", name: "Discipline", icon: ShieldAlert,  color: "purple" },
+  { id: "stores", name: "Stores", icon: Settings, color: "slate" },
+  { id: "library", name: "Library", icon: BookOpen, color: "blue" },
+  { id: "transport", name: "Transport", icon: BusIcon, color: "orange" },
+  { id: "discipline", name: "Discipline", icon: ShieldAlert, color: "purple" },
   { id: "performance", name: "Performance", icon: PerformanceIcon, color: "emerald" },
   { id: "hostels", name: "Hostels", icon: School, color: "pink" },
-  { id: "medicare", name: "Medicare", icon: Heart,  color: "teal" },
-  { id: "front-office", name: "Front Office", icon: Users,  color: "slate" },
-  { id: "People's Connect", icon: Users, color: "blue",  name: "People's Connect", displayName: "Groups",},
-  { id: "tappal", name: "Tappal", icon: FileText,  color: "orange" },
-  { id: "establishment", name: "Establishment", icon: School,  color: "purple" },
-  { id: "settings", name: "Settings", icon: Settings2,  color: "slate" }
+  { id: "medicare", name: "Medicare", icon: Heart, color: "teal" },
+  { id: "front-office", name: "Front Office", icon: Users, color: "slate" },
+  { id: "People's Connect", icon: Users, color: "blue", name: "People's Connect", displayName: "Groups", },
+  { id: "tappal", name: "Tappal", icon: FileText, color: "orange" },
+  { id: "establishment", name: "Establishment", icon: School, color: "purple" },
+  { id: "settings", name: "Settings", icon: Settings2, color: "slate" }
 ];
 
 
 
-const user=JSON.parse(localStorage.getItem("user")||"{}");
+const user = JSON.parse(localStorage.getItem("user") || "{}");
 
-const forms=user.forms||[];
+const forms = user.forms || [];
 
 // const moduleNames=[
 //     ...new Set(
@@ -165,7 +165,7 @@ export const Home: React.FC = () => {
     text.toLowerCase().replace(/[\s\\/_-]/g, "");
 
   const handleModuleClick = (module: any) => {
-      console.log("Module clicked:", module);
+    console.log("Module clicked:", module);
     const subMenus = JSON.parse(localStorage.getItem("subMenus") || "[]");
 
     const menu = subMenus.find((m: any) =>
@@ -185,26 +185,26 @@ export const Home: React.FC = () => {
 
 
     if (firstSubMenu) {
-console.log("Clicked Module:", module.name);
-console.log("Matched Menu:", menu);
-console.log("MenuId to Save:", menu?.menuId);
+      console.log("Clicked Module:", module.name);
+      console.log("Matched Menu:", menu);
+      console.log("MenuId to Save:", menu?.menuId);
 
-    // Save selected module
-    localStorage.setItem("selectedMenuId", menu.menuId);
+      // Save selected module
+      localStorage.setItem("selectedMenuId", menu.menuId);
 
-    toast.success(`Opening ${module.name}`);
+      toast.success(`Opening ${module.name}`);
 
-    history.push(firstSubMenu.route);
-}
-console.log(
-  "Saved selectedMenuId:",
-  localStorage.getItem("selectedMenuId")
-);
+      history.push(firstSubMenu.route);
+    }
+    console.log(
+      "Saved selectedMenuId:",
+      localStorage.getItem("selectedMenuId")
+    );
 
   };
 
 
-  
+
   return (
     <div className="dbs-landing-page-container">
 

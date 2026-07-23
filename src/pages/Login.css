@@ -1,93 +1,195 @@
-/* Login Stylesheet - Scoped with .dbs- prefixes */
+/* ==========================================================================
+   iCAMPUS BOAT ERP - Creative White/Light Theme Login Stylesheet
+   Design System: Modern SaaS / Enterprise ERP + Native Mobile Experience
+   ========================================================================== */
 
-.dbs-login-wrapper {
+.icampus-erp-login-wrapper {
   position: relative;
   min-height: 100vh;
+  height: 100%;
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 24px;
-  background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
-  overflow: hidden;
-  font-family: var(--dbs-font-family);
+  padding: 40px 24px;
+  background: radial-gradient(circle at 10% 20%, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  font-family: var(--dbs-font-family, 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  color: #0f172a;
   z-index: 0;
 }
 
-/* Floating animated background bubbles & nebulae */
-.dbs-login-bg-bubbles {
+/* ==========================================================================
+   Dynamic Light Canvas & Animated Background Layer
+   ========================================================================== */
+
+.icampus-erp-bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Micro Grid Pattern Overlay */
+.icampus-erp-grid-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
-  pointer-events: none;
+  background-image:
+    radial-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px),
+    linear-gradient(to right, rgba(226, 232, 240, 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 232, 240, 0.4) 1px, transparent 1px);
+  background-size: 32px 32px, 64px 64px, 64px 64px;
+  opacity: 0.7;
 }
 
-.dbs-bubble {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 50%;
-  animation: dbs-bubble-float 25s infinite linear;
-}
-
-.dbs-bubble:nth-child(1) { width: 120px; height: 120px; left: 10%; top: 20%; animation-duration: 18s; }
-.dbs-bubble:nth-child(2) { width: 200px; height: 200px; right: 15%; bottom: 10%; animation-duration: 25s; }
-.dbs-bubble:nth-child(3) { width: 80px; height: 80px; left: 45%; bottom: 25%; animation-duration: 15s; }
-.dbs-bubble:nth-child(4) { width: 150px; height: 150px; right: 40%; top: 15%; animation-duration: 22s; }
-
-@keyframes dbs-bubble-float {
-  0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.15; }
-  50% { transform: translateY(-80px) rotate(180deg) scale(1.1); opacity: 0.4; }
-  100% { transform: translateY(-160px) rotate(360deg) scale(1); opacity: 0; }
-}
-
-/* Glowing orbs for cinematic space backdrop */
-.dbs-glow-orb {
+/* Ambient Pulsing Gradient Mesh Orbs */
+.icampus-erp-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.35;
-  pointer-events: none;
-  animation: dbs-nebula-float 22s infinite alternate ease-in-out;
+  filter: blur(100px);
+  opacity: 0.45;
+  animation: erp-orb-pulse 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.dbs-glow-orb-1 {
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.5) 0%, rgba(37, 99, 235, 0) 70%);
-  top: -10%;
-  left: 10%;
+.icampus-erp-orb-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.35) 0%, rgba(147, 197, 253, 0) 70%);
+  top: -120px;
+  left: -100px;
+  animation-duration: 22s;
 }
 
-.dbs-glow-orb-2 {
-  width: 450px;
-  height: 450px;
-  background: radial-gradient(circle, rgba(13, 148, 136, 0.4) 0%, rgba(13, 148, 136, 0) 70%);
-  bottom: -15%;
-  right: 5%;
+.icampus-erp-orb-2 {
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.28) 0%, rgba(186, 230, 253, 0) 70%);
+  bottom: -150px;
+  right: -100px;
+  animation-duration: 26s;
   animation-delay: -5s;
-  animation-duration: 28s;
 }
 
-@keyframes dbs-nebula-float {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(60px, -50px) scale(1.2); }
-  100% { transform: translate(-40px, 30px) scale(0.9); }
+.icampus-erp-orb-3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.22) 0%, rgba(221, 214, 254, 0) 70%);
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-duration: 18s;
+  animation-delay: -9s;
+}
+
+@keyframes erp-orb-pulse {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.4;
+  }
+
+  50% {
+    transform: translate(45px, -35px) scale(1.15);
+    opacity: 0.55;
+  }
+
+  100% {
+    transform: translate(-35px, 25px) scale(0.9);
+    opacity: 0.35;
+  }
+}
+
+/* Floating Particles */
+.icampus-erp-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(37, 99, 235, 0.2);
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.3);
+  animation: erp-particle-float 24s infinite linear;
+}
+
+.icampus-erp-particle.particle-1 {
+  width: 12px;
+  height: 12px;
+  left: 15%;
+  top: 25%;
+  animation-duration: 20s;
+}
+
+.icampus-erp-particle.particle-2 {
+  width: 8px;
+  height: 8px;
+  right: 20%;
+  top: 20%;
+  animation-duration: 28s;
+  animation-delay: -4s;
+}
+
+.icampus-erp-particle.particle-3 {
+  width: 16px;
+  height: 16px;
+  left: 40%;
+  bottom: 15%;
+  animation-duration: 22s;
+  animation-delay: -8s;
+}
+
+.icampus-erp-particle.particle-4 {
+  width: 10px;
+  height: 10px;
+  right: 35%;
+  bottom: 30%;
+  animation-duration: 18s;
+  animation-delay: -12s;
+}
+
+@keyframes erp-particle-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: translateY(-70px) rotate(180deg);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateY(-140px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Light SVG Wave Bottom Layer */
+.icampus-erp-wave-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 220px;
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* ==========================================================================
-   Cinematic Intro Overlay
+   Cinematic Light Intro Overlay
    ========================================================================== */
 
-.dbs-intro-overlay {
+.icampus-erp-intro-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, #0f172a 20%, #030712 100%);
+  background: radial-gradient(circle at center, #ffffff 0%, #f8fafc 60%, #e2e8f0 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,7 +198,7 @@
   overflow: hidden;
 }
 
-.dbs-intro-content {
+.icampus-erp-intro-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -105,281 +207,555 @@
   max-width: 500px;
   width: 100%;
   position: relative;
+  z-index: 10;
 }
 
-.dbs-intro-logo-container {
+.icampus-erp-intro-logo-container {
   position: relative;
-  width: 130px;
-  height: 130px;
+  width: 140px;
+  height: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 24px;
 }
 
-.dbs-intro-logo {
-  width: 90px;
-  height: 90px;
+.icampus-erp-intro-logo {
+  width: 95px;
+  height: 95px;
   object-fit: contain;
   z-index: 10;
 }
 
-.dbs-intro-logo-glow-ring {
+.icampus-erp-intro-glow-ring {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
-  border: 1px  dashed rgba(37, 99, 235, 0.45);
-  animation: dbs-spin-glow-ring 15s linear infinite;
-  pointer-events: none;
-  box-shadow: inset 0 0 15px rgba(37, 99, 235, 0.1), 0 0 15px rgba(37, 99, 235, 0.1);
+  border: 2px dashed rgba(37, 99, 235, 0.4);
+  animation: erp-ring-spin 14s linear infinite;
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.15), inset 0 0 15px rgba(37, 99, 235, 0.1);
 }
 
-@keyframes dbs-spin-glow-ring {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
+@keyframes erp-ring-spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
-.dbs-intro-text-box {
-  margin-bottom: 36px;
+.icampus-erp-intro-text-box {
+  margin-bottom: 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.dbs-intro-title {
-  font-size: 2.4rem;
+.icampus-erp-intro-title {
+  font-size: 2.5rem;
   font-weight: 900;
-  color: white;
+  color: #0f172a;
   margin-bottom: 8px;
   text-transform: uppercase;
-  text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  letter-spacing: 6px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
 }
 
-.dbs-intro-subtitle {
+.icampus-erp-intro-subtitle {
   font-size: 1.05rem;
   font-weight: 700;
-  letter-spacing: 5px;
-  color: #3b82f6;
+  letter-spacing: 4px;
+  color: #2563eb;
   text-transform: uppercase;
   margin-bottom: 10px;
-  text-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
 }
 
-.dbs-intro-tagline {
-  font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.6);
+.icampus-erp-intro-tagline {
+  font-size: 0.9rem;
+  color: #64748b;
   font-style: italic;
   letter-spacing: 0.5px;
 }
 
-.dbs-intro-progress-track {
-  width: 180px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.08);
+.icampus-erp-intro-progress-track {
+  width: 200px;
+  height: 3px;
+  background: rgba(226, 232, 240, 0.8);
   border-radius: 4px;
   overflow: hidden;
-  margin-bottom: 40px;
+  margin-bottom: 36px;
   position: relative;
 }
 
-.dbs-intro-progress-bar {
+.icampus-erp-intro-progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, #2563eb, #0d9488);
+  background: linear-gradient(90deg, #2563eb, #06b6d4);
   width: 0%;
-  box-shadow: 0 0 8px rgba(37, 99, 235, 0.8);
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
 }
 
-.dbs-intro-skip-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.55);
-  padding: 8px 24px;
-  font-size: 0.78rem;
+.icampus-erp-intro-skip-btn {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  padding: 9px 26px;
+  font-size: 0.8rem;
   font-weight: 600;
   border-radius: 30px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s ease;
   outline: none;
   letter-spacing: 1px;
   text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
 }
 
-.dbs-intro-skip-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: white;
-  border-color: rgba(255, 255, 255, 0.35);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+.icampus-erp-intro-skip-btn:hover {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.25);
 }
-
 
 /* ==========================================================================
-   Credentials Card Styling
+   Main App Container Grid Layout (Desktop & Widescreen)
    ========================================================================== */
 
-.dbs-login-card-container {
-  width: 100%;
-  max-width: 440px;
+.icampus-erp-main-container {
+  position: relative;
   z-index: 10;
+  width: 100%;
+  max-width: 1140px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin: auto;
+}
+
+/* ==========================================================================
+   Left Side: Desktop ERP Hero Showcase Section
+   ========================================================================== */
+
+.icampus-erp-hero-panel {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
+  padding: 12px 0;
 }
 
-/* Glassmorphic header area */
-.dbs-login-card-header {
-  text-align: center;
-  color: white;
-}
-
-.dbs-login-logo-mark {
-  width: 64px;
-  height: 64px;
-  background: rgba(255, 255, 255, 0.764);
+.icampus-erp-hero-badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  color: #1d4ed8;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.icampus-erp-badge-dot {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
+  animation: erp-dot-pulse 1.8s infinite ease-in-out;
+}
+
+@keyframes erp-dot-pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+}
+
+.icampus-erp-hero-title {
+  font-size: 2.35rem;
+  font-weight: 900;
+  line-height: 1.25;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+}
+
+.icampus-erp-hero-subtitle {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #475569;
+  font-weight: 400;
+}
+
+/* Feature Highlights */
+.icampus-erp-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.icampus-erp-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  padding: 12px 16px;
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.icampus-erp-feature-item:hover {
+  transform: translateX(4px);
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.3);
+}
+
+.icampus-erp-feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #eff6ff;
+  color: #2563eb;
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.icampus-erp-feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.icampus-erp-feature-text strong {
+  font-size: 0.9rem;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.icampus-erp-feature-text span {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+/* Metrics Row */
+.icampus-erp-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.icampus-erp-metric-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #e2e8f0;
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+}
+
+.icampus-erp-metric-val {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #2563eb;
+}
+
+.icampus-erp-metric-lbl {
+  display: block;
+  font-size: 0.72rem;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+.icampus-erp-hero-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  font-size: 0.82rem;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+/* ==========================================================================
+   Right Side: Glassmorphic ERP Auth Card (Web & Mobile Sheet)
+   ========================================================================== */
+
+.icampus-erp-auth-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 24px;
+  padding: 36px 32px;
+  box-shadow:
+    0 25px 60px -15px rgba(15, 23, 42, 0.08),
+    0 10px 25px -10px rgba(37, 99, 235, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  width: 100%;
+  max-width: 440px;
+  justify-self: center;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.icampus-erp-auth-card:hover {
+  box-shadow:
+    0 30px 70px -15px rgba(15, 23, 42, 0.12),
+    0 12px 30px -10px rgba(37, 99, 235, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  border-color: rgba(37, 99, 235, 0.25);
+}
+
+/* Native Mobile Grab Handle Indicator (Hidden on Web Widescreen) */
+.icampus-erp-mobile-handle {
+  display: none;
+  width: 40px;
+  height: 4px;
+  background: #cbd5e1;
+  border-radius: 4px;
+  margin: 0 auto 16px auto;
+}
+
+/* Card Brand Header */
+.icampus-erp-card-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.icampus-erp-logo-mark {
+  width: 68px;
+  height: 68px;
+  background: #ffffff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 16px auto;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-
-  border: 1px   dashed rgba(37, 99, 235, 0.45);
-  /* animation: dbs-spin-glow-ring 15s linear infinite; */
-  pointer-events: none;
-  box-shadow: inset 0 0 15px rgba(37, 99, 235, 0.1), 0 0 15px rgba(37, 99, 235, 0.1);
+  margin-bottom: 12px;
+  border: 2px dashed rgba(37, 99, 235, 0.4);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12);
+  cursor: pointer;
+  position: relative;
 }
 
-.dbs-card-logo-img {
-  width: 44px;
-  height: 44px;
+.icampus-erp-logo-img {
+  width: 46px;
+  height: 46px;
   object-fit: contain;
 }
 
-.dbs-login-card-header h1 {
-  font-size: 1.35rem;
-  color: white;
-  margin-bottom: 6px;
-  letter-spacing: 0.5px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+.icampus-erp-brand-text h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 4px;
+  letter-spacing: 0.3px;
 }
 
-.dbs-login-card-header p {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.85rem;
+.icampus-erp-brand-text p {
+  font-size: 0.82rem;
+  color: #64748b;
   font-style: italic;
 }
 
-/* Glassmorphic Login card body */
-.dbs-login-form-box {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: var(--dbs-radius-lg);
-  padding: 32px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-  color: white;
-}
-
-.dbs-login-form-box h2 {
-  font-size: 1.15rem;
-  color: white;
-  text-align: center;
-  margin-bottom: 24px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 12px;
-}
-
-.dbs-login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.dbs-login-input-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.dbs-login-input-group label {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.8rem;
-  margin-bottom: 6px;
-  font-weight: 600;
-}
-
-.dbs-login-input-field-wrapper {
-  position: relative;
-  display: flex;
+.icampus-erp-mobile-status-pill {
+  display: none;
   align-items: center;
+  gap: 6px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #047857;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-top: 8px;
 }
 
-.dbs-login-field-icon {
-  position: absolute;
-  left: 14px;
-  color: rgba(255, 255, 255, 0.5);
-  pointer-events: none;
+.icampus-erp-status-dot {
+  width: 6px;
+  height: 6px;
+  background: #10b981;
+  border-radius: 50%;
 }
 
-.dbs-login-input-field-wrapper input {
-  width: 100%;
-  padding: 12px 14px 12px 42px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--dbs-radius-sm);
-  color: white;
-  font-size: 0.92rem;
-  transition: all 0.25s ease;
-  backdrop-filter: blur(4px);
-}
-
-.dbs-login-input-field-wrapper input::placeholder {
-  color: rgba(255, 255, 255, 0.35);
-}
-
-.dbs-login-input-field-wrapper input:focus {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(37, 99, 235, 0.8);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
-  transform: translateY(-0.5px);
-}
-
-.dbs-password-toggle-btn {
-  position: absolute;
-  right: 14px;
-  background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
+/* Title Banner */
+.icampus-erp-title-banner {
   display: flex;
   align-items: center;
   justify-content: center;
-  outline: none;
-  padding: 4px;
+  gap: 8px;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+}
+
+.icampus-erp-title-icon {
+  color: #38bdf8;
+}
+
+/* Form Styling */
+.icampus-erp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.icampus-erp-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.icampus-erp-input-group label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 6px;
+  letter-spacing: 0.2px;
+}
+
+.icampus-erp-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(248, 250, 252, 0.95);
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.icampus-erp-input-wrapper:hover {
+  border-color: #94a3b8;
+  background: #ffffff;
+}
+
+.icampus-erp-input-wrapper:focus-within {
+  background: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.icampus-erp-input-wrapper.icampus-erp-input-error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12) !important;
+}
+
+.icampus-erp-field-icon {
+  position: absolute;
+  left: 14px;
+  color: #64748b;
+  pointer-events: none;
   transition: color 0.2s ease;
 }
 
-.dbs-password-toggle-btn:hover {
-  color: white;
+.icampus-erp-input-wrapper:focus-within .icampus-erp-field-icon {
+  color: #2563eb;
 }
 
-.dbs-login-actions-row {
+.icampus-erp-input-wrapper input {
+  width: 100%;
+  padding: 12px 14px 12px 44px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.92rem;
+  color: #0f172a;
+  font-weight: 500;
+}
+
+.icampus-erp-input-wrapper input::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.icampus-erp-password-toggle {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.icampus-erp-password-toggle:hover {
+  color: #0f172a;
+  background: rgba(241, 245, 249, 0.8);
+}
+
+/* Error Text Slot */
+.icampus-erp-error-slot {
+  min-height: 18px;
+  margin-top: 4px;
+  padding-left: 2px;
+}
+
+.icampus-erp-error-text {
+  color: #dc2626;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+/* Checkbox & Actions */
+.icampus-erp-actions-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
-.dbs-login-checkbox-label {
+.icampus-erp-checkbox-label {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -387,342 +763,411 @@
   user-select: none;
 }
 
-.dbs-login-checkbox-label input[type="checkbox"] {
-  width: 15px;
-  height: 15px;
-  cursor: pointer;
+.icampus-erp-checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
   accent-color: #2563eb;
+  cursor: pointer;
 }
 
-.dbs-login-checkbox-label span {
-  color: rgba(255, 255, 255, 0.85);
+.icampus-erp-checkbox-text {
   font-size: 0.82rem;
+  color: #475569;
   font-weight: 500;
 }
 
-/* Submit & Demo buttons */
-.dbs-login-submit-btn {
-  background: white;
-  color: #1e293b;
+/* Submit CTA Button */
+.icampus-erp-submit-btn {
+  position: relative;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #ffffff;
   border: none;
   padding: 13px;
-  border-radius: var(--dbs-radius-sm);
-  font-weight: 700;
+  border-radius: 12px;
   font-size: 0.95rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-  outline: none;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  margin-top: 8px;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+  overflow: hidden;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-.dbs-login-submit-btn:hover:not(:disabled) {
-  background: #f8fafc;
-  transform: translateY(-1.5px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+.icampus-erp-submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
 }
 
-.dbs-login-submit-btn:active:not(:disabled) {
-  transform: translateY(-0.5px);
+.icampus-erp-submit-btn:hover::before {
+  left: 100%;
 }
 
-.dbs-login-submit-btn:disabled {
-  opacity: 0.5;
+.icampus-erp-submit-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+}
+
+.icampus-erp-submit-btn:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
-.dbs-login-loading-spinner {
-  width: 20px;
-  height: 20px;
-  border: 3px solid rgba(30, 41, 59, 0.2);
-  border-top-color: #1e293b;
-  border-radius: 50%;
-  animation: dbs-login-spin 0.8s infinite linear;
-}
-
-@keyframes dbs-login-spin {
-  to { transform: rotate(360deg); }
-}
-
-.dbs-login-reset-pwd-box {
-  margin-top: 22px;
-  text-align: center;
-  font-size: 0.8rem;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.dbs-login-reset-pwd-box span {
-  color: rgba(255, 255, 255, 0.55);
-}
-
-.dbs-reset-pwd-link {
-  background: transparent;
-  border: none;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-  text-decoration: underline;
-  outline: none;
-  font-size: 0.82rem;
-  transition: color 0.2s ease;
-}
-
-.dbs-reset-pwd-link:hover {
-  color: #3b82f6;
-}
-
-.dbs-login-divider {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin: 18px 0;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.35);
-  letter-spacing: 1px;
-}
-
-.dbs-login-divider::before,
-.dbs-login-divider::after {
-  content: '';
-  flex: 1;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.dbs-login-divider:not(:empty)::before { margin-right: 12px; }
-.dbs-login-divider:not(:empty)::after { margin-left: 12px; }
-
-.dbs-login-demo-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 10px;
-  border-radius: var(--dbs-radius-sm);
-  font-weight: 600;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  width: 100%;
+.icampus-erp-btn-content {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
+}
+
+.icampus-erp-btn-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.icampus-erp-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: erp-spin 0.8s infinite linear;
+}
+
+@keyframes erp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Forgot Password Box */
+.icampus-erp-forgot-pwd-box {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.icampus-erp-reset-link {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-size: 0.8rem;
+  cursor: pointer;
+  outline: none;
+  transition: color 0.2s ease;
+}
+
+.icampus-erp-reset-link strong {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.icampus-erp-reset-link:hover {
+  color: #0f172a;
+}
+
+/* Divider */
+.icampus-erp-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 18px 0 14px 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 1px;
+}
+
+.icampus-erp-divider::before,
+.icampus-erp-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.icampus-erp-divider:not(:empty)::before {
+  margin-right: 12px;
+}
+
+.icampus-erp-divider:not(:empty)::after {
+  margin-left: 12px;
+}
+
+/* Demo Button */
+.icampus-erp-demo-btn {
+  width: 100%;
+  background: rgba(248, 250, 252, 0.9);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  color: #1e293b;
+  padding: 11px 16px;
+  border-radius: 12px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.25s ease;
   outline: none;
 }
 
-.dbs-login-demo-btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
-  transform: translateY(-0.5px);
+.icampus-erp-demo-btn:hover:not(:disabled) {
+  background: #eff6ff;
+  border-color: #2563eb;
+  color: #1d4ed8;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.12);
 }
 
-.dbs-login-card-footer {
+.icampus-erp-demo-icon {
+  color: #f59e0b;
+}
+
+.icampus-erp-demo-arrow {
+  margin-left: auto;
+  color: #94a3b8;
+}
+
+.icampus-erp-demo-btn:hover .icampus-erp-demo-arrow {
+  color: #2563eb;
+}
+
+.icampus-erp-card-footer {
+  margin-top: 20px;
   text-align: center;
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 0.75rem;
+  font-size: 0.74rem;
+  color: #94a3b8;
   font-weight: 500;
 }
 
-
 /* ==========================================================================
-   Responsive Media Queries (Responsive Cinematic Layouts)
+   Responsive Layout & Media Queries
    ========================================================================== */
 
 /* Widescreen Displays (1200px and up) */
 @media (min-width: 1200px) {
-  .dbs-glow-orb-1 {
-    width: 450px;
-    height: 450px;
-    left: 15%;
+  .icampus-erp-main-container {
+    max-width: 1180px;
+    gap: 60px;
   }
-  .dbs-glow-orb-2 {
-    width: 550px;
-    height: 550px;
-    right: 12%;
-  }
-  .dbs-login-card-container {
-    max-width: 460px;
+
+  .icampus-erp-hero-title {
+    font-size: 2.6rem;
   }
 }
 
-/* Notebooks and Small Desktops (992px to 1199px) */
-@media (max-width: 1199px) {
-  .dbs-glow-orb-1 {
-    width: 350px;
-    height: 350px;
+/* Notebooks & Small Desktops (992px to 1199px) */
+@media (max-width: 1199px) and (min-width: 992px) {
+  .icampus-erp-main-container {
+    max-width: 960px;
+    gap: 36px;
   }
-  .dbs-glow-orb-2 {
-    width: 450px;
-    height: 450px;
-  }
-}
 
-/* Tablets & Small Monitors (768px to 991px) */
-@media (max-width: 991px) {
-  .dbs-login-wrapper {
-    padding: 32px;
-  }
-  .dbs-login-form-box {
-    padding: 30px;
-  }
-  .dbs-intro-title {
+  .icampus-erp-hero-title {
     font-size: 2.1rem;
   }
-  .dbs-intro-logo-container {
-    width: 120px;
-    height: 120px;
+}
+
+/* Tablets (768px to 991px) */
+@media (max-width: 991px) {
+  .icampus-erp-main-container {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    max-width: 480px;
   }
-  .dbs-intro-logo {
-    width: 80px;
-    height: 80px;
+
+  .icampus-erp-hero-panel {
+    text-align: center;
+    align-items: center;
+    padding: 0;
   }
-  .dbs-intro-logo-glow-ring {
-    width: 105px;
-    height: 105px;
+
+  .icampus-erp-hero-badge {
+    align-self: center;
+  }
+
+  .icampus-erp-hero-title {
+    font-size: 1.9rem;
+  }
+
+  .icampus-erp-hero-subtitle {
+    font-size: 0.92rem;
+  }
+
+  .icampus-erp-features-list,
+  .icampus-erp-metrics-row,
+  .icampus-erp-hero-footer {
+    display: none;
+    /* Hide dense hero widgets on tablet to prioritize quick login */
   }
 }
 
-/* Mobile Devices & Large Phones (481px to 767px) */
+/* Mobile & Small Screens (Up to 767px) - NATIVE MOBILE APP LOOK & FEEL */
 @media (max-width: 767px) {
-  .dbs-login-wrapper {
-    padding: 20px;
+  .icampus-erp-login-wrapper {
+    padding: 12px 14px;
+    align-items: flex-end;
+    /* Drawer bottom app feel */
+    background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
   }
-  .dbs-login-card-container {
-    max-width: 400px;
+
+  .icampus-erp-main-container {
+    grid-template-columns: 1fr;
+    gap: 0;
+    width: 100%;
+    max-width: 100%;
   }
-  .dbs-login-form-box {
-    padding: 28px;
-    border-radius: var(--dbs-radius);
+
+  /* Compact top mobile app branding */
+  .icampus-erp-hero-panel {
+    margin-bottom: 16px;
+    text-align: center;
+    align-items: center;
   }
-  .dbs-intro-title {
-    font-size: 1.8rem;
-    letter-spacing: 6px !important;
+
+  .icampus-erp-hero-badge {
+    align-self: center;
+    font-size: 0.72rem;
+    padding: 4px 10px;
   }
-  .dbs-intro-subtitle {
+
+  .icampus-erp-hero-title {
+    font-size: 1.45rem;
+    margin-top: 4px;
+  }
+
+  .icampus-erp-hero-subtitle,
+  .icampus-erp-features-list,
+  .icampus-erp-metrics-row,
+  .icampus-erp-hero-footer {
+    display: none;
+  }
+
+  /* Transform Auth Card into Native App Drawer Sheet */
+  .icampus-erp-auth-card {
+    border-radius: 28px 28px 20px 20px;
+    padding: 24px 20px 20px 20px;
+    background: #ffffff;
+    box-shadow: 0 -10px 40px rgba(15, 23, 42, 0.12), 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(226, 232, 240, 1);
+  }
+
+  .icampus-erp-mobile-handle {
+    display: block;
+    /* Visible iOS sheet handle */
+  }
+
+  .icampus-erp-mobile-status-pill {
+    display: inline-flex;
+    /* Show active status tag on mobile */
+  }
+
+  .icampus-erp-card-header {
+    margin-bottom: 16px;
+  }
+
+  .icampus-erp-logo-mark {
+    width: 58px;
+    height: 58px;
+    margin-bottom: 8px;
+  }
+
+  .icampus-erp-logo-img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .icampus-erp-brand-text h2 {
+    font-size: 1.15rem;
+  }
+
+  .icampus-erp-brand-text p {
+    font-size: 0.78rem;
+  }
+
+  .icampus-erp-title-banner {
+    padding: 8px 12px;
+    font-size: 0.76rem;
+    margin-bottom: 18px;
+  }
+
+  /* Native Mobile Touch Target Heights */
+  .icampus-erp-input-wrapper {
+    min-height: 48px;
+    border-radius: 14px;
+  }
+
+  .icampus-erp-input-wrapper input {
+    padding: 13px 14px 13px 44px;
     font-size: 0.95rem;
+  }
+
+  .icampus-erp-submit-btn {
+    min-height: 50px;
+    font-size: 0.98rem;
+    border-radius: 14px;
+    margin-top: 10px;
+  }
+
+  .icampus-erp-demo-btn {
+    min-height: 46px;
+    border-radius: 14px;
+  }
+
+  /* Intro sizing for mobile */
+  .icampus-erp-intro-title {
+    font-size: 1.85rem;
     letter-spacing: 4px;
   }
-  .dbs-intro-logo-container {
+
+  .icampus-erp-intro-subtitle {
+    font-size: 0.88rem;
+    letter-spacing: 2px;
+  }
+
+  .icampus-erp-intro-logo-container {
     width: 110px;
     height: 110px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
-  .dbs-intro-logo {
-    width: 75px;
-    height: 75px;
+
+  .icampus-erp-intro-logo {
+    width: 72px;
+    height: 72px;
   }
-  .dbs-intro-logo-glow-ring {
-    width: 95px;
-    height: 95px;
+
+  .icampus-erp-intro-glow-ring {
+    width: 100px;
+    height: 100px;
+  }
+
+  .icampus-erp-intro-progress-track {
+    width: 150px;
+    margin-bottom: 28px;
   }
 }
 
 /* Extra Small Phones (Up to 480px) */
 @media (max-width: 480px) {
-  .dbs-login-wrapper {
-    padding: 16px;
-    align-items: flex-start;
-    overflow-y: auto;
-  }
-  
-  .dbs-login-card-container {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    gap: 16px;
-  }
-  
-  .dbs-login-form-box {
-    padding: 22px 18px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  .icampus-erp-login-wrapper {
+    padding: 8px 10px;
   }
 
-  .dbs-login-card-header h1 {
-    font-size: 1.2rem;
+  .icampus-erp-auth-card {
+    padding: 20px 16px 16px 16px;
   }
 
-  .dbs-login-card-header p {
-    font-size: 0.8rem;
+  .icampus-erp-brand-text h2 {
+    font-size: 1.05rem;
   }
 
-  .dbs-login-logo-mark {
-    width: 56px;
-    height: 56px;
-    margin-bottom: 12px;
-  }
-
-  .dbs-card-logo-img {
-    width: 36px;
-    height: 36px;
-  }
-
-  .dbs-intro-title {
-    font-size: 1.55rem;
-    letter-spacing: 4px !important;
-  }
-
-  .dbs-intro-subtitle {
-    font-size: 0.88rem;
-    letter-spacing: 3px;
-  }
-  
-  .dbs-intro-tagline {
-    font-size: 0.8rem;
-  }
-
-  .dbs-intro-logo-container {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 16px;
-  }
-
-  .dbs-intro-logo {
-    width: 68px;
-    height: 68px;
-  }
-
-  .dbs-intro-logo-glow-ring {
-    width: 85px;
-    height: 85px;
-  }
-  
-  .dbs-intro-progress-track {
-    width: 140px;
-    margin-bottom: 30px;
-  }
-  
-  .dbs-login-input-field-wrapper input {
-    padding: 11px 12px 11px 38px;
-    font-size: 0.88rem;
-  }
-  
-  .dbs-login-field-icon {
-    left: 12px;
-  }
-  
-  .dbs-login-submit-btn {
-    padding: 11px;
-    font-size: 0.9rem;
+  .icampus-erp-title-banner {
+    font-size: 0.72rem;
   }
 }
-
-.dbs-input-error {
-  border: 1px solid #ef4444 !important;
-  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.2);
-}
-
-.dbs-error-slot {
-  min-height: 18px;   /* IMPORTANT: prevents layout shift */
-  margin-top: 4px;
-}
-
-.dbs-error-text {
-  color: #ef4444;
-  font-size: 12px;
-  font-weight: 500;
-}
-

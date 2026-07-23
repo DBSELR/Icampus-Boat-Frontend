@@ -485,7 +485,7 @@ const submenuIcons: Record<string, any> = {
               onClick={() => history.push("/home")}
               style={{ cursor: "pointer" }}
             >
-              <span>DBS</span>
+              <img src="/images/dbs-logo-short.png" alt="DBS Logo" className="dbs-sidebar-logo-img" />
             </div>
             {sidebarOpen && (
               <span
@@ -578,7 +578,7 @@ const submenuIcons: Record<string, any> = {
                 style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "10px" }}
               >
                 <div className="dbs-sidebar-logo-circle">
-                  <span>DBS</span>
+                  <img src="/images/dbs-logo-short.png" alt="DBS Logo" className="dbs-sidebar-logo-img" />
                 </div>
                 <span className="dbs-sidebar-brand-name" style={{ color: "var(--dbs-text)", fontWeight: 800 }}>DBS ERP</span>
               </div>
