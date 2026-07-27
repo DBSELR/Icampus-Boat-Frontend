@@ -25,7 +25,7 @@ export type LoadAcademicYearResponse =
   | LoadAcademicYearSuccessResponse
   | LoadAcademicYearErrorResponse;
 
-// Load Financial Academic Year
+// ==============Financial Academic==================
 export const loadAcademicYearsApi =
   async (): Promise<LoadAcademicYearResponse> => {
     try {
@@ -92,6 +92,7 @@ export const updateFinancialAcademicYearStatusApi = async (payload: any) => {
   return response.data;
 };
 
+// ================Subject==============
 export const getRegulationList = async () => {
   try {
     const response = await axios.get(
@@ -216,4 +217,29 @@ export const checkPaperOrder = async (payload: any) => {
   );
 
   return response.data;
+};
+
+// ================Faculty==================
+export const getCourseList = async () => {
+  try {
+    const payload = {
+      academicYear: localStorage.getItem("academicYear") || "2025-2026",
+      department: "",
+    };
+
+    const response = await axios.post(
+      `${API_BASE}FacultyMaster/GetCourseList`,
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Get Course List API Error:", error);
+    throw error;
+  }
 };

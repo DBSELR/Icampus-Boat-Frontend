@@ -389,68 +389,6 @@ const FinancialAcadamicYear: React.FC = () => {
       </div>
 
       {/* ================= Footer ================= */}
-      {/* <div className="dbs-table-footer">
-        <div className="dbs-footer-left">
-          <span className="dbs-footer-label">Show</span>
-
-          <div className="dbs-select-wrapper">
-            <select
-              value={recordsPerPage}
-              onChange={(e) => {
-                setRecordsPerPage(Number(e.target.value));
-                setCurrentPage(1);
-              }}
-            >
-              <option value={5}>5</option>
-              <option value={10}>10</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-              <option value={100}>100</option>
-            </select>
-          </div>
-
-          <span className="dbs-footer-label">entries</span>
-        </div>
-
-        <div className="dbs-footer-info">
-          Showing
-          <strong> {totalRecords === 0 ? 0 : startIndex + 1}</strong>
-          {" - "}
-          <strong>{Math.min(endIndex, totalRecords)}</strong> of
-          <strong> {totalRecords}</strong> entries
-        </div>
-
-        <div className="dbs-pagination">
-          <button
-            className="dbs-page-nav"
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage((p) => p - 1)}
-          >
-            ← Previous
-          </button>
-
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i}
-              className={`dbs-page-number ${
-                currentPage === i + 1 ? "active" : ""
-              }`}
-              onClick={() => setCurrentPage(i + 1)}
-            >
-              {i + 1}
-            </button>
-          ))}
-
-          <button
-            className="dbs-page-nav"
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage((p) => p + 1)}
-          >
-            Next →
-          </button>
-        </div>
-      </div> */}
-
       <Footer
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

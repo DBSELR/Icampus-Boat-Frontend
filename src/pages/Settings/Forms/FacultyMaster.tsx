@@ -1,11 +1,43 @@
-import React from "react";
-import { Save, AlertCircle, Edit3, Trash2 } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Save, AlertCircle } from "lucide-react";
 import "./FacultyMaster.css";
+import { getCourseList } from "../../../apis/SettingsApis";
 
 const FacultyMaster = () => {
   const sortedStudents = [];
 
-  const subjects = ["Maths", "Physics", "Chemistry", "English", "Biology"];
+  const [courses, setCourses] = useState<any[]>([]);
+  const [loadingCourses, setLoadingCourses] = useState(false);
+
+  // ===============================
+  // Get Course List API
+  // ===============================
+  const fetchCourseList = async () => {
+    try {
+      setLoadingCourses(true);
+
+      const payload = {
+        academicYear: localStorage.getItem("academicYear"),
+        department: "",
+      };
+
+      console.log("GET COURSE LIST PAYLOAD", payload);
+
+      const response = await getCourseList();
+
+      console.log("GET COURSE LIST RESPONSE", response);
+
+      setCourses(response.data || response || []);
+    } catch (error) {
+      console.error("Get Course List Failed", error);
+    } finally {
+      setLoadingCourses(false);
+    }
+  };
+
+  useEffect(() => {
+    getCourseList();
+  }, []);
 
   return (
     <div className="dbs-faculty-container">
@@ -14,7 +46,6 @@ const FacultyMaster = () => {
         <h2>Faculty Master</h2>
       </div>
 
-      {/* Form Card */}
       <div className="dbs-form-card">
         <h3>Department Information</h3>
 
@@ -23,13 +54,21 @@ const FacultyMaster = () => {
           <div className="dbs-filter-card">
             <div className="dbs-input-box">
               <label>Programme</label>
+
               <select>
                 <option>Select Programme</option>
+
+                {courses.map((item, index) => (
+                  <option key={index} value={item.programme}>
+                    {item.programmeName || item.programme}
+                  </option>
+                ))}
               </select>
             </div>
 
             <div className="dbs-input-box">
               <label>Year</label>
+
               <select>
                 <option>Select Year</option>
               </select>
@@ -37,6 +76,7 @@ const FacultyMaster = () => {
 
             <div className="dbs-input-box">
               <label>Semester</label>
+
               <select>
                 <option>Select Semester</option>
               </select>
@@ -44,6 +84,7 @@ const FacultyMaster = () => {
 
             <div className="dbs-input-box">
               <label>Department</label>
+
               <select>
                 <option>Select Department</option>
               </select>
@@ -51,6 +92,7 @@ const FacultyMaster = () => {
 
             <div className="dbs-input-box">
               <label>Faculty</label>
+
               <select>
                 <option>Select Faculty</option>
               </select>
@@ -64,9 +106,17 @@ const FacultyMaster = () => {
             <input type="text" placeholder="Search Subject Name" />
 
             <select multiple className="dbs-subject-list">
-              {subjects.map((subject) => (
-                <option key={subject}>{subject}</option>
-              ))}
+              {loadingCourses ? (
+                <option>Loading Subjects...</option>
+              ) : courses.length === 0 ? (
+                <option>No Subjects Found</option>
+              ) : (
+                courses.map((item, index) => (
+                  <option key={index} value={item.subjectCode}>
+                    {item.subjectName}
+                  </option>
+                ))
+              )}
             </select>
           </div>
 
@@ -100,7 +150,6 @@ const FacultyMaster = () => {
           </div>
         </div>
 
-        {/* Buttons */}
         <div className="dbs-form-actions-row">
           <button className="dbs-form-cancel-btn">Cancel / Reset</button>
 

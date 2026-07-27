@@ -194,27 +194,27 @@
 ========================================== */
 
 .dbs-registry-table thead {
-    background: var(--dbs-primary);
+  background: var(--dbs-primary);
 }
 
 .dbs-registry-table thead th {
-    position: sticky;
-    top: 0;
-    z-index: 5;
+  position: sticky;
+  top: 0;
+  z-index: 5;
 
-    background: var(--dbs-primary);
+  background: var(--dbs-primary);
 
-    padding: 14px 18px;
+  padding: 14px 18px;
 
-    font-size: 0.78rem;
-    font-weight: 700;
+  font-size: 0.78rem;
+  font-weight: 700;
 
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 
-    color: #ffffff;
+  color: #ffffff;
 
-    border-bottom: 2px solid var(--dbs-primary);
+  border-bottom: 2px solid var(--dbs-primary);
 }
 
 .dbs-registry-table tbody td {
@@ -318,203 +318,6 @@
 
 .dbs-icon-btn:active {
   transform: scale(0.95);
-}
-
-/* ==========================================
-   Table Footer
-========================================== */
-
-.dbs-table-footer {
-  margin-top: 18px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 18px;
-
-  padding: 18px 22px;
-
-  background: var(--dbs-surface);
-
-  border: 1px solid var(--dbs-border);
-  border-radius: var(--dbs-radius);
-
-  box-shadow: var(--dbs-shadow-sm);
-}
-
-/* ==========================================
-   Footer Left
-========================================== */
-
-.dbs-footer-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.dbs-footer-label {
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: var(--dbs-text-muted);
-}
-
-/* ==========================================
-   Entries Dropdown
-========================================== */
-
-.dbs-select-wrapper {
-  position: relative;
-}
-
-.dbs-select-wrapper select {
-  min-width: 74px;
-  height: 38px;
-
-  padding: 0 34px 0 12px;
-
-  background: var(--dbs-surface);
-
-  color: var(--dbs-text);
-
-  border: 1px solid var(--dbs-border);
-  border-radius: var(--dbs-radius-sm);
-
-  font-size: 0.84rem;
-  font-weight: 600;
-
-  appearance: none;
-  cursor: pointer;
-
-  transition: var(--dbs-transition);
-}
-
-.dbs-select-wrapper select:hover {
-  border-color: var(--dbs-primary);
-}
-
-.dbs-select-wrapper select:focus {
-  outline: none;
-  border-color: var(--dbs-primary);
-  box-shadow: 0 0 0 3px var(--dbs-primary-light);
-}
-
-.dbs-select-wrapper::after {
-  content: "";
-
-  position: absolute;
-
-  top: 50%;
-  right: 12px;
-
-  width: 7px;
-  height: 7px;
-
-  border-right: 2px solid var(--dbs-text-muted);
-  border-bottom: 2px solid var(--dbs-text-muted);
-
-  transform: translateY(-65%) rotate(45deg);
-
-  pointer-events: none;
-}
-
-/* ==========================================
-   Footer Information
-========================================== */
-
-.dbs-footer-info {
-  font-size: 0.84rem;
-  color: var(--dbs-text-muted);
-}
-
-.dbs-footer-info strong {
-  color: var(--dbs-text);
-  font-weight: 700;
-}
-
-/* ==========================================
-   Pagination
-========================================== */
-
-.dbs-pagination {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-/* Previous / Next */
-
-.dbs-page-nav {
-  height: 38px;
-
-  padding: 0 16px;
-
-  background: var(--dbs-surface);
-
-  color: var(--dbs-text);
-
-  border: 1px solid var(--dbs-border);
-  border-radius: var(--dbs-radius-sm);
-
-  font-size: 0.84rem;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition: var(--dbs-transition);
-}
-
-.dbs-page-nav:hover:not(:disabled) {
-  background: var(--dbs-background);
-  border-color: var(--dbs-primary);
-  color: var(--dbs-primary);
-}
-
-.dbs-page-nav:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-/* Page Number */
-
-.dbs-page-number {
-  width: 38px;
-  height: 38px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: var(--dbs-surface);
-
-  color: var(--dbs-text);
-
-  border: 1px solid var(--dbs-border);
-  border-radius: var(--dbs-radius-sm);
-
-  font-size: 0.84rem;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition: var(--dbs-transition);
-}
-
-.dbs-page-number:hover {
-  background: var(--dbs-primary-light);
-  color: var(--dbs-primary);
-  border-color: var(--dbs-primary);
-}
-
-/* Active */
-
-.dbs-page-number.active {
-  background: var(--dbs-primary);
-  color: white;
-  border-color: var(--dbs-primary);
-
-  box-shadow: 0 4px 12px var(--dbs-primary-light);
 }
 
 /* ==========================================
