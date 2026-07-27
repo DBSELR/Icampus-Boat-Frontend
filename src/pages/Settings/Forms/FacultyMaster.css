@@ -1,6 +1,6 @@
-/* ==============================
-   Faculty Master Styles
-================================= */
+/* =====================================
+   FACULTY MASTER CONTAINER
+===================================== */
 
 .dbs-faculty-container {
   display: flex;
@@ -8,149 +8,315 @@
   gap: 24px;
 }
 
-/* Header */
+/* HEADER */
+
 .dbs-faculty-form-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   border-bottom: 1px solid var(--dbs-border);
+
   padding-bottom: 16px;
 }
 
 .dbs-faculty-form-header h2 {
+  margin: 0;
+
   font-size: 1.4rem;
+
   font-weight: 800;
+
   color: var(--dbs-text);
 }
 
-/* Form Card */
+/* CARD */
+
 .dbs-form-card {
-  background-color: var(--dbs-surface);
+  background: var(--dbs-surface);
+
   border: 1px solid var(--dbs-border);
+
   border-radius: var(--dbs-radius);
+
   box-shadow: var(--dbs-shadow);
+
   padding: 24px;
 
   display: flex;
+
   flex-direction: column;
-  gap: 20px;
+
+  gap: 22px;
 }
 
 .dbs-form-card h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
+  margin: 0;
+
   color: var(--dbs-text);
+
+  font-size: 1.1rem;
+
+  font-weight: 700;
+
   border-bottom: 1px solid var(--dbs-border);
-  padding-bottom: 10px;
+
+  padding-bottom: 12px;
 }
 
-/* Grid Layouts */
-.dbs-form-grid-4 {
-  /* display: flex; */
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
+/* GRID */
 
 .dbs-form-grid-3 {
-  /* display: grid; */
-  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1.2fr;
+
   gap: 20px;
 }
 
-.dbs-form-grid-2 {
-  /* display: grid; */
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+/* FILTER CARD */
+
+.dbs-filter-card {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
 }
 
-/* Input Box */
+/* INPUT */
+
 .dbs-input-box {
   display: flex;
+
   flex-direction: column;
 }
 
-.dbs-input-box label {
-  font-size: 0.82rem;
-  font-weight: 600;
+.dbs-input-box label,
+.dbs-subject-box label {
+  font-size: 13px;
+
+  font-weight: 700;
+
   color: var(--dbs-text);
+
   margin-bottom: 6px;
 }
 
-/* Inputs */
-.dbs-input-box input,
 .dbs-input-box select,
-.dbs-input-box textarea {
+.dbs-subject-box input,
+.dbs-subject-list {
   width: 100%;
+
   padding: 10px 12px;
-  border: 1px solid var(--dbs-border);
+
   border-radius: var(--dbs-radius-sm);
-  background-color: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  background: var(--dbs-surface);
+
   color: var(--dbs-text);
-  font-size: 0.9rem;
+
   outline: none;
+
   transition: var(--dbs-transition);
 }
 
-.dbs-input-box input:focus,
 .dbs-input-box select:focus,
-.dbs-input-box textarea:focus {
+.dbs-subject-box input:focus,
+.dbs-subject-list:focus {
   border-color: var(--dbs-primary);
+
   box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
-/* Buttons Row */
-.dbs-stepper-actions-row {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
+/* SUBJECT */
 
-  border-top: 1px solid var(--dbs-border);
-  padding-top: 20px;
-  margin-top: 10px;
+.dbs-subject-box {
+  display: flex;
+
+  flex-direction: column;
 }
 
-/* Buttons */
-.dbs-save-btn {
-  background-color: var(--dbs-primary);
-  color: white;
-  border: none;
-  border-radius: var(--dbs-radius-sm);
-  padding: 10px 18px;
-  font-size: 0.88rem;
-  font-weight: 700;
+/* SUBJECT LIST WITH SCROLL */
+
+.dbs-subject-list {
+  margin-top: 12px;
+
+  height: 320px;
+
+  overflow-y: auto;
+
   cursor: pointer;
+
+  scrollbar-width: thin;
+
+  scrollbar-color: var(--dbs-primary) var(--dbs-bg);
+}
+
+/* Chrome / Edge / Safari scrollbar */
+
+.dbs-subject-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dbs-subject-list::-webkit-scrollbar-track {
+  background: var(--dbs-bg);
+
+  border-radius: 10px;
+}
+
+.dbs-subject-list::-webkit-scrollbar-thumb {
+  background: var(--dbs-primary);
+
+  border-radius: 10px;
+}
+
+.dbs-subject-list::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary-hover);
+}
+
+/* TABLE */
+
+.dbs-table-card {
+  border: 1px solid var(--dbs-border);
+
+  border-radius: var(--dbs-radius);
+
+  overflow: hidden;
+
+  height: 100%;
+}
+
+.dbs-data-table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.dbs-data-table th {
+  background: var(--dbs-bg);
+
+  color: var(--dbs-text);
+
+  padding: 12px;
+
+  text-align: left;
+
+  font-weight: 700;
+}
+
+.dbs-data-table td {
+  padding: 12px;
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  color: var(--dbs-text);
+}
+
+/* EMPTY */
+
+.dbs-empty-state {
+  min-height: 320px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background: var(--dbs-bg);
+
+  border-radius: var(--dbs-radius);
+}
+
+.dbs-empty-state-icon {
+  color: var(--dbs-primary);
+
+  width: 40px;
+
+  height: 40px;
+}
+
+.dbs-empty-state-title {
+  margin-top: 12px;
+
+  font-weight: 700;
+
+  color: var(--dbs-text);
+}
+
+/* BUTTON ROW */
+
+.dbs-form-actions-row {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 14px;
+
+  border-top: 1px solid var(--dbs-border);
+
+  padding-top: 18px;
+}
+
+.dbs-form-save-btn {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  background: var(--dbs-primary);
+
+  color: white;
+
+  border: none;
+
+  padding: 10px 20px;
+
+  border-radius: var(--dbs-radius-sm);
+
+  font-weight: 700;
+
+  cursor: pointer;
+
   transition: var(--dbs-transition);
 }
 
-.dbs-save-btn:hover {
-  background-color: var(--dbs-primary-hover);
+.dbs-form-save-btn:hover {
+  background: var(--dbs-primary-hover);
 }
 
-.dbs-cancel-btn {
-  background-color: var(--dbs-surface);
+.dbs-form-cancel-btn {
+  background: var(--dbs-surface);
+
+  color: var(--dbs-text);
+
   border: 1px solid var(--dbs-border);
+
+  padding: 10px 20px;
+
   border-radius: var(--dbs-radius-sm);
-  padding: 10px 18px;
-  font-size: 0.88rem;
+
   font-weight: 700;
+
   cursor: pointer;
+
+  transition: var(--dbs-transition);
 }
 
-.dbs-cancel-btn:hover {
-  background-color: var(--dbs-background);
+.dbs-form-cancel-btn:hover {
+  background: var(--dbs-bg);
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .dbs-form-grid-4 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+/* RESPONSIVE */
 
-@media (max-width: 768px) {
-  .dbs-form-grid-4,
-  .dbs-form-grid-3,
-  .dbs-form-grid-2 {
+@media (max-width: 1100px) {
+  .dbs-form-grid-3 {
     grid-template-columns: 1fr;
   }
 }

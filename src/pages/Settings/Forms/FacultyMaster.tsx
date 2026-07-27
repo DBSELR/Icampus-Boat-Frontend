@@ -1,24 +1,12 @@
-import React, { useState } from "react";
-import {
-  Save,
-  Trash2,
-  Edit3,
-  AlertTriangle,
-  HelpCircle,
-  AlertCircle,
-} from "lucide-react";
-import { toast } from "sonner";
+import React from "react";
+import { Save, AlertCircle, Edit3, Trash2 } from "lucide-react";
 import "./FacultyMaster.css";
 
 const FacultyMaster = () => {
-  const sortedStudents = []; // Placeholder for sorted students data
-    const subjects = [
-    "Maths",
-    "Physics",
-    "Chemistry",
-    "English",
-    "Biology",
-  ];
+  const sortedStudents = [];
+
+  const subjects = ["Maths", "Physics", "Chemistry", "English", "Biology"];
+
   return (
     <div className="dbs-faculty-container">
       {/* Header */}
@@ -29,74 +17,96 @@ const FacultyMaster = () => {
       {/* Form Card */}
       <div className="dbs-form-card">
         <h3>Department Information</h3>
+
         <div className="dbs-form-grid-3">
-          <div className="dbs-input-box">
-            <label>Programe</label>
-            <select> </select>
-            <label>Year</label>
-            <select> </select>
-            <label>Semester</label>
-            <select> </select>
-            <label>Department</label>
-            <select> </select>
-            <label>Department</label>
-            <select> </select>
-            <label>Faculty</label>
-            <select> </select>
+          {/* LEFT FILTERS */}
+          <div className="dbs-filter-card">
+            <div className="dbs-input-box">
+              <label>Programme</label>
+              <select>
+                <option>Select Programme</option>
+              </select>
+            </div>
+
+            <div className="dbs-input-box">
+              <label>Year</label>
+              <select>
+                <option>Select Year</option>
+              </select>
+            </div>
+
+            <div className="dbs-input-box">
+              <label>Semester</label>
+              <select>
+                <option>Select Semester</option>
+              </select>
+            </div>
+
+            <div className="dbs-input-box">
+              <label>Department</label>
+              <select>
+                <option>Select Department</option>
+              </select>
+            </div>
+
+            <div className="dbs-input-box">
+              <label>Faculty</label>
+              <select>
+                <option>Select Faculty</option>
+              </select>
+            </div>
           </div>
 
-          <div className="dbs-input-box">
-            <label>Programe</label>
-            <input type="text" placeholder="By Subject Name" />
+          {/* SUBJECT LIST */}
+          <div className="dbs-subject-box">
+            <label>Subject Search</label>
 
-            <select
-              multiple
-              className="form-control btn-circle input-sm" style={{height:320, marginTop: 10}}>
+            <input type="text" placeholder="Search Subject Name" />
+
+            <select multiple className="dbs-subject-list">
               {subjects.map((subject) => (
-                <option key={subject} value={subject}>
-                  {subject}
-                </option>
+                <option key={subject}>{subject}</option>
               ))}
             </select>
           </div>
 
-          <div className="dbs-input-box">
-            {/* Reactive Table Grid */}
-                    <div className="dbs-table-container">
-                      {sortedStudents.length === 0 ? (
-                        <div className="dbs-empty-state">
-                          <AlertCircle className="dbs-empty-state-icon" />
-                          <div className="dbs-empty-state-title">No records found</div>
-                          <div className="dbs-empty-state-desc">Try clearing your filters or add a new student above.</div>
-                        </div>
-                      ) : (
-                        <table className="dbs-data-table">
-                                <thead>
-                                  <tr>
-                                    <th  style={{ cursor: 'pointer' }}>
-                                      subject  
-                                    </th>
-                                    <th  style={{ cursor: 'pointer' }}>
-                                      Faculty 
-                                    </th>
-                                    <th>Actions</th>
-                                  </tr>
-                                </thead>
-                              </table>
-                      )}
-                    </div>
-          </div>
+          {/* TABLE */}
+          <div className="dbs-table-container">
+            {sortedStudents.length === 0 ? (
+              <div className="dbs-empty-state">
+                <AlertCircle className="dbs-empty-state-icon" />
 
+                <div className="dbs-empty-state-title">No records found</div>
+
+                <div className="dbs-empty-state-desc">
+                  Select subjects and faculty to assign.
+                </div>
+              </div>
+            ) : (
+              <div className="dbs-table-card">
+                <table className="dbs-data-table">
+                  <thead>
+                    <tr>
+                      <th>Subject</th>
+                      <th>Faculty</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+
+                  <tbody></tbody>
+                </table>
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Form Buttons */}
+        {/* Buttons */}
         <div className="dbs-form-actions-row">
-          <button type="button" className="dbs-form-cancel-btn">
-            Cancel / Reset
-          </button>
-          <button type="submit" className="dbs-form-save-btn">
+          <button className="dbs-form-cancel-btn">Cancel / Reset</button>
+
+          <button className="dbs-form-save-btn">
             <Save size={16} />
-            Save Department
+            Save Faculty
           </button>
         </div>
       </div>

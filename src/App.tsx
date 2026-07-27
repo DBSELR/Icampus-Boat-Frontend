@@ -16,7 +16,6 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
-
 /* Global Themes */
 import "./theme/global.css";
 
@@ -26,10 +25,6 @@ import MainLayout from "./components/MainLayout";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 
-
-
-
-
 setupIonicReact();
 
 const App: React.FC = () => {
@@ -38,27 +33,22 @@ const App: React.FC = () => {
 
   const storedUser = localStorage.getItem("user");
 
-  const authUser = storedUser
-    ? JSON.parse(storedUser)
-    : null;
+  const authUser = storedUser ? JSON.parse(storedUser) : null;
 
   useEffect(() => {
     const checkUserSession = () => {
       setUser(localStorage.getItem("user"));
     };
-    
+
     // Check local storage updates
     window.addEventListener("storage", checkUserSession);
     const authInterval = setInterval(checkUserSession, 800);
-    
+
     return () => {
       window.removeEventListener("storage", checkUserSession);
       clearInterval(authInterval);
     };
   }, []);
-
-
-
 
   return (
     <IonApp>
@@ -72,22 +62,18 @@ const App: React.FC = () => {
           </IonRouterOutlet>
         ) : (
           <MainLayout>
+            <Switch>
+              <Route exact path="/home" component={Home} />
 
-            
-              <Switch>
+              <Route
+                path="/:module/:type/:page"
+                render={({ location }) => (
+                  <DynamicRoute path={location.pathname} />
+                )}
+              />
 
-    <Route exact path="/home" component={Home} />
-
-    <Route
-        path="/:module/:type/:page"
-        render={({ location }) => (
-            <DynamicRoute path={location.pathname} />
-        )}
-    />
-
-    <Redirect to="/home" />
-
-</Switch>
+              <Redirect to="/home" />
+            </Switch>
           </MainLayout>
         )}
       </IonReactRouter>

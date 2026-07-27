@@ -1,0 +1,1206 @@
+/* ==========================================
+   DBS THEME VARIABLES
+========================================== */
+
+:root {
+  --dbs-primary: #e30613;
+  --dbs-secondary: #b30000;
+
+  --dbs-primary-soft: rgba(227, 6, 19, 0.08);
+  --dbs-primary-focus: rgba(227, 6, 19, 0.18);
+
+  --dbs-bg: #f8fafc;
+  --dbs-bg-surface: #ffffff;
+
+  --dbs-border: #e5e7eb;
+
+  --dbs-text: #1f2937;
+  --dbs-text-light: #64748b;
+
+  --dbs-disabled-bg: #f1f5f9;
+  --dbs-disabled-text: #94a3b8;
+  --dbs-placeholder: #b6becb;
+
+  --dbs-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================
+   SUBJECT MASTER CONTAINER
+========================================== */
+
+.dbs-subject-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.dbs-subject-container .dbs-subject-form-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding-bottom: 18px;
+
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-subject-container .dbs-subject-form-header h2 {
+  font-size: 1.5rem;
+
+  font-weight: 800;
+
+  color: var(--dbs-text);
+}
+
+.dbs-subject-container .dbs-page-subtitle {
+  margin-top: 6px;
+
+  font-size: 0.9rem;
+
+  color: var(--dbs-text-light);
+}
+
+/* ==========================================
+   FORM CARD
+========================================== */
+
+.dbs-subject-container .dbs-form-card {
+  background: var(--dbs-bg-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: 18px;
+
+  padding: 28px;
+
+  box-shadow: var(--dbs-shadow);
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 24px;
+}
+
+.dbs-subject-container .dbs-form-card h3 {
+  font-size: 18px;
+
+  font-weight: 700;
+
+  color: var(--dbs-text);
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  padding-bottom: 14px;
+}
+
+/* ==========================================
+   MAIN SUBJECT LAYOUT
+========================================== */
+
+.dbs-subject-container .dbs-subject-layout {
+  display: grid;
+
+  grid-template-columns: 1.4fr 0.9fr;
+
+  gap: 28px;
+
+  align-items: start;
+}
+
+.dbs-subject-container .dbs-subject-left,
+.dbs-subject-container .dbs-subject-right {
+  background: var(--dbs-bg-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: 16px;
+
+  padding: 22px;
+
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-subject-container .dbs-subject-right {
+  max-height: 760px;
+
+  overflow-y: auto;
+}
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+.dbs-subject-container .dbs-subject-right::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dbs-subject-container .dbs-subject-right::-webkit-scrollbar-thumb {
+  background: var(--dbs-primary);
+
+  border-radius: 10px;
+}
+
+/* ==========================================
+   FORM GRID
+========================================== */
+
+.dbs-subject-container .dbs-form-grid-2 {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 20px;
+}
+
+.dbs-subject-container .dbs-full-width {
+  grid-column: 1 / -1;
+}
+
+/* ==========================================
+   INPUT BOX
+========================================== */
+
+.dbs-subject-container .dbs-input-box {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.dbs-subject-container .dbs-input-box label {
+  margin-bottom: 8px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: var(--dbs-text);
+}
+
+/* ==========================================
+   INPUT CONTROLS
+========================================== */
+
+.dbs-subject-container .dbs-input-box input,
+.dbs-subject-container .dbs-input-box select,
+.dbs-subject-container .dbs-input-box textarea {
+  width: 100%;
+
+  height: 44px;
+
+  padding: 0 14px;
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: 10px;
+
+  background: var(--dbs-bg-surface);
+
+  color: var(--dbs-text);
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition: 0.25s ease;
+}
+
+.dbs-subject-container .dbs-input-box textarea {
+  min-height: 95px;
+
+  padding: 12px 14px;
+
+  resize: vertical;
+}
+
+.dbs-subject-container .dbs-input-box input:focus,
+.dbs-subject-container .dbs-input-box select:focus,
+.dbs-subject-container .dbs-input-box textarea:focus {
+  border-color: var(--dbs-primary);
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* ==========================================
+   SUBJECT OPTIONS
+========================================== */
+
+.dbs-subject-container .dbs-minor-honor-group {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  flex-wrap: wrap;
+
+  padding: 14px;
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: 14px;
+
+  background: var(--dbs-bg);
+}
+
+.dbs-subject-container .dbs-checkbox-inline {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 10px 16px;
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: 10px;
+
+  background: var(--dbs-bg-surface);
+
+  cursor: pointer;
+
+  transition: 0.25s;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: var(--dbs-text);
+}
+
+.dbs-subject-container .dbs-checkbox-inline:hover {
+  border-color: var(--dbs-primary);
+
+  background: var(--dbs-primary-soft);
+
+  transform: translateY(-1px);
+}
+
+.dbs-subject-container .dbs-checkbox-inline input {
+  width: 18px;
+
+  height: 18px;
+
+  accent-color: var(--dbs-primary);
+
+  cursor: pointer;
+}
+
+.dbs-subject-container .dbs-checkbox-inline input:checked {
+  transform: scale(1.1);
+}
+/* ==========================================
+   DISABLED INPUTS
+========================================== */
+
+.dbs-subject-container .dbs-input-box input:disabled,
+.dbs-subject-container .dbs-input-box select:disabled,
+.dbs-subject-container .dbs-input-box textarea:disabled {
+  background: var(--dbs-disabled-bg);
+
+  border-color: var(--dbs-border);
+
+  color: var(--dbs-disabled-text);
+
+  cursor: not-allowed;
+}
+
+.dbs-subject-container .dbs-input-box input:disabled::placeholder,
+.dbs-subject-container .dbs-input-box textarea:disabled::placeholder {
+  color: var(--dbs-placeholder);
+}
+
+.dbs-subject-container .dbs-elective-section-disabled {
+  opacity: 0.6;
+
+  pointer-events: none;
+}
+
+.dbs-subject-container .dbs-elective-section-enabled {
+  opacity: 1;
+
+  pointer-events: auto;
+}
+
+/* ==========================================
+   MARKS HEADER
+========================================== */
+
+.dbs-subject-container .dbs-marks-header {
+  display: grid;
+
+  grid-template-columns: 1.8fr 110px 110px;
+
+  align-items: center;
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 20;
+
+  background: var(--dbs-primary);
+
+  color: #ffffff;
+
+  padding: 12px 16px;
+
+  margin-bottom: 12px;
+
+  border-radius: 10px;
+
+  font-size: 0.85rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.4px;
+
+  text-transform: uppercase;
+
+  box-shadow: var(--dbs-shadow);
+}
+
+/* ==========================================
+   MARKS ROW
+========================================== */
+
+.dbs-subject-container .dbs-marks-row {
+  display: grid;
+
+  grid-template-columns: 1fr 100px 100px;
+
+  gap: 12px 30px;
+
+  align-items: center;
+
+  padding: 12px 0;
+
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-subject-container .dbs-marks-row label {
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: var(--dbs-text);
+}
+
+.dbs-subject-container .dbs-marks-row input {
+  height: 38px;
+
+  border-radius: 8px;
+
+  border: 1px solid var(--dbs-border);
+
+  padding: 0 10px;
+
+  color: var(--dbs-text);
+
+  background: var(--dbs-bg-surface);
+}
+
+.dbs-subject-container .dbs-marks-row input:focus {
+  outline: none;
+
+  border-color: var(--dbs-primary);
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+} /* ==========================================
+   FORM ACTION BUTTONS
+========================================== */
+
+.dbs-subject-container .dbs-form-actions-row {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 12px;
+
+  margin-top: 24px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid var(--dbs-border);
+}
+
+/* Shared Button */
+
+.dbs-subject-container .dbs-form-actions-row button {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  min-width: 140px;
+
+  height: 44px;
+
+  padding: 0 20px;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+/* Cancel Button */
+
+.dbs-subject-container .dbs-form-cancel-btn {
+  background: var(--dbs-bg-surface);
+
+  color: var(--dbs-text);
+
+  border: 1px solid var(--dbs-border);
+}
+
+.dbs-subject-container .dbs-form-cancel-btn:hover {
+  background: var(--dbs-bg);
+
+  border-color: var(--dbs-primary);
+
+  color: var(--dbs-primary);
+}
+
+/* Save Button */
+
+.dbs-subject-container .dbs-form-save-btn {
+  background: var(--dbs-primary);
+
+  color: #ffffff;
+
+  border: none;
+
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-subject-container .dbs-form-save-btn:hover {
+  filter: brightness(1.08);
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.dbs-subject-container .dbs-form-save-btn:active,
+.dbs-subject-container .dbs-form-cancel-btn:active {
+  transform: scale(0.98);
+}
+
+.dbs-subject-container .dbs-form-save-btn svg {
+  stroke-width: 2.2;
+}
+
+/* Focus */
+
+.dbs-subject-container .dbs-form-actions-row button:focus-visible {
+  outline: none;
+
+  box-shadow:
+    0 0 0 3px var(--dbs-primary-focus),
+    var(--dbs-shadow);
+}
+
+/* ==========================================
+   TABLE CONTAINER
+========================================== */
+
+.dbs-subject-container .dbs-table-container {
+  width: 100%;
+
+  background: var(--dbs-bg-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: 16px;
+
+  padding: 20px;
+
+  box-shadow: var(--dbs-shadow);
+
+  overflow-x: auto;
+}
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.dbs-subject-container .dbs-empty-state {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 220px;
+
+  text-align: center;
+
+  color: var(--dbs-text-light);
+}
+
+.dbs-subject-container .dbs-empty-state-icon {
+  width: 42px;
+
+  height: 42px;
+
+  margin-bottom: 12px;
+
+  color: var(--dbs-primary);
+}
+
+.dbs-subject-container .dbs-empty-state-title {
+  font-size: 18px;
+
+  font-weight: 700;
+
+  color: var(--dbs-text);
+
+  margin-bottom: 8px;
+}
+
+.dbs-subject-container .dbs-empty-state-desc {
+  font-size: 14px;
+
+  color: var(--dbs-text-light);
+
+  max-width: 350px;
+}
+
+/* ==========================================
+   DATA TABLE
+========================================== */
+
+.dbs-subject-container .dbs-data-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 14px;
+}
+
+.dbs-subject-container .dbs-data-table thead {
+  background: linear-gradient(135deg, var(--dbs-primary), var(--dbs-secondary));
+
+  color: #ffffff;
+}
+
+.dbs-subject-container .dbs-data-table th {
+  padding: 14px 16px;
+
+  text-align: left;
+
+  font-weight: 700;
+
+  font-size: 13px;
+
+  letter-spacing: 0.3px;
+
+  text-transform: uppercase;
+}
+
+.dbs-subject-container .dbs-data-table td {
+  padding: 14px 16px;
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  color: var(--dbs-text);
+}
+
+.dbs-subject-container .dbs-data-table tbody tr {
+  transition: 0.25s ease;
+}
+
+.dbs-subject-container .dbs-data-table tbody tr:hover {
+  background: var(--dbs-bg);
+}
+
+.dbs-footer-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.dbs-footer-info span {
+  color: #64748b;
+}
+
+.dbs-footer-count {
+  color: #1e293b;
+  font-weight: 700;
+  background: #f1f5f9;
+  padding: 3px 8px;
+  border-radius: 6px;
+  min-width: 28px;
+  text-align: center;
+}
+/* ==========================================
+   DBS TABLE FOOTER
+========================================== */
+
+.dbs-subject-container .dbs-table-footer {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 18px 20px;
+
+  margin-top: 16px;
+
+  background: var(--dbs-bg-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: 14px;
+
+  box-shadow: var(--dbs-shadow);
+}
+
+/* Left Section */
+
+.dbs-subject-container .dbs-footer-left {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.dbs-subject-container .dbs-footer-label {
+  color: var(--dbs-text-light);
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+/* Select */
+
+.dbs-subject-container .dbs-select-wrapper select {
+  height: 36px;
+
+  min-width: 60px;
+
+  padding: 0 10px;
+
+  border-radius: 8px;
+
+  border: 1px solid var(--dbs-border);
+
+  background: var(--dbs-bg-surface);
+
+  color: var(--dbs-text);
+
+  font-weight: 600;
+}
+
+.dbs-pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dbs-page-nav,
+.dbs-page-number {
+  min-width: 38px;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--dbs-border);
+  background: #fff;
+  color: #334155;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.dbs-page-nav:hover:not(:disabled),
+.dbs-page-number:hover {
+  background: #f4f7fb;
+  border: 1px solid var(--dbs-border);
+}
+
+.dbs-page-number.active {
+  background: var(--dbs-primary);
+  color: #fff;
+  border: 1px solid var(--dbs-border);
+  box-shadow: 0 4px 10px rgba(15, 108, 189, 0.25);
+}
+
+.dbs-page-nav:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.dbs-page-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  color: #64748b;
+  font-weight: 700;
+  font-size: 18px;
+}
+/* ==========================================
+   DBS TABLE SCROLLBAR
+========================================== */
+
+.dbs-subject-container .dbs-table-scroll.active-scroll {
+  max-height: 330px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Scrollbar Width */
+.dbs-subject-container .dbs-table-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Scrollbar Track */
+.dbs-subject-container .dbs-table-scroll::-webkit-scrollbar-track {
+  background: var(--dbs-bg);
+  border-radius: 10px;
+}
+
+/* Scrollbar Thumb */
+.dbs-subject-container .dbs-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-primary);
+  border-radius: 10px;
+}
+
+/* Hover */
+.dbs-subject-container .dbs-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-secondary);
+}
+/* ==========================================
+   STICKY TABLE HEADER
+========================================== */
+
+.dbs-subject-container .dbs-table-scroll.active-scroll {
+  max-height: 330px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.dbs-subject-container .dbs-data-table th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  background: var(--dbs-primary);
+  color: #ffffff;
+}
+
+/* ==========================================
+   TABLE ACTION ICONS
+========================================== */
+
+.dbs-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dbs-icon-btn {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+  border: 1px solid var(--dbs-border);
+
+  background: var(--dbs-bg-surface);
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+
+  text-decoration: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.dbs-icon-btn svg {
+  display: block;
+}
+
+/* Edit */
+.dbs-icon-btn.edit {
+  color: var(--dbs-primary);
+}
+
+.dbs-icon-btn.edit:hover {
+  background: var(--dbs-primary-soft);
+  border-color: var(--dbs-primary);
+  transform: translateY(-1px);
+}
+
+/* Delete */
+.dbs-icon-btn.delete {
+  color: #dc2626;
+}
+
+.dbs-icon-btn.delete:hover {
+  background: rgba(220, 38, 38, 0.08);
+  border-color: #dc2626;
+  transform: translateY(-1px);
+}
+
+.dbs-icon-btn:active {
+  transform: scale(0.95);
+}
+/* ================= Delete Modal ================= */
+
+/* ==========================================
+   SUBJECT DELETE MODAL
+========================================== */
+
+.dbs-subject-modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(15, 23, 42, 0.45);
+
+  backdrop-filter: blur(4px);
+
+  z-index: 9999;
+}
+
+/* ==========================================
+   MODAL BOX
+========================================== */
+
+.dbs-subject-delete-modal {
+  width: 430px;
+
+  max-width: calc(100% - 32px);
+
+  background: var(--dbs-bg-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  box-shadow: var(--dbs-shadow);
+
+  animation: dbsSubjectModal 0.25s ease;
+}
+
+@keyframes dbsSubjectModal {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.dbs-subject-delete-header {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  padding: 28px 24px 22px;
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  background: var(--dbs-bg);
+}
+
+.dbs-subject-delete-icon {
+  width: 64px;
+
+  height: 64px;
+
+  padding: 14px;
+
+  border-radius: 50%;
+
+  background: var(--dbs-primary);
+
+  color: #ffffff;
+
+  box-shadow: 0 8px 20px rgba(227, 6, 19, 0.2);
+}
+
+.dbs-subject-delete-header h3 {
+  margin: 16px 0 0;
+
+  font-size: 20px;
+
+  font-weight: 700;
+
+  color: var(--dbs-text);
+}
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+.dbs-subject-delete-modal p {
+  margin: 0;
+
+  padding: 24px;
+
+  text-align: center;
+
+  color: var(--dbs-text-light);
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+.dbs-subject-delete-modal strong {
+  color: var(--dbs-primary);
+
+  font-weight: 700;
+}
+
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
+
+.dbs-subject-delete-actions {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 14px;
+
+  padding: 0 24px 24px;
+}
+
+.dbs-subject-delete-actions button {
+  min-width: 130px;
+
+  height: 44px;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+/* ==========================================
+   CANCEL BUTTON
+========================================== */
+
+.dbs-subject-cancel-btn {
+  background: var(--dbs-bg-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  color: var(--dbs-text);
+}
+
+.dbs-subject-cancel-btn:hover:not(:disabled) {
+  background: var(--dbs-bg);
+
+  border-color: var(--dbs-primary);
+
+  color: var(--dbs-primary);
+
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   DELETE BUTTON
+========================================== */
+
+.dbs-subject-delete-btn {
+  background: var(--dbs-primary);
+
+  border: 1px solid var(--dbs-primary);
+
+  color: #ffffff;
+
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-subject-delete-btn:hover:not(:disabled) {
+  background: var(--dbs-secondary);
+
+  border-color: var(--dbs-secondary);
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 22px rgba(227, 6, 19, 0.25);
+}
+
+.dbs-subject-delete-btn:active,
+.dbs-subject-cancel-btn:active {
+  transform: scale(0.98);
+}
+
+/* Disabled */
+
+.dbs-subject-delete-btn:disabled,
+.dbs-subject-cancel-btn:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+/* ==========================================
+   FOCUS
+========================================== */
+
+.dbs-subject-delete-actions button:focus-visible {
+  outline: none;
+
+  box-shadow:
+    0 0 0 3px var(--dbs-primary-focus),
+    var(--dbs-shadow);
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 480px) {
+  .dbs-subject-delete-modal {
+    width: calc(100% - 32px);
+  }
+
+  .dbs-subject-delete-actions {
+    flex-direction: column;
+  }
+
+  .dbs-subject-delete-actions button {
+    width: 100%;
+  }
+}
+.dbs-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.dbs-table-search input {
+  width: 280px;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+}
+
+.dbs-table-search input:focus {
+  border-color: #2563eb;
+}
+
+/* ==========================================
+   PAPER ORDER EDIT
+========================================== */
+
+.dbs-paper-order-edit {
+  cursor: pointer;
+
+  color: var(--dbs-primary);
+
+  font-weight: 700;
+
+  padding: 6px 10px;
+
+  border-radius: 6px;
+
+  transition: all 0.2s ease;
+}
+
+.dbs-paper-order-edit:hover {
+  background: var(--dbs-bg);
+
+  color: var(--dbs-primary);
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================
+   UPDATE PAPER ORDER BUTTON
+========================================== */
+
+.dbs-update-paper-order-btn {
+  background: var(--dbs-primary);
+
+  color: #ffffff;
+
+  border: 1px solid var(--dbs-primary);
+
+  padding: 10px 22px;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-update-paper-order-btn:hover {
+  background: var(--dbs-primary);
+
+  border-color: var(--dbs-primary);
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
+}
+
+.dbs-update-paper-order-btn:active {
+  transform: scale(0.98);
+}

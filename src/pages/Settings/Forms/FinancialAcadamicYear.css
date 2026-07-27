@@ -1,0 +1,988 @@
+/* ==========================================
+   Financial Academic Year
+   DBS ERP Theme
+========================================== */
+
+/* ==========================================
+   Container
+========================================== */
+
+.dbs-programme-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ==========================================
+   Header
+========================================== */
+
+.dbs-programme-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-programme-form-header h2 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--dbs-text);
+}
+
+.dbs-page-subtitle {
+  margin-top: 6px;
+  font-size: 0.92rem;
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================
+   Form Card
+========================================== */
+
+.dbs-form-card {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dbs-form-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dbs-text);
+
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-form-grid-2 {
+  display: grid;
+  grid-template-columns: 420px;
+  gap: 20px;
+}
+
+.dbs-input-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.dbs-input-box label {
+  margin-bottom: 7px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dbs-text);
+}
+
+.dbs-input-box input,
+.dbs-input-box select {
+  height: 44px;
+  padding: 0 14px;
+
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-input-box input:focus,
+.dbs-input-box select:focus {
+  outline: none;
+  border-color: var(--dbs-primary);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+}
+
+/* ==========================================
+   Toolbar
+========================================== */
+
+.dbs-table-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.dbs-table-toolbar h3 {
+  color: var(--dbs-text);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.dbs-table-toolbar p {
+  margin-top: 4px;
+  color: var(--dbs-text-muted);
+  font-size: 0.82rem;
+}
+
+/* ==========================================
+   Search
+========================================== */
+
+.dbs-search-box {
+  width: 320px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 0 14px;
+
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-search-box:focus-within {
+  border-color: var(--dbs-primary);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+}
+
+.dbs-search-box svg {
+  color: var(--dbs-text-muted);
+}
+
+.dbs-search-box input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--dbs-text);
+}
+/* ==========================================
+   Table Container
+========================================== */
+
+.dbs-table-container {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  overflow: hidden;
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-table-card {
+  background: var(--dbs-surface);
+  overflow: hidden;
+}
+
+/* ==========================================
+   Table
+========================================== */
+
+.dbs-registry-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+/* ==========================================
+   DBS TABLE HEADER
+========================================== */
+
+.dbs-registry-table thead {
+    background: var(--dbs-primary);
+}
+
+.dbs-registry-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+
+    background: var(--dbs-primary);
+
+    padding: 14px 18px;
+
+    font-size: 0.78rem;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    color: #ffffff;
+
+    border-bottom: 2px solid var(--dbs-primary);
+}
+
+.dbs-registry-table tbody td {
+  padding: 15px 18px;
+
+  color: var(--dbs-text);
+
+  font-size: 0.9rem;
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-registry-table tbody tr:hover td {
+  background: var(--dbs-background);
+}
+
+.dbs-registry-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ==========================================
+   Name Column
+========================================== */
+
+.dbs-name {
+  font-weight: 700;
+  color: var(--dbs-text);
+}
+
+/* ==========================================
+   Radio Button
+========================================== */
+
+.dbs-registry-table input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+
+  accent-color: var(--dbs-primary);
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-registry-table input[type="radio"]:hover {
+  transform: scale(1.08);
+}
+
+/* ==========================================
+   Actions
+========================================== */
+
+.dbs-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dbs-icon-btn {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--dbs-radius-sm);
+  border: 1px solid var(--dbs-border);
+
+  background: var(--dbs-surface);
+
+  cursor: pointer;
+
+  transition: var(--dbs-transition);
+}
+
+/* Edit */
+
+.dbs-icon-btn.edit {
+  color: var(--dbs-primary);
+}
+
+.dbs-icon-btn.edit:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  transform: translateY(-1px);
+}
+
+/* Delete */
+
+.dbs-icon-btn.delete {
+  color: var(--dbs-danger);
+}
+
+.dbs-icon-btn.delete:hover {
+  background: var(--dbs-danger-light);
+  border-color: var(--dbs-danger);
+  transform: translateY(-1px);
+}
+
+.dbs-icon-btn:active {
+  transform: scale(0.95);
+}
+
+/* ==========================================
+   Table Footer
+========================================== */
+
+.dbs-table-footer {
+  margin-top: 18px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+
+  padding: 18px 22px;
+
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+
+  box-shadow: var(--dbs-shadow-sm);
+}
+
+/* ==========================================
+   Footer Left
+========================================== */
+
+.dbs-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dbs-footer-label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================
+   Entries Dropdown
+========================================== */
+
+.dbs-select-wrapper {
+  position: relative;
+}
+
+.dbs-select-wrapper select {
+  min-width: 74px;
+  height: 38px;
+
+  padding: 0 34px 0 12px;
+
+  background: var(--dbs-surface);
+
+  color: var(--dbs-text);
+
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+
+  font-size: 0.84rem;
+  font-weight: 600;
+
+  appearance: none;
+  cursor: pointer;
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-select-wrapper select:hover {
+  border-color: var(--dbs-primary);
+}
+
+.dbs-select-wrapper select:focus {
+  outline: none;
+  border-color: var(--dbs-primary);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+}
+
+.dbs-select-wrapper::after {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  right: 12px;
+
+  width: 7px;
+  height: 7px;
+
+  border-right: 2px solid var(--dbs-text-muted);
+  border-bottom: 2px solid var(--dbs-text-muted);
+
+  transform: translateY(-65%) rotate(45deg);
+
+  pointer-events: none;
+}
+
+/* ==========================================
+   Footer Information
+========================================== */
+
+.dbs-footer-info {
+  font-size: 0.84rem;
+  color: var(--dbs-text-muted);
+}
+
+.dbs-footer-info strong {
+  color: var(--dbs-text);
+  font-weight: 700;
+}
+
+/* ==========================================
+   Pagination
+========================================== */
+
+.dbs-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Previous / Next */
+
+.dbs-page-nav {
+  height: 38px;
+
+  padding: 0 16px;
+
+  background: var(--dbs-surface);
+
+  color: var(--dbs-text);
+
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+
+  font-size: 0.84rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-page-nav:hover:not(:disabled) {
+  background: var(--dbs-background);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+}
+
+.dbs-page-nav:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Page Number */
+
+.dbs-page-number {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--dbs-surface);
+
+  color: var(--dbs-text);
+
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+
+  font-size: 0.84rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-page-number:hover {
+  background: var(--dbs-primary-light);
+  color: var(--dbs-primary);
+  border-color: var(--dbs-primary);
+}
+
+/* Active */
+
+.dbs-page-number.active {
+  background: var(--dbs-primary);
+  color: white;
+  border-color: var(--dbs-primary);
+
+  box-shadow: 0 4px 12px var(--dbs-primary-light);
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width: 900px) {
+  .dbs-table-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dbs-pagination {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+/* ==========================================
+   Empty State
+========================================== */
+
+.dbs-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+
+  min-height: 260px;
+
+  padding: 40px 20px;
+
+  text-align: center;
+}
+
+.dbs-empty-state-icon {
+  width: 62px;
+  height: 62px;
+
+  color: var(--dbs-text-muted);
+  opacity: 0.75;
+}
+
+.dbs-empty-state-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dbs-text);
+}
+
+.dbs-empty-state-desc {
+  max-width: 420px;
+
+  line-height: 1.7;
+
+  color: var(--dbs-text-muted);
+  font-size: 0.88rem;
+}
+
+/* ==========================================
+   Loading State
+========================================== */
+
+.dbs-loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 240px;
+
+  font-size: 0.92rem;
+  font-weight: 600;
+
+  color: var(--dbs-text-muted);
+}
+/* ==========================================
+   Table Scroll
+========================================== */
+
+.dbs-table-scroll {
+  max-height: 430px;
+
+  overflow-x: auto;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
+}
+
+/* Chrome */
+
+.dbs-table-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.dbs-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dbs-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+
+  border-radius: 20px;
+
+  border: 2px solid transparent;
+
+  background-clip: content-box;
+}
+
+.dbs-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+
+  background-clip: content-box;
+}
+
+/* ==========================================
+   Animations
+========================================== */
+
+@keyframes dbsFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dbsModal {
+  from {
+    opacity: 0;
+
+    transform: translateY(15px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+  }
+} /* ==========================================
+   DBS DELETE MODAL
+========================================== */
+
+/* Overlay */
+
+.dbs-modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(15, 23, 42, 0.45);
+
+  backdrop-filter: blur(4px);
+
+  z-index: 9999;
+}
+
+/* ==========================================
+   MODAL BOX
+========================================== */
+
+.dbs-delete-modal {
+  width: 430px;
+
+  max-width: calc(100% - 32px);
+
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  box-shadow: var(--dbs-shadow);
+
+  animation: dbsDeleteModal 0.25s ease;
+}
+
+@keyframes dbsDeleteModal {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.dbs-delete-header {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 28px 24px 22px;
+
+  background: var(--dbs-background);
+
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-delete-header h3 {
+  margin: 16px 0 0;
+
+  font-size: 20px;
+
+  font-weight: 800;
+
+  color: var(--dbs-text);
+}
+
+/* ==========================================
+   DELETE ICON
+========================================== */
+
+.dbs-delete-icon {
+  width: 64px;
+
+  height: 64px;
+
+  padding: 14px;
+
+  border-radius: 50%;
+
+  background: var(--dbs-primary);
+
+  color: #ffffff;
+
+  box-shadow: 0 8px 20px rgba(227, 6, 19, 0.2);
+}
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+.dbs-delete-modal p {
+  margin: 0;
+
+  padding: 24px;
+
+  text-align: center;
+
+  color: var(--dbs-text-muted);
+
+  background: var(--dbs-bg-surface);
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+.dbs-delete-modal strong {
+  color: var(--dbs-primary);
+
+  font-weight: 800;
+}
+
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
+
+.dbs-delete-actions {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 14px;
+
+  padding: 0 24px 24px;
+
+  background: var(--dbs-bg-surface);
+}
+
+.dbs-delete-actions button {
+  min-width: 130px;
+
+  height: 44px;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+/* ==========================================
+   Footer Action Buttons
+========================================== */
+
+.dbs-footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 20px;
+}
+
+.dbs-footer-actions button {
+  height: 44px;
+
+  min-width: 120px;
+
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border-radius: var(--dbs-radius-sm);
+
+  font-size: 0.9rem;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: var(--dbs-transition);
+}
+
+/* Cancel */
+
+.dbs-btn-secondary {
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  color: var(--dbs-text);
+}
+
+.dbs-btn-secondary:hover:not(:disabled) {
+  background: var(--dbs-primary-light);
+
+  border-color: var(--dbs-primary);
+
+  color: var(--dbs-primary);
+
+  transform: translateY(-2px);
+}
+
+/* Save */
+.dbs-btn-primary {
+  background: var(--dbs-primary);
+
+  color: #ffffff;
+
+  border: none;
+
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-btn-primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.dbs-btn-primary:active,
+.dbs-btn-secondary:active {
+  transform: scale(0.98);
+}
+
+.dbs-btn-primary svg {
+  stroke-width: 2.2;
+}
+
+/* Focus */
+
+.dbs-btn-primary:focus-visible,
+.dbs-btn-secondary:focus-visible {
+  outline: none;
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* Disabled */
+
+.dbs-btn-primary:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+/* ==========================================
+   CANCEL BUTTON
+========================================== */
+
+.dbs-form-cancel-btn {
+  background: var(--dbs-bg-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  color: var(--dbs-text);
+}
+
+.dbs-form-cancel-btn:hover:not(:disabled) {
+  background: var(--dbs-bg);
+
+  border-color: var(--dbs-primary);
+
+  color: var(--dbs-primary);
+
+  transform: translateY(-2px);
+}
+/* ==========================================
+   DELETE BUTTON
+========================================== */
+
+.dbs-delete-confirm-btn {
+  background: var(--dbs-primary);
+
+  border: 1px solid var(--dbs-primary);
+
+  color: #ffffff;
+
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-delete-confirm-btn:hover:not(:disabled) {
+  background: #b30000;
+
+  border-color: #b30000;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 22px rgba(227, 6, 19, 0.25);
+}
+
+.dbs-delete-confirm-btn:active {
+  transform: scale(0.98);
+}
+.dbs-icon-btn {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--dbs-radius-sm);
+  border: 1px solid var(--dbs-border);
+
+  background: var(--dbs-surface);
+
+  cursor: pointer;
+
+  transition: var(--dbs-transition);
+}
