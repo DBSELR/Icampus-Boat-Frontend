@@ -8,7 +8,9 @@
   gap: 24px;
 }
 
-/* HEADER */
+/* =====================================
+   PAGE HEADER
+===================================== */
 
 .dbs-faculty-form-header {
   display: flex;
@@ -16,7 +18,6 @@
   align-items: center;
 
   border-bottom: 1px solid var(--dbs-border);
-
   padding-bottom: 16px;
 }
 
@@ -24,13 +25,14 @@
   margin: 0;
 
   font-size: 1.4rem;
-
   font-weight: 800;
 
   color: var(--dbs-text);
 }
 
-/* CARD */
+/* =====================================
+   FORM CARD
+===================================== */
 
 .dbs-form-card {
   background: var(--dbs-surface);
@@ -44,7 +46,6 @@
   padding: 24px;
 
   display: flex;
-
   flex-direction: column;
 
   gap: 22px;
@@ -53,18 +54,20 @@
 .dbs-form-card h3 {
   margin: 0;
 
-  color: var(--dbs-text);
-
   font-size: 1.1rem;
 
   font-weight: 700;
+
+  color: var(--dbs-text);
 
   border-bottom: 1px solid var(--dbs-border);
 
   padding-bottom: 12px;
 }
 
-/* GRID */
+/* =====================================
+   GRID
+===================================== */
 
 .dbs-form-grid-3 {
   display: grid;
@@ -74,7 +77,9 @@
   gap: 20px;
 }
 
-/* FILTER CARD */
+/* =====================================
+   FILTER SECTION
+===================================== */
 
 .dbs-filter-card {
   display: flex;
@@ -84,7 +89,9 @@
   gap: 14px;
 }
 
-/* INPUT */
+/* =====================================
+   INPUTS
+===================================== */
 
 .dbs-input-box {
   display: flex;
@@ -131,7 +138,9 @@
   box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
-/* SUBJECT */
+/* =====================================
+   SUBJECT BOX
+===================================== */
 
 .dbs-subject-box {
   display: flex;
@@ -139,23 +148,17 @@
   flex-direction: column;
 }
 
-/* SUBJECT LIST WITH SCROLL */
-
 .dbs-subject-list {
   margin-top: 12px;
 
   height: 320px;
 
-  overflow-y: auto;
-
   cursor: pointer;
 
-  scrollbar-width: thin;
-
-  scrollbar-color: var(--dbs-primary) var(--dbs-bg);
+  overflow-y: auto;
 }
 
-/* Chrome / Edge / Safari scrollbar */
+/* Scroll */
 
 .dbs-subject-list::-webkit-scrollbar {
   width: 8px;
@@ -163,8 +166,6 @@
 
 .dbs-subject-list::-webkit-scrollbar-track {
   background: var(--dbs-bg);
-
-  border-radius: 10px;
 }
 
 .dbs-subject-list::-webkit-scrollbar-thumb {
@@ -173,49 +174,69 @@
   border-radius: 10px;
 }
 
-.dbs-subject-list::-webkit-scrollbar-thumb:hover {
-  background: var(--dbs-primary-hover);
-}
+/* =====================================
+   TABLE CONTAINER
+===================================== */
 
-/* TABLE */
+.dbs-table-container {
+  display: flex;
 
-.dbs-table-card {
+  flex-direction: column;
+
+  background: var(--dbs-surface);
+
   border: 1px solid var(--dbs-border);
 
   border-radius: var(--dbs-radius);
 
   overflow: hidden;
 
-  height: 100%;
+  box-shadow: var(--dbs-shadow);
 }
 
-.dbs-data-table {
-  width: 100%;
+/* =====================================
+   TABLE HEADER
+===================================== */
 
-  border-collapse: collapse;
+.dbs-table-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 14px 18px;
+
+  background: var(--dbs-primary);
+
+  color: white;
 }
 
-.dbs-data-table th {
-  background: var(--dbs-bg);
+.dbs-table-header h3 {
+  margin: 0;
 
-  color: var(--dbs-text);
-
-  padding: 12px;
-
-  text-align: left;
+  font-size: 15px;
 
   font-weight: 700;
 }
 
-.dbs-data-table td {
-  padding: 12px;
+.dbs-table-header span {
+  background: rgba(255, 255, 255, 0.2);
 
-  border-bottom: 1px solid var(--dbs-border);
+  color: white;
 
-  color: var(--dbs-text);
+  padding: 5px 12px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  font-weight: 700;
 }
 
-/* EMPTY */
+/* =====================================
+   EMPTY STATE
+===================================== */
 
 .dbs-empty-state {
   min-height: 320px;
@@ -230,26 +251,54 @@
 
   background: var(--dbs-bg);
 
-  border-radius: var(--dbs-radius);
-}
-
-.dbs-empty-state-icon {
-  color: var(--dbs-primary);
-
-  width: 40px;
-
-  height: 40px;
-}
-
-.dbs-empty-state-title {
-  margin-top: 12px;
-
-  font-weight: 700;
-
   color: var(--dbs-text);
 }
 
-/* BUTTON ROW */
+.dbs-empty-state svg {
+  color: var(--dbs-primary);
+}
+
+.dbs-empty-state h4 {
+  margin: 12px 0 5px;
+
+  font-weight: 700;
+}
+
+.dbs-empty-state p {
+  margin: 0;
+
+  font-size: 13px;
+
+  color: var(--dbs-text-light);
+}
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+.dbs-edit-btn {
+  background: var(--dbs-primary);
+
+  color: white;
+
+  border: none;
+
+  padding: 7px 16px;
+
+  border-radius: var(--dbs-radius-sm);
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-edit-btn:hover {
+  background: var(--dbs-primary-hover);
+}
 
 .dbs-form-actions-row {
   display: flex;
@@ -283,8 +332,6 @@
   font-weight: 700;
 
   cursor: pointer;
-
-  transition: var(--dbs-transition);
 }
 
 .dbs-form-save-btn:hover {
@@ -305,18 +352,378 @@
   font-weight: 700;
 
   cursor: pointer;
-
-  transition: var(--dbs-transition);
 }
 
 .dbs-form-cancel-btn:hover {
   background: var(--dbs-bg);
 }
 
-/* RESPONSIVE */
+/* =====================================
+   LOADING
+===================================== */
+
+.dbs-loading {
+  min-height: 150px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: var(--dbs-primary);
+
+  font-weight: 700;
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
 
 @media (max-width: 1100px) {
   .dbs-form-grid-3 {
     grid-template-columns: 1fr;
   }
+}
+/* SUBJECT ITEM */
+
+.dbs-subject-item {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 6px;
+
+  padding: 12px 14px;
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  cursor: pointer;
+
+  color: var(--dbs-text);
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-subject-item:last-child {
+  border-bottom: none;
+}
+
+.dbs-subject-item:hover {
+  background: var(--dbs-primary-light);
+}
+
+/* CODE */
+
+.dbs-subject-item span {
+  font-size: 12px;
+
+  font-weight: 700;
+
+  color: var(--dbs-primary);
+}
+
+/* NAME */
+
+.dbs-subject-item strong {
+  font-size: 13px;
+
+  font-weight: 600;
+
+  color: var(--dbs-text);
+
+  width: 100%;
+
+  word-break: break-word;
+
+  line-height: 1.4;
+}
+/* SELECTED SUBJECT */
+
+.dbs-subject-item.active {
+  background: var(--dbs-primary-light);
+
+  border-left: 4px solid var(--dbs-primary);
+
+  color: var(--dbs-primary);
+
+  transform: translateX(2px);
+}
+
+.dbs-subject-item.active span {
+  color: var(--dbs-primary);
+}
+
+.dbs-subject-item.active strong {
+  color: var(--dbs-primary);
+}
+
+/* =====================================
+   TABLE SCROLL
+===================================== */
+
+.dbs-table-scroll {
+  max-height: 320px;
+
+  overflow-y: auto;
+
+  overflow-x: auto;
+
+  background: var(--dbs-surface);
+}
+
+/* Scrollbar */
+
+.dbs-table-scroll::-webkit-scrollbar {
+  width: 8px;
+
+  height: 8px;
+}
+
+.dbs-table-scroll::-webkit-scrollbar-track {
+  background: var(--dbs-bg);
+}
+
+.dbs-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-primary);
+
+  border-radius: 10px;
+}
+
+.dbs-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary-hover);
+}
+
+/* =====================================
+   DATA TABLE
+===================================== */
+
+.dbs-data-table {
+  width: 100%;
+
+  min-width: 600px;
+
+  border-collapse: collapse;
+
+  background: var(--dbs-surface);
+}
+
+/* HEADER */
+
+.dbs-data-table thead th {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 2;
+
+  padding: 13px 16px;
+
+  background: var(--dbs-primary);
+
+  color: #ffffff;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  text-align: left;
+
+  border-bottom: 2px solid var(--dbs-border);
+}
+
+/* BODY */
+
+.dbs-data-table tbody td {
+  padding: 13px 16px;
+
+  color: var(--dbs-text);
+
+  font-size: 14px;
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  background: var(--dbs-surface);
+}
+
+/* ROW HOVER */
+
+.dbs-data-table tbody tr {
+  transition: var(--dbs-transition);
+}
+
+.dbs-data-table tbody tr:hover {
+  background: var(--dbs-primary-light);
+}
+
+.dbs-data-table tbody tr:hover td {
+  background: var(--dbs-primary-light);
+}
+
+/* LAST ROW */
+
+.dbs-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* SERIAL NUMBER */
+
+.dbs-data-table th:first-child,
+.dbs-data-table td:first-child {
+  width: 70px;
+
+  text-align: center;
+}
+
+/* ACTION */
+
+.dbs-data-table th:last-child,
+.dbs-data-table td:last-child {
+  width: 120px;
+
+  text-align: center;
+}
+
+/* =====================================
+   EDIT BUTTON
+===================================== */
+
+.dbs-edit-btn {
+  background: var(--dbs-primary);
+
+  color: #fff;
+
+  border: none;
+
+  padding: 7px 16px;
+
+  border-radius: var(--dbs-radius-sm);
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-edit-btn:hover {
+  background: var(--dbs-primary-hover);
+
+  transform: translateY(-1px);
+}
+/* =====================================
+   TABLE LOADING
+===================================== */
+
+.dbs-table-loader {
+  min-height: 220px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 12px;
+
+  color: var(--dbs-primary);
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+.dbs-spinner {
+  width: 35px;
+
+  height: 35px;
+
+  border: 4px solid var(--dbs-primary-light);
+
+  border-top-color: var(--dbs-primary);
+
+  border-radius: 50%;
+
+  animation: dbs-spin 0.8s linear infinite;
+}
+
+@keyframes dbs-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =====================================
+   TABLE EMPTY
+===================================== */
+
+.dbs-table-empty {
+  min-height: 220px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  color: var(--dbs-text-light);
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+/* ==========================================
+   DELETE BUTTON
+========================================== */
+
+.dbs-delete-btn {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--dbs-radius-sm);
+
+  /* Theme based border */
+  border: 1px solid var(--dbs-primary);
+
+  background: var(--dbs-surface);
+
+  /* Delete icon red */
+  color: var(--dbs-danger);
+
+  cursor: pointer;
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-delete-btn:hover {
+  background: var(--dbs-primary-light);
+
+  border-color: var(--dbs-primary);
+
+  color: var(--dbs-danger);
+
+  transform: translateY(-1px);
+}
+
+.dbs-delete-btn:active {
+  transform: scale(0.95);
+}
+
+.dbs-delete-btn svg {
+  stroke-width: 2.2;
 }

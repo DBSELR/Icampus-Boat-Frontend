@@ -9,6 +9,7 @@ import {
   updateFinancialAcademicYearStatusApi,
 } from "../../../apis/SettingsApis";
 import Footer from "../../../common/Footer";
+import DeleteModal from "../../../common/DeleteModal";
 
 interface AcademicYear {
   iD: number;
@@ -401,43 +402,17 @@ const FinancialAcadamicYear: React.FC = () => {
         getPagination={getPagination}
       />
 
-      {/* ====Model======== */}
-      {showDeleteModal && (
-        <div className="dbs-modal-overlay">
-          <div className="dbs-delete-modal">
-            <div className="dbs-delete-header">
-              <Trash2 size={40} className="dbs-delete-icon" />
-              <h3>Delete Academic Year</h3>
-            </div>
-
-            <p>
-              Are you sure you want to delete
-              <strong> {deleteItem?.aCADEMICYEAR}</strong>?
-            </p>
-
-            <div className="dbs-delete-actions">
-              <button
-                className="dbs-form-cancel-btn"
-                onClick={() => {
-                  setShowDeleteModal(false);
-                  setDeleteItem(null);
-                }}
-                disabled={deleting}
-              >
-                Cancel
-              </button>
-
-              <button
-                className="dbs-delete-confirm-btn"
-                onClick={handleDelete}
-                disabled={deleting}
-              >
-                {deleting ? "Deleting..." : "Delete"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <DeleteModal
+        open={showDeleteModal}
+        title="Delete Academic Year"
+        itemName={deleteItem?.aCADEMICYEAR}
+        loading={deleting}
+        onCancel={() => {
+          setShowDeleteModal(false);
+          setDeleteItem(null);
+        }}
+        onConfirm={handleDelete}
+      />
     </div>
   );
 };

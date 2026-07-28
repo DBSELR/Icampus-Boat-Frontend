@@ -14,6 +14,7 @@ import {
 import { toast } from "sonner";
 import { Edit3, Trash2 } from "lucide-react";
 import Footer from "../../../common/Footer";
+import DeleteModal from "../../../common/DeleteModal";
 
 interface Regulation {
   regulation: string;
@@ -324,30 +325,32 @@ const Subjects = () => {
     };
 
     try {
-      await saveSubjectMaster(payload);
+      const response = await saveSubjectMaster(payload);
 
-      toast.success(
-        editSubjectId
-          ? "Subject updated successfully!"
-          : "Subject saved successfully!",
-      );
+      if (response?.rowsAffected > 0) {
+        toast.success(
+          editSubjectId
+            ? "Subject updated successfully!"
+            : "Subject saved successfully!",
+        );
 
-      resetForm();
+        // keep current filters while refreshing table
+        await fetchSubjects();
 
-      // clear edit mode
-      setEditSubjectId(null);
-      setIsEditing(false);
-      setIsEditMode(false);
+        // clear edit mode after reload
+        setEditSubjectId(null);
+        setIsEditing(false);
+        setIsEditMode(false);
 
-      // reset dropdown fields
-      setSelectedRegulation("0");
-      setSelectedProgramme("0");
-      setSelectedBranch("0");
-      setSelectedYear("0");
-      setSelectedSemester("0");
-      setSelectedStream("1");
-
-      fetchSubjects();
+        resetForm();
+      } else {
+        toast.error(
+          response?.message ||
+            (editSubjectId
+              ? "Failed to update the subject!"
+              : "Failed to save the subject!"),
+        );
+      }
     } catch (error) {
       console.error(error);
       toast.error("Failed to save subject");
@@ -433,8 +436,6 @@ const Subjects = () => {
 
   const handleEdit = (item: any) => {
     setIsEditMode(true);
-
-    setEditSubjectId(item.sID);
     console.log("EDIT DATA", item);
     setEditSubjectId(String(item.sID));
 
@@ -445,8 +446,8 @@ const Subjects = () => {
 
     // Dropdowns
     setSelectedRegulation(item.regu || "0");
-    setSelectedProgramme(item.cOURSECODE.split("-")[0]);
-    setSelectedBranch(item.bRANCHCODE.split("-")[0]);
+    setSelectedProgramme(item.cOURSECODE?.split("-")[0] || "0");
+    setSelectedBranch(item.bRANCHCODE?.split("-")[0] || "0");
     setSelectedYear(item.yEAR || "0");
     setSelectedSemester(item.sEMESTER || "0");
     setSelectedStream(String(item.sTREAM || "1"));
@@ -542,21 +543,28 @@ const Subjects = () => {
       setDeleting(true);
       const response = await deleteSubjectMaster(String(deleteItem.sID));
       console.log("Delete Subject Response:", response);
-      toast.success("Subject deleted successfully!");
-      setShowDeleteModal(false);
-      setDeleteItem(null);
-      // reload table
-      await fetchSubjects();
+
+      if (response.message == "Success") {
+        toast.success("Subject deleted successfully!");
+        setShowDeleteModal(false);
+        setDeleteItem(null);
+        // reload table
+        await fetchSubjects();
+      } else {
+        toast.error(response.message || "Failed to delete subject!");
+      }
     } catch (error) {
       console.error("Delete failed:", error);
-      toast.error("Failed to delete subject!");
+      toast.error("Something went wrong!");
     } finally {
       setDeleting(false);
     }
   };
 
   useEffect(() => {
-    fetchSubjects();
+    if (!isEditMode) {
+      fetchSubjects();
+    }
   }, [
     selectedRegulation,
     selectedProgramme,
@@ -564,11 +572,8 @@ const Subjects = () => {
     selectedYear,
     selectedSemester,
     selectedStream,
+    isEditMode,
   ]);
-
-  useEffect(() => {
-    fetchSubjects();
-  }, []);
 
   useEffect(() => {
     const fetchRegulations = async () => {
@@ -660,6 +665,7 @@ const Subjects = () => {
   }, [selectedProgramme]);
 
   const fetchSubjects = async () => {
+    setLoadingSubjects(true);
     try {
       setLoadingSubjects(true);
 
@@ -1071,7 +1077,7 @@ const Subjects = () => {
       </div>
 
       {/* ================= Table Header ================= */}
-      <div className="dbs-programme-form-header dbs-table-header">
+      <div className="dbs-programme-form-header dbs-table-head">
         <div>
           <h2>Subject Registry</h2>
           <p className="dbs-page-subtitle">Manage Subject Master Records</p>
@@ -1082,7 +1088,10 @@ const Subjects = () => {
             type="text"
             placeholder="Search subject code or name..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setCurrentPage(1);
+            }}
           />
         </div>
       </div>
@@ -1091,10 +1100,12 @@ const Subjects = () => {
       <div className="dbs-table-container">
         {loadingSubjects ? (
           <div className="dbs-empty-state">Loading Subjects...</div>
-        ) : subjects.length === 0 ? (
+        ) : filteredSubjects.length === 0 ? (
           <div className="dbs-empty-state">
             <AlertCircle className="dbs-empty-state-icon" />
-            <div className="dbs-empty-state-title">No records found</div>
+            <div className="dbs-empty-state-title">
+              {searchTerm ? "No matching subjects found" : "No records found"}
+            </div>
           </div>
         ) : (
           <div className="dbs-table-card">
@@ -1208,7 +1219,7 @@ const Subjects = () => {
       />
 
       {/* Delete Confirmation Modal */}
-      {showDeleteModal && (
+      {/* {showDeleteModal && (
         <div className="dbs-subject-modal-overlay">
           <div className="dbs-subject-delete-modal">
             <div className="dbs-subject-delete-header">
@@ -1243,7 +1254,19 @@ const Subjects = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
+
+      <DeleteModal
+        open={showDeleteModal}
+        title="Delete Subject"
+        itemName={deleteItem?.sUBJECTNAME}
+        loading={deleting}
+        onCancel={() => {
+          setShowDeleteModal(false);
+          setDeleteItem(null);
+        }}
+        onConfirm={handleDelete}
+      />
     </div>
   );
 };

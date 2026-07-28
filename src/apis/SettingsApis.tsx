@@ -220,13 +220,8 @@ export const checkPaperOrder = async (payload: any) => {
 };
 
 // ================Faculty==================
-export const getCourseList = async () => {
+export const getCourseList = async (payload: any) => {
   try {
-    const payload = {
-      academicYear: localStorage.getItem("academicYear") || "2025-2026",
-      department: "",
-    };
-
     const response = await axios.post(
       `${API_BASE}FacultyMaster/GetCourseList`,
       payload,
@@ -240,6 +235,118 @@ export const getCourseList = async () => {
     return response.data;
   } catch (error) {
     console.error("Get Course List API Error:", error);
+    throw error;
+  }
+};
+
+export const getYearLists = async (payload: any) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE}FacultyMaster/GetYearList`,
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Get Course List API Error:", error);
+    throw error;
+  }
+};
+
+export const getDept = async (payload: any) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE}FacultyMaster/GetDept`,
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Get Department API Error:", error);
+    throw error;
+  }
+};
+
+export const getEmployeeList = async (payload: any) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE}FacultyMaster/GetEmployeeList`,
+      payload,
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Get Employee List API Error:", error);
+    throw error;
+  }
+};
+
+export const getSubjects = async (payload: any) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE}FacultyMaster/GetSubjects`,
+      payload,
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Get Subjects API Error:", error);
+    throw error;
+  }
+};
+
+export const getFaculty = async (payload: any) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE}FacultyMaster/GetFacultyList`,
+      payload,
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Get Subjects API Error:", error);
+    throw error;
+  }
+};
+
+export const saveFaculty = async (payload: any) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE}FacultyMaster/SaveFaculty`,
+      payload,
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Get Subjects API Error:", error);
+    throw error;
+  }
+};
+
+export const deleteFaculty = async (id: string) => {
+  try {
+    const response = await axios.delete(
+      `${API_BASE}FacultyMaster/DeleteFaculty`,
+      {
+        params: {
+          id,
+        },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Delete Faculty API Error:", error);
     throw error;
   }
 };
