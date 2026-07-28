@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import "./BranchMaster.css";
 import axios from "axios";
 import { API_BASE } from "../../../config";
+import Footer from "../../../common/Footer";
 
 const BranchMaster = () => {
   const sortedStudents = []; // Placeholder for sorted students data
@@ -151,6 +152,55 @@ const BranchMaster = () => {
       BRANCHNAME: bracnhdata.BRANCHNAME,
     }));
   };
+
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(5);
+
+
+  const totalRecords = branchLoad.length;
+
+  const totalPages = Math.ceil(totalRecords / recordsPerPage);
+
+  const startIndex = (currentPage - 1) * recordsPerPage;
+
+  const endIndex = startIndex + recordsPerPage;
+
+  const currentData = branchLoad.slice(startIndex, endIndex);
+
+///// Footer Index Starts /////
+  const getPagination = () => {
+    const pages: (number | string)[] = [];
+
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+
+      if (currentPage > 3) {
+        pages.push("...");
+      }
+
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+
+      if (currentPage < totalPages - 2) {
+        pages.push("...");
+      }
+
+      pages.push(totalPages);
+    }
+
+    return pages;
+  };
+  ///// Footer Index Ends /////
+
 
   useEffect(() => {
     const fetchDept = async () => {
@@ -301,7 +351,7 @@ const BranchMaster = () => {
                 </tr>
               </thead>
               <tbody>
-                {branchLoad.map((bracnhdata, index) => (
+                {currentData.map((bracnhdata, index) => (
                   <tr key={bracnhdata.BID}>
                     <td>{index + 1}</td>
                     <td>{bracnhdata.COURSECODE}</td>
@@ -326,6 +376,18 @@ const BranchMaster = () => {
           </div>
         )}
       </div>
+
+      <Footer
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        recordsPerPage={recordsPerPage}
+        setRecordsPerPage={setRecordsPerPage}
+        totalRecords={totalRecords}
+        totalPages={totalPages}
+        startIndex={startIndex}
+        endIndex={endIndex}
+        getPagination={getPagination}
+      />
 
     </div>
   )
