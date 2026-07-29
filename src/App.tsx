@@ -25,6 +25,7 @@ import MainLayout from "./components/MainLayout";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 
+<<<<<<< Updated upstream
 setupIonicReact();
 
 const App: React.FC = () => {
@@ -34,26 +35,50 @@ const App: React.FC = () => {
   const storedUser = localStorage.getItem("user");
 
   const authUser = storedUser ? JSON.parse(storedUser) : null;
+=======
+
+
+
+
+import { safeJsonParse } from "./utils/safeJson";
+
+setupIonicReact();
+
+const App: React.FC = () => {
+  // Track raw auth session string dynamically
+  const [userStr, setUserStr] = useState<string | null>(localStorage.getItem("user"));
+>>>>>>> Stashed changes
 
   useEffect(() => {
     const checkUserSession = () => {
-      setUser(localStorage.getItem("user"));
+      const raw = localStorage.getItem("user");
+      setUserStr((prev) => (prev !== raw ? raw : prev));
     };
 
     // Check local storage updates
     window.addEventListener("storage", checkUserSession);
+<<<<<<< Updated upstream
     const authInterval = setInterval(checkUserSession, 800);
 
+=======
+    const authInterval = setInterval(checkUserSession, 1500);
+    
+>>>>>>> Stashed changes
     return () => {
       window.removeEventListener("storage", checkUserSession);
       clearInterval(authInterval);
     };
   }, []);
 
+<<<<<<< Updated upstream
+=======
+  const authUser = safeJsonParse(userStr, null);
+
+>>>>>>> Stashed changes
   return (
     <IonApp>
       <IonReactRouter>
-        {!user ? (
+        {!authUser ? (
           <IonRouterOutlet>
             <Switch>
               <Route exact path="/login" component={Login} />

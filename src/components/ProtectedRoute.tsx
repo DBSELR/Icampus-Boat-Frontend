@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Redirect, RouteProps } from "react-router-dom";
+import { safeJsonParse } from "../utils/safeJson";
 
 interface Props extends RouteProps {
   component: React.ComponentType<any>;
@@ -9,7 +10,7 @@ const ProtectedRoute: React.FC<Props> = ({
   component: Component,
   ...rest
 }) => {
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const user = safeJsonParse<any>(localStorage.getItem("user"), {});
   const token = localStorage.getItem("token");
   
   // Check if user is authenticated

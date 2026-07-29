@@ -1,5 +1,7 @@
 import React, { Suspense } from "react";
+
 const modules = import.meta.glob("/src/pages/**/*.tsx");
+const componentCache: Record<string, React.LazyExoticComponent<React.ComponentType<any>>> = {};
 
 interface Props {
   path: string;
@@ -21,17 +23,24 @@ const DynamicRoute: React.FC<Props> = ({ path }) => {
 
   const importer = modules[componentPath];
 
+<<<<<<< Updated upstream
   console.log("Current Path:", path);
   console.log("Component Path:", componentPath);
   console.log("Importer Found:", !!modules[componentPath]);
+=======
+>>>>>>> Stashed changes
   if (!importer) {
     return <div>Page "{page}" not found</div>;
   }
 
-  const Component = React.lazy(importer as any);
+  if (!componentCache[componentPath]) {
+    componentCache[componentPath] = React.lazy(importer as any);
+  }
+
+  const Component = componentCache[componentPath];
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div style={{ padding: "24px", textAlign: "center", color: "#64748b" }}>Loading page...</div>}>
       <Component />
     </Suspense>
   );

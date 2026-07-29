@@ -74,6 +74,7 @@ import {
 } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import "./MainLayout.css";
+import { safeJsonParse } from "../utils/safeJson";
 
 export interface SubMenuItem {
   menuId: number;
@@ -311,12 +312,21 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const [menus, setMenus] = useState<any[]>([]);
   const [subMenus, setSubMenus] = useState<any[]>([]);
 
+<<<<<<< Updated upstream
   useEffect(() => {
     const storedMenus = JSON.parse(localStorage.getItem("menus") || "[]");
     setMenus(storedMenus);
   }, []);
   useEffect(() => {
     const storedSubMenus = JSON.parse(localStorage.getItem("subMenus") || "[]");
+=======
+useEffect(() => {
+    const storedMenus = safeJsonParse(localStorage.getItem("menus"), []);
+    setMenus(storedMenus);
+}, []);
+useEffect(() => {
+    const storedSubMenus = safeJsonParse(localStorage.getItem("subMenus"), []);
+>>>>>>> Stashed changes
     setSubMenus(storedSubMenus);
   }, []);
 

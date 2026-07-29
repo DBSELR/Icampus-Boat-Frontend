@@ -58,7 +58,11 @@ export const loginApi = async (
         localStorage.setItem("token", response.data.token);
 
         // (Optional) Save user information
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+        if (response.data.user) {
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+        } else {
+            localStorage.setItem("user", JSON.stringify({ userId: data.userId }));
+        }
         return {
             success: true,
             data: response.data,

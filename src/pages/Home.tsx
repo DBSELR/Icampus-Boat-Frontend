@@ -29,6 +29,8 @@ import "./Home.css";
 //   { id: "settings", name: "Settings", icon: Settings2, path: "/settings", color: "slate" }
 // ];
 
+import { safeJsonParse } from "../utils/safeJson";
+
 const LANDING_MODULES = [
   { id: "admissions", name: "Admissions", icon: School, color: "blue" },
   { id: "fees", name: "Fees", icon: CreditCard, color: "orange" },
@@ -50,11 +52,9 @@ const LANDING_MODULES = [
   { id: "settings", name: "Settings", icon: Settings2, color: "slate" }
 ];
 
-
-
-const user = JSON.parse(localStorage.getItem("user") || "{}");
-
-const forms = user.forms || [];
+const getUserData = () => safeJsonParse<any>(localStorage.getItem("user"), {});
+const user = getUserData();
+const forms = user?.forms || [];
 
 // const moduleNames=[
 //     ...new Set(
@@ -159,14 +159,14 @@ function PerformanceIcon(props: any) {
 export const Home: React.FC = () => {
   const history = useHistory();
 
-  const subMenus = JSON.parse(localStorage.getItem("subMenus") || "[]");
+  const subMenus = safeJsonParse<any[]>(localStorage.getItem("subMenus"), []);
 
   const normalize = (text: string = "") =>
     text.toLowerCase().replace(/[\s\\/_-]/g, "");
 
   const handleModuleClick = (module: any) => {
     console.log("Module clicked:", module);
-    const subMenus = JSON.parse(localStorage.getItem("subMenus") || "[]");
+    const subMenus = safeJsonParse<any[]>(localStorage.getItem("subMenus"), []);
 
     const menu = subMenus.find((m: any) =>
       normalize(m.menuName) === normalize(module.name) ||

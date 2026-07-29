@@ -1,12 +1,8 @@
 import React from "react";
+import VehicleMaster from "./VehicleMaster";
 
 const TransportForms: React.FC = () => {
-  return (
-    <div className="module-page">
-      <h2>Transport Forms</h2>
-      <p>This is the Transport forms section.</p>
-    </div>
-  );
+  return <VehicleMaster />;
 };
 
 export default TransportForms;
