@@ -23,12 +23,9 @@ const DynamicRoute: React.FC<Props> = ({ path }) => {
 
   const importer = modules[componentPath];
 
-<<<<<<< Updated upstream
   console.log("Current Path:", path);
   console.log("Component Path:", componentPath);
   console.log("Importer Found:", !!modules[componentPath]);
-=======
->>>>>>> Stashed changes
   if (!importer) {
     return <div>Page "{page}" not found</div>;
   }

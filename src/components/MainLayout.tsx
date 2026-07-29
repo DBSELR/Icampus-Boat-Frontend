@@ -312,21 +312,13 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const [menus, setMenus] = useState<any[]>([]);
   const [subMenus, setSubMenus] = useState<any[]>([]);
 
-<<<<<<< Updated upstream
   useEffect(() => {
-    const storedMenus = JSON.parse(localStorage.getItem("menus") || "[]");
-    setMenus(storedMenus);
-  }, []);
-  useEffect(() => {
-    const storedSubMenus = JSON.parse(localStorage.getItem("subMenus") || "[]");
-=======
-useEffect(() => {
     const storedMenus = safeJsonParse(localStorage.getItem("menus"), []);
     setMenus(storedMenus);
-}, []);
-useEffect(() => {
+  }, []);
+
+  useEffect(() => {
     const storedSubMenus = safeJsonParse(localStorage.getItem("subMenus"), []);
->>>>>>> Stashed changes
     setSubMenus(storedSubMenus);
   }, []);
 
