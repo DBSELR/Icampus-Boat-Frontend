@@ -337,7 +337,14 @@ const BranchMaster = () => {
             <div className="dbs-empty-state-title">No records found</div>
           </div>
         ) : (
-          <div className="dbs-empty-state">
+            <div className="dbs-table-card">
+            <div
+              className={
+                branchLoad.length > 5
+                  ? "dbs-table-scroll active-scroll"
+                  : "dbs-table-scroll"
+              }
+            >
             <table className="dbs-data-table">
               <thead>
                 <tr>
@@ -361,7 +368,7 @@ const BranchMaster = () => {
                     <td>{bracnhdata.BRANCHNAME}</td>
                     <td>
                       <button
-                        className="dbs-btn-edit"
+                        className="dbs-icon-btn edit"
                         onClick={() => onHandleEdit(bracnhdata)}
                       >
                         <SquarePen size={16} />
@@ -373,6 +380,7 @@ const BranchMaster = () => {
                 }
               </tbody>
             </table>
+          </div>
           </div>
         )}
       </div>

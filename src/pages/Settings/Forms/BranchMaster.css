@@ -160,9 +160,9 @@
 
 .dbs-form-cancel-btn {
   display: flex;
-  background-color: rgb(236, 60, 60);
+  background-color: var(--dbs-background);
+  color: black;
   border: 1px solid var(--dbs-border);
-  color: white;
   padding: 8px 16px;
   font-size: 0.85rem;
   font-weight: 600;
@@ -171,9 +171,9 @@
   outline: none;
 }
 
-.dbs-form-cancel-btn:hover {
-  background-color: var(--dbs-background);
-  color: black;
+.dbs-form-cancel-btn:hover {  
+  background-color: rgb(236, 60, 60);  
+  color: white;
 }
 
 .dbs-form-save-btn {
@@ -283,4 +283,371 @@
 .dbs-btn-delete:hover {
   background-color: var(--dbs-danger-light);
   border-color: var(--dbs-danger);
+}
+
+
+/* ==========================================
+   TABLE CONTAINER
+========================================== */
+
+.dbs-branch-container .dbs-table-container {
+  width: 100%;
+
+  background: var(--dbs-bg-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: 16px;
+
+  padding: 20px;
+
+  box-shadow: var(--dbs-shadow);
+
+  overflow-x: auto;
+}
+
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.dbs-subject-container .dbs-empty-state {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 220px;
+
+  text-align: center;
+
+  color: var(--dbs-text-light);
+}
+
+.dbs-subject-container .dbs-empty-state-icon {
+  width: 42px;
+
+  height: 42px;
+
+  margin-bottom: 12px;
+
+  color: var(--dbs-primary);
+}
+
+.dbs-subject-container .dbs-empty-state-title {
+  font-size: 18px;
+
+  font-weight: 700;
+
+  color: var(--dbs-text);
+
+  margin-bottom: 8px;
+}
+
+.dbs-subject-container .dbs-empty-state-desc {
+  font-size: 14px;
+
+  color: var(--dbs-text-light);
+
+  max-width: 350px;
+}
+
+
+
+
+/* ==========================================
+   DATA TABLE
+========================================== */
+
+.dbs-branch-container .dbs-data-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 14px;
+}
+
+.dbs-branch-container .dbs-data-table thead {
+  background: linear-gradient(135deg, var(--dbs-primary), var(--dbs-secondary));
+
+  color: #ffffff;
+}
+
+.dbs-branch-container .dbs-data-table th {
+  padding: 14px 16px;
+
+  text-align: left;
+
+  font-weight: 700;
+
+  font-size: 13px;
+
+  letter-spacing: 0.3px;
+
+  text-transform: uppercase;
+}
+
+.dbs-branch-container .dbs-data-table td {
+  padding: 14px 16px;
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  color: var(--dbs-text);
+}
+
+.dbs-branch-container .dbs-data-table tbody tr {
+  transition: 0.25s ease;
+}
+
+.dbs-branch-container .dbs-data-table tbody tr:hover {
+  background: var(--dbs-bg);
+}
+
+.dbs-footer-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.dbs-footer-info span {
+  color: #64748b;
+}
+
+.dbs-footer-count {
+  color: #1e293b;
+  font-weight: 700;
+  background: #f1f5f9;
+  padding: 3px 8px;
+  border-radius: 6px;
+  min-width: 28px;
+  text-align: center;
+}
+/* ==========================================
+   DBS TABLE FOOTER
+========================================== */
+
+.dbs-branch-container .dbs-table-footer {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 18px 20px;
+
+  margin-top: 16px;
+
+  background: var(--dbs-bg-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: 14px;
+
+  box-shadow: var(--dbs-shadow);
+}
+
+/* Left Section */
+
+.dbs-branch-container .dbs-footer-left {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.dbs-branch-container .dbs-footer-label {
+  color: var(--dbs-text-light);
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+/* Select */
+
+.dbs-branch-container .dbs-select-wrapper select {
+  height: 36px;
+
+  min-width: 60px;
+
+  padding: 0 10px;
+
+  border-radius: 8px;
+
+  border: 1px solid var(--dbs-border);
+
+  background: var(--dbs-bg-surface);
+
+  color: var(--dbs-text);
+
+  font-weight: 600;
+}
+
+.dbs-pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dbs-page-nav,
+.dbs-page-number {
+  min-width: 38px;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--dbs-border);
+  background: #fff;
+  color: #334155;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.dbs-page-nav:hover:not(:disabled),
+.dbs-page-number:hover {
+  background: #f4f7fb;
+  border: 1px solid var(--dbs-border);
+}
+
+.dbs-page-number.active {
+  background: var(--dbs-primary);
+  color: #fff;
+  border: 1px solid var(--dbs-border);
+  box-shadow: 0 4px 10px rgba(15, 108, 189, 0.25);
+}
+
+.dbs-page-nav:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.dbs-page-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  color: #64748b;
+  font-weight: 700;
+  font-size: 18px;
+}
+/* ==========================================
+   DBS TABLE SCROLLBAR
+========================================== */
+
+.dbs-branch-container .dbs-table-scroll.active-scroll {
+  max-height: 330px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Scrollbar Width */
+.dbs-branch-container .dbs-table-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Scrollbar Track */
+.dbs-branch-container .dbs-table-scroll::-webkit-scrollbar-track {
+  background: var(--dbs-bg);
+  border-radius: 10px;
+}
+
+/* Scrollbar Thumb */
+.dbs-branch-container .dbs-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-primary);
+  border-radius: 10px;
+}
+
+/* Hover */
+.dbs-branch-container .dbs-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-secondary);
+}
+/* ==========================================
+   STICKY TABLE HEADER
+========================================== */
+
+.dbs-branch-container .dbs-table-scroll.active-scroll {
+  max-height: 330px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.dbs-branch-container .dbs-data-table th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  background: var(--dbs-primary);
+  color: #ffffff;
+}
+
+/* ==========================================
+   TABLE ACTION ICONS
+========================================== */
+
+.dbs-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dbs-icon-btn {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+  border: 1px solid var(--dbs-border);
+
+  background: var(--dbs-bg-surface);
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+
+  text-decoration: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.dbs-icon-btn svg {
+  display: block;
+}
+
+/* Edit */
+.dbs-icon-btn.edit {
+  color: var(--dbs-primary);
+}
+
+.dbs-icon-btn.edit:hover {
+  background: var(--dbs-primary-soft);
+  border-color: var(--dbs-primary);
+  transform: translateY(-1px);
+}
+
+/* Delete */
+.dbs-icon-btn.delete {
+  color: #dc2626;
+}
+
+.dbs-icon-btn.delete:hover {
+  background: rgba(220, 38, 38, 0.08);
+  border-color: #dc2626;
+  transform: translateY(-1px);
+}
+
+.dbs-icon-btn:active {
+  transform: scale(0.95);
 }
