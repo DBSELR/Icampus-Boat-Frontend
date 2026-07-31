@@ -1,0 +1,568 @@
+/* =====================================
+   INTERNAL MARKS ALLOWED DATE CONTAINER
+===================================== */
+
+.dbs-attendance-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* =====================================
+   PAGE HEADER
+===================================== */
+
+.dbs-attendance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 1px solid var(--dbs-border);
+  padding-bottom: 16px;
+}
+
+.dbs-attendance-header h2 {
+  margin: 0;
+
+  font-size: 1.4rem;
+  font-weight: 800;
+
+  color: var(--dbs-text);
+}
+
+/* =====================================
+   FORM & TABLE CARD
+===================================== */
+
+.dbs-form-card,
+.dbs-table-card {
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: var(--dbs-radius);
+
+  box-shadow: var(--dbs-shadow);
+
+  padding: 24px;
+}
+
+.dbs-form-card {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 22px;
+}
+
+.dbs-form-card h3 {
+  margin: 0;
+
+  font-size: 1.1rem;
+
+  font-weight: 700;
+
+  color: var(--dbs-text);
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  padding-bottom: 12px;
+}
+
+/* =====================================
+   FORM GRID
+===================================== */
+
+.dbs-imad-form-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 20px;
+}
+
+/* =====================================
+   INPUT BOX
+===================================== */
+
+.dbs-imad-input-box {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.dbs-imad-input-box label {
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: var(--dbs-text);
+
+  margin-bottom: 6px;
+}
+
+.dbs-imad-input-box input,
+.dbs-imad-input-box select {
+  width: 100%;
+
+  height: 40px;
+
+  padding: 10px 12px;
+
+  border-radius: var(--dbs-radius-sm);
+
+  border: 1px solid var(--dbs-border);
+
+  background: var(--dbs-surface);
+
+  color: var(--dbs-text);
+
+  outline: none;
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-imad-input-box input:focus,
+.dbs-imad-input-box select:focus {
+  border-color: var(--dbs-primary);
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+}
+
+/* =====================================
+   MID TYPE DROPDOWN
+===================================== */
+
+.mid-type-wrapper {
+  position: relative;
+
+  width: 100%;
+}
+
+.mid-type-select {
+  height: 40px;
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: var(--dbs-radius-sm);
+
+  background: var(--dbs-surface);
+
+  padding: 0 12px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  cursor: pointer;
+
+  color: var(--dbs-text);
+}
+
+.mid-type-select:hover {
+  border-color: var(--dbs-primary);
+}
+
+.mid-type-options {
+  position: absolute;
+
+  top: 44px;
+
+  left: 0;
+
+  width: 100%;
+
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: var(--dbs-radius-sm);
+
+  max-height: 250px;
+
+  overflow-y: auto;
+
+  z-index: 1000;
+
+  box-shadow: var(--dbs-shadow);
+}
+
+.mid-type-option {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 10px 12px;
+
+  cursor: pointer;
+
+  font-size: 14px;
+
+  color: var(--dbs-text);
+}
+
+.mid-type-option:hover {
+  background: var(--dbs-primary-light);
+}
+
+.mid-type-option input {
+  width: 15px;
+
+  height: 15px;
+
+  accent-color: var(--dbs-primary);
+}
+
+/* =====================================
+   CHECKBOX
+===================================== */
+
+.dbs-imad-checkbox-row {
+  display: flex;
+
+  align-items: center;
+
+  gap: 25px;
+}
+
+.dbs-imad-checkbox-row label {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  color: var(--dbs-text);
+}
+
+.dbs-imad-checkbox-row input {
+  width: 16px;
+
+  height: 16px;
+
+  accent-color: var(--dbs-primary);
+}
+
+/* =====================================
+   TABLE HEADER
+===================================== */
+
+.dbs-programme-form-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.dbs-programme-form-header h2 {
+  margin: 0;
+
+  font-size: 1.3rem;
+
+  font-weight: 800;
+
+  color: var(--dbs-text);
+}
+
+.dbs-page-subtitle {
+  margin: 6px 0 0;
+
+  font-size: 14px;
+
+  color: var(--dbs-text-light);
+}
+
+/* =====================================
+   TABLE CARD
+===================================== */
+
+.dbs-table-card {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 25px;
+}
+
+.dbs-table-scroll {
+  display: flex;
+
+  gap: 20px;
+
+  width: 100%;
+
+  overflow-x: auto;
+
+  max-height: 450px;
+}
+
+.dbs-table-scroll > div {
+  margin-bottom: 0;
+}
+
+.dbs-table-scroll h3 {
+  margin: 0 0 12px;
+
+  padding-bottom: 10px;
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  color: var(--dbs-text);
+
+  font-size: 1rem;
+
+  font-weight: 800;
+}
+
+/* =====================================
+   DATA TABLE
+===================================== */
+
+.dbs-data-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  background: var(--dbs-surface);
+}
+
+.dbs-data-table thead th {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 2;
+
+  background: var(--dbs-primary);
+
+  color: white;
+
+  padding: 13px 16px;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  text-align: left;
+}
+
+.dbs-data-table tbody td {
+  padding: 13px 16px;
+
+  font-size: 14px;
+
+  color: var(--dbs-text);
+
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-data-table tbody tr:hover td {
+  background: var(--dbs-primary-light);
+}
+
+/* =====================================
+   SCROLLBAR
+===================================== */
+
+.dbs-table-scroll::-webkit-scrollbar,
+.mid-type-options::-webkit-scrollbar {
+  width: 8px;
+
+  height: 8px;
+}
+
+.dbs-table-scroll::-webkit-scrollbar-thumb,
+.mid-type-options::-webkit-scrollbar-thumb {
+  background: var(--dbs-primary);
+
+  border-radius: 10px;
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 1024px) {
+  .dbs-imad-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .dbs-imad-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dbs-imad-checkbox-row {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .dbs-table-scroll {
+    flex-direction: column;
+  }
+
+  .dbs-table-section {
+    min-width: 100%;
+  }
+}
+.dbs-table-section {
+  flex: 1;
+
+  min-width: 600px;
+
+  margin-bottom: 0;
+}
+
+.dbs-table-section h3 {
+  margin: 0 0 12px;
+
+  padding-bottom: 10px;
+
+  font-size: 16px;
+
+  font-weight: 800;
+
+  color: var(--dbs-text);
+
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-no-data {
+  text-align: center;
+
+  padding: 30px !important;
+
+  color: var(--dbs-text-light);
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+/* =====================================
+   TABLE SCROLL
+===================================== */
+
+.table-scroll-container {
+  max-height: 350px;
+
+  overflow-y: auto;
+
+  overflow-x: auto;
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: var(--dbs-radius-sm);
+}
+
+/* Keep table width */
+
+.table-scroll-container .dbs-data-table {
+  min-width: 750px;
+}
+
+/* Sticky table header */
+
+.table-scroll-container thead th {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 5;
+
+  background: var(--dbs-primary);
+
+  color: white;
+}
+
+/* Scrollbar style */
+
+.table-scroll-container::-webkit-scrollbar {
+  width: 8px;
+
+  height: 8px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb {
+  background: var(--dbs-primary);
+
+  border-radius: 10px;
+}
+/* =====================================
+   FORM ACTION BUTTONS
+===================================== */
+
+.dbs-form-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 15px;
+
+  margin-top: 20px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid var(--dbs-border);
+}
+
+.dbs-save-btn,
+.dbs-cancel-btn {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  height: 40px;
+
+  padding: 0 22px;
+
+  border-radius: var(--dbs-radius-sm);
+
+  border: none;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: var(--dbs-transition);
+}
+
+/* Save */
+
+.dbs-save-btn {
+  background: var(--dbs-primary);
+
+  color: white;
+}
+
+.dbs-save-btn:hover {
+  opacity: 0.9;
+}
+
+/* Cancel */
+
+.dbs-cancel-btn {
+  background: #e5e7eb;
+
+  color: #374151;
+}
+
+.dbs-cancel-btn:hover {
+  background: #d1d5db;
+}

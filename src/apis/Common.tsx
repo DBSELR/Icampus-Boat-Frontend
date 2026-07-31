@@ -48,3 +48,11 @@ export const savePeriodTime = async (payload: any) => {
 
   return response.data;
 };
+
+export const getMidTypeMaster = async () => {
+  const response = await axios.get(
+    `${API_BASE}InternalMarksAllowedDate/GetMidTypeMaster`,
+  );
+
+  return response.data;
+};

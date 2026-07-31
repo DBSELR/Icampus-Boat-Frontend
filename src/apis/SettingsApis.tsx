@@ -482,3 +482,45 @@ export const loadAttendanceMaxDates = async (payload: {
     throw error;
   }
 };
+
+// ===================== Internal Marks Allowed Date =====================
+
+export const bindRegulation = async () => {
+  try {
+    const response = await axios.get(
+      `${API_BASE}InternalMarksAllowedDate/BindRegu`,
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Bind Regulation API Error:", error);
+    throw error;
+  }
+};
+
+export const saveInternalDates = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}InternalMarksAllowedDate/SaveInternalDates`,
+    payload,
+  );
+
+  return response.data;
+};
+
+export const bindInternalDates = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}InternalMarksAllowedDate/BindInternalDates`,
+    payload,
+  );
+
+  return response.data;
+};
+
+export const bindInternalDatesflag2 = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}InternalMarksAllowedDate/BindInternalDatesflag2`,
+    payload,
+  );
+
+  return response.data;
+};
