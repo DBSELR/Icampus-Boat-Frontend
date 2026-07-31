@@ -1,0 +1,354 @@
+/* =====================================
+   CONTAINER
+===================================== */
+
+.dbs-special-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* =====================================
+   HEADER
+===================================== */
+
+.dbs-special-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--dbs-border);
+  padding-bottom: 16px;
+}
+
+.dbs-special-header h2 {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--dbs-text);
+}
+
+/* =====================================
+   CARD
+===================================== */
+
+.dbs-special-card {
+  background: var(--dbs-bg-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: 18px;
+
+  padding: 28px;
+
+  box-shadow: var(--dbs-shadow);
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 24px;
+}
+
+.dbs-special-card h3 {
+  font-size: 18px;
+
+  font-weight: 700;
+
+  color: var(--dbs-text);
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  padding-bottom: 14px;
+}
+/* =====================================
+   FILTERS
+===================================== */
+
+.dbs-special-filter-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  align-items: end;
+}
+
+.dbs-special-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.dbs-special-input label {
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dbs-text);
+}
+
+.dbs-special-input select {
+  height: 42px;
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: var(--dbs-radius-sm);
+
+  padding: 0 12px;
+
+  outline: none;
+
+  background: var(--dbs-surface);
+
+  color: var(--dbs-text);
+
+  transition: 0.25s;
+}
+
+.dbs-special-input select:hover {
+  border-color: var(--dbs-primary);
+}
+
+.dbs-special-input select:focus {
+  border-color: var(--dbs-primary);
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+}
+
+/* =====================================
+   TABLE SCROLL
+===================================== */
+
+.dbs-special-table-scroll {
+  max-height: 380px;
+
+  overflow-y: auto;
+
+  overflow-x: auto;
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: var(--dbs-radius);
+}
+
+/* Scrollbar */
+
+.dbs-special-table-scroll::-webkit-scrollbar {
+  width: 8px;
+
+  height: 8px;
+}
+
+.dbs-special-table-scroll::-webkit-scrollbar-track {
+  background: var(--dbs-bg);
+}
+
+.dbs-special-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-primary);
+
+  border-radius: 20px;
+}
+
+.dbs-special-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary-hover);
+}
+
+/* =====================================
+   TABLE
+===================================== */
+
+.dbs-special-table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.dbs-special-table th {
+  background: var(--dbs-primary);
+
+  color: white;
+
+  padding: 14px;
+
+  text-align: left;
+
+  font-size: 13px;
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 2;
+}
+
+.dbs-special-table td {
+  padding: 13px;
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  color: var(--dbs-text);
+}
+
+.dbs-special-table tbody tr:hover td {
+  background: var(--dbs-primary-light);
+}
+
+/* =====================================
+   ACTIVE RECORD ROW
+===================================== */
+
+.dbs-active-row td {
+  background: var(--dbs-primary-light);
+}
+
+.dbs-active-row td:first-child {
+  border-left: 4px solid var(--dbs-primary);
+}
+
+.dbs-active-row:hover td {
+  background: var(--dbs-primary-light);
+}
+
+/* =====================================
+   CHECKBOX
+===================================== */
+
+.dbs-active-checkbox {
+  width: 18px;
+
+  height: 18px;
+
+  cursor: pointer;
+
+  accent-color: var(--dbs-primary);
+
+  transition: 0.2s;
+}
+
+.dbs-active-checkbox:hover {
+  transform: scale(1.15);
+}
+
+/* =====================================
+   ACTION ADD BUTTON
+===================================== */
+
+.dbs-action-add-btn {
+  width: 32px;
+
+  height: 32px;
+
+  border-radius: 50%;
+
+  border: none;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  cursor: pointer;
+
+  background: var(--dbs-primary);
+
+  color: white;
+
+  transition: 0.25s;
+}
+
+.dbs-action-add-btn:hover {
+  background: var(--dbs-primary-hover);
+
+  transform: scale(1.1);
+}
+
+.dbs-action-add-btn svg {
+  stroke-width: 3;
+}
+
+/* =====================================
+   EMPTY / LOADING
+===================================== */
+
+.dbs-special-empty {
+  padding: 60px;
+
+  text-align: center;
+
+  color: var(--dbs-text-light);
+
+  font-weight: 600;
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 992px) {
+  .dbs-special-filter-row {
+    grid-template-columns: 1fr;
+  }
+}
+/* =====================================
+   SPECIAL ACCESS ROW
+===================================== */
+
+.dbs-special-access-row td {
+  background: rgba(147, 51, 234, 0.12);
+  color: #111111;
+  font-weight: 600;
+}
+
+/* Left indicator */
+
+.dbs-special-access-row td:first-child {
+  border-left: 4px solid #6433ea;
+}
+
+/* Hover */
+
+.dbs-special-access-row:hover td {
+  background: rgba(147, 51, 234, 0.22);
+  transition: background 0.25s ease;
+}
+/* Submit Button */
+
+.dbs-add-action-btn {
+  height: 34px;
+  padding: 0 16px;
+
+  border: none;
+  border-radius: var(--dbs-radius-sm);
+
+  background: var(--dbs-primary);
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Hover */
+
+.dbs-add-action-btn:hover {
+  background: var(--dbs-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Click */
+
+.dbs-add-action-btn:active {
+  transform: scale(0.96);
+}
+
+/* Disabled (optional) */
+
+.dbs-add-action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}

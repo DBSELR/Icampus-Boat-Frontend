@@ -350,3 +350,135 @@ export const deleteFaculty = async (id: string) => {
     throw error;
   }
 };
+
+// =======================User Access=================
+export const getERPModulesList = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}UserAccess/GetERPModulesList`);
+
+    return response.data;
+  } catch (error) {
+    console.error("Get ERP Modules API Error:", error);
+    throw error;
+  }
+};
+
+export const getERPUserGroupList = async () => {
+  try {
+    const response = await axios.get(
+      `${API_BASE}UserAccess/GetUserGroupsSettings`,
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Get ERP Modules API Error:", error);
+    throw error;
+  }
+};
+
+export const getERPForms = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}UserAccess/GetERPFormsList`,
+    payload,
+  );
+
+  return response.data;
+};
+
+export const getUserGroupMenuLoad = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}UserAccess/GetUserGroupMenuLoad`,
+    payload,
+  );
+
+  return response.data;
+};
+
+export const saveUserAcces = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}UserAccess/SaveUserForms`,
+    payload,
+  );
+
+  return response.data;
+};
+
+// ===============special access==================
+export const getEmployess = async () => {
+  try {
+    const response = await axios.get(
+      `${API_BASE}SpecialAccess/GetEmployeeList`,
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Get ERP Modules API Error:", error);
+    throw error;
+  }
+};
+
+export const getSPAList = async (payload: any) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE}SpecialAccess/GetERP_SPA_List`,
+      payload,
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Get ERP Modules API Error:", error);
+    throw error;
+  }
+};
+
+export const saveSPAAccess = async (payload: any) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE}SpecialAccess/SaveSplAccess`,
+      payload,
+    );
+
+    return response.data;
+  } catch (error: any) {
+    console.error(
+      "Save Special Access API Error:",
+      error?.response?.data || error,
+    );
+
+    throw error;
+  }
+};
+
+// =====================AttendanceMaxDates==================
+export const saveAttendanceMaxDates = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}AttendanceMaxDates/SaveAttendanceMaxDates`,
+    payload,
+  );
+
+  return response.data;
+};
+
+export const loadAttendanceMaxDates = async (payload: {
+  academicYear: string;
+  course: string;
+  year: string;
+  sem: string;
+}) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE}AttendanceMaxDates/LoadAttMaxDate`,
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Load Attendance Max Dates API Error:", error);
+    throw error;
+  }
+};

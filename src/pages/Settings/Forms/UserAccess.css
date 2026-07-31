@@ -1,0 +1,478 @@
+/* =====================================
+ USER ACCESS PAGE
+===================================== */
+
+.dbs-user-access-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* =====================================
+ HEADER
+===================================== */
+
+.dbs-user-access-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 16px;
+
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-user-access-topbar h2 {
+  margin: 0;
+
+  font-size: 1.5rem;
+  font-weight: 800;
+
+  color: var(--dbs-text);
+}
+
+.dbs-user-access-topbar p {
+  margin: 6px 0 0;
+
+  font-size: 13px;
+
+  color: var(--dbs-text-light);
+}
+
+/* =====================================
+ SAVE BUTTON
+===================================== */
+
+.dbs-user-access-save {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  background: var(--dbs-primary);
+
+  color: white;
+
+  border: none;
+
+  padding: 11px 22px;
+
+  border-radius: var(--dbs-radius-sm);
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-user-access-save:hover {
+  background: var(--dbs-primary-hover);
+
+  transform: translateY(-1px);
+}
+
+/* =====================================
+ MAIN CARD
+===================================== */
+
+.dbs-user-access-card {
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: var(--dbs-radius);
+
+  box-shadow: var(--dbs-shadow);
+
+  padding: 26px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 24px;
+}
+
+.dbs-user-access-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-user-access-card-header h3 {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: 750;
+
+  color: var(--dbs-text);
+}
+
+.dbs-user-access-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* =====================================
+ FILTER SECTION
+===================================== */
+
+.dbs-user-access-filters {
+  display: grid;
+
+  grid-template-columns:
+    minmax(400px, 1fr)
+    120px
+    minmax(400px, 1fr);
+
+  gap: 24px;
+
+  align-items: end;
+}
+
+/* LEFT SIDE FILTERS */
+
+.dbs-user-access-left-filter {
+  grid-column: 1;
+
+  display: grid;
+
+  grid-template-columns: 260px 1fr;
+
+  gap: 20px;
+}
+
+/* ROLE FILTER */
+
+.dbs-user-access-role-filter {
+  grid-column: 3;
+}
+
+.dbs-user-access-field {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.dbs-user-access-field label {
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: var(--dbs-text);
+
+  margin-bottom: 7px;
+}
+
+.dbs-user-access-field input,
+.dbs-user-access-field select {
+  height: 42px;
+
+  padding: 0 13px;
+
+  border-radius: var(--dbs-radius-sm);
+
+  border: 1px solid var(--dbs-border);
+
+  background: var(--dbs-surface);
+
+  color: var(--dbs-text);
+
+  outline: none;
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-user-access-field input:hover,
+.dbs-user-access-field select:hover {
+  border-color: var(--dbs-primary);
+}
+
+.dbs-user-access-field input:focus,
+.dbs-user-access-field select:focus {
+  border-color: var(--dbs-primary);
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+}
+
+/* =====================================
+ TABLE SECTION
+===================================== */
+
+.dbs-user-access-tables {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+/* =====================================
+ TABLE CARD
+===================================== */
+
+.dbs-user-access-panel {
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: var(--dbs-radius);
+
+  overflow: hidden;
+
+  box-shadow: var(--dbs-shadow);
+}
+
+/* HEADER */
+
+.dbs-user-access-panel-header {
+  height: 48px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 0 18px;
+
+  background: var(--dbs-primary);
+
+  color: white;
+
+  font-size: 14px;
+
+  font-weight: 800;
+}
+
+.dbs-user-access-panel-header span {
+  background: rgba(255, 255, 255, 0.2);
+
+  padding: 5px 12px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+}
+
+/* =====================================
+ TABLE
+===================================== */
+
+.dbs-user-access-table-scroll {
+  height: 360px;
+
+  overflow: auto;
+}
+
+.dbs-user-access-table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.dbs-user-access-table thead th {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 2;
+
+  background: var(--dbs-primary);
+
+  color: white;
+
+  padding: 12px 14px;
+
+  text-align: left;
+
+  font-size: 13px;
+
+  font-weight: 800;
+}
+
+.dbs-user-access-table tbody td {
+  padding: 13px 14px;
+
+  color: var(--dbs-text);
+
+  font-size: 14px;
+
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-user-access-table tbody tr {
+  transition: var(--dbs-transition);
+}
+
+.dbs-user-access-table tbody tr:hover td {
+  background: var(--dbs-primary-light);
+}
+
+/* CHECKBOX */
+
+.dbs-user-access-table input[type="checkbox"] {
+  width: 17px;
+
+  height: 17px;
+
+  accent-color: var(--dbs-primary);
+
+  cursor: pointer;
+}
+
+/* =====================================
+ TRANSFER BUTTONS
+===================================== */
+
+.dbs-user-access-buttons {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 16px;
+}
+
+.dbs-user-access-assign,
+.dbs-user-access-remove {
+  width: 95px;
+
+  height: 40px;
+
+  border-radius: var(--dbs-radius-sm);
+
+  font-size: 13px;
+
+  font-weight: 750;
+
+  cursor: pointer;
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-user-access-assign {
+  background: var(--dbs-primary);
+
+  color: white;
+
+  border: none;
+}
+
+.dbs-user-access-assign:hover {
+  background: var(--dbs-primary-hover);
+
+  transform: translateX(2px);
+}
+
+.dbs-user-access-remove {
+  background: var(--dbs-surface);
+
+  color: var(--dbs-danger);
+
+  border: 1px solid var(--dbs-border);
+}
+
+.dbs-user-access-remove:hover {
+  background: var(--dbs-primary-light);
+}
+
+/* =====================================
+ SCROLLBAR
+===================================== */
+
+.dbs-user-access-table-scroll::-webkit-scrollbar {
+  width: 8px;
+
+  height: 8px;
+}
+
+.dbs-user-access-table-scroll::-webkit-scrollbar-track {
+  background: var(--dbs-bg);
+}
+
+.dbs-user-access-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-primary);
+
+  border-radius: 10px;
+}
+
+/* =====================================
+ RESPONSIVE
+===================================== */
+
+@media (max-width: 1200px) {
+  .dbs-user-access-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .dbs-user-access-left-filter {
+    grid-template-columns: 1fr;
+  }
+
+  .dbs-user-access-tables {
+    grid-template-columns: 1fr;
+  }
+
+  .dbs-user-access-buttons {
+    flex-direction: row;
+  }
+}
+
+/* =====================================
+ ASSIGNED FORM HIGHLIGHT
+===================================== */
+
+.dbs-user-access-assigned-row td {
+  background: var(--dbs-primary-light);
+
+  color: var(--dbs-primary);
+
+  font-weight: 700;
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-user-access-assigned-row:hover td {
+  background: color-mix(
+    in srgb,
+    var(--dbs-primary-light) 80%,
+    var(--dbs-primary) 20%
+  );
+}
+
+.dbs-user-access-assigned-row input[type="checkbox"] {
+  accent-color: var(--dbs-primary);
+}
+.dbs-user-access-panel-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.dbs-user-access-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dbs-user-access-refresh {
+  padding: 11px 22px;
+  border-radius: var(--dbs-radius-sm);
+  border: 1px solid var(--dbs-border);
+  background: var(--dbs-surface);
+  color: var(--dbs-primary);
+  cursor: pointer;
+  font-weight: 700;
+  transition: var(--dbs-transition);
+}
+
+.dbs-user-access-refresh:hover {
+  background: var(--dbs-primary-light);
+}

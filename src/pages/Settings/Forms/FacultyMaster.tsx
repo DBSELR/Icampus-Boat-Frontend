@@ -248,6 +248,24 @@ const FacultyMaster = () => {
     }
   };
 
+  const handleReset = () => {
+    setSelectedProgramme("");
+    setSelectedYear("");
+    setSelectedSemester("");
+    setSelectedDepartment("");
+    setSelectedFaculty("");
+    setSelectedSubject("");
+
+    // Clear all dependent data
+    setYears([]);
+    setFaculties([]);
+    setSubjects([]);
+    setFacultyData([]);
+
+    setShowDeleteModal(false);
+    setDeleteItem(null);
+  };
+
   useEffect(() => {
     if (selectedDepartment) {
       fetchEmployeeList();
@@ -489,7 +507,9 @@ const FacultyMaster = () => {
         </div>
 
         <div className="dbs-form-actions-row">
-          <button className="dbs-form-cancel-btn">Cancel / Reset</button>
+          <button className="dbs-form-cancel-btn" onClick={handleReset}>
+            Cancel / Reset
+          </button>
 
           <button className="dbs-form-save-btn" onClick={handleSaveFaculty}>
             <Save size={16} />

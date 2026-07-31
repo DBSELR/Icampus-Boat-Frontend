@@ -282,6 +282,23 @@ const Subjects = () => {
   };
 
   const handleSaveSubject = async () => {
+    // Required field validation (Marks are optional)
+    if (
+      selectedRegulation === "0" ||
+      selectedProgramme === "0" ||
+      selectedBranch === "0" ||
+      selectedYear === "0" ||
+      selectedSemester === "0" ||
+      !subjectCode.trim() ||
+      !subjectName.trim() ||
+      !subjectShortName.trim() ||
+      !paperOrder.trim() ||
+      !periodType
+    ) {
+      toast.error("Please fill all required fields.");
+      return;
+    }
+
     // Prevent multiple values separated by comma
     if (
       subjectCode.includes(",") ||
@@ -334,10 +351,10 @@ const Subjects = () => {
             : "Subject saved successfully!",
         );
 
-        // keep current filters while refreshing table
+        // Refresh table
         await fetchSubjects();
 
-        // clear edit mode after reload
+        // Clear edit mode
         setEditSubjectId(null);
         setIsEditing(false);
         setIsEditMode(false);
@@ -1217,44 +1234,6 @@ const Subjects = () => {
         endIndex={endIndex}
         getPagination={getPagination}
       />
-
-      {/* Delete Confirmation Modal */}
-      {/* {showDeleteModal && (
-        <div className="dbs-subject-modal-overlay">
-          <div className="dbs-subject-delete-modal">
-            <div className="dbs-subject-delete-header">
-              <Trash2 size={40} className="dbs-subject-delete-icon" />
-              <h3>Delete Subject</h3>
-            </div>
-
-            <p>
-              Are you sure you want to delete
-              <strong> {deleteItem?.sUBJECTNAME}</strong>?
-            </p>
-
-            <div className="dbs-subject-delete-actions">
-              <button
-                className="dbs-subject-cancel-btn"
-                onClick={() => {
-                  setShowDeleteModal(false);
-                  setDeleteItem(null);
-                }}
-                disabled={deleting}
-              >
-                Cancel
-              </button>
-
-              <button
-                className="dbs-subject-delete-btn"
-                onClick={handleDelete}
-                disabled={deleting}
-              >
-                {deleting ? "Deleting..." : "Delete"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )} */}
 
       <DeleteModal
         open={showDeleteModal}
