@@ -1,0 +1,408 @@
+/* ===========================
+   MAIN CONTAINER
+=========================== */
+
+.dbs-category-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 12px;
+}
+
+/* ===========================
+   HEADER
+=========================== */
+
+.dbs-category-header {
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-category-header h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--dbs-text);
+  letter-spacing: -0.5px;
+}
+
+.dbs-category-header p {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* ===========================
+   CARD
+=========================== */
+
+.dbs-category-card {
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: 16px;
+
+  padding: 28px;
+
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+
+  transition: 0.25s ease;
+}
+
+.dbs-category-card:hover {
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+}
+
+/* ===========================
+   CARD TITLE
+=========================== */
+
+.dbs-category-title {
+  display: flex;
+
+  align-items: center;
+
+  padding-bottom: 16px;
+
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-category-title h3 {
+  margin: 0;
+
+  font-size: 18px;
+
+  font-weight: 750;
+
+  color: var(--dbs-text);
+}
+
+/* ===========================
+   FORM GRID
+=========================== */
+
+.dbs-category-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+
+  gap: 24px;
+
+  margin-top: 28px;
+}
+
+.dbs-category-full {
+  grid-column: 1/-1;
+
+  max-width: 50%;
+}
+
+.dbs-category-input {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.dbs-category-input label {
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: var(--dbs-text);
+}
+
+/* INPUTS */
+
+.dbs-category-input input,
+.dbs-category-input select {
+  height: 46px;
+
+  padding: 0 14px;
+
+  border-radius: 10px;
+
+  border: 1px solid var(--dbs-border);
+
+  background: var(--dbs-surface);
+
+  color: var(--dbs-text);
+
+  font-size: 14px;
+
+  transition: 0.25s;
+}
+
+.dbs-category-input input:hover,
+.dbs-category-input select:hover {
+  border-color: var(--dbs-primary);
+}
+
+.dbs-category-input input:focus,
+.dbs-category-input select:focus {
+  outline: none;
+
+  border-color: var(--dbs-primary);
+
+  box-shadow: 0 0 0 4px var(--dbs-primary-light);
+}
+
+/* ===========================
+   BUTTON AREA
+=========================== */
+
+.dbs-category-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 14px;
+
+  margin-top: 30px;
+
+  padding-top: 22px;
+
+  border-top: 1px solid var(--dbs-border);
+}
+
+.dbs-category-save,
+.dbs-category-cancel {
+  height: 44px;
+
+  padding: 0 26px;
+
+  border-radius: 10px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+/* SAVE */
+
+.dbs-category-save {
+  background: var(--dbs-primary);
+
+  color: white;
+
+  border: 1px solid var(--dbs-primary);
+}
+
+.dbs-category-save:hover {
+  transform: translateY(-1px);
+
+  box-shadow: 0 8px 18px var(--dbs-primary-light);
+}
+
+/* CANCEL */
+
+.dbs-category-cancel {
+  background: var(--dbs-surface);
+
+  color: var(--dbs-text);
+
+  border: 1px solid var(--dbs-border);
+}
+
+.dbs-category-cancel:hover {
+  background: var(--dbs-primary-light);
+
+  color: var(--dbs-primary);
+
+  border-color: var(--dbs-primary);
+}
+
+/* ===========================
+   TABLE CONTAINER
+=========================== */
+
+.dbs-table-wrapper {
+  max-height: 420px;
+
+  overflow: auto;
+
+  margin-top: 20px;
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: 14px;
+}
+
+/* scrollbar */
+
+.dbs-table-wrapper::-webkit-scrollbar {
+  width: 8px;
+
+  height: 8px;
+}
+
+.dbs-table-wrapper::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.dbs-table-wrapper::-webkit-scrollbar-thumb {
+  background: var(--dbs-primary);
+
+  border-radius: 20px;
+}
+
+/* ===========================
+   TABLE
+=========================== */
+
+.dbs-category-table {
+  width: 100%;
+
+  min-width: 700px;
+
+  border-collapse: collapse;
+}
+
+.dbs-category-table thead th {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 5;
+
+  background: var(--dbs-primary);
+
+  color: white;
+
+  padding: 14px 16px;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  text-align: left;
+}
+
+.dbs-category-table tbody td {
+  padding: 14px 16px;
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  color: var(--dbs-text);
+
+  font-size: 14px;
+}
+
+.dbs-category-table tbody tr:nth-child(even) {
+  background: rgba(148, 163, 184, 0.08);
+}
+
+.dbs-category-table tbody tr:hover {
+  background: var(--dbs-primary-light);
+
+  transition: 0.2s;
+}
+
+/* ===========================
+   ICON BUTTONS
+=========================== */
+
+.dbs-icon-btn {
+  width: 36px;
+
+  height: 36px;
+
+  border-radius: 10px;
+
+  border: none;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.dbs-icon-btn.edit {
+  background: #e0f2fe;
+
+  color: #0284c7;
+}
+
+.dbs-icon-btn.edit:hover {
+  background: #bae6fd;
+
+  transform: scale(1.05);
+}
+
+.dbs-icon-btn.delete {
+  background: #fee2e2;
+
+  color: #dc2626;
+}
+
+.dbs-icon-btn.delete:hover {
+  background: #fecaca;
+
+  transform: scale(1.05);
+}
+
+/* ===========================
+ EMPTY STATE
+=========================== */
+
+.dbs-empty-state {
+  text-align: center;
+
+  padding: 60px 20px;
+
+  color: #64748b;
+}
+
+.dbs-empty-state svg {
+  color: var(--dbs-primary);
+
+  margin-bottom: 15px;
+}
+
+/* ===========================
+ RESPONSIVE
+=========================== */
+
+@media (max-width: 768px) {
+  .dbs-category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dbs-category-full {
+    max-width: 100%;
+  }
+
+  .dbs-category-actions {
+    flex-direction: column;
+  }
+
+  .dbs-category-save,
+  .dbs-category-cancel {
+    width: 100%;
+  }
+}
+.dbs-category-input select:disabled,
+.dbs-category-input input:disabled {
+  background-color: #f1f1f1;
+  cursor: not-allowed;
+  color: #777;
+}

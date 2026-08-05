@@ -1,0 +1,321 @@
+/* CONTAINER */
+
+.dbs-formregistration-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* HEADER */
+
+.dbs-formregistration-header {
+  border-bottom: 1px solid var(--dbs-border);
+  padding-bottom: 16px;
+}
+
+.dbs-formregistration-header h2 {
+  margin: 0;
+  color: var(--dbs-text);
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+/* CARD */
+
+.dbs-formregistration-filter-card,
+.dbs-formregistration-table-card {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  padding: 24px;
+}
+
+.dbs-formregistration-filter-card {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.dbs-formregistration-filter-card h3 {
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--dbs-border);
+  color: var(--dbs-text);
+}
+
+/* FORM */
+
+.dbs-formregistration-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.dbs-formregistration-input-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.dbs-formregistration-input-box label {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--dbs-text);
+}
+
+.dbs-formregistration-input-box input,
+.dbs-formregistration-input-box select,
+.dbs-formregistration-input-box textarea {
+  padding: 10px 12px;
+  border-radius: var(--dbs-radius-sm);
+  border: 1px solid var(--dbs-border);
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  outline: none;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.dbs-formregistration-input-box textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.dbs-formregistration-input-box input:focus,
+.dbs-formregistration-input-box select:focus,
+.dbs-formregistration-input-box textarea:focus {
+  border-color: var(--dbs-primary);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+}
+
+/* DESCRIPTION FULL WIDTH */
+
+.dbs-formregistration-full-width {
+  grid-column: 1 / -1;
+}
+
+/* BUTTONS */
+
+.dbs-formregistration-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  border-top: 1px solid var(--dbs-border);
+  padding-top: 18px;
+}
+
+.dbs-formregistration-save-btn,
+.dbs-formregistration-cancel-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: var(--dbs-radius-sm);
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+.dbs-formregistration-save-btn {
+  background: var(--dbs-primary);
+  color: #fff;
+}
+
+.dbs-formregistration-save-btn:hover {
+  opacity: 0.9;
+}
+
+.dbs-formregistration-cancel-btn {
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  border: 1px solid var(--dbs-border);
+}
+
+.dbs-formregistration-cancel-btn:hover {
+  background: var(--dbs-primary-light);
+}
+
+/* TABLE */
+
+.dbs-formregistration-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.dbs-formregistration-table-header h3 {
+  margin: 0;
+  color: var(--dbs-text);
+}
+
+.dbs-formregistration-table-header span {
+  background: var(--dbs-primary-light);
+  color: var(--dbs-primary);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dbs-formregistration-table-scroll {
+  overflow: auto;
+  max-height: 450px;
+}
+
+.dbs-formregistration-data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dbs-formregistration-data-table th {
+  position: sticky;
+  top: 0;
+  background: var(--dbs-primary);
+  color: #fff;
+  padding: 13px;
+  text-align: left;
+  font-weight: 700;
+}
+
+.dbs-formregistration-data-table td {
+  padding: 13px;
+  color: var(--dbs-text);
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-formregistration-data-table tbody tr:hover td {
+  background: var(--dbs-primary-light);
+}
+
+/* EDIT BUTTON */
+
+.dbs-formregistration-edit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: var(--dbs-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--dbs-radius-sm);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.dbs-formregistration-edit-btn:hover {
+  opacity: 0.9;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .dbs-formregistration-actions {
+    flex-direction: column;
+  }
+
+  .dbs-formregistration-save-btn,
+  .dbs-formregistration-cancel-btn {
+    width: 100%;
+  }
+
+  .dbs-formregistration-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dbs-formregistration-full-width {
+    grid-column: auto;
+  }
+}
+/* BUTTON GROUP */
+
+.dbs-formregistration-button-group {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--dbs-border);
+}
+
+/* SAVE BUTTON */
+
+.dbs-save-btn {
+  background: var(--dbs-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--dbs-radius-sm);
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dbs-save-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* CANCEL BUTTON */
+
+.dbs-cancel-btn {
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dbs-cancel-btn:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .dbs-formregistration-button-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dbs-save-btn,
+  .dbs-cancel-btn {
+    width: 100%;
+  }
+}
+.dbs-formregistration-edit-btn {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--dbs-primary);
+
+  color: white;
+
+  border: none;
+
+  border-radius: var(--dbs-radius-sm);
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.dbs-formregistration-edit-btn svg {
+  width: 16px;
+  height: 16px;
+}   

@@ -524,3 +524,355 @@ export const bindInternalDatesflag2 = async (payload: any) => {
 
   return response.data;
 };
+
+// ===============Student Data Upload API======================
+export const downloadStudentTemplate = () => {
+  return axios.get(`${API_BASE}StudentDataUpload/DownloadFields`, {
+    responseType: "blob",
+  });
+};
+
+export const insertStudentData = async (file: File) => {
+  const formData = new FormData();
+
+  formData.append("file", file);
+
+  console.log("FormData before sending:", formData);
+  const response = await axios.post(
+    `${API_BASE}StudentDataUpload/InsertStudentData`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    },
+  );
+
+  return response.data;
+};
+
+export const getUploadedStudentData = async () => {
+  const response = await axios.get(`${API_BASE}StudentDataUpload/UploadFile`);
+
+  return response.data;
+};
+
+export const finalUpdateStudentData = async () => {
+  const response = await axios.post(
+    `${API_BASE}StudentDataUpload/FinalUpdationStudentData`,
+  );
+
+  return response.data;
+};
+
+// ===================Leave Type============
+
+export const getLeaveTypeList = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}LeaveType/GetLtypeList`);
+
+    return response.data;
+  } catch (error) {
+    console.error("Get Leave Type List Error:", error);
+
+    throw error;
+  }
+};
+
+export const getLeavelLtypeList = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}LeaveType/LoadAllLtypeList`);
+
+    return response.data;
+  } catch (error) {
+    console.error("Get Leave Type List Error:", error);
+
+    throw error;
+  }
+};
+
+export const getLeaveStructureList = async () => {
+  const response = await axios.get(`${API_BASE}LeaveType/LoadLSGrid`);
+
+  return response.data;
+};
+
+export const saveLeaveType = async (data: any) => {
+  const response = await axios.post(`${API_BASE}LeaveType/SaveLtype`, data);
+
+  return response.data;
+};
+
+export const saveLeaveStructure = async (data: any) => {
+  const response = await axios.post(`${API_BASE}LeaveType/SaveLStype`, data);
+
+  return response.data;
+};
+
+// =====================Caste Master============================
+
+export const getCasteMaster = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}CasteMaster/GetCasteMaster`);
+
+    return response.data;
+  } catch (error) {
+    console.error("Get Caste Master Error:", error);
+    throw error;
+  }
+};
+
+export const saveCaste = async (payload: any) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE}CasteMaster/SaveCaste`,
+      payload,
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Save Caste Error:", error);
+    throw error;
+  }
+};
+
+// ======================Sub caste Master======================
+
+export const getLoadCaste = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}CasteMaster/GetLoadCaste`);
+
+    return response.data;
+  } catch (error) {
+    console.log("Get Load Caste Error:", error);
+    throw error;
+  }
+};
+
+export const getSubCasteMaster = async () => {
+  try {
+    const response = await axios.get(
+      `${API_BASE}CasteMaster/GetSubCasteMaster`,
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log("Get Sub Caste Master Error:", error);
+    throw error;
+  }
+};
+
+export const saveSubCaste = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}CasteMaster/SaveSubCaste`,
+    payload,
+  );
+
+  return response.data;
+};
+
+// ==================Login status===================
+
+export const getLoadEmpDept = async () => {
+  const response = await axios.get(`${API_BASE}EMPDEPWISE/LoadEmpDept`);
+
+  return response.data;
+};
+
+export const getDeptWiseDetails = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}EMPDEPWISE/Deptwisedetails`,
+    payload,
+  );
+
+  return response.data;
+};
+
+export const updateLoginStatus = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}EMPDEPWISE/LoginStatus`,
+    payload,
+  );
+
+  return response.data;
+};
+
+// ===========Form Registraion================
+export const getLoadMenu = async () => {
+  const response = await axios.get(`${API_BASE}FormRegistration/LoadMenuid`);
+
+  return response.data;
+};
+
+export const loadSMenuId = async (payload: any) => {
+  const respone = await axios.post(
+    `${API_BASE}FormRegistration/LoadSmenuid`,
+    payload,
+  );
+  return respone.data;
+};
+
+export const loadFRData = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}FormRegistration/LoadFRData`,
+    payload,
+  );
+  return response.data;
+};
+
+export const saveFormReg = async (payload: any) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE}FormRegistration/SaveFormReg`,
+      payload,
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log("Save Form Registration API Error:", error);
+    throw error;
+  }
+};
+
+// ==============Holidays==================
+export const getHolidays = async (payload: { academicYear: string | null }) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE}Holidays/LoadHolidaysList`,
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Get Holidays API Error:", error);
+    return [];
+  }
+};
+
+export const insertSundays = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}Holidays/InsertSundays`,
+    payload,
+  );
+
+  return response.data;
+};
+
+export const deleteHoliday = async (id: string | number) => {
+  const response = await axios.post(`${API_BASE}Holidays/DeleteHolidaysList`, {
+    id: id,
+  });
+
+  return response.data;
+};
+
+// ================SMS Settings===================
+
+export const getSMSSettingsList = async () => {
+  const response = await axios.get(`${API_BASE}SMSSettings/GetSMSSettingsList`);
+
+  return response.data;
+};
+
+export const saveSMSSettings = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}SMSSettings/SaveSMSSettings`,
+    payload,
+  );
+
+  return response.data;
+};
+
+// ==============Feedback================
+
+export const getEmployeeDetails = async (empId: string) => {
+  const response = await axios.post(
+    `${API_BASE}FeedBackEmployee/GetEmployeeDetails`,
+    {
+      empId: empId,
+    },
+  );
+
+  return response.data;
+};
+
+export const saveFeedBackReg = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}FeedBackEmployee/SaveFeedBackReg`,
+    payload,
+  );
+
+  return response.data;
+};
+
+export const getUserName = async (userId: string) => {
+  const response = await axios.post(`${API_BASE}ResetPassword/GetUserName`, {
+    userId: userId,
+  });
+
+  return response.data;
+};
+
+export const resetPassword = async (userId: string, resetPword: string) => {
+  const response = await axios.post(`${API_BASE}ResetPassword/ResetPassword`, {
+    userId: userId,
+    resetPword: resetPword,
+  });
+
+  return response.data;
+};
+
+// ================Category modes==============
+export const getCasteList = async () => {
+  const response = await axios.get(`${API_BASE}CategoryofAdmission/CasteLoad`);
+
+  return response.data;
+};
+
+export interface CategoryItem {
+  id: string;
+  caste: string;
+  categoryCode: string;
+  category: string;
+  academicYear: string;
+}
+
+export const loadCategory = async (): Promise<CategoryItem[]> => {
+  const response = await axios.post<CategoryItem[]>(
+    `${API_BASE}CategoryofAdmission/LoadCategory`,
+    {
+      id: "",
+      caste: "",
+      categorycode: "",
+      category: "",
+      academicyear: "2025-2026",
+    },
+  );
+
+  return response.data;
+};
+
+export const saveCategory = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}CategoryofAdmission/CategorySave`,
+    payload,
+  );
+
+  return response.data;
+};
+
+export const deleteCategory = async (id: string) => {
+  const response = await axios.post(
+    `${API_BASE}CategoryofAdmission/CategoryDelete`,
+    {
+      id: id,
+    },
+  );
+
+  return response.data;
+};

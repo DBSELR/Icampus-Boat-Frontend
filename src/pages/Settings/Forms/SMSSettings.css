@@ -1,0 +1,215 @@
+/* ===========================
+   CONTAINER
+=========================== */
+
+.dbs-sms-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ===========================
+   HEADER
+=========================== */
+
+.dbs-sms-header {
+  border-bottom: 1px solid var(--dbs-border);
+  padding-bottom: 15px;
+}
+
+.dbs-sms-header h2 {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--dbs-text);
+}
+
+.dbs-sms-header p {
+  margin-top: 6px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* ===========================
+   SUMMARY
+=========================== */
+
+.dbs-sms-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+  gap: 18px;
+}
+
+.dbs-sms-summary-card {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+
+  padding: 20px;
+
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-sms-summary-card span {
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.dbs-sms-summary-card strong {
+  display: block;
+  margin-top: 10px;
+
+  font-size: 28px;
+  color: var(--dbs-primary);
+}
+
+.dbs-sms-summary-card.active strong {
+  color: #16a085;
+}
+
+.dbs-sms-summary-card.inactive strong {
+  color: #ef4444;
+}
+
+/* ===========================
+   TABLE CARD
+=========================== */
+
+.dbs-sms-table-card {
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: var(--dbs-radius);
+
+  padding: 24px;
+
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-sms-table-title {
+  margin-bottom: 18px;
+}
+
+.dbs-sms-table-title h3 {
+  margin: 0;
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  color: var(--dbs-text);
+}
+
+/* ===========================
+ TABLE
+=========================== */
+
+.dbs-sms-table-scroll {
+  overflow: auto;
+
+  max-height: 450px;
+}
+
+.dbs-sms-table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.dbs-sms-table th {
+  background: var(--dbs-primary);
+
+  color: white;
+
+  padding: 14px;
+
+  text-align: left;
+
+  font-size: 14px;
+
+  position: sticky;
+
+  top: 0;
+}
+
+.dbs-sms-table td {
+  padding: 14px;
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  color: var(--dbs-text);
+}
+
+.dbs-sms-table tbody tr {
+  transition: 0.2s;
+}
+
+.dbs-sms-table tbody tr:hover {
+  background: var(--dbs-primary-light);
+}
+
+/* ===========================
+ SERVICE NAME
+=========================== */
+
+.dbs-sms-service {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  font-weight: 600;
+}
+
+.dbs-sms-dot {
+  width: 8px;
+
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: var(--dbs-primary);
+}
+
+/* ===========================
+ STATUS
+=========================== */
+
+.dbs-sms-active,
+.dbs-sms-inactive {
+  padding: 6px 14px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  display: inline-block;
+}
+
+.dbs-sms-active {
+  background: #dcfce7;
+
+  color: #15803d;
+}
+
+.dbs-sms-inactive {
+  background: #fee2e2;
+
+  color: #dc2626;
+}
+
+/* ===========================
+ RESPONSIVE
+=========================== */
+
+@media (max-width: 768px) {
+  .dbs-sms-summary {
+    grid-template-columns: 1fr;
+  }
+}

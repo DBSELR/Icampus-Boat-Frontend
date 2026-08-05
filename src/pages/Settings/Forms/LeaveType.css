@@ -1,0 +1,449 @@
+/* =====================================
+   PAGE CONTAINER
+===================================== */
+
+.dbs-leave-page {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 24px;
+}
+
+/* =====================================
+   PAGE TITLE
+===================================== */
+
+.dbs-leave-title {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding-bottom: 18px;
+
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-leave-title h2 {
+  margin: 0;
+
+  font-size: 24px;
+
+  font-weight: 800;
+
+  color: var(--dbs-text);
+}
+
+.dbs-leave-title p {
+  margin: 6px 0 0;
+
+  font-size: 13px;
+
+  color: var(--dbs-text-light);
+}
+
+/* =====================================
+   MAIN LAYOUT
+===================================== */
+
+.dbs-leave-grid {
+  display: grid;
+
+  grid-template-columns: 430px 1fr;
+
+  gap: 22px;
+}
+
+/* =====================================
+   CARD
+===================================== */
+
+.dbs-leave-panel {
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: var(--dbs-radius);
+
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-panel-heading {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 16px 20px;
+
+  background: var(--dbs-bg);
+
+  color: var(--dbs-text);
+
+  font-size: 15px;
+
+  font-weight: 800;
+
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-panel-heading svg {
+  color: var(--dbs-primary);
+}
+
+.dbs-leave-body {
+  padding: 22px;
+}
+
+/* =====================================
+   FORM
+===================================== */
+
+.dbs-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-bottom: 16px;
+}
+
+.dbs-field label {
+  font-size: 12px;
+
+  font-weight: 800;
+
+  color: var(--dbs-text);
+}
+
+.dbs-field input,
+.dbs-field select,
+.dbs-field textarea {
+  width: 100%;
+
+  height: 42px;
+
+  padding: 0 14px;
+
+  border-radius: var(--dbs-radius-sm);
+
+  border: 1px solid var(--dbs-border);
+
+  background: var(--dbs-surface);
+
+  color: var(--dbs-text);
+
+  outline: none;
+
+  font-size: 14px;
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-field textarea {
+  height: 75px;
+
+  padding-top: 12px;
+}
+
+.dbs-field input:hover,
+.dbs-field select:hover,
+.dbs-field textarea:hover {
+  border-color: var(--dbs-primary);
+}
+
+.dbs-field input:focus,
+.dbs-field select:focus,
+.dbs-field textarea:focus {
+  border-color: var(--dbs-primary);
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+}
+
+.dbs-two-column {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 16px;
+}
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+.dbs-actions {
+  display: flex;
+
+  justify-content: flex-start;
+
+  gap: 12px;
+
+  margin: 18px 0;
+}
+
+.dbs-actions.right {
+  justify-content: flex-end;
+}
+
+.dbs-btn {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  height: 40px;
+
+  padding: 0 18px;
+
+  border-radius: var(--dbs-radius-sm);
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: var(--dbs-transition);
+}
+
+.dbs-btn.primary {
+  background: var(--dbs-primary);
+
+  color: white;
+
+  border: 1px solid var(--dbs-primary);
+}
+
+.dbs-btn.primary:hover {
+  background: var(--dbs-primary-hover);
+}
+
+.dbs-btn.secondary {
+  background: var(--dbs-surface);
+
+  color: var(--dbs-text);
+
+  border: 1px solid var(--dbs-border);
+}
+
+.dbs-btn.secondary:hover {
+  background: var(--dbs-bg);
+}
+
+/* =====================================
+   TABLE
+===================================== */
+
+.dbs-table-wrapper {
+  border: 1px solid var(--dbs-border);
+
+  border-radius: var(--dbs-radius-sm);
+
+  overflow: auto;
+}
+
+.dbs-modern-table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.dbs-modern-table th {
+  position: sticky;
+
+  top: 0;
+
+  background: var(--dbs-primary);
+
+  color: white;
+
+  padding: 13px;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  text-align: left;
+}
+
+.dbs-modern-table td {
+  padding: 13px;
+
+  font-size: 14px;
+
+  color: var(--dbs-text);
+
+  background: var(--dbs-surface);
+
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-modern-table tr:hover td {
+  background: var(--dbs-primary-light);
+}
+
+/* =====================================
+   ACTION ICONS
+===================================== */
+
+.dbs-icon-btn {
+  width: 34px;
+
+  height: 34px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  border-radius: var(--dbs-radius-sm);
+
+  background: var(--dbs-primary-light);
+
+  color: var(--dbs-primary);
+
+  border: 1px solid var(--dbs-primary);
+
+  cursor: pointer;
+}
+
+.dbs-icon-btn:hover {
+  background: var(--dbs-primary);
+
+  color: white;
+}
+
+.dbs-delete-btn {
+  width: 34px;
+
+  height: 34px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  border-radius: var(--dbs-radius-sm);
+
+  background: var(--dbs-surface);
+
+  color: var(--dbs-danger);
+
+  border: 1px solid var(--dbs-border);
+
+  cursor: pointer;
+}
+
+.dbs-delete-btn:hover {
+  background: var(--dbs-primary-light);
+
+  border-color: var(--dbs-primary);
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 1200px) {
+  .dbs-leave-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .dbs-two-column {
+    grid-template-columns: 1fr;
+  }
+
+  .dbs-actions {
+    flex-wrap: wrap;
+  }
+}
+/* Leave Type table scroll after 5 records */
+
+.dbs-leave-table-scroll {
+  max-height: 320px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Keep table header visible */
+
+.dbs-leave-table-scroll .dbs-modern-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--dbs-primary);
+}
+
+/* Scrollbar style */
+
+.dbs-leave-table-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dbs-leave-table-scroll::-webkit-scrollbar-track {
+  background: var(--dbs-bg);
+}
+
+.dbs-leave-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-primary);
+  border-radius: 10px;
+}
+/* Leave Structure table scroll */
+
+.dbs-leave-structure-scroll {
+  max-height: 320px; /* Adjust as needed */
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+/* Sticky header */
+
+.dbs-leave-structure-scroll .dbs-modern-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--dbs-primary);
+}
+
+/* Scrollbar */
+
+.dbs-leave-structure-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dbs-leave-structure-scroll::-webkit-scrollbar-track {
+  background: var(--dbs-bg);
+}
+
+.dbs-leave-structure-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-primary);
+  border-radius: 10px;
+}
+
+.dbs-leave-structure-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary-hover);
+}
+.dbs-table-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.dbs-table-header strong {
+  color: #2563eb;
+  font-size: 15px;
+}
