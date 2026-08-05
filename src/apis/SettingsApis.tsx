@@ -876,3 +876,83 @@ export const deleteCategory = async (id: string) => {
 
   return response.data;
 };
+
+
+
+// ===================== User Group =====================
+
+export const fetchDept = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}UserGroup/GetERPDepartmentsList`);
+    return response.data;
+  }
+  catch (error) {
+    console.error("Error fetching departments:", error);
+    throw error;
+  }
+};
+
+export const fetchUsergroup = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}UserGroup/GetUserGroups`);
+    return response.data;
+  }
+  catch (error) {
+    console.error("Error fetching user groups:", error);
+    throw error;
+  }
+};
+
+export const fetchUserGroupEmpList = async (Dept: string)=>{
+  try{
+    console.log(Dept)
+    const response = await axios.post(`${API_BASE}UserGroup/GetEmployeesList`,{Dept:Dept});
+    return response.data
+  }
+  catch(error){
+    console.error("Error fetching Emp List", error);
+    throw error;
+  }
+
+}
+
+export const updateUserGroups= async (UserGroup: string, EmpID: string)=>{
+  try{
+    const response = await axios.post(`${API_BASE}UserGroup/UpdateUGDataEmp`,
+      {UserGroupVal:UserGroup,EmpID:EmpID}
+    );
+    return response.data
+  }
+  catch(error){
+    console.error("Error Saving  UserGroups", error);
+    throw error;
+  }
+}
+
+
+
+// ===================== Regu Master =====================
+
+export const fetchRegulation = async ()=>{
+  try {
+    const response = await axios.get(`${API_BASE}ReguMaster/GetRegulationMaster`);
+    return response.data;
+  }
+  catch (error) {
+    console.error("Error fetching Regulations:", error);
+    throw error;
+  }
+}
+
+export const saveRegu = async (payload: any)=>{
+  try{
+    const response = await axios.post(`${API_BASE}ReguMaster/SaveRegulationMaster`,
+      payload
+    );
+    return response.data
+  }
+  catch(error){
+    console.error("Error Saving  Regulations", error);
+    throw error;
+  }
+}
