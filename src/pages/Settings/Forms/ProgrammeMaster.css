@@ -1,287 +1,587 @@
-/* ==============================
-   Programme Master Styles
-================================= */
+/* =====================================
+   PROGRAMME MASTER STYLES
+===================================== */
+
+/* =====================================
+   CONTAINER
+===================================== */
 
 .dbs-programme-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
+  animation: dbsProgrammeSlideUp 0.25s ease;
 }
 
-/* Header */
-.dbs-programme-form-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* =====================================
+   HEADER
+===================================== */
+
+.dbs-programme-header {
   border-bottom: 1px solid var(--dbs-border);
   padding-bottom: 16px;
 }
 
-.dbs-programme-form-header h2 {
-  font-size: 1.4rem;
+.dbs-programme-header h2 {
+  margin: 0;
+  font-size: 1.45rem;
   font-weight: 800;
   color: var(--dbs-text);
 }
 
-/* Form Card */
-.dbs-form-card {
-  background-color: var(--dbs-surface);
+.dbs-programme-header p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
+}
+
+/* =====================================
+   FORM CARD / TABLE CARD
+===================================== */
+
+.dbs-programme-form-card,
+.dbs-programme-table-card {
+  background: var(--dbs-surface);
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius);
   box-shadow: var(--dbs-shadow);
   padding: 24px;
+  animation: dbsProgrammeSlideUp 0.25s ease;
+}
 
+/* =====================================
+   FORM CARD
+===================================== */
+
+.dbs-programme-form-card {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 
-.dbs-form-card h3 {
-  font-size: 1.1rem;
+.dbs-programme-form-card h3 {
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--dbs-border);
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--dbs-text);
-  border-bottom: 1px solid var(--dbs-border);
-  padding-bottom: 10px;
 }
 
-/* Grid Layouts */
-.dbs-form-grid-4 {
+/* =====================================
+   FORM GRID
+===================================== */
+
+.dbs-programme-form-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  align-items: end;
 }
 
-.dbs-form-grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
+/* =====================================
+   INPUT FIELDS
+===================================== */
 
-.dbs-form-grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-/* Input Box */
-.dbs-input-box {
+.dbs-programme-input-box {
   display: flex;
   flex-direction: column;
 }
 
-.dbs-input-box label {
-  font-size: 0.82rem;
+.dbs-programme-input-box label {
+  margin-bottom: 7px;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--dbs-text);
-  margin-bottom: 6px;
 }
 
-/* Inputs */
-.dbs-input-box input,
-.dbs-input-box select,
-.dbs-input-box textarea {
+.dbs-programme-input-box input {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius-sm);
-  background-color: var(--dbs-surface);
+  background: var(--dbs-surface);
   color: var(--dbs-text);
   font-size: 0.9rem;
   outline: none;
-  transition: var(--dbs-transition);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-.dbs-input-box input:focus,
-.dbs-input-box select:focus,
-.dbs-input-box textarea:focus {
+/* INPUT HOVER */
+
+.dbs-programme-input-box input:hover {
+  border-color: var(--dbs-primary);
+}
+
+/* INPUT FOCUS */
+
+.dbs-programme-input-box input:focus {
   border-color: var(--dbs-primary);
   box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
-/* Buttons Row */
-.dbs-stepper-actions-row {
+/* =====================================
+   FORM ACTIONS
+===================================== */
+
+.dbs-programme-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+  padding-top: 18px;
   border-top: 1px solid var(--dbs-border);
-  padding-top: 20px;
-  margin-top: 10px;
 }
 
-/* Buttons */
-.dbs-save-btn {
-  background-color: var(--dbs-primary);
-  color: white;
-  border: none;
+/* =====================================
+   FORM BUTTONS
+===================================== */
+
+.dbs-programme-save-btn,
+.dbs-programme-reset-btn {
+  height: 42px;
+  min-width: 120px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   border-radius: var(--dbs-radius-sm);
-  padding: 10px 18px;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
+}
+
+/* =====================================
+   SAVE BUTTON
+===================================== */
+
+.dbs-programme-save-btn {
+  background: var(--dbs-primary);
+  border: none;
+  color: #fff;
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-programme-save-btn:hover {
+  background: var(--dbs-primary-hover);
+  transform: translateY(-2px);
+  box-shadow:
+    var(--dbs-shadow),
+    0 5px 14px rgba(0, 0, 0, 0.08);
+}
+
+.dbs-programme-save-btn:active {
+  transform: scale(0.97);
+}
+
+.dbs-programme-save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =====================================
+   RESET BUTTON
+===================================== */
+
+.dbs-programme-reset-btn {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  color: var(--dbs-text);
+}
+
+.dbs-programme-reset-btn:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
+}
+
+.dbs-programme-reset-btn:active {
+  transform: scale(0.97);
+}
+
+/* =====================================
+   TABLE HEADER
+===================================== */
+
+.dbs-programme-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-programme-table-header h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dbs-text);
+}
+
+.dbs-programme-table-header p {
+  margin: 5px 0 0;
+  font-size: 0.85rem;
+  color: var(--dbs-text-muted);
+}
+
+.dbs-programme-table-header span {
+  background: var(--dbs-primary-light);
+  color: var(--dbs-primary);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* =====================================
+   TABLE SCROLL
+===================================== */
+
+.dbs-programme-table-scroll {
+  max-height: 430px;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
+}
+
+.dbs-programme-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dbs-programme-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dbs-programme-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 20px;
+}
+
+/* SCROLLBAR HOVER */
+
+.dbs-programme-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+
+/* =====================================
+   TABLE
+===================================== */
+
+.dbs-programme-data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.9rem;
+}
+
+/* =====================================
+   TABLE HEADER
+===================================== */
+
+.dbs-programme-data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  height: 44px;
+  padding: 0 18px;
+  background: var(--dbs-primary);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* Header rounded corners */
+
+.dbs-programme-data-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
+}
+
+.dbs-programme-data-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
+}
+
+/* =====================================
+   TABLE BODY
+===================================== */
+
+.dbs-programme-data-table tbody tr {
   transition: var(--dbs-transition);
 }
 
-.dbs-save-btn:hover {
-  background-color: var(--dbs-primary-hover);
+.dbs-programme-data-table tbody td {
+  height: 54px;
+  padding: 0 18px;
+  color: var(--dbs-text);
+  border-bottom: 1px solid var(--dbs-border);
+  background: var(--dbs-surface);
+  white-space: nowrap;
 }
 
-.dbs-cancel-btn {
-  background-color: var(--dbs-surface);
+/* TABLE ROW HOVER */
+
+.dbs-programme-data-table tbody tr:hover td {
+  background: var(--dbs-primary-light);
+}
+
+.dbs-programme-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =====================================
+   EDIT ACTION BUTTON
+===================================== */
+
+.dbs-programme-edit-btn {
+  width: 34px;
+  height: 34px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  background: var(--dbs-surface);
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius-sm);
-  padding: 10px 18px;
-  font-size: 0.88rem;
-  font-weight: 700;
+
+  color: var(--dbs-primary);
+
   cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
 }
 
-.dbs-cancel-btn:hover {
-  background-color: var(--dbs-background);
+/* =====================================
+   EDIT ICON
+===================================== */
+
+.dbs-programme-edit-btn svg {
+  width: 16px;
+  height: 16px;
+  color: inherit;
 }
 
-/* Responsive */
+/* =====================================
+   EDIT HOVER
+===================================== */
+
+.dbs-programme-edit-btn:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* =====================================
+   EDIT ACTIVE
+===================================== */
+
+.dbs-programme-edit-btn:active {
+  transform: scale(0.95);
+}
+
+/* =====================================
+   EDIT FOCUS
+===================================== */
+
+.dbs-programme-edit-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* =====================================
+   EMPTY STATE
+===================================== */
+
+.dbs-programme-empty {
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.dbs-programme-empty-icon {
+  width: 45px;
+  height: 45px;
+  color: var(--dbs-primary);
+}
+
+.dbs-programme-empty-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dbs-text);
+}
+
+.dbs-programme-empty-desc {
+  font-size: 14px;
+  color: var(--dbs-text-muted);
+  max-width: 350px;
+}
+
+/* =====================================
+   GLOBAL BOX SIZING
+===================================== */
+
+.dbs-programme-container *,
+.dbs-programme-container *::before,
+.dbs-programme-container *::after {
+  box-sizing: border-box;
+}
+
+/* =====================================
+   ANIMATIONS
+===================================== */
+
+@keyframes dbsProgrammeFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dbsProgrammeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================
+   BUTTON FOCUS
+===================================== */
+
+.dbs-programme-save-btn:focus-visible,
+.dbs-programme-reset-btn:focus-visible,
+.dbs-programme-edit-btn:focus-visible {
+  outline: none;
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* =====================================
+   REDUCED MOTION
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .dbs-programme-container,
+  .dbs-programme-header,
+  .dbs-programme-form-card,
+  .dbs-programme-table-card {
+    animation: none !important;
+
+    opacity: 1;
+
+    transform: none;
+  }
+
+  .dbs-programme-data-table tbody tr,
+  .dbs-programme-edit-btn,
+  .dbs-programme-save-btn,
+  .dbs-programme-reset-btn {
+    transition: none !important;
+  }
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
 @media (max-width: 1024px) {
-  .dbs-form-grid-4 {
+  .dbs-programme-form-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .dbs-form-grid-4,
-  .dbs-form-grid-3,
-  .dbs-form-grid-2 {
+  .dbs-programme-container {
+    gap: 18px;
+  }
+
+  .dbs-programme-form-card,
+  .dbs-programme-table-card {
+    padding: 16px;
+  }
+
+  .dbs-programme-form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .dbs-programme-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dbs-programme-save-btn,
+  .dbs-programme-reset-btn {
+    width: 100%;
+  }
+
+  .dbs-programme-table-header {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 12px;
+  }
+
+  .dbs-programme-data-table {
+    min-width: 750px;
   }
 }
 
+/* =====================================
+   SMALL MOBILE
+===================================== */
 
+@media (max-width: 480px) {
+  .dbs-programme-header h2 {
+    font-size: 1.2rem;
+  }
 
+  .dbs-programme-form-card,
+  .dbs-programme-table-card {
+    padding: 14px;
+  }
 
-.dbs-form-cancel-btn {
-  display: flex;
-  background-color: rgb(236, 60, 60);
-  border: 1px solid var(--dbs-border);
-  color: white;
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border-radius: var(--dbs-radius-sm);
-  cursor: pointer;
-  outline: none;
+  .dbs-programme-data-table {
+    min-width: 700px;
+  }
 }
-
-.dbs-form-cancel-btn:hover {
-  background-color: var(--dbs-background);
-  color: black;
-}
-
-.dbs-form-save-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: var(--dbs-primary);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  border-radius: var(--dbs-radius-sm);
-  cursor: pointer;
-  outline: none;
-}
-
-.dbs-form-save-btn:hover {
-  background-color: var(--dbs-primary-hover);
-}
-
-
-.dbs-form-actions-row {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-
-    border-top: 1px solid var(--dbs-border);
-    padding-top: 20px;
-}
-
-
-/* Core Student Datatable */
-.dbs-data-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 0.9rem;
-  border-radius: 50px !important;
-}
-
-.dbs-data-table th {
-  padding: 12px 16px;
-  font-weight: 700;
-  color: var(--dbs-text-muted);
-  border-bottom: 2px solid var(--dbs-border);
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  user-select: none;
-  background-color: var(--dbs-background);
-}
-
-.dbs-data-table td {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--dbs-border);
-  color: var(--dbs-text);
-}
-
-.dbs-data-table tr:hover td {
-  background-color: var(--dbs-background);
-}
-
-.dbs-table-student-name {
-  font-weight: 700;
-  color: var(--dbs-text);
-}
-
-.dbs-table-branch-td {
-  font-size: 0.82rem;
-  color: var(--dbs-text-muted);
-}
-
-.dbs-table-actions-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dbs-table-action-icon-btn {
-  width: 28px;
-  height: 28px;
-  border-radius: 4px;
-  border: 1px solid var(--dbs-border);
-  background-color: var(--dbs-surface);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--dbs-transition);
-  outline: none;
-}
-
-.dbs-btn-edit {
-  color: var(--dbs-primary);
-}
-
-.dbs-btn-edit:hover {
-  background-color: var(--dbs-primary-light);
-  border-color: var(--dbs-primary);
-}
-
-.dbs-btn-delete {
-  color: var(--dbs-danger);
-}
-
-.dbs-btn-delete:hover {
-  background-color: var(--dbs-danger-light);
-  border-color: var(--dbs-danger);
-}
-

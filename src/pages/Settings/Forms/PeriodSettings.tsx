@@ -7,26 +7,21 @@ import {
   savePeriodTime,
 } from "../../../apis/Common";
 import { toast } from "sonner";
+import { AlertCircle, Edit3, Save, X } from "lucide-react";
 
 const periods = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
 
 const PeriodSettings = () => {
   const [programmes, setProgrammes] = useState<any[]>([]);
   const [selectedProgramme, setSelectedProgramme] = useState("");
-
   const [years, setYears] = useState<any[]>([]);
   const [selectedYear, setSelectedYear] = useState("");
-
   const [periodList, setPeriodList] = useState<any[]>([]);
-
   const [morningSession, setMorningSession] = useState(0);
   const [afternoonSession, setAfternoonSession] = useState(0);
-
   const [selectedShift, setSelectedShift] = useState("");
-
   const [isEditMode, setIsEditMode] = useState(false);
   const [editId, setEditId] = useState("");
-
   const [periodTimings, setPeriodTimings] = useState<{ [key: string]: string }>(
     {
       t1: "",
@@ -48,7 +43,7 @@ const PeriodSettings = () => {
       const response = await getProgramme();
       setProgrammes(response || []);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -58,19 +53,17 @@ const PeriodSettings = () => {
       const response = await getYear(programme);
       setYears(response || []);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   const fetchPeriodTimeList = async (programme: string) => {
     try {
       if (!programme) return;
-
       const response = await getPeriodTimeList(programme);
-
       setPeriodList(response || []);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -136,11 +129,7 @@ const PeriodSettings = () => {
         year: selectedYear,
       };
 
-      console.log("Save Payload:", payload);
-
       const response = await savePeriodTime(payload);
-
-      console.log("Save Response:", response);
 
       if (response?.message === "Success" && response?.rowsAffected > 0) {
         toast.success(
@@ -185,7 +174,7 @@ const PeriodSettings = () => {
         );
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       toast.error("Something went wrong!");
     }
@@ -290,8 +279,14 @@ const PeriodSettings = () => {
     <div className="dbs-period-container">
       {/* Page Header */}
       <div className="dbs-period-header">
-        <h2>Period Settings</h2>
+        <div>
+          <h2>Period Settings</h2>
+          <p>
+            Configure and manage programme period timings and session details.
+          </p>
+        </div>
       </div>
+
       <div className="dbs-period-container">
         <div className="dbs-period-card">
           {/* Header */}
@@ -385,44 +380,61 @@ const PeriodSettings = () => {
                 <div className="dbs-period-timings">
                   <h3>Period Timings (9:00 - 10:00)</h3>
 
-                  <div className="dbs-period-grid">
-                    {Array.from({ length: totalSessions }).map((_, index) => {
-                      const timingKey = `t${index + 1}`;
+                  {totalSessions === 0 ? (
+                    <div className="dbs-period-empty-message">
+                      <p>
+                        Please enter Morning or Afternoon session count to
+                        configure period timings.
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="dbs-period-grid">
+                      {Array.from({ length: totalSessions }).map((_, index) => {
+                        const timingKey = `t${index + 1}`;
 
-                      return (
-                        <div className="dbs-period-slot" key={timingKey}>
-                          <div className="dbs-period-number">
-                            {periods[index]}
-                          </div>
+                        return (
+                          <div className="dbs-period-slot" key={timingKey}>
+                            <div className="dbs-period-number">
+                              {periods[index]}
+                            </div>
 
-                          <div className="dbs-period-input-wrapper">
-                            <input
-                              id={timingKey}
-                              type="text"
-                              className="dbs-period-time-input"
-                              placeholder="09:00 - 10:00"
-                              value={periodTimings[timingKey]}
-                              onChange={(e) =>
-                                handleTimingChange(timingKey, e.target.value)
-                              }
-                            />
+                            <div className="dbs-period-input-wrapper">
+                              <input
+                                id={timingKey}
+                                type="text"
+                                className="dbs-period-time-input"
+                                placeholder="09:00 - 10:00"
+                                value={periodTimings[timingKey]}
+                                onChange={(e) =>
+                                  handleTimingChange(timingKey, e.target.value)
+                                }
+                              />
+                            </div>
                           </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               </div>
 
               {/* Buttons */}
               <div className="dbs-period-actions">
                 <button
+                  type="button"
                   className="dbs-period-cancel-btn"
                   onClick={handleCancel}
                 >
+                  <X size={16} />
                   Cancel
                 </button>
-                <button className="dbs-period-save-btn" onClick={handleSave}>
+
+                <button
+                  type="button"
+                  className="dbs-period-save-btn"
+                  onClick={handleSave}
+                >
+                  <Save size={16} />
                   {isEditMode ? "Update" : "Save"}
                 </button>
               </div>
@@ -439,50 +451,63 @@ const PeriodSettings = () => {
           </div>
         </div>
 
-        {/* Table */}
-        <div className="dbs-period-table-scroll">
-          <table className="dbs-period-table">
-            <thead>
-              <tr>
-                <th>Shift No</th>
-                <th>Programme</th>
-                <th>Year</th>
-                <th>Morning Session</th>
-                <th>Afternoon Session</th>
-                <th>Total Periods</th>
-                <th>Action</th>
-              </tr>
-            </thead>
+        {/* ================= Table ================= */}
+        <div className="dbs-period-table-container">
+          {periodList.length === 0 ? (
+            <div className="dbs-empty-state">
+              <AlertCircle className="dbs-empty-state-icon" />
 
-            <tbody>
-              {periodList.length === 0 ? (
-                <tr>
-                  <td colSpan={7} style={{ textAlign: "center" }}>
-                    No data found.
-                  </td>
-                </tr>
-              ) : (
-                periodList.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.shiftNo}</td>
-                    <td>{item.programme}</td>
-                    <td>{item.psYear}</td>
-                    <td>{item.morningSession}</td>
-                    <td>{item.afternoonSession}</td>
-                    <td>{item.totalPeriods}</td>
-                    <td>
-                      <button
-                        className="dbs-period-edit-btn"
-                        onClick={() => handleEdit(item)}
-                      >
-                        Edit
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+              <div className="dbs-empty-state-title">No records found</div>
+
+              <div className="dbs-empty-state-desc">
+                Add a new period setting to view records here.
+              </div>
+            </div>
+          ) : (
+            <div className="dbs-period-table-card">
+              <div className="dbs-period-table-scroll active-scroll">
+                <table className="dbs-period-table">
+                  <thead>
+                    <tr>
+                      <th>Shift No</th>
+                      <th>Programme</th>
+                      <th>Year</th>
+                      <th>Morning Session</th>
+                      <th>Afternoon Session</th>
+                      <th>Total Periods</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {periodList.map((item, index) => (
+                      <tr key={item.id || index}>
+                        <td>{item.shiftNo}</td>
+                        <td>{item.programme}</td>
+                        <td>{item.psYear}</td>
+                        <td>{item.morningSession}</td>
+                        <td>{item.afternoonSession}</td>
+                        <td>{item.totalPeriods}</td>
+
+                        <td>
+                          <div className="dbs-action">
+                            <button
+                              type="button"
+                              className="dbs-period-edit-btns"
+                              onClick={() => handleEdit(item)}
+                              title="Edit"
+                            >
+                              <Edit3 size={16} />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

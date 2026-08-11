@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Save } from "lucide-react";
+import { Save, X } from "lucide-react";
 import "./UserAccess.css";
 import {
   getERPForms,
@@ -13,15 +13,12 @@ import { toast } from "sonner";
 const UserAccess = () => {
   const [selectedModule, setSelectedModule] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
-
   const [modules, setModules] = useState<any[]>([]);
   const [userGroups, setUserGroups] = useState<any[]>([]);
   const [forms, setForms] = useState<any[]>([]);
   const [userGroupMenuLoad, setUserGroupMenuLoad] = useState<any[]>([]);
-  console.log(userGroupMenuLoad, "userGroupMenuLoad");
   const [loadingForms, setLoadingForms] = useState(false);
   const [loadingAssignedForms, setLoadingAssignedForms] = useState(false);
-
   const [selectedForms, setSelectedForms] = useState<any[]>([]);
   const [saving, setSaving] = useState(false);
 
@@ -39,27 +36,22 @@ const UserAccess = () => {
       const response = await getERPUserGroupList();
       setUserGroups(response);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   const fetchForms = async (moduleId = "") => {
     try {
       setLoadingForms(true);
-
       const payload = {
         userGroup: "",
         chUG: "",
         menuID: moduleId,
       };
-
-      console.log("Forms Payload:", payload);
-
       const response = await getERPForms(payload);
-
       setForms(response || []);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setLoadingForms(false);
     }
@@ -76,7 +68,7 @@ const UserAccess = () => {
       const response = await getUserGroupMenuLoad(payload);
       setUserGroupMenuLoad(response || []);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setLoadingAssignedForms(false);
     }
@@ -87,26 +79,19 @@ const UserAccess = () => {
       toast.error("Please select user group");
       return;
     }
-
     if (selectedForms.length === 0) {
       toast.error("Please select forms");
       return;
     }
-
     try {
       setSaving(true);
-
       for (const form of selectedForms) {
         const payload = {
           userGroup: selectedUser,
           menuID: String(form.mENUID),
           sMenuID: String(form.sMENUID),
         };
-
-        console.log("Save Payload:", payload);
-
         const response = await saveUserAcces(payload);
-
         if (response?.message === "Success" && response?.rowsAffected > 0) {
           toast.success("Access saved successfully");
           await fetchUserGroupMenuLoad();
@@ -127,11 +112,9 @@ const UserAccess = () => {
   const handleCheckboxChange = (form: any) => {
     setSelectedForms((prev) => {
       const exists = prev.some((item) => item.iD === form.iD);
-
       if (exists) {
         return prev.filter((item) => item.iD !== form.iD);
       }
-
       return [...prev, form];
     });
   };
@@ -185,7 +168,8 @@ const UserAccess = () => {
 
           <div className="dbs-user-access-top-actions">
             <button className="dbs-user-access-refresh" onClick={handleReset}>
-              Reset
+              <X size={16} />
+              Cancel
             </button>
 
             <button
@@ -194,7 +178,7 @@ const UserAccess = () => {
               disabled={saving}
             >
               <Save size={16} />
-              Save Access
+              Save
             </button>
           </div>
         </div>
@@ -222,74 +206,75 @@ const UserAccess = () => {
               </select>
             </div>
 
-            <div className="dbs-user-access-panel">
-              <div className="dbs-user-access-panel-header">
-                Available Forms
-                <span>{forms.length}</span>
+            <div className="dbs-access-table-card">
+              <div className="dbs-access-table-header">
+                <h3>Available Forms</h3>
               </div>
 
-              <div className="dbs-user-access-table-scroll">
-                <table className="dbs-user-access-table">
-                  <thead>
-                    <tr>
-                      <th>S.No</th>
-                      <th>Type</th>
-                      <th>Module</th>
-                      <th>Form(s)</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {loadingForms ? (
+              <div className="dbs-table-container">
+                <div className="dbs-user-access-table-scroll">
+                  <table className="dbs-user-access-table">
+                    <thead>
                       <tr>
-                        <td colSpan={5} style={{ textAlign: "center" }}>
-                          Loading...
-                        </td>
+                        <th>S.No</th>
+                        <th>Type</th>
+                        <th>Module</th>
+                        <th>Form(s)</th>
+                        <th></th>
                       </tr>
-                    ) : forms.length === 0 ? (
-                      <tr>
-                        <td colSpan={5} style={{ textAlign: "center" }}>
-                          No data found.
-                        </td>
-                      </tr>
-                    ) : (
-                      forms.map((item, index) => {
-                        const assigned = isAssigned(item);
+                    </thead>
+                    <tbody>
+                      {loadingForms ? (
+                        <tr>
+                          <td colSpan={5} style={{ textAlign: "center" }}>
+                            Loading...
+                          </td>
+                        </tr>
+                      ) : forms.length === 0 ? (
+                        <tr>
+                          <td colSpan={5} style={{ textAlign: "center" }}>
+                            No data found.
+                          </td>
+                        </tr>
+                      ) : (
+                        forms.map((item, index) => {
+                          const assigned = isAssigned(item);
 
-                        return (
-                          <tr
-                            key={item.iD}
-                            className={
-                              assigned ? "dbs-user-access-assigned-row" : ""
-                            }
-                          >
-                            <td>{index + 1}</td>
+                          return (
+                            <tr
+                              key={item.iD}
+                              className={
+                                assigned ? "dbs-user-access-assigned-row" : ""
+                              }
+                            >
+                              <td>{index + 1}</td>
 
-                            <td>{item.fORMTYPE}</td>
+                              <td>{item.fORMTYPE}</td>
 
-                            <td>{item.mODULE}</td>
+                              <td>{item.mODULE}</td>
 
-                            <td>{item.mENUTEXT}</td>
+                              <td>{item.mENUTEXT}</td>
 
-                            <td>
-                              <input
-                                type="checkbox"
-                                checked={
-                                  assigned ||
-                                  selectedForms.some(
-                                    (form) => form.iD === item.iD,
-                                  )
-                                }
-                                disabled={assigned}
-                                onChange={() => handleCheckboxChange(item)}
-                              />
-                            </td>
-                          </tr>
-                        );
-                      })
-                    )}
-                  </tbody>
-                </table>
+                              <td>
+                                <input
+                                  type="checkbox"
+                                  checked={
+                                    assigned ||
+                                    selectedForms.some(
+                                      (form) => form.iD === item.iD,
+                                    )
+                                  }
+                                  disabled={assigned}
+                                  onChange={() => handleCheckboxChange(item)}
+                                />
+                              </td>
+                            </tr>
+                          );
+                        })
+                      )}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -313,58 +298,58 @@ const UserAccess = () => {
                 ))}
               </select>
             </div>
-
-            <div className="dbs-user-access-panel">
-              <div className="dbs-user-access-panel-header">
-                Assigned Forms
-                <span>{userGroupMenuLoad.length}</span>
+            <div className="dbs-access-table-card">
+              <div className="dbs-access-table-header">
+                <h3>Available Forms</h3>
               </div>
 
-              <div className="dbs-user-access-table-scroll">
-                <table className="dbs-user-access-table">
-                  <thead>
-                    <tr>
-                      <th>S.No</th>
-                      <th>Type</th>
-                      <th>Module</th>
-                      <th>Form(s)</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {!selectedUser ? (
+              <div className="dbs-table-container">
+                <div className="dbs-user-access-table-scroll">
+                  <table className="dbs-user-access-table">
+                    <thead>
                       <tr>
-                        <td colSpan={4} style={{ textAlign: "center" }}>
-                          Select a User Group to view assigned forms.
-                        </td>
+                        <th>S.No</th>
+                        <th>Type</th>
+                        <th>Module</th>
+                        <th>Form(s)</th>
                       </tr>
-                    ) : loadingAssignedForms ? (
-                      <tr>
-                        <td colSpan={4} style={{ textAlign: "center" }}>
-                          Loading...
-                        </td>
-                      </tr>
-                    ) : userGroupMenuLoad.length === 0 ? (
-                      <tr>
-                        <td colSpan={4} style={{ textAlign: "center" }}>
-                          No data found.
-                        </td>
-                      </tr>
-                    ) : (
-                      userGroupMenuLoad.map((item, index) => (
-                        <tr key={item.iD}>
-                          <td>{index + 1}</td>
+                    </thead>
 
-                          <td>{item.formType}</td>
-
-                          <td>{item.module}</td>
-
-                          <td>{item.mENUTEXT}</td>
+                    <tbody>
+                      {!selectedUser ? (
+                        <tr>
+                          <td colSpan={4} style={{ textAlign: "center" }}>
+                            Select a User Group to view assigned forms.
+                          </td>
                         </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
+                      ) : loadingAssignedForms ? (
+                        <tr>
+                          <td colSpan={4} style={{ textAlign: "center" }}>
+                            Loading...
+                          </td>
+                        </tr>
+                      ) : userGroupMenuLoad.length === 0 ? (
+                        <tr>
+                          <td colSpan={4} style={{ textAlign: "center" }}>
+                            No data found.
+                          </td>
+                        </tr>
+                      ) : (
+                        userGroupMenuLoad.map((item, index) => (
+                          <tr key={item.iD}>
+                            <td>{index + 1}</td>
+
+                            <td>{item.formType}</td>
+
+                            <td>{item.module}</td>
+
+                            <td>{item.mENUTEXT}</td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

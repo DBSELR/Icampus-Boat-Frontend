@@ -1,354 +1,532 @@
-/* =====================================
-   CONTAINER
-===================================== */
+/* =====================================================
+   SPECIAL ACCESS MASTER STYLES
+===================================================== */
 
 .dbs-special-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
+  animation: dbsSpecialSlideUp 0.25s ease;
 }
 
-/* =====================================
-   HEADER
-===================================== */
+/* =====================================================
+   GLOBAL BOX SIZING
+===================================================== */
 
-.dbs-special-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.dbs-special-container *,
+.dbs-special-container *::before,
+.dbs-special-container *::after {
+  box-sizing: border-box;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.dbs-special-header,
+.dbs-special-table-header {
   border-bottom: 1px solid var(--dbs-border);
   padding-bottom: 16px;
 }
 
-.dbs-special-header h2 {
+.dbs-special-header h2,
+.dbs-special-table-header h2 {
   margin: 0;
   font-size: 1.45rem;
   font-weight: 800;
   color: var(--dbs-text);
 }
 
-/* =====================================
-   CARD
-===================================== */
+.dbs-special-header p,
+.dbs-special-table-header p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
+}
 
-.dbs-special-card {
-  background: var(--dbs-bg-surface);
+/* =====================================================
+   FILTER / FORM CARD
+===================================================== */
 
+.dbs-special-form-card {
+  background: var(--dbs-surface);
   border: 1px solid var(--dbs-border);
-
-  border-radius: 18px;
-
-  padding: 28px;
-
+  border-radius: var(--dbs-radius);
   box-shadow: var(--dbs-shadow);
-
+  padding: 24px;
   display: flex;
-
   flex-direction: column;
-
-  gap: 24px;
+  gap: 22px;
+  animation: dbsSpecialSlideUp 0.25s ease;
 }
 
-.dbs-special-card h3 {
-  font-size: 18px;
-
-  font-weight: 700;
-
-  color: var(--dbs-text);
-
+.dbs-special-form-card h3 {
+  margin: 0;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--dbs-border);
-
-  padding-bottom: 14px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dbs-text);
 }
-/* =====================================
-   FILTERS
-===================================== */
 
-.dbs-special-filter-row {
+/* =====================================================
+   FORM GRID
+===================================================== */
+
+.dbs-special-form-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr))
+    auto;
+  gap: 20px;
   align-items: end;
 }
 
-.dbs-special-input {
+/* =====================================================
+   FIELD
+===================================================== */
+
+.dbs-special-field,
+.dbs-special-action-field {
   display: flex;
   flex-direction: column;
 }
 
-.dbs-special-input label {
+.dbs-special-field label,
+.dbs-special-action-field label {
   margin-bottom: 7px;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--dbs-text);
 }
 
-.dbs-special-input select {
-  height: 42px;
+/* =====================================================
+   SELECT
+===================================================== */
 
-  border: 1px solid var(--dbs-border);
-
+.dbs-special-field select {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
   border-radius: var(--dbs-radius-sm);
-
-  padding: 0 12px;
-
-  outline: none;
-
+  border: 1px solid var(--dbs-border);
   background: var(--dbs-surface);
-
   color: var(--dbs-text);
-
-  transition: 0.25s;
+  font-size: 0.9rem;
+  outline: none;
+  transition: var(--dbs-transition);
 }
 
-.dbs-special-input select:hover {
+.dbs-special-field select:hover {
   border-color: var(--dbs-primary);
 }
 
-.dbs-special-input select:focus {
+.dbs-special-field select:focus {
   border-color: var(--dbs-primary);
-
   box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
-/* =====================================
-   TABLE SCROLL
-===================================== */
+/* =====================================================
+   ACTIONS
+===================================================== */
 
-.dbs-special-table-scroll {
-  max-height: 380px;
-
-  overflow-y: auto;
-
-  overflow-x: auto;
-
-  border: 1px solid var(--dbs-border);
-
-  border-radius: var(--dbs-radius);
+.dbs-special-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 22px;
+  padding-top: 18px;
 }
 
-/* Scrollbar */
+/* =====================================================
+   CLEAR BUTTON
+===================================================== */
+
+.dbs-special-reset-btn {
+  height: 42px;
+  min-width: 110px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--dbs-radius-sm);
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  color: var(--dbs-text);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--dbs-transition);
+}
+
+.dbs-special-reset-btn:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
+}
+
+.dbs-special-reset-btn:active {
+  transform: scale(0.98);
+}
+
+.dbs-special-reset-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* =====================================================
+   TABLE CONTAINER
+===================================================== */
+
+.dbs-special-table-container {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  padding: 20px;
+  overflow: hidden;
+  animation: dbsSpecialSlideUp 0.25s ease;
+}
+
+/* =====================================================
+   TABLE CARD
+===================================================== */
+
+.dbs-special-table-card {
+  border-radius: var(--dbs-radius-sm);
+  overflow: hidden;
+}
+
+/* =====================================================
+   TABLE SCROLL
+===================================================== */
+
+.dbs-special-table-scroll {
+  max-height: 330px;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
+}
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
 
 .dbs-special-table-scroll::-webkit-scrollbar {
   width: 8px;
-
   height: 8px;
 }
 
 .dbs-special-table-scroll::-webkit-scrollbar-track {
-  background: var(--dbs-bg);
+  background: transparent;
 }
 
 .dbs-special-table-scroll::-webkit-scrollbar-thumb {
-  background: var(--dbs-primary);
-
+  background: var(--dbs-border);
   border-radius: 20px;
 }
 
 .dbs-special-table-scroll::-webkit-scrollbar-thumb:hover {
-  background: var(--dbs-primary-hover);
+  background: var(--dbs-primary);
 }
 
-/* =====================================
+/* =====================================================
    TABLE
-===================================== */
+===================================================== */
 
 .dbs-special-table {
   width: 100%;
-
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.9rem;
 }
 
-.dbs-special-table th {
-  background: var(--dbs-primary);
+/* =====================================================
+   TABLE HEADER
+===================================================== */
 
-  color: white;
-
-  padding: 14px;
-
-  text-align: left;
-
-  font-size: 13px;
-
+.dbs-special-table thead th {
   position: sticky;
-
   top: 0;
-
-  z-index: 2;
+  z-index: 5;
+  height: 44px;
+  padding: 0 18px;
+  background: var(--dbs-primary);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+  white-space: nowrap;
 }
 
-.dbs-special-table td {
-  padding: 13px;
+/* =====================================================
+   TABLE BODY
+===================================================== */
 
+.dbs-special-table tbody td {
+  height: 54px;
+  padding: 0 18px;
   border-bottom: 1px solid var(--dbs-border);
-
   color: var(--dbs-text);
+  vertical-align: middle;
+}
+
+.dbs-special-table tbody tr {
+  transition: var(--dbs-transition);
 }
 
 .dbs-special-table tbody tr:hover td {
   background: var(--dbs-primary-light);
 }
 
-/* =====================================
-   ACTIVE RECORD ROW
-===================================== */
+.dbs-special-table tbody tr:last-child td {
+  border-bottom: none;
+}
 
-.dbs-active-row td {
+/* =====================================================
+   ACTIVE ROW
+===================================================== */
+
+.dbs-special-table tbody tr.dbs-active-row td {
   background: var(--dbs-primary-light);
 }
 
-.dbs-active-row td:first-child {
-  border-left: 4px solid var(--dbs-primary);
-}
-
-.dbs-active-row:hover td {
+.dbs-special-table tbody tr.dbs-active-row:hover td {
   background: var(--dbs-primary-light);
 }
 
-/* =====================================
-   CHECKBOX
-===================================== */
-
-.dbs-active-checkbox {
-  width: 18px;
-
-  height: 18px;
-
-  cursor: pointer;
-
-  accent-color: var(--dbs-primary);
-
-  transition: 0.2s;
-}
-
-.dbs-active-checkbox:hover {
-  transform: scale(1.15);
-}
-
-/* =====================================
-   ACTION ADD BUTTON
-===================================== */
-
-.dbs-action-add-btn {
-  width: 32px;
-
-  height: 32px;
-
-  border-radius: 50%;
-
-  border: none;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  cursor: pointer;
-
-  background: var(--dbs-primary);
-
-  color: white;
-
-  transition: 0.25s;
-}
-
-.dbs-action-add-btn:hover {
-  background: var(--dbs-primary-hover);
-
-  transform: scale(1.1);
-}
-
-.dbs-action-add-btn svg {
-  stroke-width: 3;
-}
-
-/* =====================================
-   EMPTY / LOADING
-===================================== */
-
-.dbs-special-empty {
-  padding: 60px;
-
-  text-align: center;
-
-  color: var(--dbs-text-light);
-
-  font-weight: 600;
-}
-
-/* =====================================
-   RESPONSIVE
-===================================== */
-
-@media (max-width: 992px) {
-  .dbs-special-filter-row {
-    grid-template-columns: 1fr;
-  }
-}
-/* =====================================
+/* =====================================================
    SPECIAL ACCESS ROW
-===================================== */
+   Keep SA visually different but subtle
+===================================================== */
 
-.dbs-special-access-row td {
-  background: rgba(147, 51, 234, 0.12);
-  color: #111111;
+.dbs-special-table tbody tr.dbs-special-access-row td {
+  background: rgba(100, 51, 234, 0.08);
+  color: var(--dbs-text);
   font-weight: 600;
 }
 
-/* Left indicator */
-
-.dbs-special-access-row td:first-child {
+.dbs-special-table tbody tr.dbs-special-access-row td:first-child {
   border-left: 4px solid #6433ea;
 }
 
-/* Hover */
-
-.dbs-special-access-row:hover td {
-  background: rgba(147, 51, 234, 0.22);
-  transition: background 0.25s ease;
+.dbs-special-table tbody tr.dbs-special-access-row:hover td {
+  background: rgba(100, 51, 234, 0.14);
 }
-/* Submit Button */
 
-.dbs-add-action-btn {
+/* =====================================================
+   CHECKBOX
+===================================================== */
+
+.dbs-special-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--dbs-primary);
+  transition: 0.2s;
+}
+
+.dbs-special-checkbox:hover {
+  transform: scale(1.08);
+}
+
+/* =====================================================
+   SUBMIT BUTTON
+===================================================== */
+
+.dbs-special-submit-btn {
   height: 34px;
+  min-width: 70px;
   padding: 0 16px;
-
   border: none;
   border-radius: var(--dbs-radius-sm);
-
   background: var(--dbs-primary);
   color: #ffffff;
-
-  font-size: 13px;
+  font-size: 0.8rem;
   font-weight: 700;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: var(--dbs-transition);
 }
 
-/* Hover */
-
-.dbs-add-action-btn:hover {
+.dbs-special-submit-btn:hover {
   background: var(--dbs-primary-hover);
   transform: translateY(-1px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Click */
-
-.dbs-add-action-btn:active {
+.dbs-special-submit-btn:active {
   transform: scale(0.96);
 }
 
-/* Disabled (optional) */
+.dbs-special-submit-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
 
-.dbs-add-action-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  box-shadow: none;
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.dbs-special-empty {
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.dbs-special-empty-icon {
+  width: 45px;
+  height: 45px;
+  color: var(--dbs-primary);
+}
+
+.dbs-special-empty-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dbs-text);
+}
+
+.dbs-special-empty-desc {
+  font-size: 14px;
+  color: var(--dbs-text-muted);
+  max-width: 400px;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.dbs-special-container .dbs-table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  margin-top: 16px;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+}
+
+/* =====================================================
+   ANIMATION
+===================================================== */
+
+@keyframes dbsSpecialSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1200px) {
+  .dbs-special-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dbs-special-action-field {
+    grid-column: span 2;
+  }
+
+  .dbs-special-actions {
+    justify-content: flex-end;
+  }
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 768px) {
+  .dbs-special-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dbs-special-action-field {
+    grid-column: auto;
+  }
+
+  .dbs-special-actions {
+    flex-direction: column;
+  }
+
+  .dbs-special-actions button {
+    width: 100%;
+  }
+
+  .dbs-special-table {
+    min-width: 750px;
+  }
+
+  .dbs-special-container .dbs-table-footer {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 12px;
+  }
+}
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+  .dbs-special-header h2,
+  .dbs-special-table-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .dbs-special-header p,
+  .dbs-special-table-header p {
+    font-size: 0.82rem;
+  }
+
+  .dbs-special-form-card {
+    padding: 16px;
+  }
+
+  .dbs-special-table-container {
+    padding: 16px;
+  }
+}
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .dbs-special-container,
+  .dbs-special-form-card,
+  .dbs-special-table-container {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+  .dbs-special-reset-btn,
+  .dbs-special-submit-btn,
+  .dbs-special-checkbox {
+    transition: none !important;
+  }
 }

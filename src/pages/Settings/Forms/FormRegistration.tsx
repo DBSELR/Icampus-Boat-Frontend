@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Edit3 } from "lucide-react";
+import { AlertCircle, Edit3, Save, X } from "lucide-react";
 import "./FormRegistration.css";
 import {
   getLoadMenu,
@@ -8,6 +8,7 @@ import {
   saveFormReg,
 } from "../../../apis/SettingsApis";
 import { toast } from "sonner";
+import Footer from "../../../common/Footer";
 
 const FormRegistration = () => {
   const [menuList, setMenuList] = useState<any[]>([]);
@@ -24,6 +25,9 @@ const FormRegistration = () => {
     isActive: "",
   });
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(5);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -37,10 +41,9 @@ const FormRegistration = () => {
     const fetchMenuId = async () => {
       try {
         const response = await getLoadMenu();
-        console.log("Menu Id Response:", response);
         setMenuList(response || []);
       } catch (error) {
-        console.log("Error fetching Menu Id:", error);
+        console.error("Error fetching Menu Id:", error);
       }
     };
 
@@ -49,18 +52,16 @@ const FormRegistration = () => {
 
   useEffect(() => {
     if (!formData.menuId || isEdit) return;
-
     const fetchSubMenuId = async () => {
       try {
         const payload = {
           menuId: formData.menuId,
           formType: formData.formType,
         };
-
         const response = await loadSMenuId(payload);
         setSMenuId(response);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
 
@@ -68,6 +69,11 @@ const FormRegistration = () => {
   }, [formData.menuId, formData.formType]);
 
   useEffect(() => {
+    setCurrentPage(1);
+    if (!formData.menuId) {
+      setData([]);
+      return;
+    }
     const getLoadFRData = async () => {
       try {
         const payload = {
@@ -75,10 +81,13 @@ const FormRegistration = () => {
           formType: "",
         };
         const response = await loadFRData(payload);
-        console.log("Form Registration Data:", response);
-        setData(response);
+        const validData = Array.isArray(response)
+          ? response.filter((item: any) => Number(item.sMENUID) > 0)
+          : [];
+        setData(validData);
       } catch (error) {
-        console.log("Error fetching Form Registration Data:", error);
+        console.error("Error fetching Form Registration Data:", error);
+        setData([]);
       }
     };
 
@@ -98,7 +107,6 @@ const FormRegistration = () => {
     }
 
     const subMenuId = formData.subMenuId || String(sMenuId[0]?.sMENUID || "");
-
     if (!subMenuId) {
       toast.error("Sub Menu Id is required");
       return;
@@ -137,23 +145,17 @@ const FormRegistration = () => {
       };
 
       const response = await saveFormReg(payload);
-
-      console.log("Save Form Registration Response:", response);
-
       if (response?.message === "Success") {
         toast.success(
           isEdit
             ? "Form Registration updated successfully"
             : "Form Registration saved successfully",
         );
-
         const tableResponse = await loadFRData({
           menuId: formData.menuId,
           formType: "",
         });
-
         setData(tableResponse || []);
-
         setFormData({
           menuId: formData.menuId,
           subMenuId: "",
@@ -163,14 +165,13 @@ const FormRegistration = () => {
           navigateUrl: "",
           isActive: "",
         });
-
         setSMenuId([]);
         setIsEdit(false);
       } else {
         toast.error("Save failed");
       }
     } catch (error) {
-      console.log("Save Error:", error);
+      console.error("Save Error:", error);
       toast.error("Something went wrong");
     }
   };
@@ -185,15 +186,12 @@ const FormRegistration = () => {
       navigateUrl: "",
       isActive: "",
     });
-
     setSMenuId([]);
     setIsEdit(false);
   };
 
   const handleEdit = (item: any) => {
-    console.log("Edit Item:", item);
     setIsEdit(true);
-
     setFormData({
       menuId: String(item.mENUID || ""),
       subMenuId: String(item.sMENUID || ""),
@@ -203,7 +201,6 @@ const FormRegistration = () => {
       navigateUrl: item.nAVIGATEURL || "",
       isActive: item.isActive || "",
     });
-
     // set submenu display value
     setSMenuId([
       {
@@ -212,12 +209,46 @@ const FormRegistration = () => {
     ]);
   };
 
+  const totalRecords = data.length;
+  const totalPages = Math.ceil(totalRecords / recordsPerPage);
+  const startIndex = (currentPage - 1) * recordsPerPage;
+  const endIndex = Math.min(startIndex + recordsPerPage, totalRecords);
+  const currentData = data.slice(startIndex, endIndex);
+  const getPagination = () => {
+    const pages: (number | string)[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+
+      if (currentPage > 3) {
+        pages.push("...");
+      }
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      if (currentPage < totalPages - 2) {
+        pages.push("...");
+      }
+      pages.push(totalPages);
+    }
+    return pages;
+  };
+
   return (
     <div className="dbs-formregistration-container">
       <div className="dbs-formregistration-header">
         <h2>Form Registration Master</h2>
+        <p>
+          {" "}
+          Manage form details, menu mapping, navigation, and registration
+          status.{" "}
+        </p>
       </div>
-
       <div className="dbs-formregistration-filter-card">
         <h3>Form Configuration</h3>
 
@@ -311,65 +342,80 @@ const FormRegistration = () => {
 
         <div className="dbs-formregistration-button-group">
           <button className="dbs-cancel-btn" onClick={handleCancel}>
+            <X size={16} />
             Cancel
           </button>
           <button className="dbs-save-btn" onClick={handleSave}>
+            <Save size={16} />
             {isEdit ? "Update" : "Save"}
           </button>
         </div>
       </div>
+      <div className="dbs-formregistration-header">
+        <h3>Form Registration List</h3>
+        <p>Manage and configure registered forms.</p>
+      </div>
 
+      {/* Table */}
       <div className="dbs-formregistration-table-card">
-        <div className="dbs-formregistration-table-header">
-          <h3>Form Registration List</h3>
-          <span>Total Records : {data.length}</span>
-        </div>
+        {data.length === 0 ? (
+          <div className="dbs-empty-state">
+            <AlertCircle className="dbs-empty-state-icon" />
+            <div className="dbs-empty-state-title">No records found</div>
+            <div className="dbs-empty-state-desc">
+              No form registration records are available for the selected menu.
+            </div>
+          </div>
+        ) : (
+          <div className="dbs-formregistration-table-scroll">
+            <table className="dbs-formregistration-data-table">
+              <thead>
+                <tr>
+                  <th>Sub Menu Id</th>
+                  <th>Text</th>
+                  <th>Description</th>
+                  <th>Navigate URL</th>
+                  <th>Form Type</th>
+                  <th>Status</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
 
-        <div className="dbs-formregistration-table-scroll">
-          <table className="dbs-formregistration-data-table">
-            <thead>
-              <tr>
-                <th>Sub Menu Id</th>
-                <th>Text</th>
-                <th>Description</th>
-                <th>Navigate URL</th>
-                <th>Form Type</th>
-                <th>Status</th>
-                <th>Edit</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {data.length > 0 ? (
-                data.map((item: any) => (
-                  <tr key={item.sMENUID}>
+              <tbody>
+                {currentData.map((item: any, index: number) => (
+                  <tr key={item.sMENUID || index}>
                     <td>{item.sMENUID}</td>
                     <td>{item.tEXT}</td>
                     <td>{item.dESCRIPTION}</td>
                     <td>{item.nAVIGATEURL}</td>
                     <td>{item.formType}</td>
-                    <td>{item.isActive}</td>
+                    <td>{item.isActive}</td>s
                     <td>
                       <button
                         className="dbs-formregistration-edit-btn"
                         onClick={() => handleEdit(item)}
                       >
-                        <Edit3 />
+                        <Edit3 size={16} />
                       </button>
                     </td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={7} align="center">
-                    No Records Found
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
+      <Footer
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        recordsPerPage={recordsPerPage}
+        setRecordsPerPage={setRecordsPerPage}
+        totalRecords={totalRecords}
+        totalPages={totalPages}
+        startIndex={startIndex}
+        endIndex={endIndex}
+        getPagination={getPagination}
+      />
     </div>
   );
 };

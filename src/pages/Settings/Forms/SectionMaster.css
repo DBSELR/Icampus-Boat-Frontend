@@ -1,628 +1,671 @@
-/* ==============================
-   Section Master Styles
-================================= */
+/* =========================================================
+   SECTION MASTER CONTAINER
+========================================================= */
 
-.dbs-section-container {
+.section-master-container {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  box-sizing: border-box;
 }
 
-/* Header */
-.dbs-section-form-header {
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.section-form-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--dbs-border);
   padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
 }
 
-.dbs-section-form-header h2 {
-  font-size: 1.4rem;
+.section-form-header h2 {
+  margin: 0;
+  font-size: 1.45rem;
   font-weight: 800;
   color: var(--dbs-text);
 }
 
-/* Form Card */
-.dbs-form-card {
-  background-color: var(--dbs-surface);
+/* =========================================================
+   FORM CARD
+========================================================= */
+
+.section-form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 24px;
+  background: var(--dbs-surface);
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius);
   box-shadow: var(--dbs-shadow);
-  padding: 24px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  box-sizing: border-box;
+  animation: sectionSlideUp 0.25s ease;
 }
 
-.dbs-form-card h3 {
-  font-size: 1.1rem;
+.section-form-card h3 {
+  margin: 0;
+  padding-bottom: 12px;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--dbs-text);
   border-bottom: 1px solid var(--dbs-border);
-  padding-bottom: 10px;
 }
 
-/* Grid Layouts */
-.dbs-form-grid-5 {
+/* =========================================================
+   FORM GRID
+========================================================= */
+
+.section-form-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px 24px;
+  align-items: start;
 }
 
-.dbs-form-grid-4 {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
+/* =========================================================
+   INPUT BOX
+========================================================= */
 
-.dbs-form-grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.dbs-form-grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-/* Input Box */
-.dbs-input-box {
+.section-input-box {
   display: flex;
   flex-direction: column;
+  gap: 7px;
+  min-width: 0;
 }
 
-.dbs-input-box label {
-  font-size: 0.82rem;
+.section-input-box label {
+  margin: 0;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--dbs-text);
-  margin-bottom: 6px;
 }
 
-/* Inputs */
-.dbs-input-box input,
-.dbs-input-box select,
-.dbs-input-box textarea {
+/* =========================================================
+   INPUTS / SELECTS
+========================================================= */
+
+.section-input-box input,
+.section-input-box select {
   width: 100%;
-  padding: 10px 12px;
+  height: 44px;
+  padding: 0 14px;
+  background: var(--dbs-surface);
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius-sm);
-  background-color: var(--dbs-surface);
   color: var(--dbs-text);
   font-size: 0.9rem;
   outline: none;
+  box-sizing: border-box;
   transition: var(--dbs-transition);
 }
 
-.dbs-input-box input:focus,
-.dbs-input-box select:focus,
-.dbs-input-box textarea:focus {
+/* =========================================================
+   INPUT HOVER / FOCUS
+========================================================= */
+
+.section-input-box input:hover,
+.section-input-box input:focus,
+.section-input-box select:hover,
+.section-input-box select:focus {
   border-color: var(--dbs-primary);
-  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
 }
 
-/* Buttons Row */
-.dbs-stepper-actions-row {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
+/* =========================================================
+   INPUT PLACEHOLDER
+========================================================= */
 
-  border-top: 1px solid var(--dbs-border);
-  padding-top: 20px;
-  margin-top: 10px;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .dbs-form-grid-4 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .dbs-form-grid-4,
-  .dbs-form-grid-3,
-  .dbs-form-grid-2 {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-
-
-.dbs-form-cancel-btn {
-  display: flex;
-  background-color: var(--dbs-background);
-  color: black;
-  border: 1px solid var(--dbs-border);
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border-radius: var(--dbs-radius-sm);
-  cursor: pointer;
-  outline: none;
-}
-
-.dbs-form-cancel-btn:hover {  
-  background-color: rgb(236, 60, 60);  
-  color: white;
-}
-
-.dbs-form-save-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: var(--dbs-primary);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  border-radius: var(--dbs-radius-sm);
-  cursor: pointer;
-  outline: none;
-}
-
-.dbs-form-save-btn:hover {
-  background-color: var(--dbs-primary-hover);
-}
-
-
-.dbs-form-actions-row {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-
-    border-top: 1px solid var(--dbs-border);
-    padding-top: 20px;
-}
-
-
-/* Core Student Datatable */
-.dbs-data-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 0.9rem;
-  border-radius: 50px !important;
-}
-
-.dbs-data-table th {
-  padding: 12px 16px;
-  font-weight: 700;
-  color: white;
-  border-bottom: 2px solid var(--dbs-border);
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  user-select: none;
-  background-color: var(--dbs-primary);
-}
-
-.dbs-data-table td {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--dbs-border);
-  color: var(--dbs-text);
-}
-
-.dbs-data-table tr:hover td {
-  background-color: var(--dbs-background);
-}
-
-.dbs-table-student-name {
-  font-weight: 700;
-  color: var(--dbs-text);
-}
-
-.dbs-table-section-td {
-  font-size: 0.82rem;
+.section-input-box input::placeholder {
   color: var(--dbs-text-muted);
 }
 
-.dbs-table-actions-row {
+/* =========================================================
+   FORM ACTIONS
+========================================================= */
+
+.section-form-actions {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--dbs-border);
 }
 
-.dbs-table-action-icon-btn {
-  width: 28px;
-  height: 28px;
-  border-radius: 4px;
-  border: 1px solid var(--dbs-border);
-  background-color: var(--dbs-surface);
-  display: flex;
+/* =========================================================
+   CANCEL BUTTON
+========================================================= */
+
+.section-cancel-btn {
+  height: 44px;
+  min-width: 125px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
+  padding: 0 20px;
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  font-size: 0.9rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: var(--dbs-transition);
   outline: none;
+  transition: var(--dbs-transition);
 }
 
-.dbs-btn-edit {
-  color: var(--dbs-primary);
-}
-
-.dbs-btn-edit:hover {
-  background-color: var(--dbs-primary-light);
+.section-cancel-btn:hover {
+  background: var(--dbs-primary-light);
   border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-1px);
 }
 
-.dbs-btn-delete {
-  color: var(--dbs-danger);
+.section-cancel-btn:active {
+  transform: scale(0.98);
 }
 
-.dbs-btn-delete:hover {
-  background-color: var(--dbs-danger-light);
-  border-color: var(--dbs-danger);
-}
+/* =========================================================
+   SAVE BUTTON
+========================================================= */
 
-
-/* ==========================================
-   TABLE CONTAINER
-========================================== */
-
-.dbs-section-container .dbs-table-container {
-  width: 100%;
-
-  background: var(--dbs-bg-surface);
-
-  border: 1px solid var(--dbs-border);
-
-  border-radius: 16px;
-
-  padding: 20px;
-
-  box-shadow: var(--dbs-shadow);
-
-  overflow-x: auto;
-}
-
-
-/* ==========================================
-   EMPTY STATE
-========================================== */
-
-.dbs-subject-container .dbs-empty-state {
-  display: flex;
-
-  flex-direction: column;
-
+.section-save-btn {
+  height: 44px;
+  min-width: 140px;
+  display: inline-flex;
   align-items: center;
-
   justify-content: center;
-
-  min-height: 220px;
-
-  text-align: center;
-
-  color: var(--dbs-text-light);
+  gap: 8px;
+  padding: 0 20px;
+  background: var(--dbs-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--dbs-radius-sm);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  transition: var(--dbs-transition);
 }
 
-.dbs-subject-container .dbs-empty-state-icon {
+.section-save-btn:hover {
+  background: var(--dbs-primary-hover);
+  transform: translateY(-1px);
+}
+
+.section-save-btn:active {
+  transform: scale(0.98);
+}
+
+.section-save-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================================================
+   SECTION LIST HEADER
+========================================================= */
+
+.section-master-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.section-master-header h2,
+.section-master-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--dbs-text);
+}
+
+.section-master-header p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--dbs-text-muted);
+}
+
+/* =========================================================
+   TABLE OUTER CONTAINER
+   This is the visible card around the table.
+========================================================= */
+
+.section-table-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* =========================================================
+   TABLE WRAPPER
+   No border here.
+========================================================= */
+
+.section-table-wrapper {
+  width: 100%;
+  background: transparent;
+  border: none;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.section-empty-state {
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  text-align: center;
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  border: none;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   EMPTY STATE ICON
+========================================================= */
+
+.section-empty-icon {
   width: 42px;
-
   height: 42px;
-
   margin-bottom: 12px;
-
   color: var(--dbs-primary);
 }
 
-.dbs-subject-container .dbs-empty-state-title {
+/* =========================================================
+   EMPTY STATE TITLE
+========================================================= */
+
+.section-empty-title {
+  margin-bottom: 6px;
   font-size: 18px;
-
   font-weight: 700;
-
   color: var(--dbs-text);
-
-  margin-bottom: 8px;
 }
 
-.dbs-subject-container .dbs-empty-state-desc {
+/* =========================================================
+   EMPTY STATE DESCRIPTION
+========================================================= */
+
+.section-empty-description {
+  max-width: 380px;
   font-size: 14px;
-
-  color: var(--dbs-text-light);
-
-  max-width: 350px;
+  line-height: 1.5;
+  color: var(--dbs-text-muted);
 }
 
+/* =========================================================
+   TABLE SCROLL CONTAINER
+========================================================= */
 
-
-
-/* ==========================================
-   DATA TABLE
-========================================== */
-
-.dbs-section-container .dbs-data-table {
+.section-table-scroll {
   width: 100%;
-
-  border-collapse: collapse;
-
-  font-size: 14px;
-}
-
-.dbs-section-container .dbs-data-table thead {
-  background: linear-gradient(135deg, var(--dbs-primary), var(--dbs-secondary));
-
-  color: #ffffff;
-}
-
-.dbs-section-container .dbs-data-table th {
-  padding: 14px 16px;
-
-  text-align: left;
-
-  font-weight: 700;
-
-  font-size: 13px;
-
-  letter-spacing: 0.3px;
-
-  text-transform: uppercase;
-}
-
-.dbs-section-container .dbs-data-table td {
-  padding: 14px 16px;
-
-  border-bottom: 1px solid var(--dbs-border);
-
-  color: var(--dbs-text);
-}
-
-.dbs-section-container .dbs-data-table tbody tr {
-  transition: 0.25s ease;
-}
-
-.dbs-section-container .dbs-data-table tbody tr:hover {
-  background: var(--dbs-bg);
-}
-
-.dbs-footer-info {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #64748b;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.dbs-footer-info span {
-  color: #64748b;
-}
-
-.dbs-footer-count {
-  color: #1e293b;
-  font-weight: 700;
-  background: #f1f5f9;
-  padding: 3px 8px;
-  border-radius: 6px;
-  min-width: 28px;
-  text-align: center;
-}
-/* ==========================================
-   DBS TABLE FOOTER
-========================================== */
-
-.dbs-section-container .dbs-table-footer {
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  padding: 18px 20px;
-
-  margin-top: 16px;
-
-  background: var(--dbs-bg-surface);
-
-  border: 1px solid var(--dbs-border);
-
-  border-radius: 14px;
-
-  box-shadow: var(--dbs-shadow);
-}
-
-/* Left Section */
-
-.dbs-section-container .dbs-footer-left {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-}
-
-.dbs-section-container .dbs-footer-label {
-  color: var(--dbs-text-light);
-
-  font-size: 14px;
-
-  font-weight: 600;
-}
-
-/* Select */
-
-.dbs-section-container .dbs-select-wrapper select {
-  height: 36px;
-
-  min-width: 60px;
-
-  padding: 0 10px;
-
-  border-radius: 8px;
-
-  border: 1px solid var(--dbs-border);
-
-  background: var(--dbs-bg-surface);
-
-  color: var(--dbs-text);
-
-  font-weight: 600;
-}
-
-.dbs-pagination {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.dbs-page-nav,
-.dbs-page-number {
-  min-width: 38px;
-  height: 38px;
-  padding: 0 14px;
-  border: 1px solid var(--dbs-border);
-  background: #fff;
-  color: #334155;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.25s ease;
-}
-
-.dbs-page-nav:hover:not(:disabled),
-.dbs-page-number:hover {
-  background: #f4f7fb;
-  border: 1px solid var(--dbs-border);
-}
-
-.dbs-page-number.active {
-  background: var(--dbs-primary);
-  color: #fff;
-  border: 1px solid var(--dbs-border);
-  box-shadow: 0 4px 10px rgba(15, 108, 189, 0.25);
-}
-
-.dbs-page-nav:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.dbs-page-dots {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  color: #64748b;
-  font-weight: 700;
-  font-size: 18px;
-}
-/* ==========================================
-   DBS TABLE SCROLLBAR
-========================================== */
-
-.dbs-section-container .dbs-table-scroll.active-scroll {
-  max-height: 330px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-/* Scrollbar Width */
-.dbs-section-container .dbs-table-scroll::-webkit-scrollbar {
-  width: 8px;
-}
-
-/* Scrollbar Track */
-.dbs-section-container .dbs-table-scroll::-webkit-scrollbar-track {
-  background: var(--dbs-bg);
-  border-radius: 10px;
-}
-
-/* Scrollbar Thumb */
-.dbs-section-container .dbs-table-scroll::-webkit-scrollbar-thumb {
-  background: var(--dbs-primary);
-  border-radius: 10px;
-}
-
-/* Hover */
-.dbs-section-container .dbs-table-scroll::-webkit-scrollbar-thumb:hover {
-  background: var(--dbs-secondary);
-}
-/* ==========================================
-   STICKY TABLE HEADER
-========================================== */
-
-.dbs-section-container .dbs-table-scroll.active-scroll {
-  max-height: 330px;
+  max-height: 430px;
   overflow-y: auto;
   overflow-x: auto;
+  background: transparent;
+  border: none;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
 }
 
-.dbs-section-container .dbs-data-table th {
+/* =========================================================
+   TABLE SCROLLBAR
+========================================================= */
+
+.section-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.section-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.section-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 20px;
+}
+
+.section-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+
+/* =========================================================
+   DATA TABLE
+   IMPORTANT:
+   No outer border.
+========================================================= */
+
+.section-data-table {
+  width: 100%;
+  min-width: 1050px;
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background: transparent;
+  table-layout: auto;
+}
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.section-data-table thead th {
   position: sticky;
   top: 0;
   z-index: 10;
-
+  height: 44px;
+  padding: 0 14px;
   background: var(--dbs-primary);
   color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  border: none;
+  box-sizing: border-box;
 }
 
-/* ==========================================
-   TABLE ACTION ICONS
-========================================== */
+/* =========================================================
+   TABLE HEADER FIRST CORNER
+========================================================= */
 
-.dbs-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.section-data-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
 }
 
-.dbs-icon-btn {
-  width: 32px;
-  height: 32px;
+/* =========================================================
+   TABLE HEADER LAST CORNER
+========================================================= */
 
-  display: flex;
+.section-data-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
+}
+
+/* =========================================================
+   TABLE BODY
+   Only horizontal separators.
+========================================================= */
+
+.section-data-table tbody td {
+  height: 54px;
+  padding: 0 14px;
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  font-size: 0.88rem;
+  border: none;
+  border-bottom: 1px solid var(--dbs-border);
+  vertical-align: middle;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   TABLE ROW
+========================================================= */
+
+.section-data-table tbody tr {
+  border: none;
+  transition: var(--dbs-transition);
+}
+
+/* =========================================================
+   TABLE ROW HOVER
+========================================================= */
+
+.section-data-table tbody tr:hover td {
+  background: var(--dbs-background);
+}
+
+/* =========================================================
+   LAST ROW
+========================================================= */
+
+.section-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================================================
+   SERIAL NUMBER COLUMN
+========================================================= */
+
+.section-data-table th:first-child,
+.section-data-table td:first-child {
+  width: 70px;
+  text-align: center;
+}
+
+/* =========================================================
+   ACTION COLUMN
+========================================================= */
+
+.section-data-table th:last-child,
+.section-data-table td:last-child {
+  width: 90px;
+  text-align: center;
+}
+
+/* =========================================================
+   EDIT BUTTON
+========================================================= */
+
+.section-edit-btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  border-radius: 8px;
-  border: 1px solid var(--dbs-border);
-
-  background: var(--dbs-bg-surface);
-
-  cursor: pointer;
-
-  transition: 0.25s ease;
-
-  text-decoration: none;
-  outline: none;
-  appearance: none;
-  -webkit-appearance: none;
-}
-
-.dbs-icon-btn svg {
-  display: block;
-}
-
-/* Edit */
-.dbs-icon-btn.edit {
+  padding: 0;
+  background: var(--dbs-surface);
   color: var(--dbs-primary);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  cursor: pointer;
+  outline: none;
+  transition: var(--dbs-transition);
 }
 
-.dbs-icon-btn.edit:hover {
-  background: var(--dbs-primary-soft);
+/* =========================================================
+   EDIT BUTTON HOVER
+========================================================= */
+
+.section-edit-btn:hover {
+  background: var(--dbs-primary-light);
   border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
   transform: translateY(-1px);
 }
 
-/* Delete */
-.dbs-icon-btn.delete {
-  color: #dc2626;
-}
+/* =========================================================
+   EDIT BUTTON ACTIVE
+========================================================= */
 
-.dbs-icon-btn.delete:hover {
-  background: rgba(220, 38, 38, 0.08);
-  border-color: #dc2626;
-  transform: translateY(-1px);
-}
-
-.dbs-icon-btn:active {
+.section-edit-btn:active {
   transform: scale(0.95);
+}
+
+/* =========================================================
+   EDIT BUTTON SVG
+========================================================= */
+
+.section-edit-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.2;
+}
+
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+  .section-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .section-table-container {
+    padding: 16px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+  .section-master-container {
+    gap: 18px;
+  }
+
+  .section-form-card {
+    padding: 18px;
+    gap: 18px;
+  }
+
+  .section-form-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .section-form-actions {
+    width: 100%;
+  }
+
+  .section-cancel-btn,
+  .section-save-btn {
+    flex: 1;
+  }
+
+  .section-table-container {
+    padding: 12px;
+    border-radius: var(--dbs-radius-sm);
+  }
+
+  .section-table-scroll {
+    max-height: 400px;
+  }
+
+  .section-data-table {
+    min-width: 1050px;
+  }
+
+  .section-master-header h2,
+  .section-master-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .section-master-header p {
+    font-size: 0.85rem;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE - SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+  .section-form-card {
+    padding: 16px;
+  }
+
+  .section-form-actions {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .section-cancel-btn,
+  .section-save-btn {
+    width: 100%;
+  }
+
+  .section-input-box input,
+  .section-input-box select {
+    height: 42px;
+  }
+
+  .section-table-container {
+    padding: 10px;
+  }
+
+  .section-empty-state {
+    min-height: 220px;
+    padding: 20px;
+  }
+
+  .section-empty-title {
+    font-size: 16px;
+  }
+
+  .section-empty-description {
+    font-size: 13px;
+  }
+}
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes sectionSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   DBS USER GROUP / SECTION HEADER
+========================================================= */
+
+.dbs-usergroup-header,
+.section-master-header {
+  border-bottom: 1px solid var(--dbs-border);
+  padding-bottom: 16px;
+}
+
+.dbs-usergroup-header h2,
+.section-master-header h2 {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--dbs-text);
+}
+
+.dbs-usergroup-header p,
+.section-master-header p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
 }

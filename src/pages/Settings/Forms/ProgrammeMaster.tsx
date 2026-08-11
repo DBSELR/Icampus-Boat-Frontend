@@ -1,229 +1,333 @@
 import React, { useEffect, useState } from "react";
-import { Save, Trash2, Edit3, AlertTriangle, HelpCircle, AlertCircle, SquarePen } from "lucide-react";
+import {
+  Save,
+  Trash2,
+  Edit3,
+  AlertTriangle,
+  HelpCircle,
+  AlertCircle,
+  SquarePen,
+  X,
+} from "lucide-react";
 import { toast } from "sonner";
 import "./ProgrammeMaster.css";
 import axios from "axios";
 import { API_BASE } from "../../../config";
+import Footer from "../../../common/Footer";
 
 const ProgrammeMaster = () => {
-  const sortedStudents = []; // Placeholder for sorted students data
-
-  const ACYR= localStorage.getItem("academicYear");
+  const ACYR = localStorage.getItem("academicYear");
 
   interface Payload {
-  CID: string;
-  COURSECODE: string;
-  COURSE: string;
-  DEGREE: string;
-  YEAR: string;
-  ACADEMICYEAR: string;
-  FINANCIALYEAR: string;
-}
+    CID: string;
+    COURSECODE: string;
+    COURSE: string;
+    DEGREE: string;
+    YEAR: string;
+    ACADEMICYEAR: string;
+    FINANCIALYEAR: string;
+  }
 
-const [progData,setProgData]=useState<Payload[]>([])
- console.log(progData)
+  const [progData, setProgData] = useState<Payload[]>([]);
+  const [payLoad, setPayLoad] = useState({
+    CID: "",
+    COURSECODE: "",
+    COURSE: "",
+    DEGREE: "",
+    YEAR: "",
+    ACADEMICYEAR: "",
+    FINANCIALYEAR: "",
+  });
 
-const [payLoad, setPayLoad] = useState<Payload>({
-  CID: "",
-  COURSECODE: "",
-  COURSE: "",
-  DEGREE: "",
-  YEAR: "",
-  ACADEMICYEAR: "",
-  FINANCIALYEAR: "",
-});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(5);
 
-const data = {
-  CID: payLoad.CID,
-  COURSECODE: payLoad.COURSECODE,
-  COURSE: payLoad.COURSE,
-  DEGREE: payLoad.DEGREE,
-  YEAR: payLoad.YEAR,
-  ACADEMICYEAR: ACYR,
-  FINANCIALYEAR: payLoad.FINANCIALYEAR,
-};
+  const data = {
+    CID: payLoad.CID,
+    COURSECODE: payLoad.COURSECODE,
+    COURSE: payLoad.COURSE,
+    DEGREE: payLoad.DEGREE,
+    YEAR: payLoad.YEAR,
+    ACADEMICYEAR: ACYR,
+    FINANCIALYEAR: payLoad.FINANCIALYEAR,
+  };
 
-const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-  const { name, value } = e.target;
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = e.target;
 
-  setPayLoad((prev) => ({
-    ...prev,
-    [name]: value,
-  }));
-};
+    setPayLoad((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-const onCancel = ()=>{
-  setPayLoad({
-  CID: "",
-  COURSECODE: "",
-  COURSE: "",
-  DEGREE: "",
-  YEAR: "",
-  ACADEMICYEAR: "",
-  FINANCIALYEAR: "",
-})};
+  const onCancel = () => {
+    setPayLoad({
+      CID: "",
+      COURSECODE: "",
+      COURSE: "",
+      DEGREE: "",
+      YEAR: "",
+      ACADEMICYEAR: "",
+      FINANCIALYEAR: "",
+    });
+  };
 
-const validation=()=>{
- if(data.COURSECODE=="")
-      {toast.warning("Enter Course code")
-        return
-      }
-      if(data.COURSE=="")
-      {toast.warning("Enter Course")
-        return
-      }
-      if(data.DEGREE=="")
-      {toast.warning("Enter Degree")
-        return
-      }
-      if(data.YEAR=="")
-      {toast.warning("Enter Year")
-        return
-      }
-      return true;
-}
+  const validation = () => {
+    if (data.COURSECODE === "") {
+      toast.warning("Enter Course code");
+      return;
+    }
+
+    if (data.COURSE === "") {
+      toast.warning("Enter Course");
+      return;
+    }
+
+    if (data.DEGREE === "") {
+      toast.warning("Enter Degree");
+      return;
+    }
+
+    if (data.YEAR === "") {
+      toast.warning("Enter Year");
+      return;
+    }
+
+    return true;
+  };
+
+  const fetchProgrammeMaster = async () => {
+    try {
+      const resData = await axios.post(
+        `${API_BASE}ProgrammeMaster/GetProgrammeMaster`,
+        data,
+      );
+      setProgData(Array.isArray(resData.data) ? resData.data : []);
+      // Move to first page after fetching
+      setCurrentPage(1);
+    } catch (error) {
+      console.error("Programme Master Fetch Error:", error);
+      toast.error("Failed to fetch Programme Data");
+      setProgData([]);
+      setCurrentPage(1);
+    }
+  };
 
   const onHandleSave = async () => {
     try {
-     if(!validation()) return;      
-      const responce = await axios.post(`${API_BASE}ProgrammeMaster/SaveProgrammeMaster`, data)
-      console.log(data,"Save")
+      if (!validation()) return;
+      await axios.post(`${API_BASE}ProgrammeMaster/SaveProgrammeMaster`, data);
       if (payLoad.CID) {
         toast.success("Programme Data Updated Successfully");
       } else {
         toast.success("Programme Data Saved Successfully");
       }
       onCancel();
-       const resData = await axios.post(`${API_BASE}ProgrammeMaster/GetProgrammeMaster`, data)
-        console.log(resData,"resData");
-        setProgData(resData.data);
-      
-    }
-    catch (error) {
+
+      await fetchProgrammeMaster();
+    } catch (error) {
+      console.error("Save Programme Error:", error);
       toast.error("Failed to save Programme Data");
     }
-  }
+  };
 
   const onHandleEdit = (pro: Payload) => {
-  setPayLoad({
-    CID: pro.CID.toString(),
-    COURSECODE: pro.COURSECODE,
-    COURSE: pro.COURSE,
-    DEGREE: pro.DEGREE,
-    YEAR: pro.YEAR.toString(),
-    ACADEMICYEAR: pro.ACADEMICYEAR,
-    FINANCIALYEAR: pro.FINANCIALYEAR,
-  });
-};
+    setPayLoad({
+      CID: pro.CID.toString(),
+      COURSECODE: pro.COURSECODE,
+      COURSE: pro.COURSE,
+      DEGREE: pro.DEGREE,
+      YEAR: pro.YEAR.toString(),
+      ACADEMICYEAR: pro.ACADEMICYEAR,
+      FINANCIALYEAR: pro.FINANCIALYEAR,
+    });
+    setCurrentPage(1);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const resData = await axios.post(`${API_BASE}ProgrammeMaster/GetProgrammeMaster`, data)
-        console.log(resData,"resData");
-        setProgData(resData.data);
-      }
-      catch (error) {
-        toast.error("Failed to fetch Department Data");
-      }
-    }
-    fetchData();
-  },[]);
+    fetchProgrammeMaster();
+  }, []);
 
+  const totalRecords = progData.length;
+  const totalPages = Math.ceil(totalRecords / recordsPerPage);
+  const startIndex = (currentPage - 1) * recordsPerPage;
+  const endIndex = Math.min(startIndex + recordsPerPage, totalRecords);
+  const currentData = progData.slice(startIndex, endIndex);
+
+  const getPagination = () => {
+    const pages: (number | string)[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+
+      if (currentPage > 3) {
+        pages.push("...");
+      }
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      if (currentPage < totalPages - 2) {
+        pages.push("...");
+      }
+      pages.push(totalPages);
+    }
+    return pages;
+  };
 
   return (
     <div className="dbs-programme-container">
-
-       {/* Header */}
-      <div className="dbs-programme-form-header">
+      <div className="dbs-programme-header">
         <h2>Programme Master</h2>
+        <p>Manage and maintain programme master information.</p>
       </div>
 
-       {/* Form Card */}
-      <div className="dbs-form-card">
+      <div className="dbs-programme-form-card">
         <h3>Programme Information</h3>
-        <div className="dbs-form-grid-4">
-          <div className="dbs-input-box">
+        <div className="dbs-programme-form-grid">
+          <div className="dbs-programme-input-box">
             <label>Programme Code</label>
-            <input type="text" placeholder="Enter Programme Code" value={payLoad.COURSECODE} name="COURSECODE" onChange={handleChange}   />
+            <input
+              type="text"
+              placeholder="Enter Programme Code"
+              value={payLoad.COURSECODE}
+              name="COURSECODE"
+              onChange={handleChange}
+            />
           </div>
-          <div className="dbs-input-box">
+
+          <div className="dbs-programme-input-box">
             <label>Programme</label>
-            <input type="text" placeholder="Enter Programme Name"value={payLoad.COURSE} name="COURSE" onChange={handleChange}/>
+            <input
+              type="text"
+              placeholder="Enter Programme Name"
+              value={payLoad.COURSE}
+              name="COURSE"
+              onChange={handleChange}
+            />
           </div>
-          <div className="dbs-input-box">
+
+          <div className="dbs-programme-input-box">
             <label>Degree</label>
-            <input type="text" placeholder="Enter Degree" value={payLoad.DEGREE} name="DEGREE" onChange={handleChange}/>
+            <input
+              type="text"
+              placeholder="Enter Degree"
+              value={payLoad.DEGREE}
+              name="DEGREE"
+              onChange={handleChange}
+            />
           </div>
-          <div className="dbs-input-box">
+
+          <div className="dbs-programme-input-box">
             <label>Maximum Year(S)</label>
-            <input type="text" placeholder="Enter Maximum Year(S)" value={payLoad.YEAR} name="YEAR" onChange={handleChange}/>
+            <input
+              type="text"
+              placeholder="Enter Maximum Year(S)"
+              value={payLoad.YEAR}
+              name="YEAR"
+              onChange={handleChange}
+            />
           </div>
         </div>
 
-        {/* Form Buttons */}
-          <div className="dbs-form-actions-row">
-            <button type="button" className="dbs-form-cancel-btn" >
-              Cancel / Reset
-            </button>
-            <button type="submit" className="dbs-form-save-btn" onClick={onHandleSave}>
-              <Save size={16} />
-              Save Programme
-            </button>
-          </div>
+        <div className="dbs-programme-actions">
+          <button
+            type="button"
+            className="dbs-programme-reset-btn"
+            onClick={onCancel}
+          >
+            <X size={16} />
+            Cancel
+          </button>
 
+          <button
+            type="button"
+            className="dbs-programme-save-btn"
+            onClick={onHandleSave}
+          >
+            <Save size={16} />
+            {payLoad.CID ? "Update " : "Save "}
+          </button>
+        </div>
       </div>
 
+      <div className="dbs-programme-header">
+        <div>
+          <h3>Programme List</h3>
 
-        {/* Reactive Table Grid */}
-              <div className="dbs-table-container">
-                {progData.length === 0 ? (
-                  <div className="dbs-empty-state">
-                    <AlertCircle className="dbs-empty-state-icon" />
-                    <div className="dbs-empty-state-title">No records found</div>
-                  </div>
-                ) : (
-                  <table className="dbs-data-table">
-                    <thead>
-                      <tr>
-                        <th style={{ cursor: 'pointer' }}>SlNo.</th>
-                        <th  style={{ cursor: 'pointer' }}>Programme code</th>
-                        <th  style={{ cursor: 'pointer' }}>Programme</th>
-                        <th  style={{ cursor: 'pointer' }}>Degree</th>
-                        <th  style={{ cursor: 'pointer' }}>Maximum Year(S)</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
+          <p>Manage and maintain programme master records.</p>
+        </div>
+      </div>
+
+      <div className="dbs-programme-table-card">
+        {progData.length === 0 ? (
+          <div className="dbs-programme-empty">
+            <AlertCircle className="dbs-programme-empty-icon" />
+            <div className="dbs-programme-empty-title">No records found</div>
+            <div className="dbs-programme-empty-desc">
+              Add a new programme using the form above.
+            </div>
+          </div>
+        ) : (
+          <div className="dbs-programme-table-scroll">
+            <table className="dbs-programme-data-table">
+              <thead>
+                <tr>
+                  <th>SlNo.</th>
+                  <th>Programme Code</th>
+                  <th>Programme</th>
+                  <th>Degree</th>
+                  <th>Maximum Year(S)</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
               <tbody>
-                {progData.map((pro,index) => (
-                 
+                {currentData.map((pro, index) => (
                   <tr key={pro.CID}>
-                    <td>{index+1}</td>
+                    <td>{startIndex + index + 1}</td>
                     <td>{pro.COURSECODE}</td>
                     <td>{pro.COURSE}</td>
                     <td>{pro.DEGREE}</td>
                     <td>{pro.YEAR}</td>
                     <td>
                       <button
-                        className="dbs-btn-edit"
-                        onClick={()=>onHandleEdit(pro)}
+                        type="button"
+                        className="dbs-programme-edit-btn"
+                        onClick={() => onHandleEdit(pro)}
                       >
-                        <SquarePen size={16} />
+                        <Edit3 size={16} />
                       </button>
-                      {/* <button className="btn-delete">Delete</button> */}
                     </td>
                   </tr>
-                ))
-                      }
-                    </tbody>
-                  </table>
-                )}
-              </div>
-
-
-      
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
-  )
-}
+      {totalRecords > 0 && (
+        <Footer
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          recordsPerPage={recordsPerPage}
+          setRecordsPerPage={setRecordsPerPage}
+          totalRecords={totalRecords}
+          totalPages={totalPages}
+          startIndex={startIndex}
+          endIndex={endIndex}
+          getPagination={getPagination}
+        />
+      )}
+    </div>
+  );
+};
 
-export default ProgrammeMaster
+export default ProgrammeMaster;

@@ -1,281 +1,555 @@
+/* =====================================
+   CASTE MASTER STYLES
+===================================== */
+
+/* =====================================
+   CONTAINER
+===================================== */
+
 .dbs-caste-container {
   display: flex;
-
   flex-direction: column;
-
   gap: 24px;
+  width: 100%;
+  animation: dbsSlideUp 0.25s ease;
 }
 
-/* HEADER */
+/* =====================================
+   HEADER
+===================================== */
 
 .dbs-caste-header {
   border-bottom: 1px solid var(--dbs-border);
-
   padding-bottom: 16px;
 }
 
 .dbs-caste-header h2 {
   margin: 0;
-
-  font-size: 1.4rem;
-
+  font-size: 1.45rem;
   font-weight: 800;
-
   color: var(--dbs-text);
 }
 
-/* CARD */
+/* =====================================
+   CARDS
+===================================== */
 
 .dbs-caste-form-card,
 .dbs-caste-table-card {
   background: var(--dbs-surface);
-
   border: 1px solid var(--dbs-border);
-
   border-radius: var(--dbs-radius);
-
   box-shadow: var(--dbs-shadow);
-
   padding: 24px;
+  animation: dbsSlideUp 0.25s ease;
 }
+
+/* No card hover effect */
 
 .dbs-caste-form-card {
   display: flex;
-
   flex-direction: column;
-
   gap: 22px;
 }
 
 .dbs-caste-form-card h3 {
   margin: 0;
-
-  font-size: 1.1rem;
-
-  font-weight: 700;
-
-  color: var(--dbs-text);
-
-  border-bottom: 1px solid var(--dbs-border);
-
   padding-bottom: 12px;
+  border-bottom: 1px solid var(--dbs-border);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dbs-text);
 }
 
-/* FORM */
+/* =====================================
+   FORM GRID
+===================================== */
 
 .dbs-caste-form-grid {
   display: grid;
-
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  align-items: end;
 }
+
+/* =====================================
+   INPUT FIELDS
+===================================== */
 
 .dbs-caste-input-box {
   display: flex;
-
   flex-direction: column;
 }
 
 .dbs-caste-input-box label {
-  font-size: 13px;
-
-  font-weight: 700;
-
-  margin-bottom: 6px;
-
+  margin-bottom: 7px;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--dbs-text);
 }
 
 .dbs-caste-input-box input {
+  width: 100%;
   padding: 10px 12px;
-
-  border-radius: var(--dbs-radius-sm);
-
   border: 1px solid var(--dbs-border);
-
+  border-radius: var(--dbs-radius-sm);
   background: var(--dbs-surface);
-
   color: var(--dbs-text);
-
+  font-size: 0.9rem;
   outline: none;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
+
+/* INPUT HOVER */
+
+.dbs-caste-input-box input:hover {
+  border-color: var(--dbs-primary);
+}
+
+/* INPUT FOCUS */
 
 .dbs-caste-input-box input:focus {
   border-color: var(--dbs-primary);
-
   box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
-/* BUTTONS */
+/* =====================================
+   FORM ACTIONS
+===================================== */
 
 .dbs-caste-actions {
   display: flex;
-
   justify-content: flex-end;
-
+  align-items: center;
   gap: 14px;
-
-  border-top: 1px solid var(--dbs-border);
-
+  margin-top: 22px;
   padding-top: 18px;
+  border-top: 1px solid var(--dbs-border);
 }
+
+/* =====================================
+   FORM BUTTONS
+===================================== */
+
+.dbs-caste-save-btn,
+.dbs-caste-reset-btn {
+  height: 42px;
+  min-width: 120px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--dbs-radius-sm);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
+}
+
+/* =====================================
+   SAVE BUTTON
+===================================== */
 
 .dbs-caste-save-btn {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
   background: var(--dbs-primary);
-
-  color: white;
-
   border: none;
-
-  padding: 10px 20px;
-
-  border-radius: var(--dbs-radius-sm);
-
-  font-weight: 700;
-
-  cursor: pointer;
+  color: #fff;
+  box-shadow: var(--dbs-shadow);
 }
+
+.dbs-caste-save-btn:hover {
+  background: var(--dbs-primary-hover);
+  transform: translateY(-2px);
+  box-shadow:
+    var(--dbs-shadow),
+    0 5px 14px rgba(0, 0, 0, 0.08);
+}
+
+.dbs-caste-save-btn:active {
+  transform: scale(0.97);
+}
+
+/* =====================================
+   RESET BUTTON
+===================================== */
 
 .dbs-caste-reset-btn {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
   background: var(--dbs-surface);
-
-  color: var(--dbs-text);
-
   border: 1px solid var(--dbs-border);
-
-  padding: 10px 20px;
-
-  border-radius: var(--dbs-radius-sm);
-
-  font-weight: 700;
-
-  cursor: pointer;
+  color: var(--dbs-text);
 }
 
-/* TABLE HEADER */
+.dbs-caste-reset-btn:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
+}
+
+.dbs-caste-reset-btn:active {
+  transform: scale(0.97);
+}
+
+/* =====================================
+   TABLE HEADER
+===================================== */
 
 .dbs-caste-table-header {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
   margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--dbs-border);
 }
 
 .dbs-caste-table-header h3 {
   margin: 0;
-
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--dbs-text);
 }
 
 .dbs-caste-table-header span {
   background: var(--dbs-primary-light);
-
   color: var(--dbs-primary);
-
   padding: 6px 12px;
-
   border-radius: 20px;
-
   font-size: 12px;
-
   font-weight: 700;
 }
 
-/* TABLE */
+/* =====================================
+   TABLE SCROLL
+===================================== */
 
 .dbs-caste-table-scroll {
-  overflow: auto;
-
-  max-height: 420px;
+  max-height: 430px;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
 }
+
+.dbs-caste-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dbs-caste-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dbs-caste-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 20px;
+}
+
+/* SCROLLBAR HOVER */
+
+.dbs-caste-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+
+/* =====================================
+   TABLE
+===================================== */
 
 .dbs-caste-data-table {
   width: 100%;
-
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.9rem;
 }
 
-.dbs-caste-data-table th {
+/* =====================================
+   TABLE HEADER
+===================================== */
+
+.dbs-caste-data-table thead th {
   position: sticky;
-
   top: 0;
-
+  z-index: 5;
+  height: 44px;
+  padding: 0 18px;
   background: var(--dbs-primary);
-
-  color: white;
-
-  padding: 13px;
-
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   text-align: left;
 }
 
-.dbs-caste-data-table td {
-  padding: 13px;
+/* Header rounded corners */
 
-  border-bottom: 1px solid var(--dbs-border);
-
-  color: var(--dbs-text);
+.dbs-caste-data-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
 }
 
-.dbs-caste-data-table tr:hover td {
+.dbs-caste-data-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
+}
+
+/* =====================================
+   TABLE BODY
+===================================== */
+
+.dbs-caste-data-table tbody tr {
+  transition: var(--dbs-transition);
+}
+
+.dbs-caste-data-table tbody td {
+  height: 54px;
+  padding: 0 18px;
+  color: var(--dbs-text);
+  border-bottom: 1px solid var(--dbs-border);
+  background: var(--dbs-surface);
+}
+
+/* TABLE ROW HOVER */
+
+.dbs-caste-data-table tbody tr:hover td {
   background: var(--dbs-primary-light);
 }
 
-/* EDIT */
+.dbs-caste-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =====================================
+   EDIT ACTION BUTTON
+===================================== */
 
 .dbs-caste-edit-btn {
   width: 34px;
-
   height: 34px;
-
-  display: flex;
-
+  display: inline-flex;
   align-items: center;
-
   justify-content: center;
-
-  background: var(--dbs-primary-light);
-
-  color: var(--dbs-primary);
-
-  border: 1px solid var(--dbs-primary);
-
+  padding: 0;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius-sm);
-
+  color: var(--dbs-primary);
   cursor: pointer;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
 }
 
-.dbs-caste-edit-btn:hover {
-  background: var(--dbs-primary);
+/* =====================================
+   EDIT ICON
+===================================== */
 
-  color: white;
+.dbs-caste-edit-btn svg {
+  width: 16px;
+  height: 16px;
+  color: inherit;
+}
+
+/* =====================================
+   EDIT HOVER
+===================================== */
+
+.dbs-caste-edit-btn:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* =====================================
+   EDIT ACTIVE
+===================================== */
+
+.dbs-caste-edit-btn:active {
+  transform: scale(0.95);
+}
+
+/* =====================================
+   EDIT FOCUS
+===================================== */
+
+.dbs-caste-edit-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+/* =====================================
+   EMPTY STATE
+===================================== */
+
+.dbs-caste-empty {
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.dbs-caste-empty-icon {
+  width: 45px;
+  height: 45px;
+  color: var(--dbs-primary);
+}
+
+.dbs-caste-empty-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dbs-text);
+}
+
+.dbs-caste-empty-desc {
+  font-size: 14px;
+  color: var(--dbs-text-muted);
+  max-width: 350px;
+}
+
+/* =====================================
+   GLOBAL BOX SIZING
+===================================== */
+
+.dbs-caste-container *,
+.dbs-caste-container *::before,
+.dbs-caste-container *::after {
+  box-sizing: border-box;
+}
+
+/* =====================================
+   ANIMATIONS
+===================================== */
+
+@keyframes dbsFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dbsSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================
+   BUTTON FOCUS
+===================================== */
+
+.dbs-caste-save-btn:focus-visible,
+.dbs-caste-reset-btn:focus-visible,
+.dbs-caste-edit-btn:focus-visible {
+  outline: none;
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* =====================================
+   REDUCED MOTION
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .dbs-caste-container,
+  .dbs-caste-header,
+  .dbs-caste-form-card,
+  .dbs-caste-table-card {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+
+  .dbs-caste-data-table tbody tr,
+  .dbs-caste-edit-btn,
+  .dbs-caste-save-btn,
+  .dbs-caste-reset-btn {
+    transition: none !important;
+  }
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 1024px) {
+  .dbs-caste-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
+  .dbs-caste-container {
+    gap: 18px;
+  }
+
+  .dbs-caste-form-card,
+  .dbs-caste-table-card {
+    padding: 16px;
+  }
+
+  .dbs-caste-form-grid {
+    grid-template-columns: 1fr;
+  }
+
   .dbs-caste-actions {
     flex-direction: column;
+    align-items: stretch;
   }
 
   .dbs-caste-save-btn,
   .dbs-caste-reset-btn {
     width: 100%;
+  }
 
-    justify-content: center;
+  .dbs-caste-table-header {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 12px;
+  }
+
+  .dbs-caste-data-table {
+    min-width: 700px;
+  }
+}
+
+/* =====================================
+   SMALL MOBILE
+===================================== */
+
+@media (max-width: 480px) {
+  .dbs-caste-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .dbs-caste-form-card,
+  .dbs-caste-table-card {
+    padding: 14px;
+  }
+
+  .dbs-caste-data-table {
+    min-width: 600px;
   }
 }

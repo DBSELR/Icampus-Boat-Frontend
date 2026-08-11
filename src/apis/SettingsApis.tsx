@@ -33,8 +33,6 @@ export const loadAcademicYearsApi =
         `${API_BASE}FinancialAcadamicYear/LoadData`,
       );
 
-      console.log("Load Academic Year Response:", response.data);
-
       return {
         success: true,
         data: response.data,
@@ -188,8 +186,6 @@ export const getSubjectList = async (payload: any) => {
 };
 
 export const deleteSubjectMaster = async (id: string) => {
-  console.log(id, "id????????");
-
   try {
     const response = await axios.post(
       `${API_BASE}SubjectsMaster/DeleteSubjectMaster`,
@@ -484,7 +480,6 @@ export const loadAttendanceMaxDates = async (payload: {
 };
 
 // ===================== Internal Marks Allowed Date =====================
-
 export const bindRegulation = async () => {
   try {
     const response = await axios.get(
@@ -537,7 +532,6 @@ export const insertStudentData = async (file: File) => {
 
   formData.append("file", file);
 
-  console.log("FormData before sending:", formData);
   const response = await axios.post(
     `${API_BASE}StudentDataUpload/InsertStudentData`,
     formData,
@@ -566,7 +560,6 @@ export const finalUpdateStudentData = async () => {
 };
 
 // ===================Leave Type============
-
 export const getLeaveTypeList = async () => {
   try {
     const response = await axios.get(`${API_BASE}LeaveType/GetLtypeList`);
@@ -610,7 +603,6 @@ export const saveLeaveStructure = async (data: any) => {
 };
 
 // =====================Caste Master============================
-
 export const getCasteMaster = async () => {
   try {
     const response = await axios.get(`${API_BASE}CasteMaster/GetCasteMaster`);
@@ -637,14 +629,13 @@ export const saveCaste = async (payload: any) => {
 };
 
 // ======================Sub caste Master======================
-
 export const getLoadCaste = async () => {
   try {
     const response = await axios.get(`${API_BASE}CasteMaster/GetLoadCaste`);
 
     return response.data;
   } catch (error) {
-    console.log("Get Load Caste Error:", error);
+    console.error("Get Load Caste Error:", error);
     throw error;
   }
 };
@@ -657,7 +648,7 @@ export const getSubCasteMaster = async () => {
 
     return response.data;
   } catch (error) {
-    console.log("Get Sub Caste Master Error:", error);
+    console.error("Get Sub Caste Master Error:", error);
     throw error;
   }
 };
@@ -672,7 +663,6 @@ export const saveSubCaste = async (payload: any) => {
 };
 
 // ==================Login status===================
-
 export const getLoadEmpDept = async () => {
   const response = await axios.get(`${API_BASE}EMPDEPWISE/LoadEmpDept`);
 
@@ -729,7 +719,7 @@ export const saveFormReg = async (payload: any) => {
 
     return response.data;
   } catch (error) {
-    console.log("Save Form Registration API Error:", error);
+    console.error("Save Form Registration API Error:", error);
     throw error;
   }
 };
@@ -772,7 +762,6 @@ export const deleteHoliday = async (id: string | number) => {
 };
 
 // ================SMS Settings===================
-
 export const getSMSSettingsList = async () => {
   const response = await axios.get(`${API_BASE}SMSSettings/GetSMSSettingsList`);
 
@@ -789,7 +778,6 @@ export const saveSMSSettings = async (payload: any) => {
 };
 
 // ==============Feedback================
-
 export const getEmployeeDetails = async (empId: string) => {
   const response = await axios.post(
     `${API_BASE}FeedBackEmployee/GetEmployeeDetails`,
@@ -877,16 +865,14 @@ export const deleteCategory = async (id: string) => {
   return response.data;
 };
 
-
-
 // ===================== User Group =====================
-
 export const fetchDept = async () => {
   try {
-    const response = await axios.get(`${API_BASE}UserGroup/GetERPDepartmentsList`);
+    const response = await axios.get(
+      `${API_BASE}UserGroup/GetERPDepartmentsList`,
+    );
     return response.data;
-  }
-  catch (error) {
+  } catch (error) {
     console.error("Error fetching departments:", error);
     throw error;
   }
@@ -896,63 +882,115 @@ export const fetchUsergroup = async () => {
   try {
     const response = await axios.get(`${API_BASE}UserGroup/GetUserGroups`);
     return response.data;
-  }
-  catch (error) {
+  } catch (error) {
     console.error("Error fetching user groups:", error);
     throw error;
   }
 };
 
-export const fetchUserGroupEmpList = async (Dept: string)=>{
-  try{
-    console.log(Dept)
-    const response = await axios.post(`${API_BASE}UserGroup/GetEmployeesList`,{Dept:Dept});
-    return response.data
-  }
-  catch(error){
+export const fetchUserGroupEmpList = async (Dept: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}UserGroup/GetEmployeesList`, {
+      Dept: Dept,
+    });
+    return response.data;
+  } catch (error) {
     console.error("Error fetching Emp List", error);
     throw error;
   }
+};
 
-}
-
-export const updateUserGroups= async (UserGroup: string, EmpID: string)=>{
-  try{
-    const response = await axios.post(`${API_BASE}UserGroup/UpdateUGDataEmp`,
-      {UserGroupVal:UserGroup,EmpID:EmpID}
-    );
-    return response.data
-  }
-  catch(error){
+export const updateUserGroups = async (UserGroup: string, EmpID: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}UserGroup/UpdateUGDataEmp`, {
+      UserGroupVal: UserGroup,
+      EmpID: EmpID,
+    });
+    return response.data;
+  } catch (error) {
     console.error("Error Saving  UserGroups", error);
     throw error;
   }
-}
-
-
+};
 
 // ===================== Regu Master =====================
-
-export const fetchRegulation = async ()=>{
+export const fetchRegulation = async () => {
   try {
-    const response = await axios.get(`${API_BASE}ReguMaster/GetRegulationMaster`);
+    const response = await axios.get(
+      `${API_BASE}ReguMaster/GetRegulationMaster`,
+    );
     return response.data;
-  }
-  catch (error) {
+  } catch (error) {
     console.error("Error fetching Regulations:", error);
     throw error;
   }
-}
+};
 
-export const saveRegu = async (payload: any)=>{
-  try{
-    const response = await axios.post(`${API_BASE}ReguMaster/SaveRegulationMaster`,
-      payload
+export const saveRegu = async (payload: any) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE}ReguMaster/SaveRegulationMaster`,
+      payload,
     );
-    return response.data
-  }
-  catch(error){
+    return response.data;
+  } catch (error) {
     console.error("Error Saving  Regulations", error);
     throw error;
   }
-}
+};
+
+// ============Category master==============
+export const loadCategoryMaster = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}CategoryMaster/LoadCategory`);
+
+    return response.data;
+  } catch (error) {
+    console.error("Load Category Master Error:", error);
+    throw error;
+  }
+};
+
+export const saveCategoryMaster = async (payload: any) => {
+  const response = await axios.post(
+    `${API_BASE}CategoryMaster/SaveCategory`,
+    payload,
+  );
+
+  return response.data;
+};
+
+// ===========Teaching Learning Methods=================
+export const getTeachingLearningMenthods = async () => {
+  const response = await axios.get(
+    `${API_BASE}TeachingLearningMethods/LoadGridData`,
+  );
+  return response.data;
+};
+
+export const checkTLMExisted = async (data: any) => {
+  const response = await axios.post(
+    `${API_BASE}TeachingLearningMethods/CheckTLMExisted`,
+    data,
+  );
+  return response.data;
+};
+
+export const saveTLM = async (data: any) => {
+  const response = await axios.post(
+    `${API_BASE}TeachingLearningMethods/SaveTLM`,
+    data,
+  );
+  return response.data;
+};
+
+export const deleteTLM = async (id: string) => {
+  const response = await axios.post(
+    `${API_BASE}TeachingLearningMethods/DeleteTLM`,
+    {
+      id: String(id),
+    },
+  );
+
+  return response.data;
+};

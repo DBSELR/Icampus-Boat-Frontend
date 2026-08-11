@@ -1,81 +1,139 @@
-/* ===========================
-   CONTAINER
-=========================== */
+/* ==========================================================
+HOLIDAYS - DBS THEME
+========================================================== */
+
+/* ==========================================================
+CONTAINER
+========================================================== */
 
 .dbs-holidays-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
+  animation: dbsHolidaysSlideUp 0.25s ease;
 }
 
-/* ===========================
-   HEADER
-=========================== */
+.dbs-holidays-container *,
+.dbs-holidays-container *::before,
+.dbs-holidays-container *::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================================
+PAGE HEADER
+========================================================== */
 
 .dbs-holidays-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--dbs-border);
-  padding-bottom: 14px;
 }
 
 .dbs-holidays-header h2 {
   margin: 0;
-  color: var(--dbs-text);
   font-size: 1.45rem;
   font-weight: 800;
+  color: var(--dbs-text);
 }
 
-/* ===========================
-   CARD
-=========================== */
+.dbs-holidays-subtitle {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
+}
 
-.dbs-holidays-form-card,
-.dbs-holidays-table-card {
+/* ==========================================================
+FORM CARD
+========================================================== */
+
+.dbs-holidays-form-card {
+  width: 100%;
   background: var(--dbs-surface);
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius);
   box-shadow: var(--dbs-shadow);
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  animation: dbsHolidaysSlideUp 0.25s ease;
 }
 
-.dbs-holidays-form-card h3,
-.dbs-holidays-table-header h3 {
+.dbs-holidays-form-card h3 {
   margin: 0;
-  color: var(--dbs-text);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--dbs-border);
+  font-size: 1.05rem;
   font-weight: 700;
+  color: var(--dbs-text);
 }
 
-/* ===========================
-   FORM
-=========================== */
+/* ==========================================================
+FORM GRID
+========================================================== */
 
 .dbs-holidays-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
   gap: 20px;
-  margin-top: 22px;
+  width: 100%;
 }
+
+.dbs-holidays-full {
+  grid-column: 1 / -1;
+}
+
+/* ==========================================================
+FORM INPUT
+========================================================== */
 
 .dbs-holidays-input {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .dbs-holidays-input label {
-  margin-bottom: 8px;
-  font-size: 13px;
-  font-weight: 700;
+  margin-bottom: 7px;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--dbs-text);
 }
 
 .dbs-holidays-input input,
 .dbs-holidays-input textarea {
-  padding: 11px 14px;
+  width: 100%;
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius-sm);
   background: var(--dbs-surface);
   color: var(--dbs-text);
+  font-family: inherit;
+  font-size: 0.9rem;
   outline: none;
-  transition: 0.2s;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.dbs-holidays-input input {
+  height: 44px;
+  padding: 0 14px;
+}
+
+.dbs-holidays-input textarea {
+  min-height: 100px;
+  padding: 12px 14px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.dbs-holidays-input input:hover,
+.dbs-holidays-input textarea:hover {
+  border-color: var(--dbs-primary);
 }
 
 .dbs-holidays-input input:focus,
@@ -84,154 +142,536 @@
   box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
-.dbs-holidays-input textarea {
-  min-height: 90px;
-  resize: vertical;
+.dbs-holidays-input input::placeholder,
+.dbs-holidays-input textarea::placeholder {
+  color: var(--dbs-text-muted);
 }
 
-.dbs-holidays-full {
-  grid-column: 1/-1;
-}
-
-/* ===========================
-   BUTTONS
-=========================== */
+/* ==========================================================
+FORM ACTIONS
+========================================================== */
 
 .dbs-holidays-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 14px;
-  margin-top: 24px;
+  align-items: center;
+  gap: 12px;
+  padding-top: 18px;
   border-top: 1px solid var(--dbs-border);
-  padding-top: 20px;
 }
 
-.dbs-holiday-save,
-.dbs-holiday-cancel,
-.dbs-holiday-secondary {
-  border: none;
+.dbs-holidays-actions button {
+  height: 44px;
+  min-width: 120px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   border-radius: var(--dbs-radius-sm);
-  padding: 10px 22px;
-  font-weight: 600;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: 0.2s;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
 }
 
-.dbs-holiday-save {
-  background: var(--dbs-primary);
-  color: white;
-}
-
-.dbs-holiday-save:hover {
-  opacity: 0.9;
-}
+/* ==========================================================
+CANCEL BUTTON
+========================================================== */
 
 .dbs-holiday-cancel {
   background: var(--dbs-surface);
-  color: var(--dbs-text);
   border: 1px solid var(--dbs-border);
+  color: var(--dbs-text);
 }
 
 .dbs-holiday-cancel:hover {
   background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
 }
 
+/* ==========================================================
+SAVE BUTTON
+========================================================== */
+
+.dbs-holiday-save {
+  background: var(--dbs-primary);
+  border: 1px solid var(--dbs-primary);
+  color: #ffffff;
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-holiday-save:hover {
+  filter: brightness(1.07);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================
+SAVE SUNDAYS BUTTON
+========================================================== */
+
 .dbs-holiday-secondary {
-  background: #2f80ed;
-  color: white;
+  background: #2563eb;
+  border: 1px solid #2563eb;
+  color: #ffffff;
+  box-shadow: var(--dbs-shadow);
 }
 
 .dbs-holiday-secondary:hover {
-  opacity: 0.9;
+  filter: brightness(1.07);
+  transform: translateY(-2px);
 }
 
-/* ===========================
-   TABLE
-=========================== */
+/* ==========================================================
+BUTTON ACTIVE
+========================================================== */
 
-.dbs-holidays-table-header {
+.dbs-holiday-cancel:active,
+.dbs-holiday-save:active,
+.dbs-holiday-secondary:active {
+  transform: scale(0.97);
+}
+
+/* ==========================================================
+BUTTON FOCUS
+========================================================== */
+
+.dbs-holiday-cancel:focus-visible,
+.dbs-holiday-save:focus-visible,
+.dbs-holiday-secondary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* ==========================================================
+TABLE HEADER SECTION
+========================================================== */
+
+.dbs-table-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 18px;
-}
-
-.dbs-holidays-table-header span {
-  background: var(--dbs-primary-light);
-  color: var(--dbs-primary);
-  padding: 6px 12px;
-  border-radius: 30px;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.dbs-holidays-table-scroll {
-  overflow: auto;
-  max-height: 420px;
-}
-
-.dbs-holidays-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.dbs-holidays-table th {
-  position: sticky;
-  top: 0;
-  background: var(--dbs-primary);
-  color: white;
-  padding: 13px;
-  text-align: left;
-}
-
-.dbs-holidays-table td {
-  padding: 13px;
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-table-head h2 {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 800;
   color: var(--dbs-text);
 }
 
-.dbs-holidays-table tbody tr:hover td {
+.dbs-table-head p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================================
+OPTIONAL TOTAL BADGE
+========================================================== */
+
+.dbs-total-badge {
+  min-width: 90px;
+  height: 36px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--dbs-primary-light);
+  color: var(--dbs-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* ==========================================================
+TABLE CONTAINER
+========================================================== */
+
+.dbs-table-container {
+  width: 100%;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  overflow: hidden;
+  box-shadow: var(--dbs-shadow);
+  padding: 18px;
+  animation: dbsHolidaysSlideUp 0.25s ease;
+}
+
+/* ==========================================================
+TABLE CARD
+========================================================== */
+
+.dbs-table-card {
+  width: 100%;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  overflow: hidden;
+}
+
+/* ==========================================================
+TABLE SCROLL
+========================================================== */
+
+.dbs-table-scroll {
+  width: 100%;
+  max-height: 430px;
+  overflow-y: auto;
+  overflow-x: auto;
+  position: relative;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
+}
+
+.dbs-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dbs-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dbs-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 20px;
+}
+
+.dbs-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+
+/* ==========================================================
+HOLIDAY DATA TABLE
+IMPORTANT:
+JSX uses .dbs-data-table
+========================================================== */
+
+.dbs-data-table {
+  width: 100%;
+  min-width: 700px;
+
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  table-layout: fixed;
+
+  background: var(--dbs-surface);
+
+  font-size: 0.9rem;
+}
+
+/* ==========================================================
+TABLE HEADER
+========================================================== */
+
+.dbs-data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 44px;
+  padding: 0 18px;
+  background: var(--dbs-primary);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+  white-space: nowrap;
+  box-sizing: border-box;
+
+  /*
+IMPORTANT:
+No vertical borders here.
+This removes lines between SL.NO,
+HOLIDAY DATE, REMARKS and ACTIONS.
+*/
+
+  border: none;
+  border-bottom: 1px solid var(--dbs-primary);
+}
+
+/* ==========================================================
+HEADER CORNERS
+========================================================== */
+
+.dbs-data-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
+}
+
+.dbs-data-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
+}
+
+/* ==========================================================
+TABLE BODY
+========================================================== */
+
+.dbs-data-table tbody td {
+  height: 54px;
+  padding: 0 18px;
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  font-size: 0.88rem;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  /*
+Only horizontal lines.
+NO border-right.
+*/
+  border: none;
+  border-bottom: 1px solid var(--dbs-border);
+  box-sizing: border-box;
+}
+
+/* ==========================================================
+REMOVE LAST ROW LINE
+========================================================== */
+
+.dbs-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ==========================================================
+ROW HOVER
+========================================================== */
+
+.dbs-data-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.dbs-data-table tbody tr:hover td {
   background: var(--dbs-primary-light);
 }
 
-/* ===========================
-   ACTION BUTTONS
-=========================== */
+/* ==========================================================
+HOLIDAY TABLE COLUMN WIDTHS
+========================================================== */
+
+/* SL.NO */
+
+.dbs-data-table th:nth-child(1),
+.dbs-data-table td:nth-child(1) {
+  width: 100px;
+  text-align: center;
+}
+
+/* Holiday Date */
+
+.dbs-data-table th:nth-child(2),
+.dbs-data-table td:nth-child(2) {
+  width: 220px;
+}
+
+/* Remarks */
+
+.dbs-data-table th:nth-child(3),
+.dbs-data-table td:nth-child(3) {
+  width: auto;
+}
+
+/* Actions */
+
+.dbs-data-table th:nth-child(4),
+.dbs-data-table td:nth-child(4) {
+  width: 150px;
+  text-align: center;
+}
+
+/* ==========================================================
+ACTION BUTTON CONTAINER
+========================================================== */
+
+.dbs-holidays-actions-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+/* ==========================================================
+EDIT / DELETE BUTTON
+========================================================== */
 
 .dbs-holidays-edit,
 .dbs-holidays-delete {
   width: 34px;
   height: 34px;
-  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
   border-radius: var(--dbs-radius-sm);
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.dbs-holidays-edit svg,
+.dbs-holidays-delete svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ==========================================================
+EDIT
+========================================================== */
+
+.dbs-holidays-edit {
+  color: var(--dbs-primary);
+}
+
+.dbs-holidays-edit:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================
+DELETE
+========================================================== */
+
+.dbs-holidays-delete {
+  color: var(--dbs-danger);
+}
+
+.dbs-holidays-delete:hover {
+  background: var(--dbs-danger-light);
+  border-color: var(--dbs-danger);
+  color: var(--dbs-danger);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================
+ACTION ACTIVE
+========================================================== */
+
+.dbs-holidays-edit:active,
+.dbs-holidays-delete:active {
+  transform: scale(0.95);
+}
+
+/* ==========================================================
+ACTION FOCUS
+========================================================== */
+
+.dbs-holidays-edit:focus-visible,
+.dbs-holidays-delete:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* ==========================================================
+EMPTY STATE
+========================================================== */
+
+.dbs-empty-state {
+  min-height: 260px;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+  background: var(--dbs-surface);
+}
+
+.dbs-empty-state-icon {
+  width: 62px;
+  height: 62px;
+  color: var(--dbs-text-muted);
+  opacity: 0.7;
+}
+
+.dbs-empty-state-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dbs-text);
+}
+
+.dbs-empty-state-desc {
+  max-width: 420px;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================================
+LOADING STATE
+========================================================== */
+
+.dbs-loading-state {
+  min-height: 240px;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: 0.2s;
+  color: var(--dbs-text-muted);
+  font-size: 0.92rem;
+  font-weight: 600;
 }
 
-.dbs-holidays-edit {
-  background: var(--dbs-primary);
-  color: white;
+/* ==========================================================
+ANIMATION
+========================================================== */
+
+@keyframes dbsHolidaysSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.dbs-holidays-delete {
-  background: #ef4444;
-  color: white;
+/* ==========================================================
+LARGE TABLET
+========================================================== */
+
+@media (max-width: 1200px) {
+  .dbs-holidays-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
 }
 
-.dbs-holidays-edit:hover,
-.dbs-holidays-delete:hover {
-  transform: translateY(-2px);
-  opacity: 0.9;
-}
+/* ==========================================================
+TABLET
+========================================================== */
 
-/* ===========================
-   RESPONSIVE
-=========================== */
+@media (max-width: 1024px) {
+  .dbs-holidays-form-card {
+    padding: 20px;
+  }
 
-@media (max-width: 768px) {
   .dbs-holidays-grid {
     grid-template-columns: 1fr;
   }
@@ -240,13 +680,144 @@
     grid-column: auto;
   }
 
-  .dbs-holidays-actions {
-    flex-direction: column;
+  .dbs-data-table {
+    min-width: 700px;
+  }
+}
+
+/* ==========================================================
+MOBILE
+========================================================== */
+
+@media (max-width: 768px) {
+  .dbs-holidays-container {
+    gap: 18px;
   }
 
-  .dbs-holiday-save,
-  .dbs-holiday-cancel,
-  .dbs-holiday-secondary {
+  .dbs-holidays-header,
+  .dbs-table-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .dbs-holidays-header h2,
+  .dbs-table-head h2 {
+    font-size: 1.25rem;
+  }
+
+  .dbs-holidays-form-card,
+  .dbs-table-container {
+    padding: 16px;
+    border-radius: var(--dbs-radius-sm);
+  }
+
+  .dbs-holidays-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dbs-holidays-input input,
+  .dbs-holidays-input textarea {
+    font-size: 0.85rem;
+  }
+
+  .dbs-holidays-actions {
+    flex-direction: column;
+    align-items: stretch;
     width: 100%;
+  }
+
+  .dbs-holidays-actions button {
+    width: 100%;
+  }
+
+  .dbs-data-table {
+    min-width: 700px;
+  }
+
+  .dbs-data-table thead th {
+    height: 44px;
+    padding: 0 12px;
+    font-size: 0.72rem;
+  }
+
+  .dbs-data-table tbody td {
+    height: 52px;
+    padding: 0 12px;
+    font-size: 0.82rem;
+  }
+}
+
+/* ==========================================================
+SMALL MOBILE
+========================================================== */
+
+@media (max-width: 480px) {
+  .dbs-holidays-form-card,
+  .dbs-table-container {
+    padding: 12px;
+  }
+
+  .dbs-holidays-form-card h3 {
+    font-size: 1rem;
+  }
+
+  .dbs-holidays-header h2,
+  .dbs-table-head h2 {
+    font-size: 1.15rem;
+  }
+
+  .dbs-holidays-subtitle,
+  .dbs-table-head p {
+    font-size: 0.8rem;
+  }
+
+  .dbs-holidays-input label {
+    font-size: 0.8rem;
+  }
+
+  .dbs-holidays-input input {
+    height: 42px;
+  }
+
+  .dbs-holidays-input textarea {
+    min-height: 90px;
+  }
+
+  .dbs-holidays-actions button {
+    min-width: 100%;
+    height: 42px;
+    font-size: 0.85rem;
+  }
+
+  .dbs-holidays-actions-buttons {
+    gap: 6px;
+  }
+
+  .dbs-holidays-edit,
+  .dbs-holidays-delete {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* ==========================================================
+EXTRA SMALL DEVICES
+========================================================== */
+
+@media (max-width: 360px) {
+  .dbs-holidays-form-card,
+  .dbs-table-container {
+    padding: 10px;
+  }
+
+  .dbs-data-table {
+    min-width: 650px;
+  }
+
+  .dbs-holidays-actions button {
+    width: 100%;
+    min-width: 100%;
   }
 }

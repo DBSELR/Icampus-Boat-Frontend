@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Save, RotateCcw, Edit2, Trash2, AlertCircle } from "lucide-react";
+import { Save, RotateCcw, Edit2, Trash2, AlertCircle, X } from "lucide-react";
 import "./CategoryofAdmission.css";
 import {
   CategoryItem,
@@ -10,19 +10,23 @@ import {
 } from "../../../apis/SettingsApis";
 import { toast } from "sonner";
 import DeleteModal from "../../../common/DeleteModal";
+import Footer from "../../../common/Footer";
 
 const CategoryofAdmission = () => {
+  const [formData, setFormData] = useState({
+    caste: "",
+    categoryCode: "",
+    category: "",
+    id: "",
+  });
+
   const [casteList, setCasteList] = useState<any[]>([]);
   const [tableData, setTableData] = useState<CategoryItem[]>([]);
-  const [selectedCaste, setSelectedCaste] = useState("");
-  const [categoryCode, setCategoryCode] = useState("");
-  const [category, setCategory] = useState("");
-  const [editId, setEditId] = useState<string | number>("");
-  const [isEditMode, setIsEditMode] = useState(false);
-
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteItem, setDeleteItem] = useState<any>(null);
   const [deleting, setDeleting] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(5);
 
   useEffect(() => {
     loadCastes();
@@ -33,6 +37,7 @@ const CategoryofAdmission = () => {
     try {
       const response = await loadCategory();
       setTableData(response);
+      setCurrentPage(1);
     } catch (error) {
       console.error("Error loading categories:", error);
       setTableData([]);
@@ -48,8 +53,38 @@ const CategoryofAdmission = () => {
     }
   };
 
+  const totalRecords = tableData.length;
+  const totalPages = Math.ceil(totalRecords / recordsPerPage);
+  const startIndex = (currentPage - 1) * recordsPerPage;
+  const endIndex = startIndex + recordsPerPage;
+  const currentData = tableData.slice(startIndex, endIndex);
+
+  const getPagination = () => {
+    const pages: (number | string)[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+      if (currentPage > 3) {
+        pages.push("...");
+      }
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      if (currentPage < totalPages - 2) {
+        pages.push("...");
+      }
+      pages.push(totalPages);
+    }
+    return pages;
+  };
+
   const handleSave = async () => {
-    if (!selectedCaste || !categoryCode || !category) {
+    if (!formData.caste || !formData.categoryCode || !formData.category) {
       toast.error("Please fill all required fields");
       return;
     }
@@ -57,24 +92,22 @@ const CategoryofAdmission = () => {
     const academicYear = localStorage.getItem("academicYear");
 
     const payload = {
-      id: isEditMode ? String(editId) : "",
-      caste: selectedCaste,
-      categorycode: categoryCode,
-      category: category,
+      id: String(formData.id || ""),
+      caste: formData.caste,
+      categorycode: formData.categoryCode,
+      category: formData.category,
       academicyear: academicYear,
     };
 
     try {
       const response = await saveCategory(payload);
-      console.log("Save Response:", response);
 
       if (response?.message === "Success" && response?.rowsAffected > 0) {
         toast.success(
-          isEditMode
+          formData.id
             ? "Category updated successfully"
             : "Category saved successfully",
         );
-
         loadCategoryData();
         handleReset();
       } else {
@@ -87,21 +120,21 @@ const CategoryofAdmission = () => {
   };
 
   const handleEdit = (item: CategoryItem) => {
-    console.log("Edit row:", item);
-
-    setEditId(String(item.id)); // convert number to string
-    setSelectedCaste(item.caste);
-    setCategoryCode(item.categoryCode);
-    setCategory(item.category);
-    setIsEditMode(true);
+    setFormData({
+      caste: item.caste || "",
+      categoryCode: item.categoryCode || "",
+      category: item.category || "",
+      id: String(item.id || ""),
+    });
   };
 
   const handleReset = () => {
-    setSelectedCaste("");
-    setCategoryCode("");
-    setCategory("");
-    setEditId("");
-    setIsEditMode(false);
+    setFormData({
+      caste: "",
+      categoryCode: "",
+      category: "",
+      id: "",
+    });
   };
 
   const handleDelete = async () => {
@@ -109,7 +142,6 @@ const CategoryofAdmission = () => {
       if (!deleteItem?.id) return;
       setDeleting(true);
       const response = await deleteCategory(String(deleteItem.id));
-      console.log("Delete Response:", response);
 
       if (response?.message === "Success") {
         toast.success("Category deleted successfully");
@@ -130,9 +162,12 @@ const CategoryofAdmission = () => {
   return (
     <div className="dbs-category-container">
       {/* Header */}
+      {/* Header */}
       <div className="dbs-category-header">
-        <h2>Category of Admission</h2>
-        <p>Manage admission categories and caste mappings</p>
+        <div>
+          <h2>Category of Admission</h2>
+          <p>Manage admission categories and caste mappings</p>
+        </div>
       </div>
 
       {/* Form Card */}
@@ -146,9 +181,14 @@ const CategoryofAdmission = () => {
             <label>Caste</label>
 
             <select
-              value={selectedCaste}
-              disabled={isEditMode}
-              onChange={(e) => setSelectedCaste(e.target.value)}
+              value={formData.caste}
+              disabled={!!formData.id}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  caste: e.target.value,
+                }))
+              }
             >
               <option value="">Select Caste</option>
 
@@ -163,44 +203,53 @@ const CategoryofAdmission = () => {
           <div className="dbs-category-input">
             <label>Category Code</label>
             <input
-              type="text"
-              placeholder="Enter Category Code"
-              value={categoryCode}
-              disabled={isEditMode}
-              onChange={(e) => setCategoryCode(e.target.value)}
+              value={formData.categoryCode}
+              disabled={!!formData.id}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  categoryCode: e.target.value,
+                }))
+              }
             />
           </div>
 
           <div className="dbs-category-input dbs-category-full">
             <label>Category</label>
             <input
-              type="text"
-              placeholder="Enter Category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              value={formData.category}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  category: e.target.value,
+                }))
+              }
             />
           </div>
         </div>
 
         <div className="dbs-category-actions">
           <button className="dbs-category-cancel" onClick={handleReset}>
-            <RotateCcw size={16} />
+            <X size={16} />
             Cancel
           </button>
 
           <button className="dbs-category-save" onClick={handleSave}>
             <Save size={16} />
-            {isEditMode ? "Update" : "Save"}
+            {formData.id ? "Update" : "Save"}
           </button>
+        </div>
+      </div>
+
+      <div className="dbs-category-table-header">
+        <div>
+          <h2>Category List</h2>
+          <p>Manage admission categories and caste mappings</p>
         </div>
       </div>
 
       {/* Table */}
       <div className="dbs-category-card">
-        <div className="dbs-category-title">
-          <h3>Category List ({tableData.length})</h3>
-        </div>
-
         {tableData.length === 0 ? (
           <div className="dbs-empty-state">
             <AlertCircle size={48} />
@@ -221,19 +270,21 @@ const CategoryofAdmission = () => {
               </thead>
 
               <tbody>
-                {tableData.map((item, index) => (
+                {currentData.map((item, index) => (
                   <tr key={item.id}>
-                    <td>{index + 1}</td>
+                    <td>{startIndex + index + 1}</td>
                     <td>{item.caste}</td>
                     <td>{item.category}</td>
 
-                    <td style={{ textAlign: "center" }}>
-                      <button
-                        className="dbs-icon-btn edit"
-                        onClick={() => handleEdit(item)}
-                      >
-                        <Edit2 size={18} />
-                      </button>
+                    <td>
+                      <div className="dbs-action-buttons">
+                        <button
+                          className="dbs-icon-btn edit"
+                          onClick={() => handleEdit(item)}
+                        >
+                          <Edit2 size={16} />
+                        </button>
+                      </div>
                     </td>
 
                     <td style={{ textAlign: "center" }}>
@@ -254,6 +305,18 @@ const CategoryofAdmission = () => {
           </div>
         )}
       </div>
+
+      <Footer
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        recordsPerPage={recordsPerPage}
+        setRecordsPerPage={setRecordsPerPage}
+        totalRecords={totalRecords}
+        totalPages={totalPages}
+        startIndex={startIndex}
+        endIndex={endIndex}
+        getPagination={getPagination}
+      />
 
       <DeleteModal
         open={showDeleteModal}

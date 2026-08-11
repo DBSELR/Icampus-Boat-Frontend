@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Save, RotateCcw, Edit3 } from "lucide-react";
+import { Save, RotateCcw, Edit3, X, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 
 import "./SubCasteMaster.css";
@@ -10,15 +10,16 @@ import {
   saveCaste,
   saveSubCaste,
 } from "../../../apis/SettingsApis";
+import Footer from "../../../common/Footer";
 
 const SubCasteMaster = () => {
   const [casteList, setCasteList] = useState<any[]>([]);
   const [subCasteList, setSubCasteList] = useState<any[]>([]);
-
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
-
   const [editId, setEditId] = useState<number | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(5);
 
   const [form, setForm] = useState({
     casteid: "",
@@ -30,10 +31,10 @@ const SubCasteMaster = () => {
     try {
       setLoading(true);
       const response = await getSubCasteMaster();
-      console.log("Sub Caste Response:", response);
       setSubCasteList(response || []);
+      setCurrentPage(1);
     } catch (error) {
-      console.log("Sub Caste Load Error:", error);
+      console.error("Sub Caste Load Error:", error);
       setSubCasteList([]);
     } finally {
       setLoading(false);
@@ -43,10 +44,9 @@ const SubCasteMaster = () => {
   const fetchCaste = async () => {
     try {
       const response = await getLoadCaste();
-      console.log("Load Caste:", response);
       setCasteList(response || []);
     } catch (error) {
-      console.log("Load Caste Error:", error);
+      console.error("Load Caste Error:", error);
       setCasteList([]);
     }
   };
@@ -103,11 +103,7 @@ const SubCasteMaster = () => {
         subCasteCode: form.subCaste,
         subCaste: form.subCaste,
       };
-
-      console.log("Save Sub Caste Payload:", payload);
       const response = await saveSubCaste(payload);
-      console.log("Save Sub Caste Response:", response);
-
       if (
         response?.message === "Success" ||
         response?.rowsAffected > 0 ||
@@ -118,16 +114,13 @@ const SubCasteMaster = () => {
             ? "Sub Caste Updated Successfully"
             : "Sub Caste Saved Successfully",
         );
-
         fetchSubCaste();
-
         handleReset();
       } else {
         toast.error("Unable to Save Sub Caste");
       }
     } catch (error) {
-      console.log("Save Sub Caste Error:", error);
-
+      console.error("Save Sub Caste Error:", error);
       toast.error("Something went wrong");
     } finally {
       setSaving(false);
@@ -144,20 +137,64 @@ const SubCasteMaster = () => {
     });
   };
 
+  const totalRecords = subCasteList.length;
+  const totalPages = Math.ceil(totalRecords / recordsPerPage);
+  const startIndex = (currentPage - 1) * recordsPerPage;
+  const endIndex = startIndex + recordsPerPage;
+  const currentData = subCasteList.slice(startIndex, endIndex);
+
+  const getPagination = () => {
+    const pages: (number | string)[] = [];
+
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+      if (currentPage > 3) {
+        pages.push("...");
+      }
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      if (currentPage < totalPages - 2) {
+        pages.push("...");
+      }
+      pages.push(totalPages);
+    }
+
+    return pages;
+  };
+
   return (
     <div className="dbs-subcaste-container">
-      <div className="dbs-subcaste-header">
-        <h2>Sub Caste Master</h2>
-      </div>
+      {/* Header */}
+      <div className="dbs-subcaste-form-header">
+        <div>
+          <h2>Sub Caste Master</h2>
 
+          <p className="dbs-subcaste-page-subtitle">
+            Manage Caste / Sub Caste Configuration
+          </p>
+        </div>
+      </div>
+      {/* Form */}
       <div className="dbs-subcaste-form-card">
-        <h3>Sub Caste Configuration</h3>
+        <h3>{editId ? "Update Sub Caste" : "Add Sub Caste"}</h3>
 
         <div className="dbs-subcaste-form-grid">
           <div className="dbs-subcaste-input-box">
             <label>Caste</label>
 
-            <select name="casteid" value={form.casteid} onChange={handleChange}>
+            <select
+              name="casteid"
+              value={form.casteid}
+              onChange={handleChange}
+              className="dbs-subcaste-input"
+            >
               <option value="">Select Caste</option>
 
               {casteList.map((item: any, index: number) => (
@@ -176,6 +213,7 @@ const SubCasteMaster = () => {
               value={form.subCasteCode}
               placeholder="Enter Sub Caste Code"
               onChange={handleChange}
+              className="dbs-subcaste-input"
             />
           </div>
 
@@ -187,18 +225,19 @@ const SubCasteMaster = () => {
               value={form.subCaste}
               placeholder="Enter Sub Caste"
               onChange={handleChange}
+              className="dbs-subcaste-input"
             />
           </div>
         </div>
 
-        <div className="dbs-subcaste-actions">
-          <button className="dbs-subcaste-reset-btn" onClick={handleReset}>
-            <RotateCcw size={16} />
-            Reset
+        <div className="dbs-subcaste-footer-actions">
+          <button className="dbs-subcaste-btn-secondary" onClick={handleReset}>
+            <X size={16} />
+            Cancel
           </button>
 
           <button
-            className="dbs-subcaste-save-btn"
+            className="dbs-subcaste-btn-primary"
             onClick={handleSave}
             disabled={saving}
           >
@@ -208,69 +247,78 @@ const SubCasteMaster = () => {
           </button>
         </div>
       </div>
+      {/* Table Header */}
+      <div className="dbs-subcaste-form-header">
+        <div>
+          <h2>Sub Caste Registry</h2>
 
-      <div className="dbs-subcaste-table-card">
-        <div className="dbs-subcaste-table-header">
-          <h3>Sub Caste List</h3>
-
-          <span>Total Records : {subCasteList.length}</span>
+          <p className="dbs-subcaste-page-subtitle">
+            Manage available caste and sub caste records
+          </p>
         </div>
+      </div>
 
-        <div className="dbs-subcaste-table-scroll">
-          <table className="dbs-subcaste-data-table">
-            <thead>
-              <tr>
-                <th>S.No.</th>
+      {/* Table */}
+      <div className="dbs-subcaste-table-container">
+        {subCasteList.length === 0 ? (
+          <div className="dbs-empty-state">
+            <AlertCircle className="dbs-empty-state-icon" />
 
-                <th>Caste</th>
+            <div className="dbs-empty-state-title">No records found</div>
 
-                {/* <th>Sub Caste Code</th> */}
-
-                <th>Sub Caste</th>
-
-                <th>Edit</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {loading ? (
+            <div className="dbs-empty-state-desc">
+              No caste and sub caste records are available.
+            </div>
+          </div>
+        ) : (
+          <div className="dbs-subcaste-table-scroll">
+            <table className="dbs-subcaste-registry-table">
+              <thead>
                 <tr>
-                  <td colSpan={5} align="center">
-                    Loading...
-                  </td>
+                  <th>SERIAL NO.</th>
+                  <th>CASTE</th>
+                  <th>SUB CASTE</th>
+                  <th>ACTIONS</th>
                 </tr>
-              ) : subCasteList.length === 0 ? (
-                <tr>
-                  <td colSpan={5} align="center">
-                    No Records Found
-                  </td>
-                </tr>
-              ) : (
-                subCasteList.map((item: any, index: number) => (
+              </thead>
+
+              <tbody>
+                {currentData.map((item: any, index: number) => (
                   <tr key={index}>
-                    <td>{index + 1}</td>
+                    <td>{startIndex + index + 1}</td>
 
-                    <td>{item.caste}</td>
-
-                    {/* <td>{item.subCasteCode}</td> */}
+                    <td className="dbs-subcaste-name">{item.caste}</td>
 
                     <td>{item.subCaste}</td>
 
                     <td>
-                      <button
-                        className="dbs-subcaste-edit-btn"
-                        onClick={() => handleEdit(item)}
-                      >
-                        <Edit3 size={16} />
-                      </button>
+                      <div className="dbs-subcaste-actionss">
+                        <button
+                          className="dbs-subcaste-action-btn dbs-subcaste-edit-btn"
+                          onClick={() => handleEdit(item)}
+                        >
+                          <Edit3 size={16} />
+                        </button>
+                      </div>
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
+      <Footer
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        recordsPerPage={recordsPerPage}
+        setRecordsPerPage={setRecordsPerPage}
+        totalRecords={totalRecords}
+        totalPages={totalPages}
+        startIndex={startIndex}
+        endIndex={endIndex}
+        getPagination={getPagination}
+      />
     </div>
   );
 };

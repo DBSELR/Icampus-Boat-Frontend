@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Save, AlertCircle, Edit, Trash, Trash2 } from "lucide-react";
+import { Save, AlertCircle, Edit, Trash, Trash2, X } from "lucide-react";
 import "./FacultyMaster.css";
 
 import {
@@ -16,35 +16,24 @@ import { toast } from "sonner";
 import DeleteModal from "../../../common/DeleteModal";
 
 const FacultyMaster = () => {
-  const sortedStudents: any[] = [];
-
   const [courses, setCourses] = useState<any[]>([]);
   const [years, setYears] = useState<any[]>([]);
-
   const [loadingCourses, setLoadingCourses] = useState(false);
   const [loadingYears, setLoadingYears] = useState(false);
-
   const [selectedProgramme, setSelectedProgramme] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedSemester, setSelectedSemester] = useState("");
-
   const [departments, setDepartments] = useState<any[]>([]);
   const [loadingDepartments, setLoadingDepartments] = useState(false);
   const [selectedDepartment, setSelectedDepartment] = useState("");
-
   const [faculties, setFaculties] = useState<any[]>([]);
   const [loadingFaculties, setLoadingFaculties] = useState(false);
-
   const [selectedFaculty, setSelectedFaculty] = useState("");
-
   const [subjects, setSubjects] = useState<any[]>([]);
   const [loadingSubjects, setLoadingSubjects] = useState(false);
-
   const [facultyData, setFacultyData] = useState<any[]>([]);
   const [loadingFacultyData, setLoadingFacultyData] = useState(false);
-
   const [selectedSubject, setSelectedSubject] = useState("");
-
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteItem, setDeleteItem] = useState<any>(null);
   const [deleting, setDeleting] = useState(false);
@@ -60,17 +49,13 @@ const FacultyMaster = () => {
   const fetchSubjects = async () => {
     try {
       setLoadingSubjects(true);
-
       const payload = {
         programme: selectedProgramme,
         semister: selectedSemester,
         year: selectedYear,
         empId: getLoginId(),
       };
-
-      console.log("SUBJECT PAYLOAD", payload);
       const response = await getSubjects(payload);
-      console.log("SUBJECT RESPONSE", response);
       setSubjects(response || []);
     } catch (error: unknown) {
       console.error("Get Subjects Failed", error);
@@ -82,14 +67,11 @@ const FacultyMaster = () => {
   const fetchCourseList = async () => {
     try {
       setLoadingCourses(true);
-
       const payload = {
         academicYear: localStorage.getItem("academicYear") || "2025-2026",
         department: "",
       };
-
       const response = await getCourseList(payload);
-      console.log("COURSE LIST RESPONSE", response);
       setCourses(response || []);
     } catch (error: unknown) {
       console.error("Get Course List Failed", error);
@@ -101,16 +83,12 @@ const FacultyMaster = () => {
   const fetchYearsList = async () => {
     try {
       setLoadingYears(true);
-
       const payload = {
         academicYear: localStorage.getItem("academicYear") || "2025-2026",
         department: "",
         programme: selectedProgramme,
       };
-
-      console.log("YEAR LIST PAYLOAD", payload);
       const response = await getYearLists(payload);
-      console.log("YEAR LIST RESPONSE", response);
       setYears(response || []);
     } catch (error: unknown) {
       console.error("Get Years List Failed", error);
@@ -122,14 +100,10 @@ const FacultyMaster = () => {
   const fetchDepartmentList = async () => {
     try {
       setLoadingDepartments(true);
-
       const payload = {
         department: "",
       };
-
-      console.log("DEPARTMENT PAYLOAD", payload);
       const response = await getDept(payload);
-      console.log("DEPARTMENT RESPONSE", response);
       setDepartments(response || []);
     } catch (error: unknown) {
       console.error("Get Department Failed", error);
@@ -141,17 +115,13 @@ const FacultyMaster = () => {
   const fetchEmployeeList = async () => {
     try {
       setLoadingFaculties(true);
-
       const payload = {
         department: selectedDepartment,
         empId: "",
         fed: "",
         workMode: "Teaching",
       };
-
-      console.log("EMPLOYEE PAYLOAD", payload);
       const response = await getEmployeeList(payload);
-      console.log("EMPLOYEE RESPONSE", response);
       setFaculties(response || []);
     } catch (error: unknown) {
       console.error("Get Employee List Failed", error);
@@ -171,12 +141,10 @@ const FacultyMaster = () => {
         year: selectedYear,
         faculty: selectedFaculty,
       };
-
       const response = await getFaculty(payload);
-      console.log("Faculty response", response);
       setFacultyData(response || []);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setFacultyData([]);
     } finally {
       setLoadingFacultyData(false);
@@ -195,7 +163,6 @@ const FacultyMaster = () => {
       toast.error("Please fill all required fields.");
       return;
     }
-
     const payload = {
       programme: selectedProgramme,
       semister: selectedSemester,
@@ -205,13 +172,8 @@ const FacultyMaster = () => {
       faculty: selectedFaculty,
       id: "",
     };
-
-    console.log("Save Payload", payload);
-
     try {
       const response = await saveFaculty(payload);
-      console.log("Save Response", response);
-
       if (response?.rowsAffected > 0) {
         toast.success("Subject added successfully!");
         facultyList();
@@ -226,12 +188,9 @@ const FacultyMaster = () => {
 
   const handleDeleteFaculty = async () => {
     if (!deleteItem) return;
-
     try {
       setDeleting(true);
       const response = await deleteFaculty(deleteItem.id);
-      console.log("Delete Faculty Response:", response);
-
       if (response.message == "Success") {
         toast.success("Faculty deleted successfully");
         setShowDeleteModal(false);
@@ -255,13 +214,11 @@ const FacultyMaster = () => {
     setSelectedDepartment("");
     setSelectedFaculty("");
     setSelectedSubject("");
-
     // Clear all dependent data
     setYears([]);
     setFaculties([]);
     setSubjects([]);
     setFacultyData([]);
-
     setShowDeleteModal(false);
     setDeleteItem(null);
   };
@@ -310,12 +267,14 @@ const FacultyMaster = () => {
   return (
     <div className="dbs-faculty-container">
       <div className="dbs-faculty-form-header">
-        <h2>Faculty Master</h2>
+        <div>
+          <h2>Faculty Master</h2>
+          <p>Manage faculty information and records</p>
+        </div>
       </div>
 
       <div className="dbs-form-card">
         <h3>Department Information</h3>
-
         <div className="dbs-form-grid-3">
           {/* LEFT FILTERS */}
           <div className="dbs-filter-card">
@@ -371,9 +330,7 @@ const FacultyMaster = () => {
                 onChange={(e) => setSelectedSemester(e.target.value)}
               >
                 <option value="">Select Semester</option>
-
                 <option value="1">I</option>
-
                 <option value="2">II</option>
               </select>
             </div>
@@ -386,7 +343,6 @@ const FacultyMaster = () => {
                 onChange={(e) => setSelectedDepartment(e.target.value)}
               >
                 <option value="">Select Department</option>
-
                 {loadingDepartments ? (
                   <option>Loading...</option>
                 ) : (
@@ -404,13 +360,11 @@ const FacultyMaster = () => {
 
             <div className="dbs-input-box">
               <label>Faculty</label>
-
               <select
                 value={selectedFaculty}
                 onChange={(e) => setSelectedFaculty(e.target.value)}
               >
                 <option value="">Select Faculty</option>
-
                 {loadingFaculties ? (
                   <option>Loading...</option>
                 ) : (
@@ -508,12 +462,13 @@ const FacultyMaster = () => {
 
         <div className="dbs-form-actions-row">
           <button className="dbs-form-cancel-btn" onClick={handleReset}>
-            Cancel / Reset
+            <X size={16} />
+            Cancel
           </button>
 
           <button className="dbs-form-save-btn" onClick={handleSaveFaculty}>
             <Save size={16} />
-            Save Faculty
+            Save
           </button>
         </div>
 

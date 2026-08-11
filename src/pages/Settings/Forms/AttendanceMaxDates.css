@@ -1,322 +1,805 @@
-/* =====================================
-   ATTENDANCE MAX DATES CONTAINER
-===================================== */
+/* ==========================================================
+   CONTAINER
+========================================================== */
 
-.dbs-attendance-container {
+.dbs-attendance-max-container {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  box-sizing: border-box;
 }
 
-/* =====================================
-   PAGE HEADER
-===================================== */
+.dbs-attendance-max-container *,
+.dbs-attendance-max-container *::before,
+.dbs-attendance-max-container *::after {
+  box-sizing: border-box;
+}
 
-.dbs-attendance-header {
+/* ==========================================================
+   PAGE HEADER
+========================================================== */
+
+.dbs-attendance-max-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  border-bottom: 1px solid var(--dbs-border);
+  width: 100%;
   padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
 }
 
-.dbs-attendance-header h2 {
+.dbs-attendance-max-header h2 {
   margin: 0;
-  font-size: 1.4rem;
-  font-weight: 800;
   color: var(--dbs-text);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.3;
 }
 
-/* =====================================
-   FORM CARD
-===================================== */
+.dbs-attendance-max-subtitle {
+  margin: 6px 0 0;
+  color: var(--dbs-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
 
-.dbs-form-card,
-.dbs-table-card {
+/* ==========================================================
+   FORM CARD
+========================================================== */
+
+.dbs-attendance-max-form-card {
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
   background: var(--dbs-surface);
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius);
   box-shadow: var(--dbs-shadow);
-  padding: 24px;
+  animation: dbsAttendanceMaxSlideUp 0.25s ease;
 }
 
-.dbs-form-card {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-
-.dbs-form-card h3,
-.dbs-table-header h3 {
+.dbs-attendance-max-form-card h3 {
   margin: 0;
-  font-size: 1.1rem;
-  font-weight: 700;
+  padding-bottom: 14px;
   color: var(--dbs-text);
   border-bottom: 1px solid var(--dbs-border);
-  padding-bottom: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.3;
 }
 
-/* =====================================
+/* ==========================================================
    FORM GRID
-===================================== */
+========================================================== */
 
-.dbs-form-grid {
+.dbs-attendance-max-grid {
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
 }
 
-/* =====================================
-   INPUTS
-===================================== */
+/* ==========================================================
+   FORM FIELD
+========================================================== */
 
-.dbs-input-box {
+.dbs-attendance-max-input {
+  min-width: 0;
   display: flex;
   flex-direction: column;
 }
 
-.dbs-input-box label {
-  font-size: 13px;
+.dbs-attendance-max-input label {
+  margin-bottom: 8px;
+  color: var(--dbs-text);
+  font-size: 0.85rem;
   font-weight: 700;
-  color: var(--dbs-text);
-  margin-bottom: 6px;
+  line-height: 1.3;
 }
 
-.dbs-input-box input,
-.dbs-input-box select {
+/* ==========================================================
+   INPUTS / SELECTS
+========================================================== */
+
+.dbs-attendance-max-input input,
+.dbs-attendance-max-input select {
   width: 100%;
-  padding: 10px 12px;
-  border-radius: var(--dbs-radius-sm);
-  border: 1px solid var(--dbs-border);
+  height: 44px;
+  padding: 0 14px;
   background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
   color: var(--dbs-text);
+  font-family: inherit;
+  font-size: 0.9rem;
   outline: none;
-  transition: var(--dbs-transition);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 
-.dbs-input-box input:focus,
-.dbs-input-box select:focus {
+/* ==========================================================
+   INPUT HOVER
+========================================================== */
+
+.dbs-attendance-max-input input:hover,
+.dbs-attendance-max-input select:hover {
+  border-color: var(--dbs-primary);
+}
+
+/* ==========================================================
+   INPUT FOCUS
+========================================================== */
+
+.dbs-attendance-max-input input:focus,
+.dbs-attendance-max-input select:focus {
   border-color: var(--dbs-primary);
   box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
-/* =====================================
-   BUTTONS
-===================================== */
+/* ==========================================================
+   SELECT
+========================================================== */
 
-.dbs-form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 14px;
-  border-top: 1px solid var(--dbs-border);
-  padding-top: 18px;
-}
-
-.dbs-save-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  background: var(--dbs-primary);
-  color: #fff;
-  border: none;
-
-  padding: 10px 20px;
-  border-radius: var(--dbs-radius-sm);
-
-  font-weight: 700;
+.dbs-attendance-max-input select {
   cursor: pointer;
-
-  transition: var(--dbs-transition);
 }
 
-.dbs-save-btn:hover {
-  background: var(--dbs-primary-hover);
-}
-
-.dbs-reset-btn {
+.dbs-attendance-max-input select option {
   background: var(--dbs-surface);
   color: var(--dbs-text);
+}
 
-  border: 1px solid var(--dbs-border);
+/* ==========================================================
+   DATE INPUT
+========================================================== */
 
-  padding: 10px 20px;
+.dbs-attendance-max-input input[type="date"] {
+  cursor: pointer;
+}
+
+.dbs-attendance-max-input
+  input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.dbs-attendance-max-input
+  input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* ==========================================================
+   ACTION BUTTON AREA
+========================================================== */
+
+.dbs-attendance-max-actions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--dbs-border);
+}
+
+/* ==========================================================
+   ACTION BUTTON BASE
+========================================================== */
+
+.dbs-attendance-max-actions button {
+  min-width: 120px;
+  height: 44px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   border-radius: var(--dbs-radius-sm);
-
+  font-family: inherit;
+  font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
-
-  transition: var(--dbs-transition);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
 }
 
-.dbs-reset-btn:hover {
-  background: var(--dbs-bg);
+/* ==========================================================
+   SAVE BUTTON
+========================================================== */
+
+.dbs-attendance-max-save-btn {
+  background: var(--dbs-primary);
+  border: 1px solid var(--dbs-primary);
+  color: #ffffff;
+  box-shadow: var(--dbs-shadow);
 }
-/* =====================================
+
+.dbs-attendance-max-save-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.dbs-attendance-max-save-btn:active {
+  transform: scale(0.98);
+}
+
+.dbs-attendance-max-save-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* ==========================================================
+   CANCEL / RESET BUTTON
+========================================================== */
+
+.dbs-attendance-max-reset-btn {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  color: var(--dbs-text);
+}
+
+.dbs-attendance-max-reset-btn:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
+}
+
+.dbs-attendance-max-reset-btn:active {
+  transform: scale(0.98);
+}
+
+.dbs-attendance-max-reset-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* ==========================================================
+   DISABLED BUTTON
+========================================================== */
+
+.dbs-attendance-max-save-btn:disabled,
+.dbs-attendance-max-reset-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ==========================================================
    TABLE HEADER
-===================================== */
+========================================================== */
 
-.dbs-table-header {
+.dbs-attendance-max-table-header {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  padding-bottom: 14px;
-  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
 }
 
-.dbs-table-header h3 {
+.dbs-attendance-max-table-header h2 {
   margin: 0;
-
-  font-size: 1.1rem;
-  font-weight: 700;
-
   color: var(--dbs-text);
-
-  border: none;
-  padding: 0;
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.3;
 }
 
-.dbs-table-header span {
-  background: var(--dbs-primary-light);
-  color: var(--dbs-primary);
-
-  padding: 6px 12px;
-
-  border-radius: 20px;
-
-  font-size: 12px;
-  font-weight: 700;
-
-  border: 1px solid var(--dbs-primary);
+.dbs-attendance-max-table-header p {
+  margin: 6px 0 0;
+  color: var(--dbs-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
-/* =====================================
+
+/* ==========================================================
+   TABLE OUTER CONTAINER
+========================================================== */
+
+.dbs-attendance-max-table-container {
+  width: 100%;
+  padding: 18px;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  animation: dbsAttendanceMaxSlideUp 0.25s ease;
+}
+
+/* ==========================================================
+   TABLE CARD
+   Scoped shared class
+========================================================== */
+
+.dbs-attendance-max-container .dbs-table-card {
+  width: 100%;
+  overflow: hidden;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+}
+
+/* ==========================================================
    TABLE SCROLL
-===================================== */
+   Scoped shared class
+========================================================== */
 
-.dbs-table-scroll {
+.dbs-attendance-max-container .dbs-table-scroll {
+  width: 100%;
+  max-height: 430px;
   overflow-x: auto;
   overflow-y: auto;
-  max-height: 420px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
 }
 
-.dbs-table-scroll::-webkit-scrollbar {
+/* ==========================================================
+   TABLE SCROLLBAR
+========================================================== */
+
+.dbs-attendance-max-container .dbs-table-scroll::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-.dbs-table-scroll::-webkit-scrollbar-track {
-  background: var(--dbs-bg);
+.dbs-attendance-max-container .dbs-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.dbs-table-scroll::-webkit-scrollbar-thumb {
+.dbs-attendance-max-container .dbs-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 20px;
+}
+
+.dbs-attendance-max-container .dbs-table-scroll::-webkit-scrollbar-thumb:hover {
   background: var(--dbs-primary);
-  border-radius: 10px;
 }
 
-/* =====================================
-   TABLE
-===================================== */
+/* ==========================================================
+   DATA TABLE
+   Scoped shared class
+========================================================== */
 
-.dbs-data-table {
+.dbs-attendance-max-container .dbs-data-table {
   width: 100%;
-  border-collapse: collapse;
-  background: var(--dbs-surface);
+  min-width: 900px;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
 }
 
-.dbs-data-table thead th {
+/* ==========================================================
+   TABLE HEADER
+========================================================== */
+
+.dbs-attendance-max-container .dbs-data-table thead th {
   position: sticky;
   top: 0;
-  z-index: 2;
-
+  z-index: 10;
+  height: 46px;
+  padding: 0 16px;
   background: var(--dbs-primary);
-  color: #fff;
-
-  padding: 13px 16px;
-
-  font-size: 13px;
+  color: #ffffff;
+  border-bottom: 2px solid var(--dbs-primary);
+  font-size: 0.78rem;
   font-weight: 800;
-
+  letter-spacing: 0.4px;
+  line-height: 1.2;
   text-align: left;
-
-  border-bottom: 2px solid var(--dbs-border);
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.dbs-data-table tbody td {
-  padding: 13px 16px;
-  color: var(--dbs-text);
-  font-size: 14px;
-  border-bottom: 1px solid var(--dbs-border);
+/* ==========================================================
+   TABLE HEADER CORNERS
+========================================================== */
+
+.dbs-attendance-max-container .dbs-data-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
+}
+
+.dbs-attendance-max-container .dbs-data-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
+}
+
+/* ==========================================================
+   TABLE COLUMN WIDTHS
+
+   1 - SL.NO
+   2 - COURSE
+   3 - YEAR
+   4 - SEMESTER
+   5 - FROM DATE
+   6 - TO DATE
+   7 - ACADEMIC YEAR
+========================================================== */
+
+.dbs-attendance-max-container .dbs-data-table th:nth-child(1),
+.dbs-attendance-max-container .dbs-data-table td:nth-child(1) {
+  width: 9%;
+}
+
+.dbs-attendance-max-container .dbs-data-table th:nth-child(2),
+.dbs-attendance-max-container .dbs-data-table td:nth-child(2) {
+  width: 20%;
+}
+
+.dbs-attendance-max-container .dbs-data-table th:nth-child(3),
+.dbs-attendance-max-container .dbs-data-table td:nth-child(3) {
+  width: 12%;
+}
+
+.dbs-attendance-max-container .dbs-data-table th:nth-child(4),
+.dbs-attendance-max-container .dbs-data-table td:nth-child(4) {
+  width: 13%;
+}
+
+.dbs-attendance-max-container .dbs-data-table th:nth-child(5),
+.dbs-attendance-max-container .dbs-data-table td:nth-child(5) {
+  width: 15%;
+}
+
+.dbs-attendance-max-container .dbs-data-table th:nth-child(6),
+.dbs-attendance-max-container .dbs-data-table td:nth-child(6) {
+  width: 15%;
+}
+
+.dbs-attendance-max-container .dbs-data-table th:nth-child(7),
+.dbs-attendance-max-container .dbs-data-table td:nth-child(7) {
+  width: 16%;
+}
+
+/* ==========================================================
+   TABLE BODY
+========================================================== */
+
+.dbs-attendance-max-container .dbs-data-table tbody td {
+  height: 54px;
+  padding: 0 16px;
   background: var(--dbs-surface);
+  color: var(--dbs-text);
+  border-bottom: 1px solid var(--dbs-border);
+  font-size: 0.88rem;
+  line-height: 1.4;
+  vertical-align: middle;
 }
 
-.dbs-data-table tbody tr {
-  transition: var(--dbs-transition);
+/* ==========================================================
+   TABLE ROW
+========================================================== */
+
+.dbs-attendance-max-container .dbs-data-table tbody tr {
+  transition: background-color 0.2s ease;
 }
 
-.dbs-data-table tbody tr:hover td {
+.dbs-attendance-max-container .dbs-data-table tbody tr:hover td {
   background: var(--dbs-primary-light);
 }
 
-.dbs-data-table tbody tr:last-child td {
+.dbs-attendance-max-container .dbs-data-table tbody tr:last-child td {
   border-bottom: none;
 }
 
-/* =====================================
+/* ==========================================================
+   TABLE CELL ALIGNMENT
+========================================================== */
+
+.dbs-attendance-max-container .dbs-data-table th:first-child,
+.dbs-attendance-max-container .dbs-data-table td:first-child {
+  text-align: center;
+}
+
+.dbs-attendance-max-container .dbs-data-table th:nth-child(4),
+.dbs-attendance-max-container .dbs-data-table td:nth-child(4) {
+  text-align: center;
+}
+
+/* ==========================================================
+   COURSE EMPHASIS
+========================================================== */
+
+.dbs-attendance-max-container .dbs-data-table td:nth-child(2) {
+  font-weight: 700;
+}
+
+/* ==========================================================
    EMPTY STATE
-===================================== */
+   Scoped shared classes
+========================================================== */
 
-.dbs-empty-state {
-  min-height: 220px;
-
+.dbs-attendance-max-container .dbs-empty-state {
+  min-height: 240px;
+  padding: 40px 20px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  color: var(--dbs-text-muted);
+}
 
-  color: var(--dbs-text-light);
+.dbs-attendance-max-container .dbs-empty-state-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 4px;
+  color: var(--dbs-primary);
+}
 
+.dbs-attendance-max-container .dbs-empty-state-title {
+  color: var(--dbs-text);
+  font-size: 1.05rem;
   font-weight: 700;
 }
 
-.dbs-empty-state svg {
-  color: var(--dbs-primary);
-  margin-bottom: 10px;
+.dbs-attendance-max-container .dbs-empty-state-desc {
+  max-width: 420px;
+  color: var(--dbs-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
 
-/* =====================================
-   LOADING
-===================================== */
+/* ==========================================================
+   LOADING STATE
+========================================================== */
 
-.dbs-loading {
-  min-height: 180px;
-
+.dbs-attendance-max-loading {
+  min-height: 240px;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  color: var(--dbs-primary);
-
-  font-weight: 700;
+  color: var(--dbs-text-muted);
+  font-size: 0.92rem;
+  font-weight: 600;
 }
 
-/* =====================================
-   RESPONSIVE
-===================================== */
+/* ==========================================================
+   PLACEHOLDER
+========================================================== */
+
+.dbs-attendance-max-input input::placeholder,
+.dbs-attendance-max-input select::placeholder {
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================================
+   ANIMATION
+========================================================== */
+
+@keyframes dbsAttendanceMaxSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================
+   LARGE TABLET
+========================================================== */
+
+@media (max-width: 1200px) {
+  .dbs-attendance-max-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dbs-attendance-max-form-card {
+    padding: 22px;
+  }
+
+  .dbs-attendance-max-table-container {
+    padding: 16px;
+  }
+}
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width: 1024px) {
+  .dbs-attendance-max-container {
+    gap: 20px;
+  }
+
+  .dbs-attendance-max-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .dbs-attendance-max-form-card {
+    padding: 20px;
+  }
+
+  .dbs-attendance-max-table-container {
+    padding: 14px;
+  }
+
+  .dbs-attendance-max-container .dbs-data-table {
+    min-width: 900px;
+  }
+}
+
+/* ==========================================================
+   MOBILE / TABLET
+========================================================== */
 
 @media (max-width: 768px) {
-  .dbs-form-grid {
-    grid-template-columns: 1fr;
+  .dbs-attendance-max-container {
+    gap: 18px;
   }
 
-  .dbs-form-actions {
+  /* Page header */
+
+  .dbs-attendance-max-header,
+  .dbs-attendance-max-table-header {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
 
-  .dbs-save-btn,
-  .dbs-reset-btn {
+  .dbs-attendance-max-header h2,
+  .dbs-attendance-max-table-header h2 {
+    font-size: 1.25rem;
+  }
+
+  /* Form */
+
+  .dbs-attendance-max-form-card {
+    padding: 18px;
+    gap: 18px;
+  }
+
+  .dbs-attendance-max-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Actions */
+
+  .dbs-attendance-max-actions {
+    flex-direction: column;
+    align-items: stretch;
     width: 100%;
-    justify-content: center;
+  }
+
+  .dbs-attendance-max-actions button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Table */
+
+  .dbs-attendance-max-table-container {
+    padding: 12px;
+  }
+
+  .dbs-attendance-max-container .dbs-data-table {
+    min-width: 900px;
+  }
+
+  .dbs-attendance-max-container .dbs-data-table thead th {
+    height: 44px;
+    padding: 0 12px;
+    font-size: 0.72rem;
+  }
+
+  .dbs-attendance-max-container .dbs-data-table tbody td {
+    height: 52px;
+    padding: 0 12px;
+    font-size: 0.82rem;
+  }
+}
+
+/* ==========================================================
+   SMALL MOBILE
+========================================================== */
+
+@media (max-width: 480px) {
+  .dbs-attendance-max-form-card {
+    padding: 16px;
+    border-radius: var(--dbs-radius-sm);
+  }
+
+  .dbs-attendance-max-form-card h3 {
+    font-size: 1rem;
+  }
+
+  .dbs-attendance-max-header h2,
+  .dbs-attendance-max-table-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .dbs-attendance-max-subtitle,
+  .dbs-attendance-max-table-header p {
+    font-size: 0.82rem;
+  }
+
+  .dbs-attendance-max-input label {
+    font-size: 0.82rem;
+  }
+
+  .dbs-attendance-max-input input,
+  .dbs-attendance-max-input select {
+    height: 42px;
+    font-size: 0.85rem;
+  }
+
+  .dbs-attendance-max-actions button {
+    height: 42px;
+    font-size: 0.85rem;
+  }
+
+  .dbs-attendance-max-table-container {
+    padding: 10px;
+    border-radius: var(--dbs-radius-sm);
+  }
+
+  .dbs-attendance-max-container .dbs-empty-state {
+    min-height: 210px;
+    padding: 30px 16px;
+  }
+
+  .dbs-attendance-max-container .dbs-empty-state-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .dbs-attendance-max-container .dbs-empty-state-title {
+    font-size: 1rem;
+  }
+
+  .dbs-attendance-max-container .dbs-empty-state-desc {
+    font-size: 0.82rem;
+  }
+}
+
+/* ==========================================================
+   EXTRA SMALL MOBILE
+========================================================== */
+
+@media (max-width: 360px) {
+  .dbs-attendance-max-form-card {
+    padding: 12px;
+  }
+
+  .dbs-attendance-max-table-container {
+    padding: 8px;
+  }
+
+  .dbs-attendance-max-container .dbs-data-table {
+    min-width: 850px;
+  }
+}
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .dbs-attendance-max-form-card,
+  .dbs-attendance-max-table-container {
+    animation: none;
+  }
+
+  .dbs-attendance-max-actions button,
+  .dbs-attendance-max-input input,
+  .dbs-attendance-max-input select {
+    transition: none;
   }
 }

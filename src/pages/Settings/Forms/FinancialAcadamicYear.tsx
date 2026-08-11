@@ -1,5 +1,13 @@
-﻿import React, { useEffect, useState } from "react";
-import { Save, Edit3, Trash2, Search, AlertCircle } from "lucide-react";
+﻿import React, { useEffect, useRef, useState } from "react";
+import {
+  Save,
+  Edit3,
+  Trash2,
+  Search,
+  AlertCircle,
+  ChevronDown,
+  X,
+} from "lucide-react";
 import { toast } from "sonner";
 import "./FinancialAcadamicYear.css";
 import {
@@ -20,20 +28,18 @@ interface AcademicYear {
 
 const FinancialAcadamicYear: React.FC = () => {
   const [academicYear, setAcademicYear] = useState("");
-
   const [data, setData] = useState<AcademicYear[]>([]);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
-
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(5);
-
   const [editId, setEditId] = useState<string>("");
   const [saving, setSaving] = useState(false);
-
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteItem, setDeleteItem] = useState<AcademicYear | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [showYearDropdown, setShowYearDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const filteredData = data.filter((item) =>
     item.aCADEMICYEAR.toLowerCase().includes(search.toLowerCase()),
@@ -44,11 +50,6 @@ const FinancialAcadamicYear: React.FC = () => {
   const startIndex = (currentPage - 1) * recordsPerPage;
   const endIndex = startIndex + recordsPerPage;
   const currentData = filteredData.slice(startIndex, endIndex);
-
-  const handleSearch = (value: string) => {
-    setSearch(value);
-    setCurrentPage(1);
-  };
 
   const academicYears = Array.from({ length: 15 }, (_, i) => {
     const start = 2015 + i;
@@ -76,14 +77,10 @@ const FinancialAcadamicYear: React.FC = () => {
         .join("-"),
       financialYear: academicYear,
     };
-
     setSaving(true);
 
     try {
-      console.log(payload, "payload?????????");
       const response = await saveFinancialAcademicYearApi(payload);
-      console.log(response);
-
       if (response.rowsAffected > 0) {
         toast.success(
           editId
@@ -103,7 +100,6 @@ const FinancialAcadamicYear: React.FC = () => {
   };
 
   const handleEdit = (item: AcademicYear) => {
-    console.log(item.iD.toString(), "item.iD.toString()???????????");
     setEditId(item.iD.toString());
     setAcademicYear(item.aCADEMICYEAR);
     window.scrollTo({
@@ -124,16 +120,13 @@ const FinancialAcadamicYear: React.FC = () => {
     };
 
     setDeleting(true);
-
     try {
       const response = await deleteFinancialAcademicYearApi(payload);
 
       if (response.rowsAffected > 0) {
         toast.success("Academic Year Deleted Successfully");
-
         setShowDeleteModal(false);
         setDeleteItem(null);
-
         loadAcademicYears();
       } else {
         toast.error(response.message || "Delete failed.");
@@ -167,48 +160,55 @@ const FinancialAcadamicYear: React.FC = () => {
 
       if (response.rowsAffected > 0) {
         toast.success("Active Academic Year Updated");
-
         // Reload from backend because backend updates all records
         loadAcademicYears();
       } else {
         toast.error(response.message || "Failed to update.");
-
         // Rollback
         loadAcademicYears();
       }
     } catch {
       toast.error("Something went wrong.");
-
       // Rollback
       loadAcademicYears();
     }
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowYearDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   useEffect(() => {
     loadAcademicYears();
   }, []);
 
   const loadAcademicYears = async () => {
-    setLoading(true);
     try {
       const response = await loadAcademicYearsApi();
       if (response.success) {
         setData(response.data);
-
-        console.log("Academic Years Loaded:", response.data);
       } else {
         toast.error(response.message);
       }
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong.");
-    } finally {
-      setLoading(false);
     }
   };
 
   const getPagination = () => {
     const pages: (number | string)[] = [];
-
     if (totalPages <= 7) {
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
@@ -219,21 +219,16 @@ const FinancialAcadamicYear: React.FC = () => {
       if (currentPage > 3) {
         pages.push("...");
       }
-
       const start = Math.max(2, currentPage - 1);
       const end = Math.min(totalPages - 1, currentPage + 1);
-
       for (let i = start; i <= end; i++) {
         pages.push(i);
       }
-
       if (currentPage < totalPages - 2) {
         pages.push("...");
       }
-
       pages.push(totalPages);
     }
-
     return pages;
   };
 
@@ -254,18 +249,38 @@ const FinancialAcadamicYear: React.FC = () => {
         <div className="dbs-form-grid-2">
           <div className="dbs-input-box">
             <label>Academic Year</label>
-            <select
-              value={academicYear}
-              onChange={(e) => setAcademicYear(e.target.value)}
-            >
-              <option value="">Select Academic Year</option>
+            <div className="dbs-custom-dropdown" ref={dropdownRef}>
+              <div
+                className="dbs-dropdown-selected"
+                onClick={() => setShowYearDropdown(!showYearDropdown)}
+              >
+                <span>{academicYear || "Select Academic Year"}</span>
 
-              {academicYears.map((year) => (
-                <option key={year} value={year}>
-                  {year}
-                </option>
-              ))}
-            </select>
+                <ChevronDown
+                  size={18}
+                  className={`dbs-dropdown-icon ${
+                    showYearDropdown ? "rotate" : ""
+                  }`}
+                />
+              </div>
+
+              {showYearDropdown && (
+                <div className="dbs-dropdown-options">
+                  {academicYears.map((year) => (
+                    <div
+                      key={year}
+                      className="dbs-dropdown-option"
+                      onClick={() => {
+                        setAcademicYear(year);
+                        setShowYearDropdown(false);
+                      }}
+                    >
+                      {year}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -275,6 +290,7 @@ const FinancialAcadamicYear: React.FC = () => {
             className="dbs-btn-secondary"
             onClick={resetForm}
           >
+            <X size={16} />
             Cancel
           </button>
 
@@ -292,54 +308,56 @@ const FinancialAcadamicYear: React.FC = () => {
       </div>
 
       {/* ================= Table Header ================= */}
-      <div className="dbs-table-toolbar">
+      <div className="dbs-programme-form-header dbs-table-head">
         <div>
-          <h3>Academic Year Registry</h3>
-          <p>Showing {filteredData.length} academic year(s)</p>
+          <h2>Academic Year Registry</h2>
+          <p className="dbs-page-subtitle">
+            Manage Financial / Academic Year Records
+          </p>
         </div>
 
-        <div className="dbs-table-toolbar-right">
-          <div className="dbs-search-box">
-            <Search size={16} />
-            <input
-              type="text"
-              placeholder="Search Academic Year..."
-              value={search}
-              onChange={(e) => handleSearch(e.target.value)}
-            />
-          </div>
+        <div className="dbs-table-search">
+          <input
+            type="text"
+            placeholder="Search academic year..."
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setCurrentPage(1);
+            }}
+          />
         </div>
       </div>
 
       {/* ================= Table ================= */}
       <div className="dbs-table-container">
-        {loading ? (
+        {data.length === 0 ? (
           <div className="dbs-empty-state">
-            <div className="dbs-empty-state-title">
-              Loading Academic Years...
+            <AlertCircle className="dbs-empty-state-icon" />
+
+            <div className="dbs-empty-state-title">No records found</div>
+
+            <div className="dbs-empty-state-desc">
+              Add a new academic year to view records here.
             </div>
           </div>
         ) : filteredData.length === 0 ? (
           <div className="dbs-empty-state">
-            <AlertCircle size={60} className="dbs-empty-state-icon" />
-
+            <AlertCircle className="dbs-empty-state-icon" />
             <div className="dbs-empty-state-title">No Academic Year Found</div>
-
             <div className="dbs-empty-state-desc">
-              No records available.
-              <br />
-              Click <strong>Save</strong> to create a new Academic Year.
+              No academic year records match your search.
             </div>
           </div>
         ) : (
           <div className="dbs-table-card">
-            <div className="dbs-table-scroll">
-              <table className="dbs-registry-table">
+            <div className="dbs-table-scroll active-scroll">
+              <table className="dbs-data-table">
                 <thead>
                   <tr>
-                    <th>SERIAL NO.</th>
+                    <th>SL.NO</th>
                     <th>ACADEMIC YEAR</th>
-                    <th>ACTIVE</th>
+                    <th className="center">ACTIVE</th>
                     <th>ACTIONS</th>
                   </tr>
                 </thead>
@@ -349,7 +367,7 @@ const FinancialAcadamicYear: React.FC = () => {
                     <tr key={item.iD}>
                       <td>{startIndex + index + 1}</td>
 
-                      <td className="dbs-name">{item.aCADEMICYEAR}</td>
+                      <td>{item.aCADEMICYEAR}</td>
 
                       <td>
                         <input
@@ -361,20 +379,24 @@ const FinancialAcadamicYear: React.FC = () => {
                       </td>
 
                       <td>
-                        <div className="dbs-actions">
+                        <div className="dbs-actionss">
                           <button
-                            className="dbs-icon-btn edit"
+                            type="button"
+                            className="dbs-leave-action-btn dbs-leave-edit-btn"
                             onClick={() => handleEdit(item)}
+                            title="Edit"
                           >
                             <Edit3 size={16} />
                           </button>
 
                           <button
-                            className="dbs-icon-btn delete"
+                            type="button"
+                            className="dbs-leave-action-btn dbs-leave-delete-btn"
                             onClick={() => {
                               setDeleteItem(item);
                               setShowDeleteModal(true);
                             }}
+                            title="Delete"
                           >
                             <Trash2 size={16} />
                           </button>

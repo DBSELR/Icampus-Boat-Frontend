@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Edit3, Trash2 } from "lucide-react";
+import {
+  AlertCircle,
+  CalendarDays,
+  Edit3,
+  Save,
+  Trash2,
+  X,
+} from "lucide-react";
 import "./Holidays.css";
 import { toast } from "sonner";
 import {
@@ -8,14 +15,15 @@ import {
   insertSundays,
 } from "../../../apis/SettingsApis";
 import DeleteModal from "../../../common/DeleteModal";
+import Footer from "../../../common/Footer";
 
 const Holidays = () => {
   const [holidays, setHolidays] = useState<any[]>([]);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(5);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [remarks, setRemarks] = useState("");
-
   const [editId, setEditId] = useState<string | number>("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteItem, setDeleteItem] = useState<any>(null);
@@ -23,23 +31,26 @@ const Holidays = () => {
 
   const formatDate = (date: string) => {
     const d = new Date(date);
-
     const day = String(d.getDate()).padStart(2, "0");
     const month = String(d.getMonth() + 1).padStart(2, "0");
     const year = d.getFullYear();
-
     return `${day}-${month}-${year}`;
   };
+
+  const totalRecords = holidays.length;
+  const totalPages = Math.ceil(totalRecords / recordsPerPage);
+  const startIndex = (currentPage - 1) * recordsPerPage;
+  const endIndex = startIndex + recordsPerPage;
+  const currentData = holidays.slice(startIndex, endIndex);
 
   const fetchHolidays = async () => {
     try {
       const academicYear = localStorage.getItem("academicYear");
       const response = await getHolidays({ academicYear });
-
-      console.log("Fetched holidays:", response);
       setHolidays(response || []);
+      setCurrentPage(1);
     } catch (error) {
-      console.log("Error fetching holidays:", error);
+      console.error("Error fetching holidays:", error);
       toast.error("Failed to fetch holidays. Please try again later.");
     }
   };
@@ -53,7 +64,6 @@ const Holidays = () => {
       toast.error("Please select From Date and To Date");
       return;
     }
-
     try {
       let current = new Date(fromDate);
       const end = new Date(toDate);
@@ -67,7 +77,6 @@ const Holidays = () => {
             id: "",
           };
           const response = await insertSundays(payload);
-          //   console.log("Save Sunday ======", response);
           if (response?.message === "Success") {
             savedCount++;
           }
@@ -110,24 +119,17 @@ const Holidays = () => {
           remarks: remarks,
           id: String(editId) || "",
         };
-
         const response = await insertSundays(payload);
-        console.log("Holiday saved:", response);
-
         if (response?.rowsAffected > 0) {
           savedCount++;
         }
-
         // Move to next day
         current.setDate(current.getDate() + 1);
       }
 
       if (savedCount > 0) {
         toast.success(`${savedCount} holidays saved successfully`);
-        // Reload table
         fetchHolidays();
-
-        // Reset form
         setFromDate("");
         setToDate("");
         setRemarks("");
@@ -150,9 +152,7 @@ const Holidays = () => {
 
   const handleEdit = (item: any) => {
     setEditId(item.id);
-
     const date = item.holidayDate.split("T")[0];
-
     setFromDate(date);
     setToDate(date);
     setRemarks(item.remark);
@@ -160,10 +160,9 @@ const Holidays = () => {
 
   const handleDelete = async () => {
     try {
-      if (!deleteItem?.id) return;  
+      if (!deleteItem?.id) return;
       setDeleting(true);
       const response = await deleteHoliday(String(deleteItem.id));
-      console.log("Delete Holiday Response:", response);
 
       if (response?.message === "Success") {
         toast.success("Holiday deleted successfully");
@@ -181,16 +180,42 @@ const Holidays = () => {
     }
   };
 
+  const getPagination = () => {
+    const pages: (number | string)[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+      if (currentPage > 3) {
+        pages.push("...");
+      }
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      if (currentPage < totalPages - 2) {
+        pages.push("...");
+      }
+      pages.push(totalPages);
+    }
+    return pages;
+  };
+
   return (
     <div className="dbs-holidays-container">
       <div className="dbs-holidays-header">
-        <h2>Holiday Master</h2>
+        <div>
+          <h2>Holiday Master</h2>
+          <p className="dbs-holidays-subtitle">Manage Holidays and Sundays</p>
+        </div>
       </div>
 
       {/* Form Card */}
       <div className="dbs-holidays-form-card">
-        <h3>Holiday Information</h3>
-
+        <h3>{editId ? "Update Holiday" : "Add Holiday"}</h3>
         <div className="dbs-holidays-grid">
           <div className="dbs-holidays-input">
             <label>From Date</label>
@@ -222,72 +247,104 @@ const Holidays = () => {
 
         <div className="dbs-holidays-actions">
           <button className="dbs-holiday-cancel" onClick={handleCancel}>
+            <X size={16} />
             Cancel
           </button>
+
           <button className="dbs-holiday-save" onClick={handleSave}>
+            <Save size={16} />
             {editId ? "Update" : "Save"}
           </button>
+
           <button className="dbs-holiday-secondary" onClick={handleSaveSundays}>
+            <CalendarDays size={16} />
             Save Sundays
           </button>
         </div>
       </div>
 
-      {/* Table */}
-      <div className="dbs-holidays-table-card">
-        <div className="dbs-holidays-table-header">
-          <h3>Holiday List</h3>
-          <span>Total : {holidays.length}</span>
+      {/* ================= Table Header ================= */}
+      <div className="dbs-holidays-header dbs-table-head">
+        <div>
+          <h2>Holiday Registry</h2>
+          <p className="dbs-holidays-subtitle">
+            View and manage holiday records
+          </p>
         </div>
 
-        <div className="dbs-holidays-table-scroll">
-          <table className="dbs-holidays-table">
-            <thead>
-              <tr>
-                <th>Holiday Date</th>
-                <th>Remarks</th>
-                <th>Edit</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {holidays.length > 0 ? (
-                holidays.map((item: any) => (
-                  <tr key={item.id}>
-                    <td>{formatDate(item.holidayDate)}</td>
-                    <td>{item.remark}</td>
-
-                    <td>
-                      <button className="dbs-holidays-edit">
-                        <Edit3 size={16} onClick={() => handleEdit(item)} />
-                      </button>
-                    </td>
-
-                    <td>
-                      <button
-                        className="dbs-holidays-delete"
-                        onClick={() => {
-                          setDeleteItem(item);
-                          setShowDeleteModal(true);
-                        }}
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={4} align="center">
-                    No Holidays Found
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+        {/* <span className="dbs-total-badge">Total : {holidays.length}</span> */}
       </div>
+
+      {/* ================= Table ================= */}
+      <div className="dbs-table-container">
+        {holidays.length === 0 ? (
+          <div className="dbs-empty-state">
+            <AlertCircle className="dbs-empty-state-icon" />
+            <div className="dbs-empty-state-title">No records found</div>
+            <div className="dbs-empty-state-desc">
+              Add a new holiday to view records here.
+            </div>
+          </div>
+        ) : (
+          <div className="dbs-table-card">
+            <div className="dbs-table-scroll active-scroll">
+              <table className="dbs-data-table">
+                <thead>
+                  <tr>
+                    <th>SL.NO</th>
+                    <th>HOLIDAY DATE</th>
+                    <th>REMARKS</th>
+                    <th>ACTIONS</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {currentData.map((item: any, index) => (
+                    <tr key={item.id}>
+                      <td>{startIndex + index + 1}</td>
+                      <td>{formatDate(item.holidayDate)}</td>
+                      <td>{item.remark}</td>
+                      <td>
+                        <div className="dbs-holidays-actions-buttons">
+                          <button
+                            type="button"
+                            className="dbs-holidays-edit"
+                            onClick={() => handleEdit(item)}
+                          >
+                            <Edit3 size={16} />
+                          </button>
+                          <button
+                            type="button"
+                            className="dbs-holidays-delete"
+                            onClick={() => {
+                              setDeleteItem(item);
+                              setShowDeleteModal(true);
+                            }}
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <Footer
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        recordsPerPage={recordsPerPage}
+        setRecordsPerPage={setRecordsPerPage}
+        totalRecords={totalRecords}
+        totalPages={totalPages}
+        startIndex={startIndex}
+        endIndex={endIndex}
+        getPagination={getPagination}
+      />
       <DeleteModal
         open={showDeleteModal}
         title="Delete Holiday"

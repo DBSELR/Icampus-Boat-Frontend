@@ -1,225 +1,188 @@
-/* =====================================
- PERIOD SETTINGS PAGE
-===================================== */
+/* ==========================================
+   PERIOD SETTINGS CONTAINER
+========================================== */
 
 .dbs-period-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
 }
 
-/* =====================================
- CARD
-===================================== */
+/* ==========================================
+   PAGE HEADER
+========================================== */
+
+.dbs-period-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-period-header h2 {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--dbs-text);
+}
+
+.dbs-period-header p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================
+   MAIN CARD
+========================================== */
 
 .dbs-period-card {
   background: var(--dbs-surface);
-
   border: 1px solid var(--dbs-border);
-
   border-radius: var(--dbs-radius);
-
   box-shadow: var(--dbs-shadow);
-
-  overflow: hidden;
+  padding: 24px;
+  transition: var(--dbs-transition);
 }
 
-/* =====================================
- HEADER
-===================================== */
-
-.dbs-period-header {
-  padding: 18px 26px;
-
-  border-bottom: 1px solid var(--dbs-border);
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: space-between;
-}
-
-.dbs-period-header h3 {
-  margin: 0;
-
-  font-size: 1.5rem;
-
-  font-weight: 800;
-
-  color: var(--dbs-text);
-}
+/* ==========================================
+   INNER HEADER CARD
+========================================== */
 
 .dbs-period-head {
-  background: var(--dbs-bg-surface);
-
+  background: var(--dbs-surface);
   border: 1px solid var(--dbs-border);
-
-  border-radius: 18px;
-
-  padding: 28px;
-
-  box-shadow: var(--dbs-shadow);
-
+  border-radius: var(--dbs-radius);
+  padding: 22px;
   display: flex;
-
   flex-direction: column;
-
-  gap: 24px;
+  gap: 22px;
 }
 
 .dbs-period-head h3 {
-  font-size: 18px;
-
-  font-weight: 700;
-
-  color: var(--dbs-text);
-
+  margin: 0;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--dbs-border);
-
-  padding-bottom: 14px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dbs-text);
 }
-/* =====================================
- BODY
-===================================== */
+
+/* ==========================================
+   BODY
+========================================== */
 
 .dbs-period-body {
-  padding: 10px;
-
   display: flex;
-
   flex-direction: column;
-
-  gap: 26px;
+  gap: 24px;
 }
 
-/* =====================================
- TOP CONTENT
-===================================== */
+/* ==========================================
+   FORM + TIMING LAYOUT
+========================================== */
 
 .dbs-period-content {
   display: grid;
-
-  grid-template-columns: 360px 1fr;
-
-  gap: 30px;
-
+  grid-template-columns: 420px 1fr;
+  gap: 28px;
   align-items: start;
 }
 
-/* =====================================
- FORM SECTION
-===================================== */
+/* ==========================================
+   LEFT FORM SECTION
+========================================== */
 
 .dbs-period-form {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 18px;
-
   background: var(--dbs-surface);
-
   border: 1px solid var(--dbs-border);
-
-  padding: 20px;
-
   border-radius: var(--dbs-radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
+
+/* ==========================================
+   FORM FIELD
+========================================== */
 
 .dbs-period-field {
   display: flex;
-
   flex-direction: column;
 }
 
 .dbs-period-field label {
-  font-size: 13px;
-
-  font-weight: 700;
-
-  color: var(--dbs-text);
-
   margin-bottom: 7px;
-}
-
-.dbs-period-select,
-.dbs-period-input,
-.dbs-period-textarea {
-  width: 100%;
-
-  border: 1px solid var(--dbs-border);
-
-  background: var(--dbs-surface);
-
+  font-size: 0.85rem;
+  font-weight: 700;
   color: var(--dbs-text);
-
-  border-radius: var(--dbs-radius-sm);
-
-  outline: none;
-
-  transition: var(--dbs-transition);
-
-  font-size: 14px;
 }
+
+/* ==========================================
+   INPUTS
+========================================== */
 
 .dbs-period-select,
 .dbs-period-input {
-  height: 42px;
-
-  padding: 0 13px;
-}
-
-.dbs-period-textarea {
-  padding: 12px;
-
-  resize: vertical;
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: var(--dbs-radius-sm);
+  border: 1px solid var(--dbs-border);
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  font-size: 0.9rem;
+  outline: none;
+  transition: var(--dbs-transition);
 }
 
 .dbs-period-select:hover,
-.dbs-period-input:hover,
-.dbs-period-textarea:hover {
+.dbs-period-input:hover {
   border-color: var(--dbs-primary);
 }
 
 .dbs-period-select:focus,
-.dbs-period-input:focus,
-.dbs-period-textarea:focus {
+.dbs-period-input:focus {
   border-color: var(--dbs-primary);
-
   box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
-/* =====================================
- TIMINGS SECTION
-===================================== */
+/* Disabled */
+
+.dbs-period-select:disabled,
+.dbs-period-input:disabled {
+  background: var(--dbs-bg);
+  color: var(--dbs-text-muted);
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+/* ==========================================
+   PERIOD TIMINGS SECTION
+========================================== */
 
 .dbs-period-timings {
-  border: 1px solid var(--dbs-border);
-
-  border-radius: var(--dbs-radius);
-
-  overflow: hidden;
-
   background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  overflow: hidden;
 }
 
 .dbs-period-timings h3 {
   margin: 0;
-
   padding: 15px 18px;
-
   background: var(--dbs-primary);
-
-  color: white;
-
-  font-size: 15px;
-
+  color: #ffffff;
+  font-size: 0.95rem;
   font-weight: 800;
 }
-/* =====================================
- PERIOD GRID
-===================================== */
+
+/* ==========================================
+   PERIOD GRID
+========================================== */
 
 .dbs-period-grid {
   display: grid;
@@ -228,73 +191,50 @@
   padding: 22px;
 }
 
-/* =====================================
- PERIOD CARD
-===================================== */
+/* ==========================================
+   PERIOD SLOT CARD
+========================================== */
 
 .dbs-period-slot {
   background: var(--dbs-bg);
-
   border: 1px solid var(--dbs-border);
-
-  border-radius: 14px;
-
-  padding: 16px;
-
+  border-radius: var(--dbs-radius-sm);
+  padding: 18px;
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
   gap: 14px;
-
-  transition: all 0.25s ease;
-
-  position: relative;
+  transition: var(--dbs-transition);
 }
 
 .dbs-period-slot:hover {
-  border-color: var(--dbs-primary);
-
   background: var(--dbs-primary-light);
-
-  transform: translateY(-3px);
-
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-color: var(--dbs-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--dbs-shadow);
 }
 
-/* =====================================
- ROMAN NUMBER BADGE
-===================================== */
+/* ==========================================
+   PERIOD NUMBER BADGE
+========================================== */
 
 .dbs-period-number {
   width: 42px;
-
   height: 42px;
-
-  border-radius: 50%;
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
+  border-radius: 50%;
   background: var(--dbs-primary);
-
-  color: white;
-
-  font-size: 18px;
-
+  color: #ffffff;
+  font-size: 1rem;
   font-weight: 800;
-
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--dbs-shadow);
 }
 
-/* =====================================
- TIME INPUT
-===================================== */
+/* ==========================================
+   TIME INPUT
+========================================== */
 
 .dbs-period-input-wrapper {
   width: 100%;
@@ -302,32 +242,17 @@
 
 .dbs-period-time-input {
   width: 100%;
-
   height: 42px;
-
+  padding: 0 12px;
   text-align: center;
-
-  border-radius: 10px;
-
+  border-radius: var(--dbs-radius-sm);
   border: 1px solid var(--dbs-border);
-
-  background: white;
-
+  background: var(--dbs-surface);
   color: var(--dbs-text);
-
-  font-size: 14px;
-
+  font-size: 0.9rem;
   font-weight: 600;
-
   outline: none;
-
-  transition: 0.25s ease;
-}
-
-.dbs-period-time-input::placeholder {
-  color: #9ca3af;
-
-  font-weight: 500;
+  transition: var(--dbs-transition);
 }
 
 .dbs-period-time-input:hover {
@@ -336,70 +261,85 @@
 
 .dbs-period-time-input:focus {
   border-color: var(--dbs-primary);
-
-  box-shadow: 0 0 0 4px var(--dbs-primary-light);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
-/* =====================================
- FILLED TIMING EFFECT
-===================================== */
+.dbs-period-time-input::placeholder {
+  color: var(--dbs-text-muted);
+}
 
 .dbs-period-time-input:not(:placeholder-shown) {
-  background: #f8fafc;
-
+  background: var(--dbs-primary-light);
   color: var(--dbs-primary);
-
   font-weight: 700;
 }
-/* =====================================
- BUTTONS
-===================================== */
+
+/* ==========================================
+   FOOTER ACTIONS
+========================================== */
 
 .dbs-period-actions {
   display: flex;
-
   justify-content: flex-end;
-
-  gap: 14px;
-
-  padding-top: 10px;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
 }
 
+/* ==========================================
+   SAVE BUTTON
+========================================== */
+
 .dbs-period-save-btn {
-  background: var(--dbs-primary);
-
-  color: white;
-
-  border: none;
-
-  padding: 11px 24px;
-
+  height: 44px;
+  min-width: 120px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   border-radius: var(--dbs-radius-sm);
-
+  background: var(--dbs-primary);
+  color: #ffffff;
+  border: none;
+  font-size: 0.9rem;
   font-weight: 700;
-
   cursor: pointer;
-
+  box-shadow: var(--dbs-shadow);
   transition: var(--dbs-transition);
 }
 
 .dbs-period-save-btn:hover {
-  background: var(--dbs-primary-hover);
-
-  transform: translateY(-1px);
+  filter: brightness(1.08);
+  transform: translateY(-2px);
 }
 
+.dbs-period-save-btn:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================
+   CANCEL BUTTON
+========================================== */
+
 .dbs-period-cancel-btn {
-  background: var(--dbs-surface);
+  height: 44px;
+  min-width: 120px;
+  padding: 0 22px;
 
-  color: var(--dbs-danger);
-
-  border: 1px solid var(--dbs-border);
-
-  padding: 11px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
   border-radius: var(--dbs-radius-sm);
 
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+
+  border: 1px solid var(--dbs-border);
+
+  font-size: 0.9rem;
   font-weight: 700;
 
   cursor: pointer;
@@ -407,50 +347,213 @@
   transition: var(--dbs-transition);
 }
 
+/* ==========================================
+   CANCEL BUTTON HOVER
+========================================== */
+
 .dbs-period-cancel-btn:hover {
   background: var(--dbs-primary-light);
+
+  border-color: var(--dbs-primary);
+
+  color: var(--dbs-primary);
+
+  transform: translateY(-2px);
 }
 
-/* =====================================
- TABLE
-===================================== */
+/* ==========================================
+   CANCEL BUTTON ACTIVE
+========================================== */
 
-.dbs-period-table-wrapper {
+.dbs-period-cancel-btn:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================
+   CANCEL BUTTON FOCUS
+========================================== */
+
+.dbs-period-cancel-btn:focus-visible {
+  outline: none;
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+}
+
+/* ==========================================
+   CANCEL BUTTON ICON
+========================================== */
+
+.dbs-period-cancel-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ==========================================
+   CANCEL BUTTON DISABLED
+========================================== */
+
+.dbs-period-cancel-btn:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+/* ==========================================
+   BUTTON FOCUS
+========================================== */
+
+.dbs-period-save-btn:focus-visible,
+.dbs-period-cancel-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 1100px) {
+  .dbs-period-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .dbs-period-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .dbs-period-card {
+    padding: 16px;
+  }
+
+  .dbs-period-grid {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .dbs-period-actions {
+    flex-direction: column;
+  }
+
+  .dbs-period-save-btn,
+  .dbs-period-cancel-btn {
+    width: 100%;
+  }
+}
+/* ==========================================
+   TABLE TITLE SECTION
+========================================== */
+
+.dbs-table-head {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-table-head h2 {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--dbs-text);
+}
+
+.dbs-page-subtitle {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================
+   TABLE CONTAINER
+========================================== */
+
+.dbs-period-table-container {
+  background: var(--dbs-surface);
   border: 1px solid var(--dbs-border);
-
   border-radius: var(--dbs-radius);
-
+  box-shadow: var(--dbs-shadow);
+  padding: 18px;
   overflow: hidden;
 }
 
+/* ==========================================
+   TABLE CARD
+========================================== */
+
+.dbs-period-table-card {
+  background: var(--dbs-surface);
+  border: none;
+  border-radius: var(--dbs-radius-sm);
+  overflow: hidden;
+}
+
+/* ==========================================
+   TABLE SCROLL
+========================================== */
+
+.dbs-period-table-scroll {
+  max-height: 430px;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
+}
+
+/* ==========================================
+   TABLE STRUCTURE
+========================================== */
+
 .dbs-period-table {
   width: 100%;
-
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
 }
+
+/* ==========================================
+   TABLE HEADER
+========================================== */
 
 .dbs-period-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 44px;
+  padding: 0 18px;
   background: var(--dbs-primary);
-
-  color: white;
-
-  padding: 13px 15px;
-
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   text-align: left;
-
-  font-size: 13px;
-
-  font-weight: 800;
+  border-bottom: 2px solid var(--dbs-primary);
 }
 
+.dbs-period-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
+}
+
+.dbs-period-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
+}
+
+/* ==========================================
+   TABLE BODY
+========================================== */
+
 .dbs-period-table tbody td {
-  padding: 13px 15px;
-
-  border-bottom: 1px solid var(--dbs-border);
-
+  height: 54px;
+  padding: 0 18px;
+  background: var(--dbs-surface);
   color: var(--dbs-text);
-
-  font-size: 14px;
+  border-bottom: 1px solid var(--dbs-border);
+  font-size: 0.88rem;
+  vertical-align: middle;
 }
 
 .dbs-period-table tbody tr {
@@ -461,77 +564,123 @@
   background: var(--dbs-primary-light);
 }
 
-/* =====================================
- EDIT BUTTON
-===================================== */
+.dbs-period-table tbody tr:last-child td {
+  border-bottom: none;
+}
 
-.dbs-period-edit-btn {
-  background: var(--dbs-primary);
+/* ==========================================
+   COLUMN WIDTH
+========================================== */
 
-  color: white;
+.dbs-period-table th:nth-child(1),
+.dbs-period-table td:nth-child(1) {
+  width: 10%;
+  text-align: center;
+}
 
-  border: none;
+.dbs-period-table th:nth-child(2),
+.dbs-period-table td:nth-child(2) {
+  width: 28%;
+}
 
-  padding: 7px 18px;
+.dbs-period-table th:nth-child(3),
+.dbs-period-table td:nth-child(3) {
+  width: 12%;
 
-  border-radius: var(--dbs-radius-sm);
+  text-align: center;
+}
 
-  font-size: 13px;
+.dbs-period-table th:nth-child(4),
+.dbs-period-table td:nth-child(4),
+.dbs-period-table th:nth-child(5),
+.dbs-period-table td:nth-child(5) {
+  width: 15%;
 
+  text-align: center;
+}
+
+.dbs-period-table th:nth-child(6),
+.dbs-period-table td:nth-child(6) {
+  width: 12%;
+
+  text-align: center;
+}
+
+.dbs-period-table th:nth-child(7),
+.dbs-period-table td:nth-child(7) {
+  width: 8%;
+
+  text-align: center;
+}
+
+/* ==========================================
+   SPECIAL COLUMNS
+========================================== */
+
+.dbs-period-table tbody td:first-child {
+  font-weight: 800;
+  color: var(--dbs-primary);
+}
+
+.dbs-period-table tbody td:nth-child(6) {
   font-weight: 700;
+}
 
+/* ==========================================
+   EDIT BUTTON
+========================================== */
+
+.dbs-period-edit-btns {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  border-radius: var(--dbs-radius-sm);
+  border: 1px solid var(--dbs-border);
+  background: var(--dbs-surface);
+  color: var(--dbs-primary);
   cursor: pointer;
-
   transition: var(--dbs-transition);
 }
 
-.dbs-period-edit-btn:hover {
-  background: var(--dbs-primary-hover);
+.dbs-period-edit-btns svg {
+  width: 16px;
+  height: 16px;
 }
 
-/* =====================================
- RESPONSIVE
-===================================== */
-
-@media (max-width: 1200px) {
-  .dbs-period-content {
-    grid-template-columns: 1fr;
-  }
-
-  .dbs-period-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.dbs-action {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-@media (max-width: 700px) {
-  .dbs-period-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .dbs-period-actions {
-    justify-content: center;
-  }
-}
-.dbs-period-table-scroll {
-  max-height: 350px;
-  overflow-y: auto;
-  overflow-x: auto;
-  border: 1px solid var(--dbs-border);
-  border-radius: var(--dbs-radius);
+.dbs-period-edit-btns:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  transform: translateY(-2px);
 }
 
-.dbs-period-table {
-  width: 100%;
-  border-collapse: collapse;
+.dbs-period-edit-btns:active {
+  transform: scale(0.95);
 }
 
-.dbs-period-table thead th {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background: var(--dbs-primary);
-  color: white;
+/* ==========================================
+   EMPTY TABLE STATE
+========================================== */
+
+.dbs-period-table tbody td[colspan="7"] {
+  height: 220px;
+  text-align: center;
+  color: var(--dbs-text-muted);
+  font-size: 0.95rem;
+  font-weight: 700;
 }
+
+/* ==========================================
+   TABLE SCROLLBAR
+========================================== */
 
 .dbs-period-table-scroll::-webkit-scrollbar {
   width: 8px;
@@ -539,10 +688,91 @@
 }
 
 .dbs-period-table-scroll::-webkit-scrollbar-track {
-  background: var(--dbs-bg);
+  background: transparent;
 }
 
 .dbs-period-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 20px;
+}
+
+.dbs-period-table-scroll::-webkit-scrollbar-thumb:hover {
   background: var(--dbs-primary);
-  border-radius: 10px;
+}
+
+/* ==========================================
+   GLOBAL TRANSITION
+========================================== */
+
+.dbs-period-card,
+.dbs-period-table-container,
+.dbs-period-form,
+.dbs-period-timings {
+  transition: var(--dbs-transition);
+}
+
+/* ==========================================
+   ANIMATION
+========================================== */
+
+@keyframes dbsPeriodFade {
+  from {
+    opacity: 0;
+
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+.dbs-period-card,
+.dbs-period-table-container {
+  animation: dbsPeriodFade 0.25s ease;
+}
+
+/* ==========================================
+   MOBILE TABLE
+========================================== */
+
+@media (max-width: 768px) {
+  .dbs-period-table {
+    min-width: 900px;
+  }
+
+  .dbs-period-table thead th {
+    font-size: 0.75rem;
+  }
+
+  .dbs-period-table tbody td {
+    font-size: 0.82rem;
+  }
+}
+/* ==========================================
+   EMPTY PERIOD TIMING MESSAGE
+========================================== */
+
+.dbs-period-empty-message {
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  color: var(--dbs-text-muted);
+}
+
+.dbs-period-empty-message p {
+  margin: 0;
+  max-width: 420px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.6;
+  background: var(--dbs-bg);
+  border: 1px dashed var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  padding: 20px;
 }

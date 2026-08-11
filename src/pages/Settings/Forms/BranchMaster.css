@@ -1,653 +1,689 @@
-/* ==============================
-   Branch Master Styles
-================================= */
+/* =====================================
+BRANCH MASTER STYLES
+===================================== */
+
+/* =====================================
+CONTAINER
+===================================== */
 
 .dbs-branch-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
+  animation: dbsBranchSlideUp 0.25s ease;
 }
 
-/* Header */
-.dbs-branch-form-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* =====================================
+HEADER
+===================================== */
+
+.dbs-branch-header {
   border-bottom: 1px solid var(--dbs-border);
   padding-bottom: 16px;
 }
 
-.dbs-branch-form-header h2 {
-  font-size: 1.4rem;
+.dbs-branch-header h2 {
+  margin: 0;
+  font-size: 1.45rem;
   font-weight: 800;
   color: var(--dbs-text);
 }
 
-/* Form Card */
-.dbs-form-card {
-  background-color: var(--dbs-surface);
+.dbs-branch-header p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
+}
+
+/* =====================================
+FORM CARD / TABLE CARD
+===================================== */
+
+.dbs-branch-form-card,
+.dbs-branch-table-card {
+  background: var(--dbs-surface);
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius);
   box-shadow: var(--dbs-shadow);
   padding: 24px;
 
+  animation: dbsBranchSlideUp 0.25s ease;
+}
+
+/* =====================================
+FORM CARD
+===================================== */
+
+.dbs-branch-form-card {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 
-.dbs-form-card h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--dbs-text);
+.dbs-branch-form-card h3 {
+  margin: 0;
+  padding-bottom: 12px;
+
   border-bottom: 1px solid var(--dbs-border);
-  padding-bottom: 10px;
+
+  font-size: 1.05rem;
+  font-weight: 700;
+
+  color: var(--dbs-text);
 }
 
-/* Grid Layouts */
-.dbs-form-grid-4 {
+/* =====================================
+FORM GRID
+===================================== */
+
+.dbs-branch-form-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  align-items: end;
 }
 
-.dbs-form-grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
+/* =====================================
+INPUT BOX
+===================================== */
 
-.dbs-form-grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-/* Input Box */
-.dbs-input-box {
+.dbs-branch-input-box {
   display: flex;
   flex-direction: column;
 }
 
-.dbs-input-box label {
-  font-size: 0.82rem;
+.dbs-branch-input-box label {
+  margin-bottom: 7px;
+
+  font-size: 0.85rem;
   font-weight: 600;
+
   color: var(--dbs-text);
-  margin-bottom: 6px;
 }
 
-/* Inputs */
-.dbs-input-box input,
-.dbs-input-box select,
-.dbs-input-box textarea {
+/* =====================================
+INPUTS / SELECT
+===================================== */
+
+.dbs-branch-input-box input,
+.dbs-branch-input-box select {
   width: 100%;
-  padding: 10px 12px;
+
+  height: 42px;
+  padding: 0 12px;
+
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius-sm);
-  background-color: var(--dbs-surface);
+
+  background: var(--dbs-surface);
   color: var(--dbs-text);
+
   font-size: 0.9rem;
+
   outline: none;
-  transition: var(--dbs-transition);
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
 }
 
-.dbs-input-box input:focus,
-.dbs-input-box select:focus,
-.dbs-input-box textarea:focus {
+/* =====================================
+INPUT HOVER
+===================================== */
+
+.dbs-branch-input-box input:hover,
+.dbs-branch-input-box select:hover {
   border-color: var(--dbs-primary);
+}
+
+/* =====================================
+INPUT FOCUS
+===================================== */
+
+.dbs-branch-input-box input:focus,
+.dbs-branch-input-box select:focus {
+  border-color: var(--dbs-primary);
+
   box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
-/* Buttons Row */
-.dbs-stepper-actions-row {
+/* =====================================
+FORM ACTIONS
+===================================== */
+
+.dbs-branch-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
+  align-items: center;
+
+  gap: 14px;
+
+  margin-top: 22px;
+  padding-top: 18px;
 
   border-top: 1px solid var(--dbs-border);
-  padding-top: 20px;
-  margin-top: 10px;
 }
 
-/* Buttons */
-.dbs-save-btn {
-  background-color: var(--dbs-primary);
-  color: white;
-  border: none;
-  border-radius: var(--dbs-radius-sm);
-  padding: 10px 18px;
-  font-size: 0.88rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: var(--dbs-transition);
-}
+/* =====================================
+FORM BUTTONS
+===================================== */
 
-.dbs-save-btn:hover {
-  background-color: var(--dbs-primary-hover);
-}
+.dbs-branch-save-btn,
+.dbs-branch-reset-btn {
+  height: 42px;
+  min-width: 120px;
 
-.dbs-cancel-btn {
-  background-color: var(--dbs-surface);
-  border: 1px solid var(--dbs-border);
-  border-radius: var(--dbs-radius-sm);
-  padding: 10px 18px;
-  font-size: 0.88rem;
-  font-weight: 700;
-  cursor: pointer;
-}
+  padding: 0 22px;
 
-.dbs-cancel-btn:hover {
-  background-color: var(--dbs-background);
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .dbs-form-grid-4 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .dbs-form-grid-4,
-  .dbs-form-grid-3,
-  .dbs-form-grid-2 {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-
-
-.dbs-form-cancel-btn {
-  display: flex;
-  background-color: var(--dbs-background);
-  color: black;
-  border: 1px solid var(--dbs-border);
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border-radius: var(--dbs-radius-sm);
-  cursor: pointer;
-  outline: none;
-}
-
-.dbs-form-cancel-btn:hover {  
-  background-color: rgb(236, 60, 60);  
-  color: white;
-}
-
-.dbs-form-save-btn {
   display: flex;
   align-items: center;
+  justify-content: center;
+
   gap: 8px;
-  background-color: var(--dbs-primary);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 700;
+
   border-radius: var(--dbs-radius-sm);
-  cursor: pointer;
-  outline: none;
-}
 
-.dbs-form-save-btn:hover {
-  background-color: var(--dbs-primary-hover);
-}
-
-
-.dbs-form-actions-row {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-
-    border-top: 1px solid var(--dbs-border);
-    padding-top: 20px;
-}
-
-
-/* Core Student Datatable */
-.dbs-data-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
   font-size: 0.9rem;
-  border-radius: 50px !important;
-}
-
-.dbs-data-table th {
-  padding: 12px 16px;
   font-weight: 700;
-  color: white;
-  border-bottom: 2px solid var(--dbs-border);
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  user-select: none;
-  background-color: var(--dbs-primary);
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
 }
 
-.dbs-data-table td {
-  padding: 14px 16px;
+/* =====================================
+SAVE BUTTON
+===================================== */
+
+.dbs-branch-save-btn {
+  background: var(--dbs-primary);
+
+  border: none;
+
+  color: #fff;
+
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-branch-save-btn:hover {
+  background: var(--dbs-primary-hover);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    var(--dbs-shadow),
+    0 5px 14px rgba(0, 0, 0, 0.08);
+}
+
+.dbs-branch-save-btn:active {
+  transform: scale(0.97);
+}
+
+.dbs-branch-save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =====================================
+RESET BUTTON
+===================================== */
+
+.dbs-branch-reset-btn {
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  color: var(--dbs-text);
+}
+
+.dbs-branch-reset-btn:hover {
+  background: var(--dbs-primary-light);
+
+  border-color: var(--dbs-primary);
+
+  color: var(--dbs-primary);
+
+  transform: translateY(-2px);
+}
+
+.dbs-branch-reset-btn:active {
+  transform: scale(0.97);
+}
+
+/* =====================================
+TABLE HEADER
+===================================== */
+
+.dbs-branch-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+
   border-bottom: 1px solid var(--dbs-border);
-  color: var(--dbs-text);
 }
 
-.dbs-data-table tr:hover td {
-  background-color: var(--dbs-background);
-}
+.dbs-branch-table-header h3 {
+  margin: 0;
 
-.dbs-table-student-name {
+  font-size: 1.05rem;
   font-weight: 700;
+
   color: var(--dbs-text);
 }
 
-.dbs-table-branch-td {
-  font-size: 0.82rem;
+.dbs-branch-table-header p {
+  margin: 5px 0 0;
+
+  font-size: 0.85rem;
+
   color: var(--dbs-text-muted);
 }
 
-.dbs-table-actions-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+.dbs-branch-table-header span {
+  background: var(--dbs-primary-light);
 
-.dbs-table-action-icon-btn {
-  width: 28px;
-  height: 28px;
-  border-radius: 4px;
-  border: 1px solid var(--dbs-border);
-  background-color: var(--dbs-surface);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--dbs-transition);
-  outline: none;
-}
-
-.dbs-btn-edit {
   color: var(--dbs-primary);
+
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
 }
 
-.dbs-btn-edit:hover {
-  background-color: var(--dbs-primary-light);
-  border-color: var(--dbs-primary);
+/* =====================================
+TABLE SCROLL
+===================================== */
+
+.dbs-branch-table-scroll {
+  max-height: 430px;
+
+  overflow-y: auto;
+  overflow-x: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
 }
 
-.dbs-btn-delete {
-  color: var(--dbs-danger);
+.dbs-branch-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-.dbs-btn-delete:hover {
-  background-color: var(--dbs-danger-light);
-  border-color: var(--dbs-danger);
+.dbs-branch-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
 }
 
+.dbs-branch-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
 
-/* ==========================================
-   TABLE CONTAINER
-========================================== */
+  border-radius: 20px;
+}
 
-.dbs-branch-container .dbs-table-container {
+.dbs-branch-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+
+/* =====================================
+TABLE
+===================================== */
+
+.dbs-branch-data-table {
   width: 100%;
 
-  background: var(--dbs-bg-surface);
+  border-collapse: separate;
+  border-spacing: 0;
 
-  border: 1px solid var(--dbs-border);
-
-  border-radius: 16px;
-
-  padding: 20px;
-
-  box-shadow: var(--dbs-shadow);
-
-  overflow-x: auto;
+  font-size: 0.9rem;
 }
 
+/* =====================================
+TABLE HEADER
+===================================== */
 
-/* ==========================================
-   EMPTY STATE
-========================================== */
+.dbs-branch-data-table thead th {
+  position: sticky;
 
-.dbs-subject-container .dbs-empty-state {
-  display: flex;
+  top: 0;
 
-  flex-direction: column;
+  z-index: 5;
 
-  align-items: center;
+  height: 44px;
 
-  justify-content: center;
+  padding: 0 18px;
 
-  min-height: 220px;
+  background: var(--dbs-primary);
 
-  text-align: center;
+  color: #fff;
 
-  color: var(--dbs-text-light);
-}
-
-.dbs-subject-container .dbs-empty-state-icon {
-  width: 42px;
-
-  height: 42px;
-
-  margin-bottom: 12px;
-
-  color: var(--dbs-primary);
-}
-
-.dbs-subject-container .dbs-empty-state-title {
-  font-size: 18px;
-
+  font-size: 0.78rem;
   font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+
+  text-align: left;
+
+  white-space: nowrap;
+}
+
+/* =====================================
+HEADER ROUNDED CORNERS
+===================================== */
+
+.dbs-branch-data-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
+}
+
+.dbs-branch-data-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
+}
+
+/* =====================================
+TABLE BODY
+===================================== */
+
+.dbs-branch-data-table tbody tr {
+  transition: var(--dbs-transition);
+}
+
+.dbs-branch-data-table tbody td {
+  height: 54px;
+
+  padding: 0 18px;
 
   color: var(--dbs-text);
 
-  margin-bottom: 8px;
+  border-bottom: 1px solid var(--dbs-border);
+
+  background: var(--dbs-surface);
+
+  white-space: nowrap;
 }
 
-.dbs-subject-container .dbs-empty-state-desc {
+/* =====================================
+TABLE ROW HOVER
+===================================== */
+
+.dbs-branch-data-table tbody tr:hover td {
+  background: var(--dbs-primary-light);
+}
+
+.dbs-branch-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =====================================
+EDIT BUTTON
+===================================== */
+
+/* =====================================
+EDIT ACTION BUTTON
+===================================== */
+
+.dbs-branch-edit-btn {
+  width: 34px;
+  height: 34px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+
+  color: var(--dbs-primary);
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
+}
+
+/* =====================================
+EDIT ICON
+===================================== */
+
+.dbs-branch-edit-btn svg {
+  width: 16px;
+  height: 16px;
+  color: inherit;
+}
+
+/* =====================================
+EDIT HOVER
+===================================== */
+
+.dbs-branch-edit-btn:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* =====================================
+EDIT ACTIVE
+===================================== */
+
+.dbs-branch-edit-btn:active {
+  transform: scale(0.95);
+}
+
+/* =====================================
+EDIT FOCUS
+===================================== */
+
+.dbs-branch-edit-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* =====================================
+EMPTY STATE
+===================================== */
+
+.dbs-branch-empty {
+  min-height: 260px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  gap: 12px;
+}
+
+.dbs-branch-empty-icon {
+  width: 45px;
+  height: 45px;
+
+  color: var(--dbs-primary);
+}
+
+.dbs-branch-empty-title {
+  font-size: 18px;
+  font-weight: 700;
+
+  color: var(--dbs-text);
+}
+
+.dbs-branch-empty-desc {
   font-size: 14px;
 
-  color: var(--dbs-text-light);
+  color: var(--dbs-text-muted);
 
   max-width: 350px;
 }
 
+/* =====================================
+GLOBAL BOX SIZING
+===================================== */
 
-
-
-/* ==========================================
-   DATA TABLE
-========================================== */
-
-.dbs-branch-container .dbs-data-table {
-  width: 100%;
-
-  border-collapse: collapse;
-
-  font-size: 14px;
+.dbs-branch-container *,
+.dbs-branch-container *::before,
+.dbs-branch-container *::after {
+  box-sizing: border-box;
 }
 
-.dbs-branch-container .dbs-data-table thead {
-  background: linear-gradient(135deg, var(--dbs-primary), var(--dbs-secondary));
+/* =====================================
+ANIMATION
+===================================== */
 
-  color: #ffffff;
+@keyframes dbsBranchFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
-.dbs-branch-container .dbs-data-table th {
-  padding: 14px 16px;
+@keyframes dbsBranchSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
 
-  text-align: left;
-
-  font-weight: 700;
-
-  font-size: 13px;
-
-  letter-spacing: 0.3px;
-
-  text-transform: uppercase;
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.dbs-branch-container .dbs-data-table td {
-  padding: 14px 16px;
+/* =====================================
+BUTTON FOCUS
+===================================== */
 
-  border-bottom: 1px solid var(--dbs-border);
-
-  color: var(--dbs-text);
-}
-
-.dbs-branch-container .dbs-data-table tbody tr {
-  transition: 0.25s ease;
-}
-
-.dbs-branch-container .dbs-data-table tbody tr:hover {
-  background: var(--dbs-bg);
-}
-
-.dbs-footer-info {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #64748b;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.dbs-footer-info span {
-  color: #64748b;
-}
-
-.dbs-footer-count {
-  color: #1e293b;
-  font-weight: 700;
-  background: #f1f5f9;
-  padding: 3px 8px;
-  border-radius: 6px;
-  min-width: 28px;
-  text-align: center;
-}
-/* ==========================================
-   DBS TABLE FOOTER
-========================================== */
-
-.dbs-branch-container .dbs-table-footer {
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  padding: 18px 20px;
-
-  margin-top: 16px;
-
-  background: var(--dbs-bg-surface);
-
-  border: 1px solid var(--dbs-border);
-
-  border-radius: 14px;
-
-  box-shadow: var(--dbs-shadow);
-}
-
-/* Left Section */
-
-.dbs-branch-container .dbs-footer-left {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-}
-
-.dbs-branch-container .dbs-footer-label {
-  color: var(--dbs-text-light);
-
-  font-size: 14px;
-
-  font-weight: 600;
-}
-
-/* Select */
-
-.dbs-branch-container .dbs-select-wrapper select {
-  height: 36px;
-
-  min-width: 60px;
-
-  padding: 0 10px;
-
-  border-radius: 8px;
-
-  border: 1px solid var(--dbs-border);
-
-  background: var(--dbs-bg-surface);
-
-  color: var(--dbs-text);
-
-  font-weight: 600;
-}
-
-.dbs-pagination {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.dbs-page-nav,
-.dbs-page-number {
-  min-width: 38px;
-  height: 38px;
-  padding: 0 14px;
-  border: 1px solid var(--dbs-border);
-  background: #fff;
-  color: #334155;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.25s ease;
-}
-
-.dbs-page-nav:hover:not(:disabled),
-.dbs-page-number:hover {
-  background: #f4f7fb;
-  border: 1px solid var(--dbs-border);
-}
-
-.dbs-page-number.active {
-  background: var(--dbs-primary);
-  color: #fff;
-  border: 1px solid var(--dbs-border);
-  box-shadow: 0 4px 10px rgba(15, 108, 189, 0.25);
-}
-
-.dbs-page-nav:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.dbs-page-dots {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  color: #64748b;
-  font-weight: 700;
-  font-size: 18px;
-}
-/* ==========================================
-   DBS TABLE SCROLLBAR
-========================================== */
-
-.dbs-branch-container .dbs-table-scroll.active-scroll {
-  max-height: 330px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-/* Scrollbar Width */
-.dbs-branch-container .dbs-table-scroll::-webkit-scrollbar {
-  width: 8px;
-}
-
-/* Scrollbar Track */
-.dbs-branch-container .dbs-table-scroll::-webkit-scrollbar-track {
-  background: var(--dbs-bg);
-  border-radius: 10px;
-}
-
-/* Scrollbar Thumb */
-.dbs-branch-container .dbs-table-scroll::-webkit-scrollbar-thumb {
-  background: var(--dbs-primary);
-  border-radius: 10px;
-}
-
-/* Hover */
-.dbs-branch-container .dbs-table-scroll::-webkit-scrollbar-thumb:hover {
-  background: var(--dbs-secondary);
-}
-/* ==========================================
-   STICKY TABLE HEADER
-========================================== */
-
-.dbs-branch-container .dbs-table-scroll.active-scroll {
-  max-height: 330px;
-  overflow-y: auto;
-  overflow-x: auto;
-}
-
-.dbs-branch-container .dbs-data-table th {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-
-  background: var(--dbs-primary);
-  color: #ffffff;
-}
-
-/* ==========================================
-   TABLE ACTION ICONS
-========================================== */
-
-.dbs-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dbs-icon-btn {
-  width: 32px;
-  height: 32px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 8px;
-  border: 1px solid var(--dbs-border);
-
-  background: var(--dbs-bg-surface);
-
-  cursor: pointer;
-
-  transition: 0.25s ease;
-
-  text-decoration: none;
+.dbs-branch-save-btn:focus-visible,
+.dbs-branch-reset-btn:focus-visible,
+.dbs-branch-edit-btn:focus-visible {
   outline: none;
-  appearance: none;
-  -webkit-appearance: none;
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
 }
 
-.dbs-icon-btn svg {
-  display: block;
+/* =====================================
+REDUCED MOTION
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .dbs-branch-container,
+  .dbs-branch-header,
+  .dbs-branch-form-card,
+  .dbs-branch-table-card {
+    animation: none !important;
+
+    opacity: 1;
+
+    transform: none;
+  }
+
+  .dbs-branch-data-table tbody tr,
+  .dbs-branch-edit-btn,
+  .dbs-branch-save-btn,
+  .dbs-branch-reset-btn {
+    transition: none !important;
+  }
 }
 
-/* Edit */
-.dbs-icon-btn.edit {
-  color: var(--dbs-primary);
+/* =====================================
+RESPONSIVE - TABLET
+===================================== */
+
+@media (max-width: 1024px) {
+  .dbs-branch-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.dbs-icon-btn.edit:hover {
-  background: var(--dbs-primary-soft);
-  border-color: var(--dbs-primary);
-  transform: translateY(-1px);
+/* =====================================
+RESPONSIVE - MOBILE
+===================================== */
+
+@media (max-width: 768px) {
+  .dbs-branch-container {
+    gap: 18px;
+  }
+
+  .dbs-branch-form-card,
+  .dbs-branch-table-card {
+    padding: 16px;
+  }
+
+  .dbs-branch-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dbs-branch-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dbs-branch-save-btn,
+  .dbs-branch-reset-btn {
+    width: 100%;
+  }
+
+  .dbs-branch-table-header {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 12px;
+  }
+
+  .dbs-branch-data-table {
+    min-width: 850px;
+  }
 }
 
-/* Delete */
-.dbs-icon-btn.delete {
-  color: #dc2626;
-}
+/* =====================================
+SMALL MOBILE
+===================================== */
 
-.dbs-icon-btn.delete:hover {
-  background: rgba(220, 38, 38, 0.08);
-  border-color: #dc2626;
-  transform: translateY(-1px);
-}
+@media (max-width: 480px) {
+  .dbs-branch-header h2 {
+    font-size: 1.2rem;
+  }
 
-.dbs-icon-btn:active {
-  transform: scale(0.95);
+  .dbs-branch-form-card,
+  .dbs-branch-table-card {
+    padding: 14px;
+  }
+
+  .dbs-branch-data-table {
+    min-width: 800px;
+  }
+
+  .dbs-branch-table-header span {
+    align-self: flex-start;
+  }
 }

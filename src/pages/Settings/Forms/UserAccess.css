@@ -1,117 +1,73 @@
-/* =====================================
- USER ACCESS PAGE
-===================================== */
+/* ==========================================
+USER ACCESS CONTAINER
+========================================== */
 
 .dbs-user-access-page {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
 }
 
-/* =====================================
- HEADER
-===================================== */
+/* ==========================================
+PAGE HEADER
+========================================== */
 
 .dbs-user-access-topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding-bottom: 16px;
-
   border-bottom: 1px solid var(--dbs-border);
 }
 
 .dbs-user-access-topbar h2 {
   margin: 0;
-
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   font-weight: 800;
-
   color: var(--dbs-text);
 }
 
 .dbs-user-access-topbar p {
-  margin: 6px 0 0;
-
-  font-size: 13px;
-
-  color: var(--dbs-text-light);
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
 }
 
-/* =====================================
- SAVE BUTTON
-===================================== */
-
-.dbs-user-access-save {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  background: var(--dbs-primary);
-
-  color: white;
-
-  border: none;
-
-  padding: 11px 22px;
-
-  border-radius: var(--dbs-radius-sm);
-
-  font-size: 14px;
-
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition: var(--dbs-transition);
-}
-
-.dbs-user-access-save:hover {
-  background: var(--dbs-primary-hover);
-
-  transform: translateY(-1px);
-}
-
-/* =====================================
- MAIN CARD
-===================================== */
+/* ==========================================
+MAIN CARD
+========================================== */
 
 .dbs-user-access-card {
   background: var(--dbs-surface);
-
   border: 1px solid var(--dbs-border);
-
   border-radius: var(--dbs-radius);
-
   box-shadow: var(--dbs-shadow);
-
-  padding: 26px;
-
+  padding: 24px;
   display: flex;
-
   flex-direction: column;
-
-  gap: 24px;
+  gap: 22px;
+  animation: dbsSlideUp 0.25s ease;
 }
 
 .dbs-user-access-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  padding-bottom: 14px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--dbs-border);
 }
 
 .dbs-user-access-card-header h3 {
   margin: 0;
-
-  font-size: 18px;
-  font-weight: 750;
-
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--dbs-text);
 }
+
+/* ==========================================
+TOP ACTION BUTTONS
+========================================== */
 
 .dbs-user-access-top-actions {
   display: flex;
@@ -119,91 +75,91 @@
   gap: 12px;
 }
 
-/* =====================================
- FILTER SECTION
-===================================== */
-
-.dbs-user-access-filters {
-  display: grid;
-
-  grid-template-columns:
-    minmax(400px, 1fr)
-    120px
-    minmax(400px, 1fr);
-
-  gap: 24px;
-
-  align-items: end;
-}
-
-/* LEFT SIDE FILTERS */
-
-.dbs-user-access-left-filter {
-  grid-column: 1;
-
-  display: grid;
-
-  grid-template-columns: 260px 1fr;
-
-  gap: 20px;
-}
-
-/* ROLE FILTER */
-
-.dbs-user-access-role-filter {
-  grid-column: 3;
-}
-
-.dbs-user-access-field {
+.dbs-user-access-save {
+  height: 44px;
+  min-width: 140px;
   display: flex;
-
-  flex-direction: column;
-}
-
-.dbs-user-access-field label {
-  font-size: 13px;
-
-  font-weight: 700;
-
-  color: var(--dbs-text);
-
-  margin-bottom: 7px;
-}
-
-.dbs-user-access-field input,
-.dbs-user-access-field select {
-  height: 42px;
-
-  padding: 0 13px;
-
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--dbs-primary);
+  border: none;
+  color: white;
   border-radius: var(--dbs-radius-sm);
-
-  border: 1px solid var(--dbs-border);
-
-  background: var(--dbs-surface);
-
-  color: var(--dbs-text);
-
-  outline: none;
-
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
   transition: var(--dbs-transition);
 }
 
-.dbs-user-access-field input:hover,
-.dbs-user-access-field select:hover {
-  border-color: var(--dbs-primary);
+.dbs-user-access-save:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
 }
 
-.dbs-user-access-field input:focus,
+.dbs-user-access-save:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.dbs-user-access-refresh {
+  height: 44px;
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  color: var(--dbs-text);
+  border-radius: var(--dbs-radius-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--dbs-transition);
+}
+
+.dbs-user-access-refresh:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+FILTER FIELDS
+========================================== */
+
+.dbs-user-access-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.dbs-user-access-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dbs-text);
+}
+
+.dbs-user-access-field select {
+  height: 44px;
+  padding: 0 14px;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  color: var(--dbs-text);
+  outline: none;
+  transition: var(--dbs-transition);
+}
+
+.dbs-user-access-field select:hover,
 .dbs-user-access-field select:focus {
   border-color: var(--dbs-primary);
-
-  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
 }
 
-/* =====================================
- TABLE SECTION
-===================================== */
+/* ==========================================
+TWO TABLE LAYOUT
+========================================== */
 
 .dbs-user-access-tables {
   display: grid;
@@ -211,97 +167,86 @@
   gap: 24px;
   align-items: start;
 }
-/* =====================================
- TABLE CARD
-===================================== */
+
+.dbs-user-access-panel-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ==========================================
+TABLE CONTAINER
+========================================== */
 
 .dbs-user-access-panel {
   background: var(--dbs-surface);
-
   border: 1px solid var(--dbs-border);
-
   border-radius: var(--dbs-radius);
-
   overflow: hidden;
-
   box-shadow: var(--dbs-shadow);
 }
 
-/* HEADER */
-
 .dbs-user-access-panel-header {
-  height: 48px;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
+  height: 44px;
   padding: 0 18px;
-
+  display: flex;
+  align-items: center;
   background: var(--dbs-primary);
-
   color: white;
-
-  font-size: 14px;
-
-  font-weight: 800;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.dbs-user-access-panel-header span {
-  background: rgba(255, 255, 255, 0.2);
-
-  padding: 5px 12px;
-
-  border-radius: 20px;
-
-  font-size: 12px;
-}
-
-/* =====================================
- TABLE
-===================================== */
+/* ==========================================
+TABLE
+========================================== */
 
 .dbs-user-access-table-scroll {
-  height: 360px;
-
+  max-height: 430px;
   overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
 }
 
 .dbs-user-access-table {
   width: 100%;
-
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .dbs-user-access-table thead th {
   position: sticky;
-
   top: 0;
-
-  z-index: 2;
-
+  z-index: 10;
+  height: 44px;
+  padding: 0 16px;
   background: var(--dbs-primary);
-
   color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
 
-  padding: 12px 14px;
+/* ==========================================
+TABLE HEADER BORDER RADIUS
+========================================== */
 
-  text-align: left;
+.dbs-user-access-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
+}
 
-  font-size: 13px;
-
-  font-weight: 800;
+.dbs-user-access-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
 }
 
 .dbs-user-access-table tbody td {
-  padding: 13px 14px;
-
+  height: 54px;
+  padding: 0 16px;
+  background: var(--dbs-surface);
   color: var(--dbs-text);
-
-  font-size: 14px;
-
+  font-size: 0.88rem;
   border-bottom: 1px solid var(--dbs-border);
 }
 
@@ -310,169 +255,130 @@
 }
 
 .dbs-user-access-table tbody tr:hover td {
-  background: var(--dbs-primary-light);
+  background: var(--dbs-background);
 }
 
-/* CHECKBOX */
+/* ==========================================
+CHECKBOX
+========================================== */
 
 .dbs-user-access-table input[type="checkbox"] {
   width: 17px;
-
   height: 17px;
-
   accent-color: var(--dbs-primary);
-
   cursor: pointer;
 }
 
-/* =====================================
- TRANSFER BUTTONS
-===================================== */
+/* ==========================================
+ASSIGNED ROW
+========================================== */
 
-.dbs-user-access-buttons {
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-  align-items: center;
-
-  gap: 16px;
+.dbs-user-access-assigned-row td {
+  background: var(--dbs-primary-light) !important;
+  color: var(--dbs-primary) !important;
+  font-weight: 700;
 }
 
-.dbs-user-access-assign,
-.dbs-user-access-remove {
-  width: 95px;
-
-  height: 40px;
-
-  border-radius: var(--dbs-radius-sm);
-
-  font-size: 13px;
-
-  font-weight: 750;
-
-  cursor: pointer;
-
-  transition: var(--dbs-transition);
+.dbs-user-access-assigned-row input {
+  cursor: not-allowed;
 }
 
-.dbs-user-access-assign {
-  background: var(--dbs-primary);
-
-  color: white;
-
-  border: none;
-}
-
-.dbs-user-access-assign:hover {
-  background: var(--dbs-primary-hover);
-
-  transform: translateX(2px);
-}
-
-.dbs-user-access-remove {
-  background: var(--dbs-surface);
-
-  color: var(--dbs-danger);
-
-  border: 1px solid var(--dbs-border);
-}
-
-.dbs-user-access-remove:hover {
-  background: var(--dbs-primary-light);
-}
-
-/* =====================================
- SCROLLBAR
-===================================== */
+/* ==========================================
+SCROLLBAR
+========================================== */
 
 .dbs-user-access-table-scroll::-webkit-scrollbar {
   width: 8px;
-
   height: 8px;
 }
 
-.dbs-user-access-table-scroll::-webkit-scrollbar-track {
-  background: var(--dbs-bg);
-}
-
 .dbs-user-access-table-scroll::-webkit-scrollbar-thumb {
-  background: var(--dbs-primary);
-
-  border-radius: 10px;
+  background: var(--dbs-border);
+  border-radius: 20px;
 }
 
-/* =====================================
- RESPONSIVE
-===================================== */
+.dbs-user-access-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
 
-@media (max-width: 1200px) {
-  .dbs-user-access-filters {
-    grid-template-columns: 1fr;
+/* ==========================================
+EMPTY / LOADING
+========================================== */
+
+.dbs-user-access-empty {
+  min-height: 260px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--dbs-text-muted);
+  font-weight: 600;
+}
+
+/* ==========================================
+ANIMATION
+========================================== */
+
+@keyframes dbsSlideUp {
+  from {
+    opacity: 0;
+
+    transform: translateY(12px);
   }
 
-  .dbs-user-access-left-filter {
-    grid-template-columns: 1fr;
-  }
+  to {
+    opacity: 1;
 
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================
+RESPONSIVE
+========================================== */
+
+@media (max-width: 1024px) {
   .dbs-user-access-tables {
     grid-template-columns: 1fr;
   }
+}
 
-  .dbs-user-access-buttons {
-    flex-direction: row;
+@media (max-width: 768px) {
+  .dbs-user-access-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .dbs-user-access-top-actions {
+    width: 100%;
+  }
+
+  .dbs-user-access-save,
+  .dbs-user-access-refresh {
+    flex: 1;
+  }
+
+  .dbs-user-access-table {
+    min-width: 700px;
   }
 }
 
-/* =====================================
- ASSIGNED FORM HIGHLIGHT
-===================================== */
-
-.dbs-user-access-assigned-row td {
-  background: var(--dbs-primary-light);
-
-  color: var(--dbs-primary);
-
-  font-weight: 700;
-
-  transition: var(--dbs-transition);
+@media (max-width: 480px) {
+  .dbs-user-access-card {
+    padding: 16px;
+  }
 }
-
-.dbs-user-access-assigned-row:hover td {
-  background: color-mix(
-    in srgb,
-    var(--dbs-primary-light) 80%,
-    var(--dbs-primary) 20%
-  );
-}
-
-.dbs-user-access-assigned-row input[type="checkbox"] {
-  accent-color: var(--dbs-primary);
-}
-.dbs-user-access-panel-wrapper {
+.dbs-access-table-header {
   display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.dbs-user-access-top-actions {
-  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  padding-top: 25px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--dbs-border);
 }
-
-.dbs-user-access-refresh {
-  padding: 11px 22px;
-  border-radius: var(--dbs-radius-sm);
-  border: 1px solid var(--dbs-border);
-  background: var(--dbs-surface);
-  color: var(--dbs-primary);
-  cursor: pointer;
+.dbs-access-table-header h3 {
+  margin: 0;
+  font-size: 1rem;
   font-weight: 700;
-  transition: var(--dbs-transition);
-}
-
-.dbs-user-access-refresh:hover {
-  background: var(--dbs-primary-light);
+  color: var(--dbs-text);
 }

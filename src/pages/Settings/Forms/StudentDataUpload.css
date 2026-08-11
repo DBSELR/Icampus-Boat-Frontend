@@ -205,3 +205,160 @@
     flex: 1;
   }
 }
+
+.dbs-student-upload-header {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-student-upload-header h2 {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--dbs-text);
+}
+
+.dbs-student-upload-header p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================
+GLOBAL TRANSITION
+========================================== */
+
+.dbs-student-card,
+.dbs-table-container,
+.dbs-upload-buttons button,
+.dbs-upload-file {
+  transition: var(--dbs-transition);
+}
+
+/* ==========================================
+PAGE LOAD ANIMATION
+========================================== */
+
+@keyframes dbsStudentFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dbs-student-card,
+.dbs-table-container {
+  animation: dbsStudentFade 0.3s ease;
+}
+
+/* ==========================================
+RESPONSIVE
+========================================== */
+
+@media (max-width: 1100px) {
+  .dbs-student-card,
+  .dbs-table-container {
+    padding: 20px;
+  }
+
+  .dbs-upload-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .dbs-upload-file {
+    width: 100%;
+  }
+
+  .dbs-upload-buttons {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .dbs-student-header h2,
+  .dbs-student-upload-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .dbs-student-card,
+  .dbs-table-container {
+    padding: 18px;
+  }
+
+  .dbs-upload-row {
+    gap: 14px;
+  }
+
+  .dbs-upload-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .dbs-upload-buttons button {
+    width: 100%;
+  }
+
+  .dbs-period-table {
+    min-width: 900px;
+  }
+
+  .dbs-period-table th {
+    font-size: 0.75rem;
+  }
+
+  .dbs-period-table td {
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .dbs-student-container {
+    gap: 18px;
+  }
+
+  .dbs-student-card,
+  .dbs-table-container {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .dbs-student-header,
+  .dbs-student-upload-header {
+    padding-bottom: 14px;
+  }
+
+  .dbs-student-header h2,
+  .dbs-student-upload-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .dbs-student-upload-header p {
+    font-size: 0.85rem;
+  }
+
+  .dbs-upload-file {
+    width: 100%;
+  }
+
+  .dbs-upload-file input {
+    width: 100%;
+  }
+
+  .dbs-upload-buttons button {
+    height: 42px;
+    font-size: 0.88rem;
+  }
+
+  .dbs-period-table-scroll {
+    max-height: 300px;
+  }
+}

@@ -1,38 +1,43 @@
-/* ===========================
+/* ==========================================
    CONTAINER
-=========================== */
+========================================== */
 
 .dbs-feedback-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
 }
 
-/* ===========================
-   HEADER
-=========================== */
+/* ==========================================
+   PAGE HEADER
+========================================== */
 
 .dbs-feedback-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--dbs-border);
-  padding-bottom: 14px;
 }
 
 .dbs-feedback-header h2 {
   margin: 0;
-  color: var(--dbs-text);
   font-size: 1.45rem;
   font-weight: 800;
+  color: var(--dbs-text);
 }
 
 .dbs-feedback-header p {
   margin: 6px 0 0;
-  color: #64748b;
-  font-size: 14px;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
+  font-weight: 500;
 }
 
-/* ===========================
-   CARD
-=========================== */
+/* ==========================================
+   MAIN CARD
+========================================== */
 
 .dbs-feedback-card {
   background: var(--dbs-surface);
@@ -40,26 +45,34 @@
   border-radius: var(--dbs-radius);
   box-shadow: var(--dbs-shadow);
   padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  animation: dbsSlideUp 0.25s ease;
 }
 
 .dbs-feedback-card h3 {
   margin: 0;
-  color: var(--dbs-text);
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--dbs-border);
+  font-size: 1.05rem;
   font-weight: 700;
+  color: var(--dbs-text);
 }
 
-/* ===========================
+/* ==========================================
    FORM GRID
-=========================== */
+========================================== */
 
 .dbs-feedback-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-
-  gap: 20px;
-
-  margin-top: 24px;
+  grid-template-columns: repeat(2, 420px);
+  gap: 22px;
 }
+
+/* ==========================================
+   INPUT FIELD
+========================================== */
 
 .dbs-feedback-input {
   display: flex;
@@ -67,117 +80,150 @@
 }
 
 .dbs-feedback-input label {
-  margin-bottom: 8px;
-  font-size: 13px;
+  margin-bottom: 7px;
+  font-size: 0.85rem;
   font-weight: 700;
   color: var(--dbs-text);
 }
 
 .dbs-feedback-input input,
 .dbs-feedback-input textarea {
+  width: 100%;
   padding: 12px 14px;
-
-  border: 1px solid var(--dbs-border);
-
   border-radius: var(--dbs-radius-sm);
-
+  border: 1px solid var(--dbs-border);
   background: var(--dbs-surface);
-
   color: var(--dbs-text);
-
+  font-size: 0.9rem;
   outline: none;
-
-  transition: 0.2s;
+  transition: var(--dbs-transition);
 }
+
+/* Disabled fields */
+
+.dbs-feedback-input input:disabled {
+  background: var(--dbs-bg);
+  color: var(--dbs-text-muted);
+  cursor: not-allowed;
+}
+
+/* Focus */
 
 .dbs-feedback-input input:focus,
 .dbs-feedback-input textarea:focus {
   border-color: var(--dbs-primary);
-
   box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
+/* Text Area */
+
 .dbs-feedback-input textarea {
-  min-height: 120px;
+  min-height: 140px;
   resize: vertical;
+  line-height: 1.5;
 }
+
+/* Full Width */
 
 .dbs-feedback-full {
-  grid-column: 1/-1;
+  grid-column: 1 / -1;
 }
 
-/* ===========================
- BUTTONS
-=========================== */
+/* ==========================================
+   BUTTONS
+========================================== */
 
 .dbs-feedback-actions {
   display: flex;
-
   justify-content: flex-end;
-
+  align-items: center;
   gap: 14px;
-
-  margin-top: 25px;
-
-  padding-top: 20px;
-
+  margin-top: 10px;
+  padding-top: 18px;
   border-top: 1px solid var(--dbs-border);
 }
 
 .dbs-feedback-save,
 .dbs-feedback-cancel {
-  border: none;
-
-  border-radius: var(--dbs-radius-sm);
-
-  padding: 11px 24px;
-
-  font-weight: 600;
-
-  cursor: pointer;
-
+  height: 42px;
+  min-width: 120px;
+  padding: 0 22px;
   display: flex;
-
+  justify-content: center;
   align-items: center;
-
   gap: 8px;
-
-  transition: 0.2s;
+  border-radius: var(--dbs-radius-sm);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--dbs-transition);
 }
+
+/* Save */
 
 .dbs-feedback-save {
   background: var(--dbs-primary);
-
-  color: white;
+  border: none;
+  color: #ffffff;
+  box-shadow: var(--dbs-shadow);
 }
 
 .dbs-feedback-save:hover {
-  opacity: 0.9;
+  filter: brightness(1.08);
+  transform: translateY(-2px);
 }
+
+/* Cancel */
 
 .dbs-feedback-cancel {
   background: var(--dbs-surface);
-
-  color: var(--dbs-text);
-
   border: 1px solid var(--dbs-border);
+  color: var(--dbs-text);
 }
 
 .dbs-feedback-cancel:hover {
   background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
 }
 
-/* ===========================
- RESPONSIVE
-=========================== */
+/* Active */
 
-@media (max-width: 768px) {
+.dbs-feedback-save:active,
+.dbs-feedback-cancel:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================
+   ANIMATION
+========================================== */
+
+@keyframes dbsSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 1024px) {
   .dbs-feedback-grid {
     grid-template-columns: 1fr;
   }
+}
 
-  .dbs-feedback-full {
-    grid-column: auto;
+@media (max-width: 768px) {
+  .dbs-feedback-card {
+    padding: 18px;
   }
 
   .dbs-feedback-actions {
@@ -187,6 +233,5 @@
   .dbs-feedback-save,
   .dbs-feedback-cancel {
     width: 100%;
-    justify-content: center;
   }
 }

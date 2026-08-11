@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
-import {
-  Save,
-  Trash2,
-  Edit3,
-  AlertTriangle,
-  HelpCircle,
-  AlertCircle,
-} from "lucide-react";
+import { Save, AlertCircle, SquarePen, X, Edit3 } from "lucide-react";
 import { toast } from "sonner";
 import axios from "axios";
-import { SquarePen } from "lucide-react";
 import "./DepartmentMaster.css";
 import { API_BASE } from "../../../config";
-import { Form, useFormik } from "formik";
+import { useFormik } from "formik";
 import { departmentValidationSchema } from "../../../Validations/SettingsValidations";
+import Footer from "../../../common/Footer";
+
+interface DepartmentData {
+  id: number;
+  departmentCode: string;
+  department: string;
+  departmentType: string;
+  description: string;
+}
 
 const DepartmentMaster = () => {
+  const [deptdata, setDeptdata] = useState<DepartmentData[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(5);
 
   const formik = useFormik({
     initialValues: {
@@ -26,7 +30,7 @@ const DepartmentMaster = () => {
       Description: "",
     },
     validationSchema: departmentValidationSchema,
-    onSubmit: async (values) => {      
+    onSubmit: async (values) => {
       const data = {
         Id: values.Id,
         DepartmentCode: values.DepartmentCode,
@@ -34,37 +38,46 @@ const DepartmentMaster = () => {
         DepartmentType: values.DepartmentType,
         Description: values.Description,
       };
+
       try {
-        console.log(values, "Values");
-        const response = await axios.post(`${API_BASE}DepartmentMaster/SaveDepartmentMaster`,data);
-        // Refresh the department list
-        if(data.Id){
+        await axios.post(
+          `${API_BASE}DepartmentMaster/SaveDepartmentMaster`,
+          data,
+        );
+        if (data.Id) {
           toast.success("Department Data Updated Successfully");
-        }else{ 
-          toast.success("Department Data Saved Successfully");} 
+        } else {
+          toast.success("Department Data Saved Successfully");
+        }
         handleCancel();
-        await axios.get(`${API_BASE}DepartmentMaster/GetDepartmentMaster`)
-          .then((response) => {
-            setDeptdata(response.data);
-          });        
+        await fetchDepartmentData();
       } catch (error) {
-        console.log(error, "Error");
+        console.error(error, "Error");
         toast.error("Failed to save Department Data");
       }
     },
   });
 
+  const fetchDepartmentData = async () => {
+    try {
+      const response = await axios.get(
+        `${API_BASE}DepartmentMaster/GetDepartmentMaster`,
+      );
+      const data = Array.isArray(response.data) ? response.data : [];
+      setDeptdata(data);
+      // Reset pagination after refreshing data
+      setCurrentPage(1);
+    } catch (error) {
+      console.error(error, "Error");
+      toast.error("Failed to fetch Department Data");
+      setDeptdata([]);
+      setCurrentPage(1);
+    }
+  };
 
-  interface DepartmentData {
-    id: number;
-    departmentCode: string;
-    department: string;
-    departmentType: string;
-    description: string;
-  }
-
-  const [deptdata, setDeptdata] = useState<DepartmentData[]>([]);
-
+  useEffect(() => {
+    fetchDepartmentData();
+  }, []);
 
   const handleCancel = () => {
     formik.resetForm();
@@ -78,40 +91,55 @@ const DepartmentMaster = () => {
       DepartmentType: dept.departmentType,
       Description: dept.description,
     });
+    // Optional: move to first page after editing
+    setCurrentPage(1);
   };
 
+  const totalRecords = deptdata.length;
+  const totalPages = Math.ceil(totalRecords / recordsPerPage);
+  const startIndex = (currentPage - 1) * recordsPerPage;
+  const endIndex = Math.min(startIndex + recordsPerPage, totalRecords);
+  const currentData = deptdata.slice(startIndex, endIndex);
 
-  console.log(deptdata, "Department Data");
-
-  useEffect(() => {
-    const fetchdata = async () => {
-      try {
-        const response = await axios.get(
-          `${API_BASE}DepartmentMaster/GetDepartmentMaster`,
-        );
-        setDeptdata(response.data);
-        toast.success("Department Data Fetched Successfully");
-      } catch (error) {
-        console.log(error, "Error");
-        toast.error("Failed to fetch Department Data");
+  const getPagination = () => {
+    const pages: (number | string)[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
       }
-    };
-    fetchdata();
-  }, []);
+    } else {
+      pages.push(1);
+
+      if (currentPage > 3) {
+        pages.push("...");
+      }
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+
+      if (currentPage < totalPages - 2) {
+        pages.push("...");
+      }
+      pages.push(totalPages);
+    }
+    return pages;
+  };
 
   return (
     <div className="dbs-department-container">
-      {/* Header */}
-      <div className="dbs-department-form-header">
+      <div className="dbs-department-header">
         <h2>Department Master</h2>
+        <p>Manage and maintain department master information.</p>
       </div>
 
-      {/* Form Card */}
       <form onSubmit={formik.handleSubmit}>
-        <div className="dbs-form-card">
+        <div className="dbs-department-form-card">
           <h3>Department Information</h3>
-          <div className="dbs-form-grid-3">
-            <div className="dbs-input-box">
+          <div className="dbs-department-form-grid">
+            {/* Department Code */}
+            <div className="dbs-department-input-box">
               <label>Department Code</label>
               <input
                 type="text"
@@ -123,13 +151,16 @@ const DepartmentMaster = () => {
               />
               {formik.touched.DepartmentCode &&
                 formik.errors.DepartmentCode && (
-                  <div className="dbs-error-text">
+                  <div className="dbs-department-error-text">
                     {formik.errors.DepartmentCode}
                   </div>
                 )}
             </div>
-            <div className="dbs-input-box">
+
+            {/* Department */}
+            <div className="dbs-department-input-box">
               <label>Department</label>
+
               <input
                 type="text"
                 placeholder="Enter Department Name"
@@ -138,12 +169,18 @@ const DepartmentMaster = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
+
               {formik.touched.Department && formik.errors.Department && (
-                <div className="dbs-error-text">{formik.errors.Department}</div>
+                <div className="dbs-department-error-text">
+                  {formik.errors.Department}
+                </div>
               )}
             </div>
-            <div className="dbs-input-box">
+
+            {/* Department Type */}
+            <div className="dbs-department-input-box">
               <label>Department Type</label>
+
               <select
                 value={formik.values.DepartmentType}
                 name="DepartmentType"
@@ -154,25 +191,30 @@ const DepartmentMaster = () => {
                 <option value="T">Teaching</option>
                 <option value="NT">Non-Teaching</option>
               </select>
+
               {formik.touched.DepartmentType &&
                 formik.errors.DepartmentType && (
-                  <div className="dbs-error-text">
+                  <div className="dbs-department-error-text">
                     {formik.errors.DepartmentType}
                   </div>
                 )}
             </div>
-            <div className="dbs-input-box">
+
+            {/* Description */}
+            <div className="dbs-department-input-box">
               <label>Description</label>
+
               <input
                 type="text"
-                placeholder="Enter DescriptionEnter Like Bachelor Of Technology"
+                placeholder="Enter Description Like Bachelor Of Technology"
                 value={formik.values.Description}
                 name="Description"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
+
               {formik.touched.Description && formik.errors.Description && (
-                <div className="dbs-error-text">
+                <div className="dbs-department-error-text">
                   {formik.errors.Description}
                 </div>
               )}
@@ -180,51 +222,59 @@ const DepartmentMaster = () => {
           </div>
 
           {/* Form Buttons */}
-          <div className="dbs-form-actions-row">
+          <div className="dbs-department-actions">
             <button
               type="button"
-              className="dbs-form-cancel-btn"
-              onClick={() => handleCancel()}
+              className="dbs-department-cancel-btn"
+              onClick={handleCancel}
             >
-              Cancel / Reset
+              <X size={16} />
+              Cancel
             </button>
-            <button
-              type="submit"
-              className="dbs-form-save-btn"
-              // onClick={handlesave}
-            >
+
+            <button type="submit" className="dbs-department-save-btn">
               <Save size={16} />
-              Save Department
+
+              {formik.values.Id ? "Update " : "Save "}
             </button>
           </div>
         </div>
       </form>
 
-      {/* Reactive Table Grid */}
-      <div className="dbs-table-container">
+      <div className="dbs-department-header">
+        <div>
+          <h2>Department List</h2>
+
+          <p>Manage and maintain department master records.</p>
+        </div>
+      </div>
+
+      <div className="dbs-department-table-card">
         {deptdata.length === 0 ? (
-          <div className="dbs-empty-state">
-            <AlertCircle className="dbs-empty-state-icon" />
-            <div className="dbs-empty-state-title">No records found</div>
-            <div className="dbs-empty-state-desc">
+          <div className="dbs-department-empty-state">
+            <AlertCircle className="dbs-department-empty-icon" />
+
+            <div className="dbs-department-empty-title">No records found</div>
+
+            <div className="dbs-department-empty-desc">
               Try clearing your filters or add a new department above.
             </div>
           </div>
         ) : (
-          <div className="dbs-empty-state">
-            <table className="dbs-data-table">
+          <div className="dbs-department-table-scroll">
+            <table className="dbs-department-data-table">
               <thead>
                 <tr>
-                  <th style={{ cursor: "pointer" }}>Dept code</th>
-                  <th style={{ cursor: "pointer" }}>Department</th>
-                  <th style={{ cursor: "pointer" }}>Department Type</th>
+                  <th>Dept Code</th>
+                  <th>Department</th>
+                  <th>Department Type</th>
                   <th>Description</th>
                   <th>Actions</th>
                 </tr>
               </thead>
+
               <tbody>
-                {deptdata.map((dept) => (
-                  // console.log(deptdata, "Department Data"),
+                {currentData.map((dept) => (
                   <tr key={dept.id}>
                     <td>{dept.departmentCode}</td>
                     <td>{dept.department}</td>
@@ -238,12 +288,12 @@ const DepartmentMaster = () => {
                     <td>{dept.description}</td>
                     <td>
                       <button
-                        className="dbs-btn-edit"
+                        type="button"
+                        className="dbs-department-edit-btn"
                         onClick={() => handleedit(dept)}
                       >
-                        <SquarePen size={16} />
+                        <Edit3 size={16} />
                       </button>
-                      {/* <button className="btn-delete">Delete</button> */}
                     </td>
                   </tr>
                 ))}
@@ -252,6 +302,18 @@ const DepartmentMaster = () => {
           </div>
         )}
       </div>
+
+      <Footer
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        recordsPerPage={recordsPerPage}
+        setRecordsPerPage={setRecordsPerPage}
+        totalRecords={totalRecords}
+        totalPages={totalPages}
+        startIndex={startIndex}
+        endIndex={endIndex}
+        getPagination={getPagination}
+      />
     </div>
   );
 };

@@ -1,119 +1,93 @@
 /* ==========================================
    Table Footer
 ========================================== */
-
 .dbs-table-footer {
   margin-top: 18px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 18px;
-
-  padding: 18px 22px;
-
+  gap: 20px;
+  padding: 16px 20px;
   background: var(--dbs-surface);
-
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius);
-
-  box-shadow: var(--dbs-shadow-sm);
+  box-shadow: var(--dbs-shadow);
 }
 
 /* ==========================================
-   Footer Left
+   Footer Left Section
 ========================================== */
-
 .dbs-footer-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
-
 .dbs-footer-label {
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--dbs-text-muted);
 }
 
 /* ==========================================
-   Entries Dropdown
+   Records Select
 ========================================== */
-
 .dbs-select-wrapper {
   position: relative;
 }
-
 .dbs-select-wrapper select {
-  min-width: 74px;
   height: 38px;
-
-  padding: 0 34px 0 12px;
-
+  min-width: 75px;
+  padding: 0 32px 0 12px;
   background: var(--dbs-surface);
-
   color: var(--dbs-text);
-
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius-sm);
-
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   font-weight: 600;
-
-  appearance: none;
   cursor: pointer;
-
+  appearance: none;
   transition: var(--dbs-transition);
 }
-
 .dbs-select-wrapper select:hover {
   border-color: var(--dbs-primary);
 }
-
 .dbs-select-wrapper select:focus {
   outline: none;
   border-color: var(--dbs-primary);
   box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
-
 .dbs-select-wrapper::after {
   content: "";
-
   position: absolute;
-
-  top: 50%;
   right: 12px;
-
+  top: 50%;
   width: 7px;
   height: 7px;
-
   border-right: 2px solid var(--dbs-text-muted);
   border-bottom: 2px solid var(--dbs-text-muted);
-
-  transform: translateY(-65%) rotate(45deg);
-
+  transform: translateY(-70%) rotate(45deg);
   pointer-events: none;
 }
 
 /* ==========================================
-   Footer Information
+   Footer Info
 ========================================== */
-
 .dbs-footer-info {
-  font-size: 0.84rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.85rem;
   color: var(--dbs-text-muted);
 }
-
 .dbs-footer-info strong {
   color: var(--dbs-text);
   font-weight: 700;
 }
 
 /* ==========================================
-   Pagination
+   Pagination Container
 ========================================== */
-
 .dbs-pagination {
   display: flex;
   align-items: center;
@@ -121,76 +95,89 @@
   flex-wrap: wrap;
 }
 
-/* Previous / Next */
-
+/* ==========================================
+   Pagination Navigation Buttons
+========================================== */
 .dbs-page-nav {
   height: 38px;
-
   padding: 0 16px;
-
   background: var(--dbs-surface);
-
   color: var(--dbs-text);
-
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius-sm);
-
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   font-weight: 600;
-
   cursor: pointer;
-
   transition: var(--dbs-transition);
 }
-
 .dbs-page-nav:hover:not(:disabled) {
-  background: var(--dbs-background);
-  border-color: var(--dbs-primary);
+  background: var(--dbs-primary-light);
   color: var(--dbs-primary);
+  border-color: var(--dbs-primary);
+  transform: translateY(-1px);
 }
-
 .dbs-page-nav:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
 
-/* Page Number */
-
+/* ==========================================
+   Pagination Numbers
+========================================== */
 .dbs-page-number {
   width: 38px;
   height: 38px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: var(--dbs-surface);
-
   color: var(--dbs-text);
-
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius-sm);
-
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   font-weight: 700;
-
   cursor: pointer;
-
   transition: var(--dbs-transition);
 }
-
 .dbs-page-number:hover {
   background: var(--dbs-primary-light);
   color: var(--dbs-primary);
   border-color: var(--dbs-primary);
+  transform: translateY(-1px);
 }
-
-/* Active */
-
 .dbs-page-number.active {
   background: var(--dbs-primary);
-  color: white;
+  color: #ffffff;
   border-color: var(--dbs-primary);
+  box-shadow: 0 6px 16px var(--dbs-primary-light);
+}
 
-  box-shadow: 0 4px 12px var(--dbs-primary-light);
+/* ==========================================
+   Pagination Dots
+========================================== */
+.dbs-page-dots {
+  width: 32px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dbs-text-muted);
+  font-weight: 700;
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+@media (max-width: 900px) {
+  .dbs-table-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .dbs-footer-info {
+    order: 2;
+  }
+  .dbs-pagination {
+    order: 3;
+    width: 100%;
+  }
 }

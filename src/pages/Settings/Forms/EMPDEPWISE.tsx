@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import "./EMPDEPWISE.css";
 import {
   getDeptWiseDetails,
@@ -7,49 +6,40 @@ import {
   updateLoginStatus,
 } from "../../../apis/SettingsApis";
 import { toast } from "sonner";
+import Footer from "../../../common/Footer";
+import { AlertCircle } from "lucide-react";
 
 const EMPDEPWISE = () => {
   const [departmentList, setDepartmentList] = useState<any[]>([]);
-
   const [department, setDepartment] = useState("");
   const [workMode, setWorkMode] = useState("");
   const [status, setStatus] = useState("");
-
   const [employeeList, setEmployeeList] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(5);
 
   const fetchDepartment = async () => {
     try {
       const response = await getLoadEmpDept();
-      // console.log("Department Response:", response);
       setDepartmentList(response || []);
     } catch (error) {
-      console.log("Department Error:", error);
-
+      console.error("Department Error:", error);
       setDepartmentList([]);
     }
   };
 
   const fetchEmployeeDetails = async () => {
     try {
-      setLoading(true);
-
       const payload = {
         dept: department,
         workMode: workMode,
-        active: status || "-1", // Default to "-1" if status is empty
+        active: status || "-1",
       };
-
-      // console.log("Filter Payload:", payload);
       const response = await getDeptWiseDetails(payload);
-      console.log("Employee Details:", response);
       setEmployeeList(response || []);
     } catch (error) {
-      console.log("Employee Details Error:", error);
-
+      console.error("Employee Details Error:", error);
       setEmployeeList([]);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -59,14 +49,11 @@ const EMPDEPWISE = () => {
     checked: boolean,
   ) => {
     const previousList = [...employeeList];
-
     const updatedList = [...employeeList];
     updatedList[index] = {
       ...updatedList[index],
       [type]: checked ? "Y" : "N",
     };
-
-    // Optimistic UI update
     setEmployeeList(updatedList);
 
     const payload = {
@@ -76,14 +63,9 @@ const EMPDEPWISE = () => {
     };
 
     try {
-      console.log("Payload:", payload);
       const response = await updateLoginStatus(payload);
-      console.log(response);
 
       if (response.message === "Success") {
-        console.log(
-          `Updated successfully. Rows affected: ${response.rowsAffected}`,
-        );
         toast.success("Status Updated successfully");
       } else {
         setEmployeeList(previousList);
@@ -101,22 +83,61 @@ const EMPDEPWISE = () => {
   }, []);
 
   useEffect(() => {
+    setCurrentPage(1);
     fetchEmployeeDetails();
   }, [department, workMode, status]);
 
+  // ================= Pagination =================
+  const totalRecords = employeeList.length;
+  const totalPages = Math.ceil(totalRecords / recordsPerPage);
+  const startIndex = (currentPage - 1) * recordsPerPage;
+  const endIndex = startIndex + recordsPerPage;
+  const currentData = employeeList.slice(startIndex, endIndex);
+
+  const getPagination = () => {
+    const pages: (number | string)[] = [];
+
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+      if (currentPage > 3) {
+        pages.push("...");
+      }
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      if (currentPage < totalPages - 2) {
+        pages.push("...");
+      }
+      pages.push(totalPages);
+    }
+    return pages;
+  };
+
   return (
     <div className="dbs-empdepwise-container">
+      {/* ================= Page Header ================= */}
       <div className="dbs-empdepwise-header">
-        <h2>Employee Department Wise</h2>
+        <div>
+          <h2>Employee Department Wise</h2>
+          <p className="dbs-page-subtitle">
+            Manage employee access configuration based on department, work mode
+            and status
+          </p>
+        </div>
       </div>
 
+      {/* ================= Filter ================= */}
       <div className="dbs-empdepwise-filter-card">
         <h3>Employee Configuration</h3>
-
         <div className="dbs-empdepwise-form-grid">
           <div className="dbs-empdepwise-input-box">
             <label>Department</label>
-
             <select
               value={department}
               onChange={(e) => setDepartment(e.target.value)}
@@ -154,65 +175,67 @@ const EMPDEPWISE = () => {
         </div>
       </div>
 
-      <div className="dbs-empdepwise-table-card">
-        <div className="dbs-empdepwise-table-header">
-          <h3>Employee List</h3>
-          <span>Total Records : {employeeList.length}</span>
+      {/* ================= Table Header ================= */}
+
+      <div className="dbs-empdepwise-header dbs-table-head">
+        <div>
+          <h2>Employee Registry</h2>
+          <p className="dbs-page-subtitle">
+            View and manage employee login and OTP access permissions
+          </p>
         </div>
+      </div>
 
-        <div className="dbs-empdepwise-table-scroll">
-          <table className="dbs-empdepwise-data-table">
-            <thead>
-              <tr>
-                <th>EMPID</th>
-                <th>EMPLOYEENAME</th>
-                <th>WORKMODE</th>
-                <th>Login</th>
-                <th>OTP</th>
-              </tr>
-            </thead>
+      {/* ================= Table ================= */}
 
-            <tbody>
-              {loading ? (
+      <div className="dbs-empdepwise-table-card">
+        {employeeList.length === 0 ? (
+          <div className="dbs-empty-state">
+            <AlertCircle className="dbs-empty-state-icon" />
+            <div className="dbs-empty-state-title">No records found</div>
+            <div className="dbs-empty-state-desc">
+              No employee records are available for the selected filters.
+            </div>
+          </div>
+        ) : (
+          <div className="dbs-empdepwise-table-scroll">
+            <table className="dbs-empdepwise-data-table">
+              <thead>
                 <tr>
-                  <td colSpan={5} align="center">
-                    Loading...
-                  </td>
+                  <th>EMPID</th>
+                  <th>EMPLOYEENAME</th>
+                  <th>WORKMODE</th>
+                  <th>Login</th>
+                  <th>OTP</th>
                 </tr>
-              ) : employeeList.length === 0 ? (
-                <tr>
-                  <td colSpan={5} align="center">
-                    No Records Found
-                  </td>
-                </tr>
-              ) : (
-                employeeList.map((item: any, index: number) => (
+              </thead>
+
+              <tbody>
+                {currentData.map((item: any, index: number) => (
                   <tr key={index}>
                     <td>{item.empID}</td>
                     <td>{item.employeeName}</td>
                     <td>{item.workmode}</td>
-
                     <td>
                       <input
                         type="checkbox"
                         checked={item.flag === "Y"}
                         onChange={(e) =>
                           handleLoginStatusChange(
-                            index,
+                            startIndex + index,
                             "flag",
                             e.target.checked,
                           )
                         }
                       />
                     </td>
-
                     <td>
                       <input
                         type="checkbox"
                         checked={item.otp === "Y"}
                         onChange={(e) =>
                           handleLoginStatusChange(
-                            index,
+                            startIndex + index,
                             "otp",
                             e.target.checked,
                           )
@@ -220,12 +243,26 @@ const EMPDEPWISE = () => {
                       />
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
+
+      {/* ================= Footer ================= */}
+
+      <Footer
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        recordsPerPage={recordsPerPage}
+        setRecordsPerPage={setRecordsPerPage}
+        totalRecords={totalRecords}
+        totalPages={totalPages}
+        startIndex={startIndex}
+        endIndex={endIndex}
+        getPagination={getPagination}
+      />
     </div>
   );
 };

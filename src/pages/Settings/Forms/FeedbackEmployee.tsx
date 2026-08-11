@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./FeedbackEmployee.css";
-import { Save } from "lucide-react";
+import { Save, X } from "lucide-react";
 import { toast } from "sonner";
 import {
   getEmployeeDetails,
@@ -27,7 +27,7 @@ const FeedbackEmployee = () => {
 
       const response = await getEmployeeDetails(empId);
 
-      console.log("Employee Details:", response);
+      // console.log("Employee Details:", response);
 
       if (response && response.length > 0) {
         const employee = response[0];
@@ -67,9 +67,9 @@ const FeedbackEmployee = () => {
         userType: "EMPLOYEE",
       };
 
-      console.log("Feedback Save Payload:", payload);
+  
       const response = await saveFeedBackReg(payload);
-      console.log("Save Feedback Response:", response);
+ 
 
       if (response?.message === "Success" || response?.rowsAffected > 0) {
         toast.success("Feedback submitted successfully");
@@ -139,6 +139,7 @@ const FeedbackEmployee = () => {
 
         <div className="dbs-feedback-actions">
           <button className="dbs-feedback-cancel" onClick={handleCancel}>
+            <X size={16} />
             Cancel
           </button>
 

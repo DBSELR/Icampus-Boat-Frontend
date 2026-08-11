@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./ResetPassword.css";
-import { Eye, EyeOff, LockKeyhole, RotateCcw } from "lucide-react";
+import { Eye, EyeOff, LockKeyhole, RotateCcw, X } from "lucide-react";
 import { toast } from "sonner";
 import { getUserName, resetPassword } from "../../../apis/SettingsApis";
 
@@ -8,7 +8,6 @@ const ResetPassword = () => {
   const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
 
   const handleGetUserName = async () => {
@@ -33,7 +32,6 @@ const ResetPassword = () => {
     }
     try {
       const response = await resetPassword(userId, password);
-      console.log("Reset Password Response:", response);
 
       if (response?.message === "Success" && response?.rowsAffected > 0) {
         toast.success("Password reset successfully");
@@ -54,24 +52,21 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="dbs-reset-container">
-      <div className="dbs-reset-header">
+    <div className="dbs-programme-container">
+      {/* Header */}
+      <div className="dbs-programme-form-header">
         <div>
           <h2>Reset Password</h2>
-          <p>Update user password securely</p>
+          <p className="dbs-page-subtitle">Update user password securely</p>
         </div>
       </div>
 
-      <div className="dbs-reset-card">
-        <div className="dbs-reset-title">
-          <LockKeyhole size={22} />
-          <h3>Password Reset Information</h3>
-        </div>
-
-        <div className="dbs-reset-grid">
-          <div className="dbs-reset-input">
+      {/* Form Card */}
+      <div className="dbs-form-card">
+        <h3>Password Reset Information</h3>
+        <div className="dbs-form-grid-2">
+          <div className="dbs-input-box">
             <label>User ID</label>
-
             <input
               type="text"
               value={userId}
@@ -81,7 +76,7 @@ const ResetPassword = () => {
             />
           </div>
 
-          <div className="dbs-reset-input">
+          <div className="dbs-input-box">
             <label>User Name</label>
 
             <input
@@ -92,10 +87,9 @@ const ResetPassword = () => {
             />
           </div>
 
-          <div className="dbs-reset-input dbs-reset-full">
+          <div className="dbs-input-box dbs-reset-password-field">
             <label>Reset Password</label>
-
-            <div className="password-wrapper">
+            <div className="dbs-password-wrapper">
               <input
                 type={showPassword ? "text" : "password"}
                 value={password}
@@ -105,7 +99,7 @@ const ResetPassword = () => {
 
               <button
                 type="button"
-                className="password-toggle"
+                className="dbs-password-toggle"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -114,12 +108,13 @@ const ResetPassword = () => {
           </div>
         </div>
 
-        <div className="dbs-reset-actions">
-          <button className="dbs-reset-cancel" onClick={handleCancel}>
+        <div className="dbs-footer-actions">
+          <button className="dbs-btn-secondary" onClick={handleCancel}>
+            <X size={16} />
             Cancel
           </button>
 
-          <button className="dbs-reset-save" onClick={handleReset}>
+          <button className="dbs-btn-primary" onClick={handleReset}>
             <RotateCcw size={16} />
             Reset Password
           </button>

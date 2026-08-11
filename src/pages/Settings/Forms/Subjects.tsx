@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Save, AlertCircle } from "lucide-react";
+import { Save, AlertCircle, X } from "lucide-react";
 import "./Subjects.css";
 import {
   getRegulationList,
@@ -47,74 +47,49 @@ const Subjects = () => {
   const [isElective, setIsElective] = useState(false);
   const [isMinor, setIsMinor] = useState(false);
   const [isHonor, setIsHonor] = useState(false);
-
   const [editSubjectId, setEditSubjectId] = useState<string | null>(null);
-
   const [regulations, setRegulations] = useState<Regulation[]>([]);
   const [selectedRegulation, setSelectedRegulation] = useState("0");
   const [loadingRegulations, setLoadingRegulations] = useState(false);
-
   const [programmes, setProgrammes] = useState<Programme[]>([]);
   const [selectedProgramme, setSelectedProgramme] = useState("0");
   const [loadingProgrammes, setLoadingProgrammes] = useState(false);
-
   const [branches, setBranches] = useState<Branch[]>([]);
   const [selectedBranch, setSelectedBranch] = useState("0");
   const [loadingBranches, setLoadingBranches] = useState(false);
-
   const [years, setYears] = useState<Year[]>([]);
   const [selectedYear, setSelectedYear] = useState("0");
   const [loadingYears, setLoadingYears] = useState(false);
-
   const [selectedSemester, setSelectedSemester] = useState("0");
-
   const [selectedStream, setSelectedStream] = useState("1");
-
   const [periodType, setPeriodType] = useState("");
-
   const [electiveValue, setElectiveValue] = useState("N");
   const [minorValue, setMinorValue] = useState<number | null>(null);
   const [honorValue, setHonorValue] = useState<number | null>(null);
-
   const [subjectCode, setSubjectCode] = useState("");
   const [subjectName, setSubjectName] = useState("");
   const [subjectShortName, setSubjectShortName] = useState("");
-
   const [paperOrder, setPaperOrder] = useState("");
-
   const [electiveCode, setElectiveCode] = useState("");
   const [electiveName, setElectiveName] = useState("");
   const [electiveShortName, setElectiveShortName] = useState("");
-
   const [subjects, setSubjects] = useState<Subject[]>([]);
-  const [loadingSubjects, setLoadingSubjects] = useState(false);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(10);
-
   const [subtype, setSubtype] = useState(0);
-
   const [isEditing, setIsEditing] = useState(false);
-
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteItem, setDeleteItem] = useState<any>(null);
   const [deleting, setDeleting] = useState(false);
-
   const [isEditMode, setIsEditMode] = useState(false);
-
   const [searchTerm, setSearchTerm] = useState("");
-
   const [editingPaperOrderId, setEditingPaperOrderId] = useState<string | null>(
     null,
   );
-
   const [paperOrderValue, setPaperOrderValue] = useState<number>(0);
-
   const [selectedPaperOrderSubject, setSelectedPaperOrderSubject] =
     useState<any>(null);
-
   const [showPaperOrderUpdate, setShowPaperOrderUpdate] = useState(false);
-
   const [marks, setMarks] = useState<any>({
     sessionalMaxMarks: "",
     sessionalMinMarks: "",
@@ -155,9 +130,7 @@ const Subjects = () => {
     drawMaxMarks: "",
     drawMinMarks: "",
   });
-
   const enableElectiveFields = isElective || isMinor || isHonor;
-  // const sortedStudents = []; // Placeholder for sorted students data
 
   const theoryMarks = [
     "Sessional Marks",
@@ -221,24 +194,19 @@ const Subjects = () => {
     setSelectedYear("0");
     setSelectedSemester("0");
     setSelectedStream("1");
-
     setSubjectCode("");
     setSubjectName("");
     setSubjectShortName("");
     setPaperOrder("");
-
     setPeriodType("");
-
     setElectiveCode("");
     setElectiveName("");
     setElectiveShortName("");
-
     setIsElective(false);
     setIsMinor(false);
     setIsHonor(false);
     setElectiveValue("N");
     setSubtype(0);
-
     setMarks({
       sessionalMaxMarks: "",
       sessionalMinMarks: "",
@@ -282,7 +250,6 @@ const Subjects = () => {
   };
 
   const handleSaveSubject = async () => {
-    // Required field validation (Marks are optional)
     if (
       selectedRegulation === "0" ||
       selectedProgramme === "0" ||
@@ -298,8 +265,6 @@ const Subjects = () => {
       toast.error("Please fill all required fields.");
       return;
     }
-
-    // Prevent multiple values separated by comma
     if (
       subjectCode.includes(",") ||
       subjectName.includes(",") ||
@@ -343,22 +308,18 @@ const Subjects = () => {
 
     try {
       const response = await saveSubjectMaster(payload);
-
       if (response?.rowsAffected > 0) {
         toast.success(
           editSubjectId
             ? "Subject updated successfully!"
             : "Subject saved successfully!",
         );
-
         // Refresh table
         await fetchSubjects();
-
         // Clear edit mode
         setEditSubjectId(null);
         setIsEditing(false);
         setIsEditMode(false);
-
         resetForm();
       } else {
         toast.error(
@@ -377,7 +338,6 @@ const Subjects = () => {
   const handleCancel = () => {
     setEditSubjectId(null);
     setIsEditMode(false);
-
     // reset dropdown fields
     setSelectedRegulation("0");
     setSelectedProgramme("0");
@@ -385,7 +345,6 @@ const Subjects = () => {
     setSelectedYear("0");
     setSelectedSemester("0");
     setSelectedStream("1");
-
     // reset remaining form fields
     resetForm();
   };
@@ -394,13 +353,11 @@ const Subjects = () => {
     if (!selectedPaperOrderSubject) return;
 
     try {
-      setLoadingSubjects(true);
-
+      // stLoadingSubjects(true);
       const updatedSubject = {
         ...selectedPaperOrderSubject,
         pAP_ORDER: paperOrderValue,
       };
-
       const payload = {
         Programme: selectedProgramme || "",
         Branch: selectedBranch || "",
@@ -413,13 +370,8 @@ const Subjects = () => {
         Pap_Order: String(updatedSubject.pAP_ORDER),
         Regu: selectedRegulation || "",
       };
-
-      console.log("CHECK PAPER ORDER PAYLOAD", payload);
-
       const response = await checkPaperOrder(payload);
-      console.log("CHECK PAPER ORDER RESPONSE", response);
       toast.success("Paper oder updated!");
-
       // Update only selected row after API success
       setSubjects((prev) =>
         prev.map((sub) =>
@@ -438,7 +390,7 @@ const Subjects = () => {
     } catch (error) {
       console.error("Paper order update failed", error);
     } finally {
-      setLoadingSubjects(false);
+      // setLoadingSubjects(false);
     }
   };
 
@@ -453,14 +405,11 @@ const Subjects = () => {
 
   const handleEdit = (item: any) => {
     setIsEditMode(true);
-    console.log("EDIT DATA", item);
     setEditSubjectId(String(item.sID));
-
     // Text fields
     setSubjectCode(item.sUBJECTCODE || "");
     setSubjectName(item.sUBJECTNAME || "");
     setSubjectShortName(item.subjectShortName || "");
-
     // Dropdowns
     setSelectedRegulation(item.regu || "0");
     setSelectedProgramme(item.cOURSECODE?.split("-")[0] || "0");
@@ -468,19 +417,15 @@ const Subjects = () => {
     setSelectedYear(item.yEAR || "0");
     setSelectedSemester(item.sEMESTER || "0");
     setSelectedStream(String(item.sTREAM || "1"));
-
     // Other fields
     setPaperOrder(String(item.pAP_ORDER || ""));
     setPeriodType(item.periodType || "");
-
     // Elective
     setElectiveCode(item.eLEC_CODES || "");
     setElectiveName(item.eLEC_NAMES || "");
     setElectiveShortName(item.electiveShortName || "");
-
     // Sub Type
     const type = Number(item.subtype || 0);
-
     setSubtype(type);
     setIsMinor(type === 1);
     setIsHonor(type === 2);
@@ -491,58 +436,40 @@ const Subjects = () => {
     setMarks({
       sessionalMaxMarks: item.sESSIONALMAXMARKS || "",
       sessionalMinMarks: item.sESSIONALMINMARKS || "",
-
       assignmentMaxMarks: item.assMaxMarks || "",
       assignmentMinMarks: item.assMinMarks || "",
-
       onlineQuizMaxmarks: item.oQMaxMarks || "",
       onlineQuizMinmarks: item.oQMinMarks || "",
-
       objectiveMaxmarks: item.objMaxMarks || "",
       objectiveMinmarks: item.objMinMarks || "",
-
       attendenceMaxMarks: item.attMaxMarks || "",
       attendenceMinMarks: item.attMinMarks || "",
-
       daytoDayMaxMarks: item.dayMaxMarks || "",
       daytoDayMinMarks: item.dayMinMarks || "",
-
       internalTestMaxMarks: item.intTestMaxMarks || "",
       internalTestMinMarks: item.intTestMinMarks || "",
-
       viVaVoiceMaxMarks: item.vivomaxMarks || "",
       viVaVoiceMinMarks: item.vivoMinMarks || "",
-
       recordMaxMarks: item.recordMaxMarks || "",
       recordeMinMarks: item.recordMinMarks || "",
-
       reportPresentattionMax: item.rptPrstMaxMks || "",
       reportPresentattionMin: item.rptPrstMinMks || "",
-
       labInternalMaxMarks: item.labIntMaxMks || "",
       labInternalMinMarks: item.labIntMinMks || "",
-
       oralTestMax: item.oralMaxMks || "",
       oralTestMin: item.oralMinMks || "",
-
       ciE100Max: item.maxCIE || "",
       ciE100Min: item.minCIE || "",
-
       ciE75Max: item.maxCIE75 || "",
       ciE75Min: item.minCIE75 || "",
-
       ciE60Max: item.maxCIE60 || "",
       ciE60Min: item.minCIE60 || "",
-
       ciE50Max: item.maxCIE50 || "",
       ciE50Min: item.minCIE50 || "",
-
       ciE40Max: item.maxCIE40 || "",
       ciE40Min: item.minCIE40 || "",
-
       extMax: item.labExtMaxMks || "",
       extMin: item.labExtMinMks || "",
-
       drawMaxMarks: item.drawShtMaxMks || "",
       drawMinMarks: item.drawShtMinMks || "",
     });
@@ -551,7 +478,6 @@ const Subjects = () => {
       top: 0,
       behavior: "smooth",
     });
-    // fetchSubjects();
   };
 
   const handleDelete = async () => {
@@ -559,8 +485,6 @@ const Subjects = () => {
       if (!deleteItem?.sID) return;
       setDeleting(true);
       const response = await deleteSubjectMaster(String(deleteItem.sID));
-      console.log("Delete Subject Response:", response);
-
       if (response.message == "Success") {
         toast.success("Subject deleted successfully!");
         setShowDeleteModal(false);
@@ -597,7 +521,6 @@ const Subjects = () => {
       try {
         setLoadingRegulations(true);
         const data = await getRegulationList();
-        console.log("Regulation API Response =======>", data);
         setRegulations(data);
       } catch (error) {
         console.error("Unable to load regulations", error);
@@ -615,7 +538,6 @@ const Subjects = () => {
           return;
         }
         const data = await getProgrammeLoad(academicYear);
-        console.log("Programme API Response =======>", data);
         setProgrammes(data);
       } catch (error) {
         console.error("Unable to load programmes", error);
@@ -641,7 +563,6 @@ const Subjects = () => {
           return;
         }
         const data = await getBranchLoad(academicYear, selectedProgramme);
-        console.log("Branch API Response =======>", data);
         setBranches(data);
       } catch (error) {
         console.error("Unable to load branches", error);
@@ -661,15 +582,11 @@ const Subjects = () => {
         }
         setLoadingYears(true);
         const academicYear = localStorage.getItem("academicYear");
-
         if (!academicYear) {
           console.error("Academic Year not found in local storage");
           return;
         }
-
         const data = await getYearList(academicYear, selectedProgramme);
-        console.log("Year API Response =======>", data);
-
         setYears(data);
       } catch (error) {
         console.error("Unable to load years", error);
@@ -682,10 +599,7 @@ const Subjects = () => {
   }, [selectedProgramme]);
 
   const fetchSubjects = async () => {
-    setLoadingSubjects(true);
     try {
-      setLoadingSubjects(true);
-
       const payload = {
         sid: "",
         programme: selectedProgramme || "0",
@@ -717,22 +631,17 @@ const Subjects = () => {
         date: "0",
       };
 
-      console.log("GET SUBJECTS PAYLOAD", payload);
-
       const response = await getSubjectList(payload);
 
       setSubjects(response || []);
     } catch (error) {
       console.error(error);
       setSubjects([]);
-    } finally {
-      setLoadingSubjects(false);
     }
   };
 
   const getPagination = () => {
     const pages: (number | string)[] = [];
-
     if (totalPages <= 7) {
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
@@ -743,21 +652,16 @@ const Subjects = () => {
       if (currentPage > 3) {
         pages.push("...");
       }
-
       const start = Math.max(2, currentPage - 1);
       const end = Math.min(totalPages - 1, currentPage + 1);
-
       for (let i = start; i <= end; i++) {
         pages.push(i);
       }
-
       if (currentPage < totalPages - 2) {
         pages.push("...");
       }
-
       pages.push(totalPages);
     }
-
     return pages;
   };
 
@@ -773,15 +677,18 @@ const Subjects = () => {
 
   const totalRecords = filteredSubjects.length;
   const totalPages = Math.ceil(totalRecords / recordsPerPage);
-
   const startIndex = (currentPage - 1) * recordsPerPage;
   const endIndex = Math.min(startIndex + recordsPerPage, totalRecords);
 
   return (
     <div className="dbs-subject-container">
       {/* Header */}
-      <div className="dbs-subject-form-header">
-        <h2>Subject Master</h2>
+      <div className="dbs-subject-header">
+        <div>
+          {" "}
+          <h2>Subject Master</h2>
+          <p>Manage and maintain subject master information.</p>
+        </div>
       </div>
 
       {/* Form Card */}
@@ -1083,24 +990,28 @@ const Subjects = () => {
 
         <div className="dbs-form-actions-row">
           <button className="dbs-form-cancel-btn" onClick={handleCancel}>
+            <X size={16} />
             Cancel
           </button>
 
           <button className="dbs-form-save-btn" onClick={handleSaveSubject}>
             <Save size={16} />
-            {editSubjectId ? "Update Subject" : "Save Subject"}
+            {editSubjectId ? "Update " : "Save "}
           </button>
         </div>
       </div>
 
       {/* ================= Table Header ================= */}
-      <div className="dbs-programme-form-header dbs-table-head">
-        <div>
-          <h2>Subject Registry</h2>
-          <p className="dbs-page-subtitle">Manage Subject Master Records</p>
-        </div>
-
+      <div className="dbs-subject-header">
+        {" "}
+        {/* Header Content */}{" "}
+        <div className="dbs-subject-header-content">
+          {" "}
+          <h2>Subject Registry</h2> <p>Manage Subject Master Records</p>{" "}
+        </div>{" "}
+        {/* Search */}{" "}
         <div className="dbs-table-search">
+          {" "}
           <input
             type="text"
             placeholder="Search subject code or name..."
@@ -1109,19 +1020,23 @@ const Subjects = () => {
               setSearchTerm(e.target.value);
               setCurrentPage(1);
             }}
-          />
-        </div>
+          />{" "}
+        </div>{" "}
       </div>
 
       {/* ================= Table ================= */}
       <div className="dbs-table-container">
-        {loadingSubjects ? (
-          <div className="dbs-empty-state">Loading Subjects...</div>
-        ) : filteredSubjects.length === 0 ? (
+        {filteredSubjects.length === 0 ? (
           <div className="dbs-empty-state">
             <AlertCircle className="dbs-empty-state-icon" />
             <div className="dbs-empty-state-title">
               {searchTerm ? "No matching subjects found" : "No records found"}
+            </div>
+
+            <div className="dbs-department-empty-desc">
+              {searchTerm
+                ? "Try changing your search to find matching subjects."
+                : "No subject records are available."}
             </div>
           </div>
         ) : (

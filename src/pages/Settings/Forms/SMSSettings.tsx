@@ -5,6 +5,7 @@ import {
   getSMSSettingsList,
   saveSMSSettings,
 } from "../../../apis/SettingsApis";
+import { AlertCircle } from "lucide-react";
 
 const SMSSettings = () => {
   const [smsList, setSmsList] = useState<any[]>([]);
@@ -13,9 +14,6 @@ const SMSSettings = () => {
   const fetchSMSSettings = async () => {
     try {
       const response = await getSMSSettingsList();
-
-      console.log("SMS Settings List:", response);
-
       setSmsList(response || []);
     } catch (error) {
       console.error(error);
@@ -30,17 +28,13 @@ const SMSSettings = () => {
   const handleStatusChange = async (item: any) => {
     try {
       setLoading(item.mODULE);
-
       const payload = {
         module: item.mODULE,
         isActive: item.iSACTIVE === "Y" ? "N" : "Y",
       };
-
       const response = await saveSMSSettings(payload);
-
       if (response?.message === "Success") {
         toast.success(`${item.mODULE} status updated`);
-
         // reload latest data
         fetchSMSSettings();
       } else {
@@ -53,7 +47,6 @@ const SMSSettings = () => {
       setLoading("");
     }
   };
-
   const activeCount = smsList.filter((item) => item.iSACTIVE === "Y").length;
 
   return (
@@ -65,7 +58,6 @@ const SMSSettings = () => {
           <p>Configure SMS notification services and availability status</p>
         </div>
       </div>
-
       {/* Summary */}
       <div className="dbs-sms-summary">
         <div className="dbs-sms-summary-card">
@@ -83,52 +75,67 @@ const SMSSettings = () => {
           <strong>{smsList.length - activeCount}</strong>
         </div>
       </div>
-
       {/* Table */}
+      {/* ================= Table Header ================= */}
+      <div className="dbs-sms-table-title">
+        <div>
+          <h2>SMS Service Registry</h2>
 
+          <p className="dbs-page-subtitle">
+            Manage SMS notification services and availability status
+          </p>
+        </div>
+      </div>
       <div className="dbs-sms-table-card">
-        <div className="dbs-sms-table-title">
-          <h3>SMS Service List</h3>
-        </div>
+        {smsList.length === 0 ? (
+          <div className="dbs-empty-state">
+            <AlertCircle className="dbs-empty-state-icon" />
 
-        <div className="dbs-sms-table-scroll">
-          <table className="dbs-sms-table">
-            <thead>
-              <tr>
-                <th>Service Name</th>
-                <th>Status</th>
-              </tr>
-            </thead>
+            <div className="dbs-empty-state-title">No records found</div>
 
-            <tbody>
-              {smsList.map((item, index) => (
-                <tr key={index}>
-                  <td>
-                    <div className="dbs-sms-service">
-                      <span className="dbs-sms-dot"></span>
-
-                      {item.mODULE}
-                    </div>
-                  </td>
-
-                  <td>
-                    <button
-                      disabled={loading === item.mODULE}
-                      onClick={() => handleStatusChange(item)}
-                      className={
-                        item.iSACTIVE === "Y"
-                          ? "dbs-sms-active"
-                          : "dbs-sms-inactive"
-                      }
-                    >
-                      {loading === item.mODULE ? "Updating..." : item.text}
-                    </button>
-                  </td>
+            <div className="dbs-empty-state-desc">
+              No SMS notification services are available.
+            </div>
+          </div>
+        ) : (
+          <div className="dbs-sms-table-scroll">
+            <table className="dbs-sms-table">
+              <thead>
+                <tr>
+                  <th>Service Name</th>
+                  <th>Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+
+              <tbody>
+                {smsList.map((item, index) => (
+                  <tr key={index}>
+                    <td>
+                      <div className="dbs-sms-service">
+                        <span className="dbs-sms-dot"></span>
+                        {item.mODULE}
+                      </div>
+                    </td>
+
+                    <td>
+                      <button
+                        disabled={loading === item.mODULE}
+                        onClick={() => handleStatusChange(item)}
+                        className={
+                          item.iSACTIVE === "Y"
+                            ? "dbs-sms-active"
+                            : "dbs-sms-inactive"
+                        }
+                      >
+                        {loading === item.mODULE ? "Updating..." : item.text}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );

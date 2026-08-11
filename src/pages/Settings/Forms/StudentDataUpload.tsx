@@ -8,6 +8,7 @@ import {
 } from "../../../apis/SettingsApis";
 import { toast } from "sonner";
 import * as XLSX from "xlsx";
+import { AlertCircle } from "lucide-react";
 
 interface StudentDataImport {
   RegistrationNo: string | null;
@@ -30,22 +31,15 @@ interface StudentDataImport {
 const StudentDataUpload: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [students, setStudents] = useState<any[]>([]);
-
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0] ?? null;
     setFile(selectedFile);
   };
-
   const [showSaveButton, setShowSaveButton] = useState(false);
-
   const loadStudentData = async () => {
     try {
       const response = await getUploadedStudentData();
-
-      console.log("Uploaded Student Data=========================:", response);
-
       setStudents(response);
-
       if (response && response.length > 0) {
         setShowSaveButton(true);
       }
@@ -60,14 +54,9 @@ const StudentDataUpload: React.FC = () => {
       toast.error("Please select an Excel file");
       return;
     }
-
     try {
       const response = await insertStudentData(file);
-
-      console.log("Insert Response:", response);
-
       toast.success("Student data uploaded successfully");
-
       // only now display table data
       await loadStudentData();
     } catch (error: any) {
@@ -79,21 +68,14 @@ const StudentDataUpload: React.FC = () => {
   const handleSave = async () => {
     try {
       const response = await finalUpdateStudentData();
-
-      console.log("Save Response:", response);
-
       if (response?.message === "Success") {
         toast.success(`Student data saved successfully`);
-
         // clear table
         setStudents([]);
-
         // hide save button
         setShowSaveButton(false);
-
         // remove selected file
         setFile(null);
-
         // reset file input
         const fileInput = document.querySelector(
           'input[type="file"]',
@@ -114,9 +96,7 @@ const StudentDataUpload: React.FC = () => {
   const handleDownloadFormat = async () => {
     try {
       const response = await downloadStudentTemplate();
-
       const url = window.URL.createObjectURL(new Blob([response.data]));
-
       const link = document.createElement("a");
       link.href = url;
       link.setAttribute("download", "STUDENT_DATA.xlsx");
@@ -142,13 +122,11 @@ const StudentDataUpload: React.FC = () => {
           </p>
         </div>
       </div>
-
       {/* Upload Card */}
       <div className="dbs-student-card">
         <div className="dbs-upload-row">
           <div className="dbs-student-field dbs-upload-file">
             <label>Select Excel File</label>
-
             <input
               type="file"
               accept=".xlsx,.xls,.csv"
@@ -161,12 +139,10 @@ const StudentDataUpload: React.FC = () => {
               </small>
             )}
           </div>
-
           <div className="dbs-upload-buttons">
             <button className="dbs-btn-outline" onClick={handleDownloadFormat}>
               Download Template
             </button>
-
             <button
               className="dbs-btn-primary"
               disabled={!file}
@@ -174,7 +150,6 @@ const StudentDataUpload: React.FC = () => {
             >
               Load
             </button>
-
             {showSaveButton && (
               <button className="dbs-btn-success" onClick={handleSave}>
                 Save Data
@@ -183,59 +158,56 @@ const StudentDataUpload: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Preview */}
-      <div className="dbs-table-container">
-        <div className="dbs-table-head">
-          <div>
-            <h3>Preview</h3>
-            <p className="dbs-page-subtitle">
-              Loaded student records will appear here.
-            </p>
-          </div>
+      {/* Table Header */}
+      <div className="dbs-student-upload-header dbs-table-head">
+        <div>
+          <h3>Preview</h3>
+          <p className="dbs-page-subtitle">
+            Loaded student records will appear here.
+          </p>
         </div>
+      </div>
+      {/* ================= Preview ================= */}
+      <div className="dbs-table-container">
+        {students.length === 0 ? (
+          <div className="dbs-empty-state">
+            <AlertCircle className="dbs-empty-state-icon" />
+            <div className="dbs-empty-state-title">No data loaded</div>
+            <div className="dbs-empty-state-desc">
+              No student records are available for preview.
+            </div>
+          </div>
+        ) : (
+          <div className="dbs-period-table-scroll">
+            <table className="dbs-period-table">
+              <thead>
+                <tr>
+                  <th>Register No</th>
+                  <th>Name</th>
+                  <th>Father Name</th>
+                  <th>Email</th>
+                  <th>Student Mobile</th>
+                  <th>Blood Group</th>
+                </tr>
+              </thead>
 
-        <div className="dbs-period-table-scroll">
-          <table className="dbs-period-table">
-            <thead>
-              <tr>
-                <th>Register No</th>
-                <th>Name</th>
-                <th>Father Name</th>
-                <th>Email</th>
-                <th>Student Mobile</th>
-                <th>Blood Group</th>
-              </tr>
-            </thead>
-            <tbody>
-              {students.length > 0 ? (
-                students.map((item, index) => (
+              <tbody>
+                {students.map((item, index) => (
                   <tr key={index}>
                     <td title={item.registrationNo}>
                       {item.registrationNo || "-"}
                     </td>
-
                     <td title={item.sTUNAME}>{item.sTUNAME || "-"}</td>
-
                     <td title={item.fATHERNAME}>{item.fATHERNAME || "-"}</td>
-
                     <td title={item.emailid}>{item.emailid || "-"}</td>
-
                     <td>{item.stdMobNo || "-"}</td>
-
                     <td>{item.bloodGrp || "-"}</td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={6} className="dbs-empty-row">
-                    No data loaded
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );

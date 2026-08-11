@@ -13,25 +13,17 @@ import { toast } from "sonner";
 const InternalMarksAllowedDate = () => {
   const [regulations, setRegulations] = useState<any[]>([]);
   const [programmes, setProgrammes] = useState<any[]>([]);
-
   const [selectedRegulation, setSelectedRegulation] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
-
   const [years, setYears] = useState<any[]>([]);
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedSemester, setSelectedSemester] = useState("");
-
   const [midTypes, setMidTypes] = useState<any[]>([]);
-  const [selectedMidType, setSelectedMidType] = useState("");
-
   const [selectedMidTypes, setSelectedMidTypes] = useState<string[]>([]);
   const [showMidTypeDropdown, setShowMidTypeDropdown] = useState(false);
-
   const [examType, setExamType] = useState("");
-
   const [table1Data, setTable1Data] = useState<any[]>([]);
   const [table2Data, setTable2Data] = useState<any[]>([]);
-
   const [lastDate, setLastDate] = useState("");
   const [displayDate, setDisplayDate] = useState("");
 
@@ -51,7 +43,6 @@ const InternalMarksAllowedDate = () => {
   const fetchTable1Data = async () => {
     try {
       const academicYear = localStorage.getItem("academicYear");
-
       const payload = {
         academicYear: academicYear,
         programme: "",
@@ -62,10 +53,9 @@ const InternalMarksAllowedDate = () => {
       };
 
       const response = await bindInternalDates(payload);
-
       setTable1Data(response || []);
     } catch (error) {
-      console.log("Bind Internal Dates Error", error);
+      console.error("Bind Internal Dates Error", error);
       setTable1Data([]);
     }
   };
@@ -82,12 +72,10 @@ const InternalMarksAllowedDate = () => {
         midType: "",
         regu: "",
       };
-
       const response = await bindInternalDatesflag2(payload);
-
       setTable2Data(response || []);
     } catch (error) {
-      console.log("Bind Internal Dates Flag2 Error", error);
+      console.error("Bind Internal Dates Flag2 Error", error);
       setTable2Data([]);
     }
   };
@@ -97,7 +85,7 @@ const InternalMarksAllowedDate = () => {
       const response = await bindRegulation();
       setRegulations(response || []);
     } catch (error) {
-      console.log("Bind Regulation Error", error);
+      console.error("Bind Regulation Error", error);
       setRegulations([]);
     }
   };
@@ -105,10 +93,9 @@ const InternalMarksAllowedDate = () => {
   const fetchProgrammes = async () => {
     try {
       const response = await getProgramme();
-
       setProgrammes(response || []);
     } catch (error) {
-      console.log("Programme Error", error);
+      console.error("Programme Error", error);
       setProgrammes([]);
     }
   };
@@ -120,11 +107,10 @@ const InternalMarksAllowedDate = () => {
         setSelectedYear("");
         return;
       }
-
       const response = await getYear(programme);
       setYears(response || []);
     } catch (error) {
-      console.log("Year Error", error);
+      console.error("Year Error", error);
       setYears([]);
     }
   };
@@ -132,23 +118,19 @@ const InternalMarksAllowedDate = () => {
   const fetchMidTypes = async () => {
     try {
       const response = await getMidTypeMaster();
-
       setMidTypes(response || []);
     } catch (error) {
-      console.log("Mid Type Error", error);
+      console.error("Mid Type Error", error);
       setMidTypes([]);
     }
   };
 
   const formatDate = (date: string) => {
     if (!date) return "";
-
     const d = new Date(date);
-
     const day = String(d.getDate()).padStart(2, "0");
     const month = String(d.getMonth() + 1).padStart(2, "0");
     const year = d.getFullYear();
-
     return `${day}-${month}-${year}`;
   };
 
@@ -209,7 +191,6 @@ const InternalMarksAllowedDate = () => {
           displayDate: formatDate(displayDate),
           regu: selectedRegulation,
         };
-
         const response = await saveInternalDates(payload);
 
         if (response?.message === "Success" || response?.rowsAffected > 0) {
@@ -220,7 +201,6 @@ const InternalMarksAllowedDate = () => {
           } else if (examType === "ObjectiveMarks-2") {
             await fetchTable2Data();
           }
-
           // Clear form
           setSelectedRegulation("");
           setSelectedCourse("");
@@ -253,15 +233,19 @@ const InternalMarksAllowedDate = () => {
     fetchRegulations();
     fetchProgrammes();
     fetchMidTypes();
-
     fetchTable1Data();
     fetchTable2Data();
   }, []);
 
   return (
-    <div className="dbs-attendance-container">
+    <div className="dbs-imad-container">
       <div className="dbs-attendance-header">
-        <h2>Internal Dates Master</h2>
+        <div>
+          <h2>Internal Dates Master</h2>
+          <p className="dbs-imad-subtitle">
+            Configure internal marks submission and display date limits
+          </p>
+        </div>
       </div>
 
       <div className="dbs-form-card">
@@ -269,14 +253,13 @@ const InternalMarksAllowedDate = () => {
 
         <div className="dbs-imad-form-grid">
           {/* Regulation */}
-          <div className="dbs-imad-input-box">
+          <div className="dbs-imad-field">
             <label>Regulation</label>
             <select
               value={selectedRegulation}
               onChange={(e) => setSelectedRegulation(e.target.value)}
             >
               <option value="">Select Regulation</option>
-
               {regulations.map((item: any, index: number) => (
                 <option
                   key={index}
@@ -291,13 +274,11 @@ const InternalMarksAllowedDate = () => {
           {/* Course */}
           <div className="dbs-imad-input-box">
             <label>Course</label>
-
             <select
               value={selectedCourse}
               onChange={(e) => setSelectedCourse(e.target.value)}
             >
               <option value="">Select Programme</option>
-
               {programmes.map((item: any, index: number) => (
                 <option
                   key={index}
@@ -318,7 +299,6 @@ const InternalMarksAllowedDate = () => {
               onChange={(e) => setSelectedYear(e.target.value)}
             >
               <option value="">Select Year</option>
-
               {years.map((item: any, index: number) => (
                 <option key={index} value={item.ID ?? item.id}>
                   {item.DATA ?? item.YEAR ?? item.year}
@@ -330,13 +310,11 @@ const InternalMarksAllowedDate = () => {
           {/* Semester */}
           <div className="dbs-imad-input-box">
             <label>Semester</label>
-
             <select
               value={selectedSemester}
               onChange={(e) => setSelectedSemester(e.target.value)}
             >
               <option value="">Select Semester</option>
-
               {semesters.map((item) => (
                 <option key={item.value} value={item.value}>
                   {item.label}
@@ -348,7 +326,6 @@ const InternalMarksAllowedDate = () => {
           {/* Last Date */}
           <div className="dbs-imad-input-box">
             <label>Last Date</label>
-
             <input
               type="date"
               value={lastDate}
@@ -359,7 +336,6 @@ const InternalMarksAllowedDate = () => {
           {/* Display Date */}
           <div className="dbs-imad-input-box">
             <label>Display Date</label>
-
             <input
               type="date"
               value={displayDate}
@@ -370,7 +346,6 @@ const InternalMarksAllowedDate = () => {
           {/* Mid Type */}
           <div className="dbs-imad-input-box">
             <label>Mid Type</label>
-
             <div className="mid-type-wrapper">
               <div
                 className="mid-type-select"
@@ -394,7 +369,6 @@ const InternalMarksAllowedDate = () => {
                         checked={selectedMidTypes.includes(item.midType)}
                         onChange={() => handleMidTypeChange(item.midType)}
                       />
-
                       <span>{item.midType}</span>
                     </label>
                   ))}
@@ -417,7 +391,6 @@ const InternalMarksAllowedDate = () => {
               />
               Exam Type 1
             </label>
-
             <label>
               <input
                 type="checkbox"
@@ -433,10 +406,10 @@ const InternalMarksAllowedDate = () => {
           </div>
         </div>
 
-        <div className="dbs-form-actions">
+        <div className="dbs-imad-actions">
           <button
             type="button"
-            className="dbs-cancel-btn"
+            className="dbs-imad-secondary-btn"
             onClick={() => {
               setSelectedRegulation("");
               setSelectedCourse("");
@@ -452,7 +425,11 @@ const InternalMarksAllowedDate = () => {
             Cancel
           </button>
 
-          <button type="button" className="dbs-save-btn" onClick={handleSave}>
+          <button
+            type="button"
+            className="dbs-imad-primary-btn"
+            onClick={handleSave}
+          >
             <Save size={18} />
             Save
           </button>
@@ -462,22 +439,22 @@ const InternalMarksAllowedDate = () => {
       <div className="dbs-programme-form-header dbs-table-head">
         <div>
           <h2>Internal Marks Allowed Dates</h2>
-
           <p className="dbs-page-subtitle">
             Configure internal marks submission and display date limits
           </p>
         </div>
       </div>
+
       <div className="dbs-table-card">
-        <div className="dbs-table-scroll">
+        <div className="dbs-imad-scroll">
           {/* Exam Type 1 Table */}
           <div className="dbs-table-section">
             <div className="table-title-row">
               <h3>Exam Type 1 Dates</h3>
-              <span className="table-count">Records: {table1Data.length}</span>
+              {/* <span className="table-count">Records: {table1Data.length}</span> */}
             </div>
-            <div className="table-scroll-container">
-              <table className="dbs-data-table">
+            <div className="dbs-imad-table-scroll">
+              <table className="dbs-imad-table">
                 <thead>
                   <tr>
                     <th>S.No</th>
@@ -519,11 +496,10 @@ const InternalMarksAllowedDate = () => {
           <div className="dbs-table-section">
             <div className="table-title-row">
               <h3>Exam Type 2 Dates</h3>
-              <span className="table-count">Records: {table2Data.length}</span>
+              {/* <span className="table-count">Records: {table2Data.length}</span> */}
             </div>
-
-            <div className="table-scroll-container">
-              <table className="dbs-data-table">
+            <div className="dbs-imad-table-scroll">
+              <table className="dbs-imad-table">
                 <thead>
                   <tr>
                     <th>S.No</th>

@@ -16,18 +16,14 @@ const LeaveType = () => {
   const [leaveAAllTypes, setLeaveAllTypes] = useState<any[]>([]);
   const [loadingLeaveTypes, setLoadingLeaveTypes] = useState(false);
   const [loadingLeaveLTypes, setLoadingLeaveLTypes] = useState(false);
-
   const [leaveStructures, setLeaveStructures] = useState<any[]>([]);
   const [loadingStructures, setLoadingStructures] = useState(false);
-
   const [isStructureEdit, setIsStructureEdit] = useState(false);
-
   const [leaveForm, setLeaveForm] = useState({
     lid: "",
     lsname: "",
     ldesc: "",
   });
-
   const [leaveStructureForm, setLeaveStructureForm] = useState({
     lsid: "",
     lid: "",
@@ -47,7 +43,6 @@ const LeaveType = () => {
     >,
   ) => {
     const { name, value } = e.target;
-
     setLeaveStructureForm((prev) => ({
       ...prev,
       [name]: value,
@@ -55,12 +50,9 @@ const LeaveType = () => {
   };
 
   const [savingStructure, setSavingStructure] = useState(false);
-
   const [saving, setSaving] = useState(false);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
     setLeaveForm((prev) => ({
       ...prev,
       [name]: value,
@@ -68,6 +60,37 @@ const LeaveType = () => {
   };
 
   const handleSaveLeaveStructure = async () => {
+    // Validation
+    if (!leaveStructureForm.lyer.trim()) {
+      toast.error("Enter Year");
+      return;
+    }
+
+    if (!leaveStructureForm.lid) {
+      toast.error("Select Leave Type");
+      return;
+    }
+
+    if (!leaveStructureForm.workMode) {
+      toast.error("Select Work Mode");
+      return;
+    }
+
+    if (!leaveStructureForm.duration) {
+      toast.error("Select Duration");
+      return;
+    }
+
+    if (!leaveStructureForm.lvFrDuration.trim()) {
+      toast.error("Enter Leaves Per Duration");
+      return;
+    }
+
+    if (!leaveStructureForm.lvforYr.trim()) {
+      toast.error("Enter Leaves Per Year");
+      return;
+    }
+
     try {
       setSavingStructure(true);
 
@@ -84,16 +107,10 @@ const LeaveType = () => {
         lvFrDuration: leaveStructureForm.lvFrDuration,
       };
 
-      // only add lsid during edit
       if (leaveStructureForm.lsid) {
         payload.lsid = leaveStructureForm.lsid;
       }
-
-      console.log("Saving Structure Payload:", payload);
-
-      const response = await saveLeaveStructure(payload);
-      console.log("Save Leave Structure Response:", response);
-
+      await saveLeaveStructure(payload);
       toast.success(
         leaveStructureForm.lsid
           ? "Leave Structure Updated"
@@ -101,7 +118,6 @@ const LeaveType = () => {
       );
 
       fetchLeaveStructureList();
-
       clearLeaveStructure();
     } catch (error) {
       console.error(error);
@@ -116,12 +132,10 @@ const LeaveType = () => {
       toast.error("Enter Leave Short Name");
       return;
     }
-
     if (!leaveForm.ldesc.trim()) {
       toast.error("Enter Leave Description");
       return;
     }
-
     try {
       setSaving(true);
 
@@ -129,22 +143,17 @@ const LeaveType = () => {
         lsname: leaveForm.lsname,
         ldesc: leaveForm.ldesc,
       };
-
       // Pass lid only while editing
       if (leaveForm.lid) {
         payload.lid = leaveForm.lid;
       }
-
       await saveLeaveType(payload);
-
       toast.success(
         leaveForm.lid
           ? "Leave Type Updated Successfully"
           : "Leave Type Saved Successfully",
       );
-
       fetchLeaveLtypeList();
-
       handleCancel();
     } catch (error) {
       console.error(error);
@@ -162,12 +171,8 @@ const LeaveType = () => {
   };
 
   const handleEdit = (item: any) => {
-    console.log("Editing Leave Type:", item);
-
     const leaveText = item.leave || "";
-
     const parts = leaveText.split("-");
-
     setLeaveForm({
       lid: String(item.lID || item.iD || ""),
       lsname: parts[0] || "",
@@ -195,11 +200,7 @@ const LeaveType = () => {
   const fetchLeaveStructureList = async () => {
     try {
       setLoadingStructures(true);
-
       const response = await getLeaveStructureList();
-
-      console.log("Leave Structure:", response);
-
       setLeaveStructures(response || []);
     } catch (error) {
       console.error("Leave Structure Fetch Error:", error);
@@ -212,15 +213,10 @@ const LeaveType = () => {
   const fetchLeaveTypeList = async () => {
     try {
       setLoadingLeaveTypes(true);
-
       const response = await getLeaveTypeList();
-
-      console.log("Leave Type Response:", response);
-
       setLeaveTypes(response || []);
     } catch (error) {
       console.error("Leave Type Fetch Error:", error);
-
       setLeaveTypes([]);
     } finally {
       setLoadingLeaveTypes(false);
@@ -230,15 +226,10 @@ const LeaveType = () => {
   const fetchLeaveLtypeList = async () => {
     try {
       setLoadingLeaveLTypes(true);
-
       const response = await getLeavelLtypeList();
-
-      console.log("Leave LType Response:", response);
-
       setLeaveAllTypes(response || []);
     } catch (error) {
       console.error("Leave Type Fetch Error:", error);
-
       setLeaveAllTypes([]);
     } finally {
       setLoadingLeaveLTypes(false);
@@ -246,30 +237,20 @@ const LeaveType = () => {
   };
 
   const handleEditLeaveStructure = (item: any) => {
-    console.log("Editing Leave Structure:", item);
-    console.log("aLY value:", item.aLY);
-    console.log("aLM value:", item.aLM);
-    console.log("aLD value:", item.aLD);
     const selectedLeave = leaveTypes.find((x) => x.leave === item.leave);
-
     setLeaveStructureForm({
       lsid: String(item.lSID || ""),
       lid: String(selectedLeave?.lID || ""),
       leaveType: item.leave || "",
       workMode: item.wORKMODE || "",
-
       // aLY -> Leaves Per Year
       lvforYr: String(item.aLY ?? ""),
-
       // API doesn't return this field
       lvformnth: "",
-
       lyer: String(item.lYEAR || ""),
       remark: item.rEMARKS || "",
-
       // aLM -> Duration
       duration: String(item.aLM ?? ""),
-
       // aLD -> Leaves Per Duration
       lvFrDuration: String(item.aLD ?? ""),
     });
@@ -290,25 +271,21 @@ const LeaveType = () => {
       <div className="dbs-leave-title">
         <div>
           <h2>Leave Type Master</h2>
-
           <p>Configure employee leave policies and structures</p>
         </div>
       </div>
 
       <div className="dbs-leave-grid">
         {/* LEFT PANEL */}
-
-        <div className="dbs-leave-panel">
-          <div className="dbs-panel-heading">
+        <div className="leave-type-panel">
+          <div className="leave-type-heading">
             <FileText size={20} />
-
             <span>Leave Type</span>
           </div>
 
-          <div className="dbs-leave-body">
-            <div className="dbs-field">
+          <div className="leave-type-body">
+            <div className="leave-type-field">
               <label>Leave Short Name</label>
-
               <input
                 name="lsname"
                 placeholder="Enter short name"
@@ -317,9 +294,8 @@ const LeaveType = () => {
               />
             </div>
 
-            <div className="dbs-field">
+            <div className="leave-type-field">
               <label>Leave Description</label>
-
               <input
                 name="ldesc"
                 placeholder="Enter description"
@@ -328,14 +304,17 @@ const LeaveType = () => {
               />
             </div>
 
-            <div className="dbs-actions">
-              <button className="dbs-btn secondary" onClick={handleCancel}>
+            <div className="leave-type-actions">
+              <button
+                className="leave-type-btn leave-type-secondary"
+                onClick={handleCancel}
+              >
                 <X size={16} />
                 Cancel
               </button>
 
               <button
-                className="dbs-btn primary"
+                className="leave-type-btn leave-type-primary"
                 onClick={handleSaveLeaveType}
                 disabled={saving}
               >
@@ -346,25 +325,35 @@ const LeaveType = () => {
 
             {/* TABLE */}
 
-            <div className="dbs-table-wrapper dbs-leave-table-scroll">
-              <table className="dbs-modern-table">
+            <div className="leave-type-list-title">
+              <div>
+                <h3>Leave Type List</h3>
+                <p>
+                  Manage available leave categories and update existing leave
+                  type details.
+                </p>
+              </div>
+            </div>
+
+            <div className="leave-type-table-wrapper">
+              <table className="leave-type-table">
                 <thead>
                   <tr>
                     <th>Leave Type</th>
-
                     <th>Action</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {loadingLeaveLTypes ? (
                     <tr>
-                      <td colSpan={2} className="dbs-empty-row">
+                      <td colSpan={2} className="leave-type-empty-row">
                         Loading leave types...
                       </td>
                     </tr>
                   ) : leaveAAllTypes.length === 0 ? (
                     <tr>
-                      <td colSpan={2} className="dbs-empty-row">
+                      <td colSpan={2} className="leave-type-empty-row">
                         No Leave Types Found
                       </td>
                     </tr>
@@ -375,7 +364,7 @@ const LeaveType = () => {
 
                         <td>
                           <button
-                            className="dbs-icon-btn"
+                            className="leave-type-edit-btn"
                             onClick={() => handleEdit(item)}
                           >
                             <Edit3 size={16} />
@@ -391,19 +380,16 @@ const LeaveType = () => {
         </div>
 
         {/* RIGHT PANEL */}
-
-        <div className="dbs-leave-panel">
-          <div className="dbs-panel-heading">
+        <div className="leave-structure-panel">
+          <div className="leave-structure-heading">
             <Layers size={20} />
-
             <span>Leave Structure</span>
           </div>
 
-          <div className="dbs-leave-body">
-            <div className="dbs-two-column">
-              <div className="dbs-field">
+          <div className="leave-structure-body">
+            <div className="leave-structure-two-column">
+              <div className="leave-structure-field">
                 <label>Year</label>
-
                 <input
                   name="lyer"
                   value={leaveStructureForm.lyer || ""}
@@ -411,7 +397,7 @@ const LeaveType = () => {
                 />
               </div>
 
-              <div className="dbs-field">
+              <div className="leave-structure-field">
                 <label>Leave Type</label>
                 <select
                   name="lid"
@@ -432,7 +418,6 @@ const LeaveType = () => {
                   }}
                 >
                   <option value="">Select Leave Type</option>
-
                   {leaveTypes.map((item) => (
                     <option key={item.iD} value={item.lID}>
                       {item.leave}
@@ -442,50 +427,40 @@ const LeaveType = () => {
               </div>
             </div>
 
-            <div className="dbs-two-column">
-              <div className="dbs-field">
+            <div className="leave-structure-two-column">
+              <div className="leave-structure-field">
                 <label>Work Mode</label>
-
                 <select
                   name="workMode"
                   value={leaveStructureForm.workMode}
                   onChange={handleStructureChange}
                 >
                   <option value="">Select Work Mode</option>
-
                   <option value="TEACHING">TEACHING</option>
-
                   <option value="NON-TEACHING">NON-TEACHING</option>
-
                   <option value="NMR">NON MUSTER ROLL</option>
                 </select>
               </div>
 
-              <div className="dbs-field">
+              <div className="leave-structure-field">
                 <label>Duration</label>
-
                 <select
                   name="duration"
                   value={leaveStructureForm.duration}
                   onChange={handleStructureChange}
                 >
                   <option value="">Select Duration</option>
-
                   <option value="1">Monthly</option>
-
                   <option value="3">Quarterly</option>
-
                   <option value="6">Half Yearly</option>
-
                   <option value="12">Yearly</option>
                 </select>
               </div>
             </div>
 
-            <div className="dbs-two-column">
-              <div className="dbs-field">
+            <div className="leave-structure-two-column">
+              <div className="leave-structure-field">
                 <label>Leaves Per Duration</label>
-
                 <input
                   name="lvFrDuration"
                   value={leaveStructureForm.lvFrDuration}
@@ -493,9 +468,8 @@ const LeaveType = () => {
                 />
               </div>
 
-              <div className="dbs-field">
+              <div className="leave-structure-field">
                 <label>Leaves Per Year</label>
-
                 <input
                   name="lvforYr"
                   value={leaveStructureForm.lvforYr}
@@ -504,9 +478,8 @@ const LeaveType = () => {
               </div>
             </div>
 
-            <div className="dbs-field">
+            <div className="leave-structure-field">
               <label>Remarks</label>
-
               <textarea
                 name="remark"
                 value={leaveStructureForm.remark}
@@ -514,16 +487,17 @@ const LeaveType = () => {
               />
             </div>
 
-            <div className="dbs-actions right">
+            <div className="leave-structure-actions leave-structure-right">
               <button
-                className="dbs-btn secondary"
+                className="leave-structure-btn leave-structure-secondary"
                 onClick={clearLeaveStructure}
               >
                 <X size={16} />
                 Cancel
               </button>
+
               <button
-                className="dbs-btn primary"
+                className="leave-structure-btn leave-structure-primary"
                 onClick={handleSaveLeaveStructure}
                 disabled={savingStructure}
               >
@@ -537,63 +511,66 @@ const LeaveType = () => {
               </button>
             </div>
 
-            <div className="dbs-table-header">
-              <span>
-                Total Records: <strong>{leaveStructures.length}</strong>
-              </span>
-            </div>
-            <div className="dbs-table-wrapper">
-              <div className="dbs-table-wrapper dbs-leave-structure-scroll">
-                <table className="dbs-modern-table">
-                  <thead>
-                    <tr>
-                      <th>Year</th>
-                      <th>Leave</th>
-                      <th>Work Mode</th>
-                      <th>Leaves/Year</th>
-                      <th>Duration</th>
-                      <th>Leaves/Duration</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {loadingStructures ? (
-                      <tr>
-                        <td colSpan={6} className="dbs-empty-row">
-                          Loading Leave Structure...
-                        </td>
-                      </tr>
-                    ) : leaveStructures.length === 0 ? (
-                      <tr>
-                        <td colSpan={6} className="dbs-empty-row">
-                          No Leave Structure Found
-                        </td>
-                      </tr>
-                    ) : (
-                      leaveStructures.map((item) => (
-                        <tr key={item.lSID}>
-                          <td>{item.lYEAR}</td>
-                          <td>{item.leave}</td>
-                          <td>{item.wORKMODE}</td>
-                          <td>{item.aLY}</td>
-                          <td>{item.aLM} Months</td>
-                          <td>{item.aLD}</td>
-
-                          <td>
-                            <button className="dbs-icon-btn">
-                              <Edit3
-                                size={16}
-                                onClick={() => handleEditLeaveStructure(item)}
-                              />
-                            </button>
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
+            <div className="leave-structure-list-title">
+              <div>
+                <h3>Leave Structure List</h3>
+                <p>
+                  View and maintain yearly leave allocation rules based on work
+                  mode and duration.
+                </p>
               </div>
+            </div>
+
+            <div className="leave-structure-table-wrapper">
+              <table className="leave-structure-table">
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    <th>Leave</th>
+                    <th>Work Mode</th>
+                    <th>Leaves/Year</th>
+                    <th>Duration</th>
+                    <th>Leaves/Duration</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {loadingStructures ? (
+                    <tr>
+                      <td colSpan={6} className="leave-structure-empty-row">
+                        Loading Leave Structure...
+                      </td>
+                    </tr>
+                  ) : leaveStructures.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} className="leave-structure-empty-row">
+                        No Leave Structure Found
+                      </td>
+                    </tr>
+                  ) : (
+                    leaveStructures.map((item) => (
+                      <tr key={item.lSID}>
+                        <td>{item.lYEAR}</td>
+                        <td>{item.leave}</td>
+                        <td>{item.wORKMODE}</td>
+                        <td>{item.aLY}</td>
+                        <td>{item.aLM} Months</td>
+                        <td>{item.aLD}</td>
+
+                        <td>
+                          <button
+                            className="leave-structure-edit-btn"
+                            onClick={() => handleEditLeaveStructure(item)}
+                          >
+                            <Edit3 size={16} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

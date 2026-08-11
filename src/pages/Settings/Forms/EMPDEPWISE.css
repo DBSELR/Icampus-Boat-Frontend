@@ -1,257 +1,428 @@
-/* CONTAINER */
+/* ==========================================
+Container
+========================================== */
 
 .dbs-empdepwise-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
 }
 
-/* HEADER */
+/* ==========================================
+Page Header
+========================================== */
 
 .dbs-empdepwise-header {
-  border-bottom: 1px solid var(--dbs-border);
   padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
 }
 
 .dbs-empdepwise-header h2 {
   margin: 0;
-  color: var(--dbs-text);
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: 800;
+  color: var(--dbs-text);
 }
 
-/* CARD */
+.dbs-page-subtitle {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================
+Filter Card
+========================================== */
 
 .dbs-empdepwise-filter-card,
 .dbs-empdepwise-table-card {
   background: var(--dbs-surface);
-
   border: 1px solid var(--dbs-border);
-
   border-radius: var(--dbs-radius);
-
   box-shadow: var(--dbs-shadow);
-
   padding: 24px;
+}
+
+.dbs-empdepwise-data-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
+}
+
+.dbs-empdepwise-data-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
 }
 
 .dbs-empdepwise-filter-card {
   display: flex;
-
   flex-direction: column;
-
   gap: 22px;
 }
 
 .dbs-empdepwise-filter-card h3 {
   margin: 0;
-
   padding-bottom: 12px;
-
   border-bottom: 1px solid var(--dbs-border);
-
   color: var(--dbs-text);
+  font-size: 1.05rem;
+  font-weight: 700;
 }
 
-/* FORM */
+/* ==========================================
+Form Grid
+========================================== */
 
 .dbs-empdepwise-form-grid {
   display: grid;
-
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
 }
 
 .dbs-empdepwise-input-box {
   display: flex;
-
   flex-direction: column;
 }
 
 .dbs-empdepwise-input-box label {
-  font-size: 13px;
-
-  font-weight: 700;
-
-  margin-bottom: 6px;
-
+  margin-bottom: 7px;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--dbs-text);
 }
 
 .dbs-empdepwise-input-box select {
-  padding: 10px 12px;
-
+  height: 44px;
+  padding: 0 14px;
   border-radius: var(--dbs-radius-sm);
-
   border: 1px solid var(--dbs-border);
-
   background: var(--dbs-surface);
-
   color: var(--dbs-text);
-
   outline: none;
+  font-size: 0.9rem;
+  transition: var(--dbs-transition);
+}
+
+.dbs-empdepwise-input-box select:hover {
+  border-color: var(--dbs-primary);
 }
 
 .dbs-empdepwise-input-box select:focus {
   border-color: var(--dbs-primary);
-
   box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
-/* BUTTONS */
-
-.dbs-empdepwise-actions {
-  display: flex;
-
-  justify-content: flex-end;
-
-  gap: 14px;
-
-  border-top: 1px solid var(--dbs-border);
-
-  padding-top: 18px;
-}
-
-.dbs-empdepwise-search-btn {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  background: var(--dbs-primary);
-
-  color: white;
-
-  border: none;
-
-  padding: 10px 20px;
-
-  border-radius: var(--dbs-radius-sm);
-
-  font-weight: 700;
-
-  cursor: pointer;
-}
-
-.dbs-empdepwise-reset-btn {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  background: var(--dbs-surface);
-
-  color: var(--dbs-text);
-
-  border: 1px solid var(--dbs-border);
-
-  padding: 10px 20px;
-
-  border-radius: var(--dbs-radius-sm);
-
-  font-weight: 700;
-
-  cursor: pointer;
-}
-
-/* TABLE HEADER */
+/* ==========================================
+Table Header
+========================================== */
 
 .dbs-empdepwise-table-header {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
   margin-bottom: 18px;
 }
 
 .dbs-empdepwise-table-header h3 {
   margin: 0;
-
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--dbs-text);
 }
 
 .dbs-empdepwise-table-header span {
   background: var(--dbs-primary-light);
-
   color: var(--dbs-primary);
-
-  padding: 6px 12px;
-
+  padding: 6px 14px;
   border-radius: 20px;
-
   font-size: 12px;
-
   font-weight: 700;
 }
 
-/* TABLE */
+/* ==========================================
+Table Scroll
+========================================== */
 
 .dbs-empdepwise-table-scroll {
-  overflow: auto;
-
-  max-height: 420px;
+  max-height: 430px;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: thin;
 }
+
+/* ==========================================
+Table
+========================================== */
 
 .dbs-empdepwise-data-table {
   width: 100%;
-
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
-.dbs-empdepwise-data-table th {
+.dbs-empdepwise-data-table thead th {
   position: sticky;
-
   top: 0;
-
+  z-index: 5;
+  height: 44px;
+  padding: 0 18px;
   background: var(--dbs-primary);
-
   color: white;
-
-  padding: 13px;
-
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   text-align: left;
 }
 
-.dbs-empdepwise-data-table td {
-  padding: 13px;
-
+.dbs-empdepwise-data-table tbody td {
+  height: 54px;
+  padding: 0 18px;
   color: var(--dbs-text);
-
   border-bottom: 1px solid var(--dbs-border);
+  font-size: 0.88rem;
 }
 
-.dbs-empdepwise-data-table tr:hover td {
-  background: var(--dbs-primary-light);
+.dbs-empdepwise-data-table tbody tr {
+  transition: var(--dbs-transition);
 }
 
-/* CHECKBOX */
+.dbs-empdepwise-data-table tbody tr:hover td {
+  background: var(--dbs-background);
+}
+
+/* Column Width */
+
+.dbs-empdepwise-data-table th:nth-child(1),
+.dbs-empdepwise-data-table td:nth-child(1) {
+  width: 20%;
+}
+
+.dbs-empdepwise-data-table th:nth-child(2),
+.dbs-empdepwise-data-table td:nth-child(2) {
+  width: 30%;
+}
+
+.dbs-empdepwise-data-table th:nth-child(3),
+.dbs-empdepwise-data-table td:nth-child(3) {
+  width: 25%;
+}
+
+.dbs-empdepwise-data-table th:nth-child(4),
+.dbs-empdepwise-data-table td:nth-child(4),
+.dbs-empdepwise-data-table th:nth-child(5),
+.dbs-empdepwise-data-table td:nth-child(5) {
+  width: 12.5%;
+  text-align: center;
+}
+
+/* ==========================================
+Checkbox
+========================================== */
 
 .dbs-empdepwise-data-table input[type="checkbox"] {
   width: 18px;
-
   height: 18px;
-
-  accent-color: var(--dbs-primary);
-
   cursor: pointer;
+  accent-color: var(--dbs-primary);
+  transition: var(--dbs-transition);
 }
 
-/* RESPONSIVE */
+.dbs-empdepwise-data-table input[type="checkbox"]:hover {
+  transform: scale(1.1);
+}
+
+/* ==========================================
+Empty / Loading
+========================================== */
+
+.dbs-empdepwise-empty {
+  min-height: 260px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--dbs-text-muted);
+  font-weight: 600;
+}
+
+/* ==========================================
+Scrollbar
+========================================== */
+
+.dbs-empdepwise-table-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
+}
+
+.dbs-empdepwise-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dbs-empdepwise-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dbs-empdepwise-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 20px;
+}
+
+.dbs-empdepwise-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+
+/* ==========================================
+Responsive
+========================================== */
 
 @media (max-width: 768px) {
-  .dbs-empdepwise-actions {
+  .dbs-empdepwise-table-header {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 
-  .dbs-empdepwise-search-btn,
-  .dbs-empdepwise-reset-btn {
-    width: 100%;
+  .dbs-empdepwise-filter-card,
+  .dbs-empdepwise-table-card {
+    padding: 18px;
+  }
 
-    justify-content: center;
+  .dbs-empdepwise-data-table {
+    min-width: 700px;
+  }
+}
+
+/* ==========================================
+GLOBAL TRANSITIONS
+========================================== */
+
+.dbs-empdepwise-filter-card,
+.dbs-empdepwise-table-card,
+.dbs-empdepwise-input-box select {
+  transition: var(--dbs-transition);
+}
+
+/* ==========================================
+PAGE LOAD ANIMATION
+========================================== */
+
+@keyframes dbsEmpDepWiseFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dbs-empdepwise-filter-card,
+.dbs-empdepwise-table-card {
+  animation: dbsEmpDepWiseFade 0.3s ease;
+}
+
+/* ==========================================
+RESPONSIVE
+========================================== */
+
+@media (max-width: 1100px) {
+  .dbs-empdepwise-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .dbs-empdepwise-filter-card,
+  .dbs-empdepwise-table-card {
+    padding: 18px;
+  }
+
+  .dbs-empdepwise-table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .dbs-empdepwise-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dbs-empdepwise-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .dbs-page-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .dbs-empdepwise-filter-card,
+  .dbs-empdepwise-table-card {
+    padding: 16px;
+  }
+
+  .dbs-empdepwise-form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dbs-empdepwise-input-box label {
+    font-size: 0.83rem;
+  }
+
+  .dbs-empdepwise-input-box select {
+    height: 42px;
+    font-size: 0.85rem;
+  }
+
+  .dbs-empdepwise-data-table {
+    min-width: 720px;
+  }
+
+  .dbs-empdepwise-data-table thead th {
+    font-size: 0.75rem;
+    padding: 0 14px;
+  }
+
+  .dbs-empdepwise-data-table tbody td {
+    font-size: 0.82rem;
+    padding: 0 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dbs-empdepwise-header {
+    padding-bottom: 14px;
+  }
+
+  .dbs-empdepwise-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .dbs-page-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .dbs-empdepwise-filter-card,
+  .dbs-empdepwise-table-card {
+    padding: 14px;
+  }
+
+  .dbs-empdepwise-form-grid {
+    gap: 14px;
+  }
+
+  .dbs-empdepwise-input-box label {
+    font-size: 0.8rem;
+  }
+
+  .dbs-empdepwise-input-box select {
+    height: 40px;
+    padding: 0 12px;
+    font-size: 0.82rem;
   }
 }

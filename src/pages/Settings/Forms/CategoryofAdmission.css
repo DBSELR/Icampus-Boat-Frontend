@@ -1,138 +1,109 @@
-/* ===========================
-   MAIN CONTAINER
-=========================== */
+/* ==========================================
+Container
+========================================== */
 
 .dbs-category-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 12px;
+  width: 100%;
 }
 
-/* ===========================
-   HEADER
-=========================== */
+/* ==========================================
+Page Header
+========================================== */
 
 .dbs-category-header {
-  padding-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--dbs-border);
 }
 
 .dbs-category-header h2 {
   margin: 0;
-  font-size: 28px;
+  font-size: 1.45rem;
   font-weight: 800;
   color: var(--dbs-text);
-  letter-spacing: -0.5px;
 }
 
 .dbs-category-header p {
-  margin-top: 8px;
-  font-size: 14px;
-  color: #64748b;
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
 }
 
-/* ===========================
-   CARD
-=========================== */
+/* ==========================================
+Form Card
+========================================== */
 
 .dbs-category-card {
   background: var(--dbs-surface);
-
   border: 1px solid var(--dbs-border);
-
-  border-radius: 16px;
-
-  padding: 28px;
-
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-
-  transition: 0.25s ease;
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }
-
-.dbs-category-card:hover {
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
-}
-
-/* ===========================
-   CARD TITLE
-=========================== */
 
 .dbs-category-title {
   display: flex;
-
   align-items: center;
-
-  padding-bottom: 16px;
-
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--dbs-border);
 }
 
 .dbs-category-title h3 {
   margin: 0;
-
-  font-size: 18px;
-
-  font-weight: 750;
-
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--dbs-text);
 }
 
-/* ===========================
-   FORM GRID
-=========================== */
+/* ==========================================
+Form Grid
+========================================== */
 
 .dbs-category-grid {
   display: grid;
-
   grid-template-columns: repeat(2, minmax(280px, 1fr));
-
-  gap: 24px;
-
-  margin-top: 28px;
+  gap: 20px;
 }
 
 .dbs-category-full {
   grid-column: 1/-1;
-
   max-width: 50%;
 }
 
 .dbs-category-input {
   display: flex;
-
   flex-direction: column;
-
-  gap: 8px;
 }
 
 .dbs-category-input label {
-  font-size: 13px;
-
-  font-weight: 700;
-
+  margin-bottom: 7px;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--dbs-text);
 }
 
-/* INPUTS */
+/* ==========================================
+Inputs
+========================================== */
 
 .dbs-category-input input,
 .dbs-category-input select {
-  height: 46px;
-
+  height: 44px;
   padding: 0 14px;
-
-  border-radius: 10px;
-
+  border-radius: var(--dbs-radius-sm);
   border: 1px solid var(--dbs-border);
-
   background: var(--dbs-surface);
-
   color: var(--dbs-text);
-
-  font-size: 14px;
-
-  transition: 0.25s;
+  font-size: 0.9rem;
+  transition: var(--dbs-transition);
 }
 
 .dbs-category-input input:hover,
@@ -143,246 +114,301 @@
 .dbs-category-input input:focus,
 .dbs-category-input select:focus {
   outline: none;
-
   border-color: var(--dbs-primary);
-
-  box-shadow: 0 0 0 4px var(--dbs-primary-light);
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
 }
 
-/* ===========================
-   BUTTON AREA
-=========================== */
+/* Disabled */
+
+.dbs-category-input select:disabled,
+.dbs-category-input input:disabled {
+  background: #f1f1f1;
+  cursor: not-allowed;
+  color: #777;
+}
+
+/* ==========================================
+Buttons
+========================================== */
 
 .dbs-category-actions {
   display: flex;
-
   justify-content: flex-end;
-
-  gap: 14px;
-
-  margin-top: 30px;
-
-  padding-top: 22px;
-
-  border-top: 1px solid var(--dbs-border);
-}
-
-.dbs-category-save,
-.dbs-category-cancel {
-  height: 44px;
-
-  padding: 0 26px;
-
-  border-radius: 10px;
-
-  display: flex;
-
   align-items: center;
-
-  justify-content: center;
-
-  gap: 8px;
-
-  font-size: 14px;
-
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition: 0.25s;
+  gap: 12px;
+  margin-top: 10px;
 }
 
-/* SAVE */
+.dbs-category-actions button {
+  height: 44px;
+  min-width: 120px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--dbs-radius-sm);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--dbs-transition);
+}
+
+/* Save */
 
 .dbs-category-save {
   background: var(--dbs-primary);
-
-  color: white;
-
-  border: 1px solid var(--dbs-primary);
+  border: none;
+  color: #fff;
+  box-shadow: var(--dbs-shadow);
 }
 
 .dbs-category-save:hover {
-  transform: translateY(-1px);
-
-  box-shadow: 0 8px 18px var(--dbs-primary-light);
+  filter: brightness(1.08);
+  transform: translateY(-2px);
 }
 
-/* CANCEL */
+/* Cancel */
 
 .dbs-category-cancel {
   background: var(--dbs-surface);
-
-  color: var(--dbs-text);
-
   border: 1px solid var(--dbs-border);
+  color: var(--dbs-text);
 }
 
 .dbs-category-cancel:hover {
   background: var(--dbs-primary-light);
-
-  color: var(--dbs-primary);
-
   border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
 }
 
-/* ===========================
-   TABLE CONTAINER
-=========================== */
+/* ==========================================
+Table Container
+========================================== */
 
 .dbs-table-wrapper {
-  max-height: 420px;
-
-  overflow: auto;
-
-  margin-top: 20px;
-
-  border: 1px solid var(--dbs-border);
-
-  border-radius: 14px;
+  max-height: 430px;
+  overflow-y: auto;
+  overflow-x: auto;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
 }
 
-/* scrollbar */
+/* remove inner border */
+
+.dbs-table-wrapper {
+  border: none;
+  border-radius: 0;
+}
+
+/* Scroll */
 
 .dbs-table-wrapper::-webkit-scrollbar {
   width: 8px;
-
   height: 8px;
 }
 
-.dbs-table-wrapper::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
 .dbs-table-wrapper::-webkit-scrollbar-thumb {
-  background: var(--dbs-primary);
-
+  background: var(--dbs-border);
   border-radius: 20px;
 }
 
-/* ===========================
-   TABLE
-=========================== */
+/* ==========================================
+Table
+========================================== */
 
 .dbs-category-table {
   width: 100%;
-
   min-width: 700px;
-
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .dbs-category-table thead th {
   position: sticky;
-
   top: 0;
-
-  z-index: 5;
-
+  z-index: 10;
+  height: 44px;
+  padding: 0 18px;
   background: var(--dbs-primary);
-
-  color: white;
-
-  padding: 14px 16px;
-
-  font-size: 14px;
-
+  color: #fff;
+  font-size: 0.78rem;
   font-weight: 700;
-
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   text-align: left;
 }
 
+/* Rounded Header */
+
+.dbs-category-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
+}
+
+.dbs-category-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
+}
+
+/* Body */
+
 .dbs-category-table tbody td {
-  padding: 14px 16px;
-
-  border-bottom: 1px solid var(--dbs-border);
-
+  height: 54px;
+  padding: 0 18px;
+  background: var(--dbs-surface);
   color: var(--dbs-text);
-
-  font-size: 14px;
+  border-bottom: 1px solid var(--dbs-border);
+  font-size: 0.88rem;
+  vertical-align: middle;
 }
 
-.dbs-category-table tbody tr:nth-child(even) {
-  background: rgba(148, 163, 184, 0.08);
+.dbs-category-table tbody tr {
+  transition: var(--dbs-transition);
 }
 
-.dbs-category-table tbody tr:hover {
-  background: var(--dbs-primary-light);
-
-  transition: 0.2s;
+.dbs-category-table tbody tr:hover td {
+  background: var(--dbs-background);
 }
 
-/* ===========================
-   ICON BUTTONS
-=========================== */
+.dbs-category-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Column sizes */
+
+.dbs-category-table th:nth-child(1),
+.dbs-category-table td:nth-child(1) {
+  width: 12%;
+  text-align: center;
+}
+
+.dbs-category-table th:nth-child(2),
+.dbs-category-table td:nth-child(2) {
+  width: 28%;
+}
+
+.dbs-category-table th:nth-child(3),
+.dbs-category-table td:nth-child(3) {
+  width: 35%;
+}
+
+.dbs-category-table th:nth-child(4),
+.dbs-category-table td:nth-child(4),
+.dbs-category-table th:nth-child(5),
+.dbs-category-table td:nth-child(5) {
+  width: 12.5%;
+
+  text-align: center;
+}
+
+/* ==========================================
+Action Buttons
+========================================== */
 
 .dbs-icon-btn {
-  width: 36px;
-
-  height: 36px;
-
-  border-radius: 10px;
-
-  border: none;
-
-  display: flex;
-
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
   align-items: center;
-
   justify-content: center;
-
+  border-radius: var(--dbs-radius-sm);
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
   cursor: pointer;
-
-  transition: 0.25s;
+  transition: var(--dbs-transition);
 }
 
-.dbs-icon-btn.edit {
-  background: #e0f2fe;
+.dbs-icon-btn svg {
+  width: 16px;
+  height: 16px;
+}
 
-  color: #0284c7;
+/* Edit */
+
+.dbs-icon-btn.edit {
+  color: var(--dbs-primary);
 }
 
 .dbs-icon-btn.edit:hover {
-  background: #bae6fd;
-
-  transform: scale(1.05);
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  transform: translateY(-2px);
 }
 
-.dbs-icon-btn.delete {
-  background: #fee2e2;
+/* Delete */
 
-  color: #dc2626;
+.dbs-icon-btn.delete {
+  color: var(--dbs-danger);
 }
 
 .dbs-icon-btn.delete:hover {
-  background: #fecaca;
-
-  transform: scale(1.05);
+  background: var(--dbs-danger-light);
+  border-color: var(--dbs-danger);
+  transform: translateY(-2px);
 }
 
-/* ===========================
- EMPTY STATE
-=========================== */
+.dbs-icon-btn:active {
+  transform: scale(0.95);
+}
+
+/* ==========================================
+Empty State
+========================================== */
 
 .dbs-empty-state {
+  min-height: 260px;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
   text-align: center;
-
-  padding: 60px 20px;
-
-  color: #64748b;
 }
 
 .dbs-empty-state svg {
-  color: var(--dbs-primary);
-
-  margin-bottom: 15px;
+  width: 62px;
+  height: 62px;
+  color: var(--dbs-text-muted);
+  opacity: 0.7;
 }
 
-/* ===========================
- RESPONSIVE
-=========================== */
+.dbs-empty-state h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dbs-text);
+}
 
-@media (max-width: 768px) {
+.dbs-empty-state p {
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================
+Animation
+========================================== */
+
+.dbs-category-card {
+  animation: dbsSlideUp 0.25s ease;
+}
+@keyframes dbsSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================
+Responsive
+========================================== */
+
+@media (max-width: 1024px) {
   .dbs-category-grid {
     grid-template-columns: 1fr;
   }
@@ -390,19 +416,38 @@
   .dbs-category-full {
     max-width: 100%;
   }
+}
 
+@media (max-width: 768px) {
   .dbs-category-actions {
     flex-direction: column;
   }
 
-  .dbs-category-save,
-  .dbs-category-cancel {
+  .dbs-category-actions button {
     width: 100%;
   }
+
+  .dbs-category-table {
+    min-width: 700px;
+  }
 }
-.dbs-category-input select:disabled,
-.dbs-category-input input:disabled {
-  background-color: #f1f1f1;
-  cursor: not-allowed;
-  color: #777;
+.dbs-category-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-category-table-header h2 {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--dbs-text);
+}
+
+.dbs-page-subtitle {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
 }

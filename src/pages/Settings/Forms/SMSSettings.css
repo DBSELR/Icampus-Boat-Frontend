@@ -1,20 +1,25 @@
-/* ===========================
-   CONTAINER
-=========================== */
+/* ==========================================================
+   SMS CONTAINER
+========================================================== */
 
 .dbs-sms-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
+
+  animation: dbsSlideUp 0.25s ease both;
 }
 
-/* ===========================
+/* ==========================================================
    HEADER
-=========================== */
+========================================================== */
 
 .dbs-sms-header {
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--dbs-border);
-  padding-bottom: 15px;
+
+  animation: dbsSlideUp 0.25s ease both;
 }
 
 .dbs-sms-header h2 {
@@ -26,18 +31,19 @@
 
 .dbs-sms-header p {
   margin-top: 6px;
-  color: #64748b;
-  font-size: 14px;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
+
+  animation: dbsFade 0.3s ease 0.08s both;
 }
 
-/* ===========================
-   SUMMARY
-=========================== */
+/* ==========================================================
+   SUMMARY CARDS
+========================================================== */
 
 .dbs-sms-summary {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 18px;
 }
 
@@ -45,23 +51,55 @@
   background: var(--dbs-surface);
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius);
-
   padding: 20px;
-
   box-shadow: var(--dbs-shadow);
+
+  opacity: 0;
+  animation: dbsSlideUp 0.35s ease-out forwards;
+
+  transition:
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.2s ease;
+}
+
+/* Summary card stagger */
+
+.dbs-sms-summary-card:nth-child(1) {
+  animation-delay: 0.08s;
+}
+
+.dbs-sms-summary-card:nth-child(2) {
+  animation-delay: 0.13s;
+}
+
+.dbs-sms-summary-card:nth-child(3) {
+  animation-delay: 0.18s;
+}
+
+.dbs-sms-summary-card:nth-child(4) {
+  animation-delay: 0.23s;
+}
+
+.dbs-sms-summary-card:hover {
+  box-shadow:
+    var(--dbs-shadow),
+    0 8px 26px rgba(0, 0, 0, 0.05);
+
+  transform: translateY(-2px);
 }
 
 .dbs-sms-summary-card span {
-  color: #64748b;
-  font-size: 13px;
+  font-size: 0.85rem;
   font-weight: 600;
+  color: var(--dbs-text-muted);
 }
 
 .dbs-sms-summary-card strong {
   display: block;
   margin-top: 10px;
-
   font-size: 28px;
+  font-weight: 800;
   color: var(--dbs-primary);
 }
 
@@ -73,93 +111,239 @@
   color: #ef4444;
 }
 
-/* ===========================
+/* ==========================================================
    TABLE CARD
-=========================== */
+========================================================== */
 
 .dbs-sms-table-card {
   background: var(--dbs-surface);
-
   border: 1px solid var(--dbs-border);
-
   border-radius: var(--dbs-radius);
-
-  padding: 24px;
-
   box-shadow: var(--dbs-shadow);
+  padding: 18px;
+  overflow: hidden;
+
+  animation: dbsSlideUp 0.35s ease-out 0.25s both;
+
+  transition:
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
+
+.dbs-sms-table-card:hover {
+  box-shadow:
+    var(--dbs-shadow),
+    0 8px 26px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================
+   TABLE TITLE
+========================================================== */
 
 .dbs-sms-table-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   margin-bottom: 18px;
-}
-
-.dbs-sms-table-title h3 {
-  margin: 0;
-
-  font-size: 18px;
-
-  font-weight: 700;
-
-  color: var(--dbs-text);
-}
-
-/* ===========================
- TABLE
-=========================== */
-
-.dbs-sms-table-scroll {
-  overflow: auto;
-
-  max-height: 450px;
-}
-
-.dbs-sms-table {
-  width: 100%;
-
-  border-collapse: collapse;
-}
-
-.dbs-sms-table th {
-  background: var(--dbs-primary);
-
-  color: white;
-
-  padding: 14px;
-
-  text-align: left;
-
-  font-size: 14px;
-
-  position: sticky;
-
-  top: 0;
-}
-
-.dbs-sms-table td {
-  padding: 14px;
+  padding-bottom: 14px;
 
   border-bottom: 1px solid var(--dbs-border);
 
+  animation: dbsFade 0.35s ease-out 0.3s both;
+}
+
+.dbs-sms-table-title h2,
+.dbs-sms-table-title h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--dbs-text);
 }
 
-.dbs-sms-table tbody tr {
-  transition: 0.2s;
+.dbs-sms-table-title h2 {
+  font-size: 1.45rem;
+  font-weight: 800;
 }
+
+.dbs-page-subtitle {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================================
+   TABLE SCROLL
+========================================================== */
+
+.dbs-sms-table-scroll {
+  max-height: 430px;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
+  animation: dbsFade 0.4s ease-out 0.35s both;
+}
+
+.dbs-sms-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dbs-sms-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dbs-sms-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 20px;
+  transition: background 0.2s ease;
+}
+
+.dbs-sms-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+
+/* ==========================================================
+   TABLE
+========================================================== */
+
+.dbs-sms-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+/* ==========================================================
+   TABLE HEADER
+========================================================== */
+
+.dbs-sms-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 46px;
+  padding: 0 18px;
+  background: var(--dbs-primary);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  text-align: left;
+}
+
+.dbs-sms-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
+}
+
+.dbs-sms-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
+}
+
+/* ==========================================================
+   TABLE BODY
+========================================================== */
+
+.dbs-sms-table tbody td {
+  height: 56px;
+  padding: 0 18px;
+  font-size: 0.88rem;
+  color: var(--dbs-text);
+  border-bottom: none;
+  background: var(--dbs-surface);
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+/* ==========================================================
+   TABLE ROW ANIMATION
+========================================================== */
+
+.dbs-sms-table tbody tr {
+  opacity: 0;
+  animation: dbsRowEnter 0.35s ease-out forwards;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Stagger rows */
+
+.dbs-sms-table tbody tr:nth-child(1) {
+  animation-delay: 0.38s;
+}
+
+.dbs-sms-table tbody tr:nth-child(2) {
+  animation-delay: 0.43s;
+}
+
+.dbs-sms-table tbody tr:nth-child(3) {
+  animation-delay: 0.48s;
+}
+
+.dbs-sms-table tbody tr:nth-child(4) {
+  animation-delay: 0.53s;
+}
+
+.dbs-sms-table tbody tr:nth-child(5) {
+  animation-delay: 0.58s;
+}
+
+.dbs-sms-table tbody tr:nth-child(6) {
+  animation-delay: 0.63s;
+}
+
+.dbs-sms-table tbody tr:nth-child(7) {
+  animation-delay: 0.68s;
+}
+
+.dbs-sms-table tbody tr:nth-child(8) {
+  animation-delay: 0.73s;
+}
+
+.dbs-sms-table tbody tr:nth-child(9) {
+  animation-delay: 0.78s;
+}
+
+.dbs-sms-table tbody tr:nth-child(10) {
+  animation-delay: 0.83s;
+}
+
+/* Row hover */
 
 .dbs-sms-table tbody tr:hover {
-  background: var(--dbs-primary-light);
+  transform: translateX(2px);
 }
 
-/* ===========================
- SERVICE NAME
-=========================== */
+.dbs-sms-table tbody tr:hover td {
+  background: var(--dbs-background);
+}
+
+/* ==========================================================
+   COLUMN WIDTH
+========================================================== */
+
+.dbs-sms-table th:nth-child(1),
+.dbs-sms-table td:nth-child(1) {
+  width: 70%;
+}
+
+.dbs-sms-table th:nth-child(2),
+.dbs-sms-table td:nth-child(2) {
+  width: 30%;
+  text-align: center;
+}
+
+/* ==========================================================
+   SERVICE NAME
+========================================================== */
 
 .dbs-sms-service {
   display: flex;
-
   align-items: center;
-
   gap: 10px;
 
   font-weight: 600;
@@ -167,49 +351,199 @@
 
 .dbs-sms-dot {
   width: 8px;
-
   height: 8px;
-
   border-radius: 50%;
-
   background: var(--dbs-primary);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-/* ===========================
- STATUS
-=========================== */
+.dbs-sms-service:hover .dbs-sms-dot {
+  transform: scale(1.2);
+
+  box-shadow: 0 0 0 4px var(--dbs-primary-light);
+}
+
+/* ==========================================================
+   STATUS BUTTON
+========================================================== */
 
 .dbs-sms-active,
 .dbs-sms-inactive {
-  padding: 6px 14px;
-
-  border-radius: 20px;
-
-  font-size: 12px;
-
+  min-width: 90px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.78rem;
   font-weight: 700;
-
-  display: inline-block;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .dbs-sms-active {
   background: #dcfce7;
-
   color: #15803d;
 }
 
 .dbs-sms-inactive {
   background: #fee2e2;
-
   color: #dc2626;
 }
 
-/* ===========================
- RESPONSIVE
-=========================== */
+.dbs-sms-active:hover,
+.dbs-sms-inactive:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.dbs-sms-active:active,
+.dbs-sms-inactive:active {
+  transform: scale(0.96);
+}
+
+/* ==========================================================
+   ANIMATIONS
+========================================================== */
+
+@keyframes dbsFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dbsSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dbsRowEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .dbs-sms-container,
+  .dbs-sms-header,
+  .dbs-sms-header p,
+  .dbs-sms-summary-card,
+  .dbs-sms-table-card,
+  .dbs-sms-table-title,
+  .dbs-sms-table-scroll,
+  .dbs-sms-table tbody tr {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+
+  .dbs-sms-summary-card,
+  .dbs-sms-table-card,
+  .dbs-sms-table tbody tr,
+  .dbs-sms-table tbody td,
+  .dbs-sms-active,
+  .dbs-sms-inactive,
+  .dbs-sms-dot {
+    transition: none !important;
+  }
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 1024px) {
+  .dbs-sms-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 @media (max-width: 768px) {
+  .dbs-sms-container {
+    gap: 18px;
+  }
+
   .dbs-sms-summary {
     grid-template-columns: 1fr;
+  }
+
+  .dbs-sms-table-card {
+    padding: 16px;
+  }
+
+  .dbs-sms-table-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .dbs-sms-table-title h2 {
+    font-size: 1.25rem;
+  }
+
+  .dbs-sms-table {
+    min-width: 600px;
+  }
+
+  .dbs-sms-table thead th {
+    font-size: 0.72rem;
+    padding: 0 12px;
+  }
+
+  .dbs-sms-table tbody td {
+    font-size: 0.82rem;
+    padding: 0 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dbs-sms-table-card {
+    padding: 12px;
+  }
+
+  .dbs-sms-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .dbs-sms-header p,
+  .dbs-page-subtitle {
+    font-size: 0.82rem;
+  }
+
+  .dbs-sms-summary-card {
+    padding: 16px;
+  }
+
+  .dbs-sms-summary-card strong {
+    font-size: 24px;
+  }
+
+  .dbs-sms-table {
+    min-width: 550px;
   }
 }

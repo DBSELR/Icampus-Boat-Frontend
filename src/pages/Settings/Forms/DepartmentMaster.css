@@ -1,285 +1,553 @@
-/* ==============================
-   Department Master Styles
-================================= */
+/* =====================================
+DEPARTMENT MASTER STYLES
+===================================== */
+
+/* =====================================
+CONTAINER
+===================================== */
 
 .dbs-department-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
+  animation: dbsDepartmentSlideUp 0.25s ease;
 }
 
-/* Header */
+/* =====================================
+HEADER
+===================================== */
+
 .dbs-department-form-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   border-bottom: 1px solid var(--dbs-border);
   padding-bottom: 16px;
 }
 
 .dbs-department-form-header h2 {
-  font-size: 1.4rem;
+  margin: 0;
+  font-size: 1.45rem;
   font-weight: 800;
   color: var(--dbs-text);
 }
 
-/* Form Card */
-.dbs-form-card {
-  background-color: var(--dbs-surface);
+/* =====================================
+FORM CARD
+===================================== */
+
+.dbs-department-form-card {
+  background: var(--dbs-surface);
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius);
   box-shadow: var(--dbs-shadow);
   padding: 24px;
-
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
+  animation: dbsDepartmentSlideUp 0.25s ease;
 }
 
-.dbs-form-card h3 {
-  font-size: 1.1rem;
+.dbs-department-form-card h3 {
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--dbs-border);
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--dbs-text);
-  border-bottom: 1px solid var(--dbs-border);
-  padding-bottom: 10px;
 }
 
-/* Grid Layouts */
-.dbs-form-grid-4 {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
+/* =====================================
+FORM GRID
+===================================== */
 
-.dbs-form-grid-3 {
+.dbs-department-form-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  align-items: end;
 }
 
-.dbs-form-grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
+/* =====================================
+INPUT BOX
+===================================== */
 
-/* Input Box */
-.dbs-input-box {
+.dbs-department-input-box {
   display: flex;
   flex-direction: column;
 }
 
-.dbs-input-box label {
-  font-size: 0.82rem;
+.dbs-department-input-box label {
+  margin-bottom: 7px;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--dbs-text);
-  margin-bottom: 6px;
 }
 
-/* Inputs */
-.dbs-input-box input,
-.dbs-input-box select,
-.dbs-input-box textarea {
+/* =====================================
+INPUTS / SELECT
+===================================== */
+
+.dbs-department-input-box input,
+.dbs-department-input-box select {
   width: 100%;
-  padding: 10px 12px;
+  height: 42px;
+  padding: 0 12px;
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius-sm);
-  background-color: var(--dbs-surface);
+  background: var(--dbs-surface);
   color: var(--dbs-text);
   font-size: 0.9rem;
   outline: none;
-  transition: var(--dbs-transition);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
 }
 
-.dbs-input-box input:focus,
-.dbs-input-box select:focus,
-.dbs-input-box textarea:focus {
+/* INPUT HOVER */
+
+.dbs-department-input-box input:hover,
+.dbs-department-input-box select:hover {
+  border-color: var(--dbs-primary);
+}
+
+/* INPUT FOCUS */
+
+.dbs-department-input-box input:focus,
+.dbs-department-input-box select:focus {
   border-color: var(--dbs-primary);
   box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
-/* Buttons Row */
-.dbs-stepper-actions-row {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
+/* =====================================
+ERROR MESSAGE
+===================================== */
 
-  border-top: 1px solid var(--dbs-border);
-  padding-top: 20px;
-  margin-top: 10px;
+.dbs-department-error-text {
+  margin-top: 5px;
+  color: var(--dbs-danger);
+  font-size: 0.78rem;
+  font-weight: 500;
 }
 
-/* Buttons */
-.dbs-save-btn {
-  background-color: var(--dbs-primary);
-  color: white;
+/* =====================================
+FORM ACTIONS
+===================================== */
+
+.dbs-department-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--dbs-border);
+}
+
+/* =====================================
+SAVE BUTTON
+===================================== */
+
+.dbs-department-save-btn {
+  height: 42px;
+  min-width: 150px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--dbs-primary);
+  color: #fff;
   border: none;
   border-radius: var(--dbs-radius-sm);
-  padding: 10px 18px;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
+  box-shadow: var(--dbs-shadow);
+  transition:
+    background 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
+}
+
+.dbs-department-save-btn:hover {
+  background: var(--dbs-primary-hover);
+  transform: translateY(-2px);
+  box-shadow:
+    var(--dbs-shadow),
+    0 5px 14px rgba(0, 0, 0, 0.08);
+}
+
+.dbs-department-save-btn:active {
+  transform: scale(0.97);
+}
+
+/* =====================================
+CANCEL / RESET BUTTON
+===================================== */
+
+.dbs-department-cancel-btn {
+  height: 42px;
+  min-width: 140px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease;
+}
+
+.dbs-department-cancel-btn:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
+}
+
+.dbs-department-cancel-btn:active {
+  transform: scale(0.97);
+}
+
+/* =====================================
+TABLE CARD
+===================================== */
+
+.dbs-department-table-card {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  padding: 24px;
+  animation: dbsDepartmentSlideUp 0.25s ease;
+}
+
+/* =====================================
+TABLE SCROLL
+===================================== */
+
+.dbs-department-table-scroll {
+  max-height: 430px;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
+}
+
+.dbs-department-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dbs-department-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dbs-department-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+
+  border-radius: 20px;
+}
+
+.dbs-department-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+
+/* =====================================
+DATA TABLE
+===================================== */
+
+.dbs-department-data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.9rem;
+}
+
+/* =====================================
+TABLE HEADER
+===================================== */
+
+.dbs-department-data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  height: 44px;
+  padding: 0 18px;
+  background: var(--dbs-primary);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+/* HEADER ROUNDED CORNERS */
+
+.dbs-department-data-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
+}
+
+.dbs-department-data-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
+}
+
+/* =====================================
+TABLE BODY
+===================================== */
+
+.dbs-department-data-table tbody tr {
   transition: var(--dbs-transition);
 }
 
-.dbs-save-btn:hover {
-  background-color: var(--dbs-primary-hover);
+.dbs-department-data-table tbody td {
+  height: 54px;
+  padding: 0 18px;
+  color: var(--dbs-text);
+  border-bottom: 1px solid var(--dbs-border);
+  background: var(--dbs-surface);
 }
 
-.dbs-cancel-btn {
-  background-color: var(--dbs-surface);
+/* TABLE ROW HOVER */
+
+.dbs-department-data-table tbody tr:hover td {
+  background: var(--dbs-primary-light);
+}
+
+.dbs-department-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =====================================
+   EDIT ACTION BUTTON
+===================================== */
+
+.dbs-department-edit-btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: var(--dbs-surface);
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius-sm);
-  padding: 10px 18px;
-  font-size: 0.88rem;
-  font-weight: 700;
+  color: var(--dbs-primary);
   cursor: pointer;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
 }
 
-.dbs-cancel-btn:hover {
-  background-color: var(--dbs-background);
+/* =====================================
+   EDIT ICON
+===================================== */
+
+.dbs-department-edit-btn svg {
+  width: 16px;
+  height: 16px;
+  color: inherit;
 }
 
+/* =====================================
+   EDIT HOVER
+===================================== */
 
-/* Responsive */
+.dbs-department-edit-btn:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* =====================================
+   EDIT ACTIVE
+===================================== */
+
+.dbs-department-edit-btn:active {
+  transform: scale(0.95);
+}
+
+/* =====================================
+   EDIT FOCUS
+===================================== */
+
+.dbs-department-edit-btn:focus-visible {
+  outline: none;
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* =====================================
+EMPTY STATE
+===================================== */
+
+.dbs-department-empty-state {
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.dbs-department-empty-icon {
+  width: 45px;
+  height: 45px;
+  color: var(--dbs-primary);
+}
+
+.dbs-department-empty-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dbs-text);
+}
+
+.dbs-department-empty-desc {
+  font-size: 14px;
+  color: var(--dbs-text-muted);
+  max-width: 350px;
+}
+
+/* =====================================
+GLOBAL BOX SIZING
+===================================== */
+
+.dbs-department-container *,
+.dbs-department-container *::before,
+.dbs-department-container *::after {
+  box-sizing: border-box;
+}
+
+/* =====================================
+BUTTON FOCUS
+===================================== */
+
+.dbs-department-save-btn:focus-visible,
+.dbs-department-cancel-btn:focus-visible,
+.dbs-department-edit-btn:focus-visible {
+  outline: none;
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* =====================================
+ANIMATION
+===================================== */
+
+@keyframes dbsDepartmentSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================
+REDUCED MOTION
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .dbs-department-container,
+  .dbs-department-form-card,
+  .dbs-department-table-card {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+
+  .dbs-department-data-table tbody tr,
+  .dbs-department-edit-btn,
+  .dbs-department-save-btn,
+  .dbs-department-cancel-btn {
+    transition: none !important;
+  }
+}
+
+/* =====================================
+RESPONSIVE
+===================================== */
+
 @media (max-width: 1024px) {
-  .dbs-form-grid-4 {
+  .dbs-department-form-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .dbs-form-grid-4,
-  .dbs-form-grid-3,
-  .dbs-form-grid-2 {
+  .dbs-department-container {
+    gap: 18px;
+  }
+
+  .dbs-department-form-card,
+  .dbs-department-table-card {
+    padding: 16px;
+  }
+
+  .dbs-department-form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .dbs-department-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dbs-department-save-btn,
+  .dbs-department-cancel-btn {
+    width: 100%;
+  }
+
+  .dbs-department-data-table {
+    min-width: 700px;
   }
 }
 
-.dbs-form-cancel-btn {
-  display: flex;
-  background-color: rgb(236, 60, 60);
-  border: 1px solid var(--dbs-border);
-  color: white;
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border-radius: var(--dbs-radius-sm);
-  cursor: pointer;
-  outline: none;
+/* =====================================
+SMALL MOBILE
+===================================== */
+
+@media (max-width: 480px) {
+  .dbs-department-form-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .dbs-department-form-card,
+  .dbs-department-table-card {
+    padding: 14px;
+  }
+
+  .dbs-department-data-table {
+    min-width: 650px;
+  }
 }
 
-.dbs-form-cancel-btn:hover {
-  background-color: var(--dbs-background);
-  color: black;
-}
-
-.dbs-form-save-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: var(--dbs-primary);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  border-radius: var(--dbs-radius-sm);
-  cursor: pointer;
-  outline: none;
-}
-
-.dbs-form-save-btn:hover {
-  background-color: var(--dbs-primary-hover);
-}
-
-
-.dbs-form-actions-row {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-
-    border-top: 1px solid var(--dbs-border);
-    padding-top: 20px;
-}
-
-
-/* Core Student Datatable */
-.dbs-data-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 0.9rem;
-  border-radius: 50px !important;
-}
-
-.dbs-data-table th {
-  padding: 12px 16px;
-  font-weight: 700;
-  color: var(--dbs-text-muted);
-  border-bottom: 2px solid var(--dbs-border);
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  user-select: none;
-  background-color: var(--dbs-background);
-}
-
-.dbs-data-table td {
-  padding: 14px 16px;
+.dbs-department-header {
   border-bottom: 1px solid var(--dbs-border);
+  padding-bottom: 16px;
+}
+
+.dbs-department-header h2 {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 800;
   color: var(--dbs-text);
 }
-
-.dbs-data-table tr:hover td {
-  background-color: var(--dbs-background);
-}
-
-.dbs-table-student-name {
-  font-weight: 700;
-  color: var(--dbs-text);
-}
-
-.dbs-table-branch-td {
-  font-size: 0.82rem;
-  color: var(--dbs-text-muted);
-}
-
-.dbs-table-actions-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dbs-table-action-icon-btn {
-  width: 28px;
-  height: 28px;
-  border-radius: 4px;
-  border: 1px solid var(--dbs-border);
-  background-color: var(--dbs-surface);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--dbs-transition);
-  outline: none;
-}
-
-.dbs-btn-edit {
-  color: var(--dbs-primary);
-}
-
-.dbs-btn-edit:hover {
-  background-color: var(--dbs-primary-light);
-  border-color: var(--dbs-primary);
-}
-
-.dbs-btn-delete {
-  color: var(--dbs-danger);
-}
-
-.dbs-btn-delete:hover {
-  background-color: var(--dbs-danger-light);
-  border-color: var(--dbs-danger);
-}
-

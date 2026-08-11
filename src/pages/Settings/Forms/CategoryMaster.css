@@ -1,0 +1,696 @@
+/* =========================================================
+   CATEGORY MASTER - DBS THEME
+   ========================================================= */
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.dbs-category-master-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: dbsCategorySlideUp 0.25s ease;
+}
+
+.dbs-category-master-container *,
+.dbs-category-master-container *::before,
+.dbs-category-master-container *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.dbs-category-master-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-category-master-header h2 {
+  margin: 0;
+  color: var(--dbs-text);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.dbs-page-subtitle {
+  margin: 6px 0 0;
+  color: var(--dbs-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   FORM CARD
+   ========================================================= */
+
+.dbs-category-master-card {
+  width: 100%;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  animation: dbsCategorySlideUp 0.25s ease;
+}
+
+/* =========================================================
+   FORM TITLE
+   ========================================================= */
+
+.dbs-category-master-title {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-category-master-title h3 {
+  margin: 0;
+  color: var(--dbs-text);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* =========================================================
+   FORM GRID
+   ========================================================= */
+
+.dbs-category-master-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(240px, 420px));
+  gap: 20px;
+}
+
+/* =========================================================
+   INPUT GROUP
+   ========================================================= */
+
+.dbs-category-master-input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dbs-category-master-input label {
+  margin: 0 0 8px;
+  color: var(--dbs-text);
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.dbs-category-master-input label span {
+  color: var(--dbs-danger);
+}
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.dbs-category-master-input input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  transition: var(--dbs-transition);
+}
+
+.dbs-category-master-input input::placeholder {
+  color: var(--dbs-text-muted);
+}
+
+.dbs-category-master-input input:hover {
+  border-color: var(--dbs-primary);
+}
+
+.dbs-category-master-input input:focus {
+  border-color: var(--dbs-primary);
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* =========================================================
+   FORM ACTIONS
+   ========================================================= */
+
+.dbs-category-master-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--dbs-border);
+}
+
+.dbs-category-master-actions button {
+  height: 44px;
+  min-width: 120px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--dbs-radius-sm);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--dbs-transition);
+}
+
+.dbs-category-master-actions button svg {
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   SAVE BUTTON
+   ========================================================= */
+
+.dbs-category-master-save {
+  background: var(--dbs-primary);
+  color: #ffffff;
+  border: 1px solid var(--dbs-primary);
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-category-master-save:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+}
+
+.dbs-category-master-save:active {
+  transform: scale(0.98);
+}
+
+.dbs-category-master-save:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* =========================================================
+   CANCEL BUTTON
+   ========================================================= */
+
+.dbs-category-master-cancel {
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  border: 1px solid var(--dbs-border);
+}
+
+.dbs-category-master-cancel:hover {
+  background: var(--dbs-primary-light);
+  color: var(--dbs-primary);
+  border-color: var(--dbs-primary);
+  transform: translateY(-2px);
+}
+
+.dbs-category-master-cancel:active {
+  transform: scale(0.98);
+}
+
+.dbs-category-master-cancel:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* =========================================================
+   TABLE HEADER
+   ========================================================= */
+
+.dbs-category-master-header.dbs-table-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-category-master-header.dbs-table-head h2 {
+  margin: 0;
+  color: var(--dbs-text);
+  font-size: 1.45rem;
+  font-weight: 800;
+}
+
+.dbs-category-master-header.dbs-table-head .dbs-page-subtitle {
+  margin: 6px 0 0;
+  color: var(--dbs-text-muted);
+  font-size: 0.9rem;
+}
+
+/* =========================================================
+   TABLE CARD
+   ========================================================= */
+
+.dbs-category-master-card:has(.dbs-table-card) {
+  padding: 18px;
+  overflow: hidden;
+}
+
+/* =========================================================
+   COMMON TABLE CARD
+   ========================================================= */
+
+.dbs-category-master-container .dbs-table-card {
+  width: 100%;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  overflow: hidden;
+}
+
+/* =========================================================
+   TABLE SCROLL
+   ========================================================= */
+
+.dbs-category-master-container .dbs-table-scroll {
+  width: 100%;
+  max-height: 430px;
+  overflow-x: auto;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
+}
+
+.dbs-category-master-container .dbs-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dbs-category-master-container .dbs-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dbs-category-master-container .dbs-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 20px;
+}
+
+.dbs-category-master-container
+  .dbs-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+
+/* =========================================================
+   DATA TABLE
+   ========================================================= */
+
+.dbs-category-master-container .dbs-data-table {
+  width: 100%;
+  min-width: 650px;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+/* =========================================================
+   TABLE HEADER
+   ========================================================= */
+
+.dbs-category-master-container .dbs-data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 46px;
+  padding: 0 18px;
+  background: var(--dbs-primary);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.45px;
+  white-space: nowrap;
+  border: none;
+}
+
+.dbs-category-master-container .dbs-data-table thead th:first-child {
+  width: 12%;
+  text-align: center;
+}
+
+.dbs-category-master-container .dbs-data-table thead th:nth-child(2) {
+  width: 25%;
+}
+
+.dbs-category-master-container .dbs-data-table thead th:nth-child(3) {
+  width: 43%;
+}
+
+.dbs-category-master-container .dbs-data-table thead th:nth-child(4) {
+  width: 20%;
+  text-align: center;
+}
+
+.dbs-category-master-container .dbs-data-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
+}
+
+.dbs-category-master-container .dbs-data-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
+}
+
+/* =========================================================
+   TABLE BODY
+   ========================================================= */
+
+.dbs-category-master-container .dbs-data-table tbody tr {
+  background: var(--dbs-surface);
+  transition: var(--dbs-transition);
+}
+
+.dbs-category-master-container .dbs-data-table tbody tr:hover {
+  background: var(--dbs-background);
+}
+
+.dbs-category-master-container .dbs-data-table tbody td {
+  height: 56px;
+  padding: 0 18px;
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  font-size: 0.88rem;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-category-master-container .dbs-data-table tbody tr:hover td {
+  background: var(--dbs-background);
+}
+
+.dbs-category-master-container .dbs-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================================================
+   TABLE COLUMN ALIGNMENT
+   ========================================================= */
+
+.dbs-category-master-container .dbs-data-table tbody td:first-child {
+  text-align: center;
+  font-weight: 600;
+}
+
+.dbs-category-master-container .dbs-data-table tbody td:nth-child(2) {
+  font-weight: 600;
+}
+
+.dbs-category-master-container .dbs-data-table tbody td:nth-child(4) {
+  text-align: center;
+}
+
+/* =========================================================
+   EDIT ICON BUTTON
+   ========================================================= */
+
+.dbs-category-master-icon-btn {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--dbs-surface);
+  color: var(--dbs-primary);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  cursor: pointer;
+  transition: var(--dbs-transition);
+}
+
+.dbs-category-master-icon-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.dbs-category-master-icon-btn.edit:hover {
+  background: var(--dbs-primary-light);
+  color: var(--dbs-primary);
+  border-color: var(--dbs-primary);
+  transform: translateY(-2px);
+}
+
+.dbs-category-master-icon-btn.edit:active {
+  transform: scale(0.95);
+}
+
+.dbs-category-master-icon-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.dbs-category-master-container .dbs-empty-state {
+  min-height: 240px;
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--dbs-surface);
+  color: var(--dbs-text-muted);
+}
+
+.dbs-category-master-container .dbs-empty-state-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+  color: var(--dbs-text-muted);
+  opacity: 0.7;
+}
+
+.dbs-category-master-container .dbs-empty-state-title {
+  margin-bottom: 6px;
+  color: var(--dbs-text);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.dbs-category-master-container .dbs-empty-state-desc {
+  max-width: 420px;
+
+  color: var(--dbs-text-muted);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   DISABLED STATE
+   ========================================================= */
+
+.dbs-category-master-container button:disabled,
+.dbs-category-master-container input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.dbs-category-master-container button:disabled:hover {
+  transform: none;
+}
+
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+
+@keyframes dbsCategorySlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   LARGE TABLET / SMALL LAPTOP
+   ========================================================= */
+
+@media (max-width: 1200px) {
+  .dbs-category-master-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  .dbs-category-master-card {
+    padding: 20px;
+  }
+
+  .dbs-category-master-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .dbs-category-master-container .dbs-data-table {
+    min-width: 650px;
+  }
+}
+
+/* =========================================================
+   MOBILE / TABLET
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .dbs-category-master-container {
+    gap: 18px;
+  }
+
+  .dbs-category-master-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .dbs-category-master-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .dbs-page-subtitle {
+    font-size: 0.82rem;
+  }
+
+  .dbs-category-master-card {
+    padding: 18px;
+    border-radius: var(--dbs-radius-sm);
+  }
+
+  .dbs-category-master-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dbs-category-master-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .dbs-category-master-actions button {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .dbs-category-master-container .dbs-data-table {
+    min-width: 650px;
+  }
+
+  .dbs-category-master-container .dbs-data-table thead th {
+    height: 44px;
+    padding: 0 12px;
+    font-size: 0.72rem;
+  }
+
+  .dbs-category-master-container .dbs-data-table tbody td {
+    height: 52px;
+    padding: 0 12px;
+    font-size: 0.82rem;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .dbs-category-master-container {
+    gap: 16px;
+  }
+
+  .dbs-category-master-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .dbs-page-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .dbs-category-master-card {
+    padding: 14px;
+  }
+
+  .dbs-category-master-title h3 {
+    font-size: 1rem;
+  }
+
+  .dbs-category-master-input label {
+    font-size: 0.8rem;
+  }
+
+  .dbs-category-master-input input {
+    height: 42px;
+    font-size: 0.85rem;
+  }
+
+  .dbs-category-master-actions button {
+    height: 42px;
+    font-size: 0.85rem;
+  }
+
+  .dbs-category-master-card:has(.dbs-table-card) {
+    padding: 12px;
+  }
+
+  .dbs-category-master-container .dbs-empty-state {
+    min-height: 220px;
+    padding: 24px 16px;
+  }
+
+  .dbs-category-master-container .dbs-empty-state-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .dbs-category-master-container .dbs-empty-state-title {
+    font-size: 0.95rem;
+  }
+
+  .dbs-category-master-container .dbs-empty-state-desc {
+    font-size: 0.8rem;
+  }
+}
+
+/* =========================================================
+   EXTRA SMALL DEVICES
+   ========================================================= */
+
+@media (max-width: 360px) {
+  .dbs-category-master-card {
+    padding: 12px;
+  }
+
+  .dbs-category-master-container .dbs-data-table {
+    min-width: 620px;
+  }
+
+  .dbs-category-master-container .dbs-table-scroll {
+    max-height: 380px;
+  }
+}

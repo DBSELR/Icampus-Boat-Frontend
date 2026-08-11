@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Save, RotateCcw } from "lucide-react";
+import { Save, RotateCcw, X, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import "./AttendanceMaxDates.css";
 import { getProgramme, getYear } from "../../../apis/Common";
@@ -21,13 +21,10 @@ const AttendanceMaxDates = () => {
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedSemester, setSelectedSemester] = useState("");
-
   const [selectedFromDate, setSelectedFromDate] = useState("");
   const [selectedToDate, setSelectedToDate] = useState("");
-
   const [programmes, setProgrammes] = useState<any[]>([]);
   const [years, setYears] = useState<any[]>([]);
-
   const [attendanceList, setAttendanceList] = useState<AttendanceRecord[]>([]);
 
   const handleReset = () => {
@@ -72,9 +69,7 @@ const AttendanceMaxDates = () => {
 
     try {
       const userData = JSON.parse(localStorage.getItem("user") || "{}");
-
       const userId = userData?.userId || "";
-
       if (!userId) {
         toast.error("User ID not found");
         return;
@@ -90,9 +85,7 @@ const AttendanceMaxDates = () => {
         userid: userId,
       };
 
-      console.log("Save Payload:", payload);
       const response = await saveAttendanceMaxDates(payload);
-      console.log("Save Response:", response);
 
       if (response?.message === "Success" || response?.rowsAffected > 0) {
         const selectedCourseName =
@@ -119,7 +112,7 @@ const AttendanceMaxDates = () => {
         toast.error("Failed to save Attendance Maximum Date");
       }
     } catch (error) {
-      console.log("Save Attendance Error", error);
+      console.error("Save Attendance Error", error);
       toast.error("Something went wrong!");
     }
   };
@@ -129,7 +122,7 @@ const AttendanceMaxDates = () => {
       const response = await getProgramme();
       setProgrammes(response || []);
     } catch (error) {
-      console.log("Programme Error", error);
+      console.error("Programme Error", error);
       setProgrammes([]);
     }
   };
@@ -143,7 +136,7 @@ const AttendanceMaxDates = () => {
       const response = await getYear(programme);
       setYears(response || []);
     } catch (error) {
-      console.log("Year Error", error);
+      console.error("Year Error", error);
       setYears([]);
     }
   };
@@ -156,11 +149,10 @@ const AttendanceMaxDates = () => {
         year,
         sem,
       };
-
       const response = await loadAttendanceMaxDates(payload);
       setAttendanceList(response || []);
     } catch (error) {
-      console.log("Load Attendance Error", error);
+      console.error("Load Attendance Error", error);
       setAttendanceList([]);
     }
   };
@@ -184,18 +176,21 @@ const AttendanceMaxDates = () => {
   }, [selectedCourse]);
 
   return (
-    <div className="dbs-attendance-container">
-      <div className="dbs-attendance-header">
-        <h2>Attendance Maximum Dates</h2>
+    <div className="dbs-attendance-max-container">
+      <div className="dbs-attendance-max-header">
+        <div>
+          <h2>Attendance Maximum Dates</h2>
+          <p className="dbs-attendance-max-subtitle">
+            Configure maximum attendance date limits
+          </p>
+        </div>
       </div>
 
-      <div className="dbs-form-card">
+      <div className="dbs-attendance-max-form-card">
         <h3>Attendance Date Configuration</h3>
-
-        <div className="dbs-form-grid">
-          <div className="dbs-input-box">
+        <div className="dbs-attendance-max-grid">
+          <div className="dbs-attendance-max-input">
             <label>Course</label>
-
             <select
               value={selectedCourse}
               onChange={(e) => {
@@ -204,7 +199,6 @@ const AttendanceMaxDates = () => {
               }}
             >
               <option value="">Select Course</option>
-
               {programmes.map((item) => (
                 <option key={item.CID} value={item.COURSECODE}>
                   {item.COURSE}
@@ -213,15 +207,13 @@ const AttendanceMaxDates = () => {
             </select>
           </div>
 
-          <div className="dbs-input-box">
+          <div className="dbs-attendance-max-input">
             <label>Year</label>
-
             <select
               value={selectedYear}
               onChange={(e) => setSelectedYear(e.target.value)}
             >
               <option value="">Select Year</option>
-
               {years.map((item, index) => (
                 <option key={index} value={item.ID}>
                   {item.DATA}
@@ -230,23 +222,20 @@ const AttendanceMaxDates = () => {
             </select>
           </div>
 
-          <div className="dbs-input-box">
+          <div className="dbs-attendance-max-input">
             <label>Semester</label>
-
             <select
               value={selectedSemester}
               onChange={(e) => setSelectedSemester(e.target.value)}
             >
               <option value="">Select Semester</option>
-
               <option value="1">I</option>
               <option value="2">II</option>
             </select>
           </div>
 
-          <div className="dbs-input-box">
+          <div className="dbs-attendance-max-input">
             <label>From Date</label>
-
             <input
               type="date"
               value={selectedFromDate}
@@ -254,9 +243,8 @@ const AttendanceMaxDates = () => {
             />
           </div>
 
-          <div className="dbs-input-box">
+          <div className="dbs-attendance-max-input">
             <label>To Date</label>
-
             <input
               type="date"
               value={selectedToDate}
@@ -265,64 +253,73 @@ const AttendanceMaxDates = () => {
           </div>
         </div>
 
-        <div className="dbs-form-actions">
-          <button className="dbs-reset-btn" onClick={handleReset}>
-            <RotateCcw size={16} />
-            Reset
+        <div className="dbs-attendance-max-actions">
+          <button
+            className="dbs-attendance-max-reset-btn"
+            onClick={handleReset}
+          >
+            <X size={16} />
+            Cancel
           </button>
 
-          <button className="dbs-save-btn" onClick={handleSave}>
+          <button className="dbs-attendance-max-save-btn" onClick={handleSave}>
             <Save size={16} />
             Save
           </button>
         </div>
       </div>
 
-      <div className="dbs-programme-form-header dbs-table-head">
+      <div className="dbs-attendance-max-table-header">
         <div>
           <h2>Attendance Maximum Dates</h2>
-          <p className="dbs-page-subtitle">
+          <p className="dbs-attendance-max-subtitle">
             Configure maximum attendance date limits
           </p>
         </div>
       </div>
 
-      <div className="dbs-table-card">
-        <div className="dbs-table-scroll">
-          <table className="dbs-data-table">
-            <thead>
-              <tr>
-                <th>Course</th>
-                <th>Year</th>
-                <th>Semester</th>
-                <th>From Date</th>
-                <th>To Date</th>
-                <th>Academic Year</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {attendanceList.length === 0 ? (
-                <tr>
-                  <td colSpan={6} style={{ textAlign: "center" }}>
-                    No Records Found
-                  </td>
-                </tr>
-              ) : (
-                attendanceList.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.cOURSE}</td>
-                    <td>{item.yEAR}</td>
-                    <td>{item.sEM === "1" ? "I" : "II"}</td>
-                    <td>{item.fROMDATE}</td>
-                    <td>{item.tODATE}</td>
-                    <td>{item.aCADEMICYEAR}</td>
+      <div className="dbs-attendance-max-table-container">
+        {attendanceList.length === 0 ? (
+          <div className="dbs-empty-state">
+            <AlertCircle className="dbs-empty-state-icon" />
+            <div className="dbs-empty-state-title">No records found</div>
+            <div className="dbs-empty-state-desc">
+              Add an attendance maximum date to view records here.
+            </div>
+          </div>
+        ) : (
+          <div className="dbs-table-card">
+            <div className="dbs-table-scroll active-scroll">
+              <table className="dbs-data-table">
+                <thead>
+                  <tr>
+                    <th>SL.NO</th>
+                    <th>COURSE</th>
+                    <th>YEAR</th>
+                    <th>SEMESTER</th>
+                    <th>FROM DATE</th>
+                    <th>TO DATE</th>
+                    <th>ACADEMIC YEAR</th>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+                </thead>
+
+                <tbody>
+                  {attendanceList.map((item, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{item.cOURSE}</td>
+                      <td>{item.yEAR}</td>
+                      <td>{item.sEM === "1" ? "I" : "II"}</td>
+                      <td>{item.fROMDATE}</td>
+                      <td>{item.tODATE}</td>
+                      <td>{item.aCADEMICYEAR}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

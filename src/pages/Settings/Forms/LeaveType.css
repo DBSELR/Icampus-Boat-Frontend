@@ -1,356 +1,395 @@
-/* =====================================
-   PAGE CONTAINER
-===================================== */
+/* ==========================================================
+   LEAVE MASTER PAGE
+========================================================== */
 
 .dbs-leave-page {
   display: flex;
-
   flex-direction: column;
-
   gap: 24px;
+  width: 100%;
+  animation: dbsSlideUp 0.25s ease;
 }
 
-/* =====================================
-   PAGE TITLE
-===================================== */
+.dbs-leave-page *,
+.dbs-leave-page *::before,
+.dbs-leave-page *::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================================
+   PAGE HEADER
+========================================================== */
 
 .dbs-leave-title {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
-  padding-bottom: 18px;
-
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--dbs-border);
 }
 
 .dbs-leave-title h2 {
   margin: 0;
-
-  font-size: 24px;
-
+  font-size: 1.45rem;
   font-weight: 800;
-
   color: var(--dbs-text);
 }
 
 .dbs-leave-title p {
-  margin: 6px 0 0;
-
-  font-size: 13px;
-
-  color: var(--dbs-text-light);
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
 }
 
-/* =====================================
-   MAIN LAYOUT
-===================================== */
+/* ==========================================================
+   GRID
+========================================================== */
 
 .dbs-leave-grid {
   display: grid;
-
-  grid-template-columns: 430px 1fr;
-
+  grid-template-columns: minmax(500px, 550px) 1fr;
   gap: 22px;
 }
 
-/* =====================================
-   CARD
-===================================== */
+/* ==========================================================
+   PANELS
+========================================================== */
 
-.dbs-leave-panel {
+.leave-type-panel,
+.leave-structure-panel {
   background: var(--dbs-surface);
-
   border: 1px solid var(--dbs-border);
-
   border-radius: var(--dbs-radius);
-
   box-shadow: var(--dbs-shadow);
+  overflow: hidden;
 }
 
-.dbs-panel-heading {
+/* HEADINGS */
+
+.leave-type-heading,
+.leave-structure-heading {
   display: flex;
-
   align-items: center;
-
   gap: 10px;
-
   padding: 16px 20px;
-
   background: var(--dbs-bg);
-
-  color: var(--dbs-text);
-
-  font-size: 15px;
-
-  font-weight: 800;
-
   border-bottom: 1px solid var(--dbs-border);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--dbs-text);
 }
 
-.dbs-panel-heading svg {
+.leave-type-heading svg,
+.leave-structure-heading svg {
   color: var(--dbs-primary);
 }
 
-.dbs-leave-body {
-  padding: 22px;
+/* BODY */
+
+.leave-type-body,
+.leave-structure-body {
+  padding: 24px;
 }
 
-/* =====================================
-   FORM
-===================================== */
+/* ==========================================================
+   FIELDS
+========================================================== */
 
-.dbs-field {
+.leave-type-field,
+.leave-structure-field {
   display: flex;
-
   flex-direction: column;
-
-  gap: 8px;
-
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
-.dbs-field label {
-  font-size: 12px;
-
-  font-weight: 800;
-
+.leave-type-field label,
+.leave-structure-field label {
+  margin-bottom: 8px;
+  font-size: 0.86rem;
+  font-weight: 700;
   color: var(--dbs-text);
 }
 
-.dbs-field input,
-.dbs-field select,
-.dbs-field textarea {
+.leave-type-field input,
+.leave-type-field select,
+.leave-type-field textarea,
+.leave-structure-field input,
+.leave-structure-field select,
+.leave-structure-field textarea {
   width: 100%;
-
-  height: 42px;
-
+  height: 44px;
   padding: 0 14px;
-
   border-radius: var(--dbs-radius-sm);
-
   border: 1px solid var(--dbs-border);
-
   background: var(--dbs-surface);
-
   color: var(--dbs-text);
-
-  outline: none;
-
-  font-size: 14px;
-
+  font-size: 0.9rem;
   transition: var(--dbs-transition);
 }
 
-.dbs-field textarea {
-  height: 75px;
-
+.leave-type-field textarea,
+.leave-structure-field textarea {
+  height: 90px;
   padding-top: 12px;
+  resize: none;
 }
 
-.dbs-field input:hover,
-.dbs-field select:hover,
-.dbs-field textarea:hover {
+.leave-type-field input:hover,
+.leave-type-field select:hover,
+.leave-type-field textarea:hover,
+.leave-structure-field input:hover,
+.leave-structure-field select:hover,
+.leave-structure-field textarea:hover {
   border-color: var(--dbs-primary);
 }
 
-.dbs-field input:focus,
-.dbs-field select:focus,
-.dbs-field textarea:focus {
+.leave-type-field input:focus,
+.leave-type-field select:focus,
+.leave-type-field textarea:focus,
+.leave-structure-field input:focus,
+.leave-structure-field select:focus,
+.leave-structure-field textarea:focus {
+  outline: none;
   border-color: var(--dbs-primary);
-
-  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
 }
 
-.dbs-two-column {
+/* ==========================================================
+ TWO COLUMN
+========================================================== */
+
+.leave-structure-two-column {
   display: grid;
-
-  grid-template-columns: repeat(2, 1fr);
-
-  gap: 16px;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 20px;
 }
 
-/* =====================================
-   BUTTONS
-===================================== */
+/* ==========================================================
+ BUTTONS
+========================================================== */
 
-.dbs-actions {
+.leave-type-actions,
+.leave-structure-actions {
   display: flex;
-
-  justify-content: flex-start;
-
   gap: 12px;
-
-  margin: 18px 0;
+  padding-top: 18px;
+  margin-top: 18px;
+  border-top: 1px solid var(--dbs-border);
 }
 
-.dbs-actions.right {
+.leave-structure-right {
   justify-content: flex-end;
 }
 
-.dbs-btn {
+.leave-type-btn,
+.leave-structure-btn {
+  height: 44px;
+  min-width: 120px;
+  padding: 0 22px;
   display: flex;
-
   align-items: center;
-
-  gap: 7px;
-
-  height: 40px;
-
-  padding: 0 18px;
-
+  justify-content: center;
+  gap: 8px;
   border-radius: var(--dbs-radius-sm);
-
-  font-size: 14px;
-
+  font-size: 0.9rem;
   font-weight: 700;
-
   cursor: pointer;
-
   transition: var(--dbs-transition);
 }
 
-.dbs-btn.primary {
+.leave-type-primary,
+.leave-structure-primary {
   background: var(--dbs-primary);
-
   color: white;
-
   border: 1px solid var(--dbs-primary);
 }
 
-.dbs-btn.primary:hover {
+.leave-type-primary:hover,
+.leave-structure-primary:hover {
+  transform: translateY(-2px);
   background: var(--dbs-primary-hover);
 }
 
-.dbs-btn.secondary {
+.leave-type-secondary,
+.leave-structure-secondary {
   background: var(--dbs-surface);
-
   color: var(--dbs-text);
-
   border: 1px solid var(--dbs-border);
 }
 
-.dbs-btn.secondary:hover {
-  background: var(--dbs-bg);
+.leave-type-secondary:hover,
+.leave-structure-secondary:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
 }
 
-/* =====================================
-   TABLE
-===================================== */
+/* ==========================================================
+ TABLE TITLES
+========================================================== */
 
-.dbs-table-wrapper {
-  border: 1px solid var(--dbs-border);
-
-  border-radius: var(--dbs-radius-sm);
-
-  overflow: auto;
-}
-
-.dbs-modern-table {
-  width: 100%;
-
-  border-collapse: collapse;
-}
-
-.dbs-modern-table th {
-  position: sticky;
-
-  top: 0;
-
-  background: var(--dbs-primary);
-
-  color: white;
-
-  padding: 13px;
-
-  font-size: 13px;
-
-  font-weight: 800;
-
-  text-align: left;
-}
-
-.dbs-modern-table td {
-  padding: 13px;
-
-  font-size: 14px;
-
-  color: var(--dbs-text);
-
-  background: var(--dbs-surface);
-
+.leave-type-list-title,
+.leave-structure-list-title {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 80px;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--dbs-border);
 }
 
-.dbs-modern-table tr:hover td {
-  background: var(--dbs-primary-light);
+.leave-type-list-title h3,
+.leave-structure-list-title h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--dbs-text);
 }
 
-/* =====================================
-   ACTION ICONS
-===================================== */
-
-.dbs-icon-btn {
-  width: 34px;
-
-  height: 34px;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  border-radius: var(--dbs-radius-sm);
-
-  background: var(--dbs-primary-light);
-
-  color: var(--dbs-primary);
-
-  border: 1px solid var(--dbs-primary);
-
-  cursor: pointer;
+.leave-type-list-title p,
+.leave-structure-list-title p {
+  margin: 4px 0 0;
+  font-size: 0.82rem;
+  color: var(--dbs-text-muted);
+  line-height: 1.4;
 }
 
-.dbs-icon-btn:hover {
-  background: var(--dbs-primary);
+/* ==========================================================
+ TABLES
+========================================================== */
 
-  color: white;
-}
-
-.dbs-delete-btn {
-  width: 34px;
-
-  height: 34px;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  border-radius: var(--dbs-radius-sm);
-
-  background: var(--dbs-surface);
-
-  color: var(--dbs-danger);
-
+.leave-type-table-wrapper,
+.leave-structure-table-wrapper {
   border: 1px solid var(--dbs-border);
-
-  cursor: pointer;
+  border-radius: var(--dbs-radius-sm);
+  overflow: auto;
+  background: var(--dbs-surface);
 }
 
-.dbs-delete-btn:hover {
+.leave-type-table,
+.leave-structure-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.leave-type-table th,
+.leave-structure-table th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 46px;
+  padding: 0 16px;
+  background: var(--dbs-primary);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.leave-type-table td,
+.leave-structure-table td {
+  height: 54px;
+  padding: 0 16px;
+  font-size: 0.88rem;
+  color: var(--dbs-text);
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.leave-type-table tbody tr:hover td,
+.leave-structure-table tbody tr:hover td {
   background: var(--dbs-primary-light);
-
-  border-color: var(--dbs-primary);
 }
 
-/* =====================================
-   RESPONSIVE
-===================================== */
+/* EMPTY */
+
+.leave-type-empty-row,
+.leave-structure-empty-row {
+  height: 180px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================================
+TABLE SCROLL
+========================================================== */
+
+.leave-type-table-wrapper {
+  max-height: 320px;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
+}
+
+.leave-structure-table-wrapper {
+  max-height: 360px;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
+}
+
+.leave-structure-table {
+  min-width: 850px;
+}
+
+/* Chrome / Edge / Safari */
+
+.leave-type-table-wrapper::-webkit-scrollbar,
+.leave-structure-table-wrapper::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.leave-type-table-wrapper::-webkit-scrollbar-track,
+.leave-structure-table-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.leave-type-table-wrapper::-webkit-scrollbar-thumb,
+.leave-structure-table-wrapper::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 20px;
+}
+
+.leave-type-table-wrapper::-webkit-scrollbar-thumb:hover,
+.leave-structure-table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+
+/* ==========================================================
+ EDIT BUTTON
+========================================================== */
+
+.leave-type-edit-btn,
+.leave-structure-edit-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  border-radius: var(--dbs-radius-sm);
+  border: 1px solid var(--dbs-border);
+  background: var(--dbs-surface);
+  color: var(--dbs-primary);
+  cursor: pointer;
+  transition: var(--dbs-transition);
+}
+
+.leave-type-edit-btn:hover,
+.leave-structure-edit-btn:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================
+ RESPONSIVE
+========================================================== */
 
 @media (max-width: 1200px) {
   .dbs-leave-grid {
@@ -358,92 +397,124 @@
   }
 }
 
-@media (max-width: 700px) {
-  .dbs-two-column {
+@media (max-width: 900px) {
+  .leave-structure-two-column {
     grid-template-columns: 1fr;
   }
 
-  .dbs-actions {
-    flex-wrap: wrap;
+  .leave-type-body,
+  .leave-structure-body {
+    padding: 20px;
   }
 }
-/* Leave Type table scroll after 5 records */
 
-.dbs-leave-table-scroll {
-  max-height: 320px;
-  overflow-y: auto;
-  overflow-x: hidden;
+@media (max-width: 600px) {
+  .leave-type-actions,
+  .leave-structure-actions {
+    flex-direction: column-reverse;
+  }
+
+  .leave-type-btn,
+  .leave-structure-btn {
+    width: 100%;
+  }
 }
 
-/* Keep table header visible */
+/* ==========================================================
+ ANIMATION
+========================================================== */
 
-.dbs-leave-table-scroll .dbs-modern-table thead th {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  background: var(--dbs-primary);
+@keyframes dbsSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ==========================================================
+   KEEP TD UNDER SAME TH COLUMN
+========================================================== */
+
+.leave-type-table,
+.leave-structure-table {
+  table-layout: fixed;
+  width: 100%;
 }
 
-/* Scrollbar style */
-
-.dbs-leave-table-scroll::-webkit-scrollbar {
-  width: 8px;
+/* Header and body same alignment */
+.leave-type-table th,
+.leave-type-table td,
+.leave-structure-table th,
+.leave-structure-table td {
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.dbs-leave-table-scroll::-webkit-scrollbar-track {
-  background: var(--dbs-bg);
+/* Leave Type Table Columns */
+.leave-type-table th:nth-child(1),
+.leave-type-table td:nth-child(1) {
+  width: 75%;
 }
 
-.dbs-leave-table-scroll::-webkit-scrollbar-thumb {
-  background: var(--dbs-primary);
-  border-radius: 10px;
+.leave-type-table th:nth-child(2),
+.leave-type-table td:nth-child(2) {
+  width: 25%;
+  text-align: center;
 }
-/* Leave Structure table scroll */
 
-.dbs-leave-structure-scroll {
-  max-height: 320px; /* Adjust as needed */
-  overflow-y: auto;
+/* Leave Structure Table Columns */
+.leave-structure-table th:nth-child(1),
+.leave-structure-table td:nth-child(1) {
+  width: 10%;
+}
+
+.leave-structure-table th:nth-child(2),
+.leave-structure-table td:nth-child(2) {
+  width: 18%;
+}
+
+.leave-structure-table th:nth-child(3),
+.leave-structure-table td:nth-child(3) {
+  width: 18%;
+}
+
+.leave-structure-table th:nth-child(4),
+.leave-structure-table td:nth-child(4) {
+  width: 12%;
+}
+
+.leave-structure-table th:nth-child(5),
+.leave-structure-table td:nth-child(5) {
+  width: 15%;
+}
+
+.leave-structure-table th:nth-child(6),
+.leave-structure-table td:nth-child(6) {
+  width: 15%;
+}
+
+.leave-structure-table th:nth-child(7),
+.leave-structure-table td:nth-child(7) {
+  width: 12%;
+  text-align: center;
+}
+
+/* Keep edit button centered */
+.leave-type-table td:last-child,
+.leave-structure-table td:last-child {
+  display: table-cell;
+  text-align: center;
+}
+
+/* Prevent wrapper changing column width */
+.leave-type-table-wrapper,
+.leave-structure-table-wrapper {
   overflow-x: auto;
-}
-
-/* Sticky header */
-
-.dbs-leave-structure-scroll .dbs-modern-table thead th {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  background: var(--dbs-primary);
-}
-
-/* Scrollbar */
-
-.dbs-leave-structure-scroll::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.dbs-leave-structure-scroll::-webkit-scrollbar-track {
-  background: var(--dbs-bg);
-}
-
-.dbs-leave-structure-scroll::-webkit-scrollbar-thumb {
-  background: var(--dbs-primary);
-  border-radius: 10px;
-}
-
-.dbs-leave-structure-scroll::-webkit-scrollbar-thumb:hover {
-  background: var(--dbs-primary-hover);
-}
-.dbs-table-header {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 10px;
-  font-size: 14px;
-  color: #555;
-}
-
-.dbs-table-header strong {
-  color: #2563eb;
-  font-size: 15px;
 }

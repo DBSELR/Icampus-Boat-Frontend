@@ -2,34 +2,30 @@
    CONTAINER
 ========================================== */
 
-.dbs-programme-container {
-  width: 100%;
+.dbs-teaching-method-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  box-sizing: border-box;
+  width: 100%;
 }
 
 /* ==========================================
-   PAGE HEADER
+   HEADER
 ========================================== */
 
-.dbs-programme-form-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.dbs-teaching-method-header {
   padding-bottom: 16px;
   border-bottom: 1px solid var(--dbs-border);
 }
 
-.dbs-programme-form-header h2 {
+.dbs-teaching-method-header h2 {
   margin: 0;
   font-size: 1.45rem;
   font-weight: 800;
   color: var(--dbs-text);
 }
 
-.dbs-page-subtitle {
+.dbs-teaching-method-header p {
   margin: 6px 0 0;
   font-size: 0.9rem;
   color: var(--dbs-text-muted);
@@ -39,23 +35,28 @@
    FORM CARD
 ========================================== */
 
-.dbs-form-card {
+.dbs-teaching-method-card {
   width: 100%;
   background: var(--dbs-surface);
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius);
   box-shadow: var(--dbs-shadow);
   padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
   box-sizing: border-box;
+  animation: dbsSlideUp 0.25s ease;
 }
 
-.dbs-form-card h3 {
-  margin: 0;
-  padding-bottom: 12px;
+/* ==========================================
+   CARD TITLE
+========================================== */
+
+.dbs-teaching-method-title {
+  padding-bottom: 14px;
   border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-teaching-method-title h3 {
+  margin: 0;
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--dbs-text);
@@ -65,124 +66,83 @@
    FORM GRID
 ========================================== */
 
-.dbs-form-grid-2 {
+.dbs-teaching-method-grid {
   display: grid;
-  grid-template-columns: 420px;
-  gap: 20px;
+  grid-template-columns: minmax(0, 420px) minmax(0, 420px);
+  gap: 22px;
+  margin-top: 22px;
 }
 
-.dbs-input-box {
+.dbs-teaching-method-input {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  min-width: 0;
 }
 
-.dbs-input-box label {
+.dbs-teaching-method-input label {
   margin-bottom: 7px;
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--dbs-text);
+}
+
+.dbs-teaching-method-input label span {
+  color: var(--dbs-danger);
 }
 
 /* ==========================================
-   ACADEMIC YEAR DROPDOWN
+   INPUT
 ========================================== */
 
-.dbs-custom-dropdown {
-  position: relative;
-  width: 420px;
-}
-
-.dbs-dropdown-selected {
+.dbs-teaching-method-input input {
   width: 100%;
   height: 44px;
   padding: 0 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--dbs-surface);
+  box-sizing: border-box;
+
   border: 1px solid var(--dbs-border);
   border-radius: var(--dbs-radius-sm);
+  background: var(--dbs-surface);
   color: var(--dbs-text);
   font-size: 0.9rem;
-  cursor: pointer;
-  transition: var(--dbs-transition);
-  box-sizing: border-box;
+  outline: none;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
 }
 
-.dbs-dropdown-selected:hover {
+.dbs-teaching-method-input input::placeholder {
+  color: var(--dbs-text-muted);
+  opacity: 0.8;
+}
+
+.dbs-teaching-method-input input:hover {
   border-color: var(--dbs-primary);
 }
 
-.dbs-dropdown-icon {
-  color: var(--dbs-text-muted);
-  transition: transform 0.25s ease;
-  flex-shrink: 0;
-}
-
-.dbs-dropdown-icon.rotate {
-  transform: rotate(180deg);
-}
-
-.dbs-dropdown-options {
-  position: absolute;
-  top: 48px;
-  left: 0;
-  width: 100%;
-  max-height: 220px;
-  overflow-y: auto;
-  background: var(--dbs-surface);
-  border: 1px solid var(--dbs-border);
-  border-radius: var(--dbs-radius-sm);
-  box-shadow: var(--dbs-shadow);
-  z-index: 9999;
-  box-sizing: border-box;
-}
-
-.dbs-dropdown-option {
-  height: 42px;
-  padding: 0 14px;
-  display: flex;
-  align-items: center;
-  color: var(--dbs-text);
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: var(--dbs-transition);
-  box-sizing: border-box;
-}
-
-.dbs-dropdown-option:hover {
-  background: var(--dbs-primary-light);
-  color: var(--dbs-primary);
-}
-
-.dbs-dropdown-options::-webkit-scrollbar {
-  width: 8px;
-}
-
-.dbs-dropdown-options::-webkit-scrollbar-thumb {
-  background: var(--dbs-border);
-  border-radius: 20px;
-}
-
-.dbs-dropdown-options::-webkit-scrollbar-thumb:hover {
-  background: var(--dbs-primary);
+.dbs-teaching-method-input input:focus {
+  border-color: var(--dbs-primary);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
 /* ==========================================
-   FORM BUTTONS
+   FORM ACTIONS
 ========================================== */
 
-.dbs-footer-actions {
+.dbs-teaching-method-actions {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 12px;
-  margin-top: 10px;
+  gap: 14px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--dbs-border);
 }
 
-.dbs-footer-actions button {
-  height: 44px;
+.dbs-teaching-method-save,
+.dbs-teaching-method-cancel {
+  height: 42px;
   min-width: 120px;
   padding: 0 22px;
   display: flex;
@@ -193,48 +153,59 @@
   font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
-  transition: var(--dbs-transition);
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
 }
 
-.dbs-btn-secondary {
+/* ==========================================
+   SAVE BUTTON
+========================================== */
+
+.dbs-teaching-method-save {
+  background: var(--dbs-primary);
+  border: 1px solid var(--dbs-primary);
+  color: #ffffff;
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-teaching-method-save:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.dbs-teaching-method-save:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.dbs-teaching-method-save:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ==========================================
+   CANCEL BUTTON
+========================================== */
+
+.dbs-teaching-method-cancel {
   background: var(--dbs-surface);
   border: 1px solid var(--dbs-border);
   color: var(--dbs-text);
 }
 
-.dbs-btn-secondary:hover:not(:disabled) {
+.dbs-teaching-method-cancel:hover:not(:disabled) {
   background: var(--dbs-primary-light);
   border-color: var(--dbs-primary);
   color: var(--dbs-primary);
   transform: translateY(-2px);
 }
 
-.dbs-btn-primary {
-  background: var(--dbs-primary);
-  border: none;
-  color: #ffffff;
-  box-shadow: var(--dbs-shadow);
-}
-
-.dbs-btn-primary:hover:not(:disabled) {
-  filter: brightness(1.08);
-  transform: translateY(-2px);
-}
-
-.dbs-btn-primary:active,
-.dbs-btn-secondary:active {
+.dbs-teaching-method-cancel:active:not(:disabled) {
   transform: scale(0.98);
-}
-
-.dbs-btn-primary:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
-
-.dbs-btn-primary:focus-visible,
-.dbs-btn-secondary:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
 }
 
 /* ==========================================
@@ -242,35 +213,26 @@
 ========================================== */
 
 .dbs-table-head {
-  width: 100%;
-  box-sizing: border-box;
+  margin-top: 5px;
 }
 
-.dbs-table-search {
-  width: 280px;
+.dbs-teaching-method-header.dbs-table-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.dbs-table-search input {
-  width: 100%;
-  height: 42px;
-  padding: 0 14px;
-  border: 1px solid var(--dbs-border);
-  border-radius: var(--dbs-radius-sm);
-  background: var(--dbs-surface);
+.dbs-table-head h2 {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 800;
   color: var(--dbs-text);
-  font-size: 0.88rem;
-  outline: none;
-  box-sizing: border-box;
-  transition: var(--dbs-transition);
 }
 
-.dbs-table-search input::placeholder {
+.dbs-table-head p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
   color: var(--dbs-text-muted);
-}
-
-.dbs-table-search input:focus {
-  border-color: var(--dbs-primary);
-  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
 }
 
 /* ==========================================
@@ -286,6 +248,7 @@
   box-shadow: var(--dbs-shadow);
   padding: 18px;
   box-sizing: border-box;
+  animation: dbsSlideUp 0.25s ease;
 }
 
 /* ==========================================
@@ -315,6 +278,10 @@
   scrollbar-color: var(--dbs-border) transparent;
 }
 
+/* ==========================================
+   TABLE SCROLLBAR
+========================================== */
+
 .dbs-table-scroll::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -334,7 +301,8 @@
 }
 
 /* ==========================================
-   ACADEMIC YEAR TABLE
+   MAIN TABLE
+
    IMPORTANT:
    JSX uses .dbs-data-table
 ========================================== */
@@ -351,7 +319,6 @@
 
 /* ==========================================
    TABLE HEADER
-   NO VERTICAL LINES
 ========================================== */
 
 .dbs-data-table thead {
@@ -362,30 +329,44 @@
   position: sticky;
   top: 0;
   z-index: 10;
-
   height: 44px;
   padding: 0 18px;
-
   background: var(--dbs-primary);
   color: #ffffff;
-
   font-size: 0.78rem;
   font-weight: 700;
-
   text-transform: uppercase;
   letter-spacing: 0.5px;
-
   text-align: left;
   white-space: nowrap;
-
   box-sizing: border-box;
 
-  /* Only bottom line */
+  /*
+    IMPORTANT:
+    No vertical border here.
+    This removes lines between columns.
+  */
+
   border: none;
   border-bottom: 1px solid var(--dbs-primary);
 }
 
-/* Header corners */
+/* ==========================================
+   HEADER ALIGNMENT
+========================================== */
+
+.dbs-data-table thead th:first-child {
+  text-align: center;
+}
+
+.dbs-data-table thead th:nth-child(4),
+.dbs-data-table thead th:nth-child(5) {
+  text-align: center;
+}
+
+/* ==========================================
+   HEADER CORNERS
+========================================== */
 
 .dbs-data-table thead th:first-child {
   border-top-left-radius: var(--dbs-radius-sm);
@@ -397,36 +378,46 @@
 
 /* ==========================================
    TABLE BODY
-   ONLY HORIZONTAL ROW LINES
 ========================================== */
 
 .dbs-data-table tbody td {
   height: 54px;
   padding: 0 18px;
-
   background: var(--dbs-surface);
   color: var(--dbs-text);
-
   font-size: 0.88rem;
   vertical-align: middle;
-
-  box-sizing: border-box;
   white-space: nowrap;
+  box-sizing: border-box;
 
-  /* IMPORTANT:
-     No vertical borders */
+  /*
+    ONLY horizontal line.
+    NO vertical border.
+  */
+
   border: none;
-
-  /* Only horizontal separator */
   border-bottom: 1px solid var(--dbs-border);
 }
 
 /* ==========================================
-   TABLE ROW
+   BODY ALIGNMENT
+========================================== */
+
+.dbs-data-table tbody td:first-child {
+  text-align: center;
+}
+
+.dbs-data-table tbody td:nth-child(4),
+.dbs-data-table tbody td:nth-child(5) {
+  text-align: center;
+}
+
+/* ==========================================
+   ROW
 ========================================== */
 
 .dbs-data-table tbody tr {
-  transition: var(--dbs-transition);
+  transition: background 0.2s ease;
 }
 
 /* ==========================================
@@ -447,9 +438,13 @@
 
 /* ==========================================
    COLUMN WIDTHS
-========================================== */
 
-/* SL.NO */
+   1 = SL.NO
+   2 = CODE
+   3 = NAME
+   4 = EDIT
+   5 = DELETE
+========================================== */
 
 .dbs-data-table th:nth-child(1),
 .dbs-data-table td:nth-child(1) {
@@ -457,101 +452,62 @@
   text-align: center;
 }
 
-/* Academic Year */
-
 .dbs-data-table th:nth-child(2),
 .dbs-data-table td:nth-child(2) {
-  width: auto;
-  text-align: left;
+  width: 25%;
 }
-
-/* Active */
 
 .dbs-data-table th:nth-child(3),
 .dbs-data-table td:nth-child(3) {
-  width: 120px;
-  text-align: center;
+  width: auto;
 }
-
-/* Actions */
 
 .dbs-data-table th:nth-child(4),
 .dbs-data-table td:nth-child(4) {
-  width: 150px;
+  width: 90px;
+  text-align: center;
+}
+
+.dbs-data-table th:nth-child(5),
+.dbs-data-table td:nth-child(5) {
+  width: 90px;
   text-align: center;
 }
 
 /* ==========================================
-   ACTIVE RADIO BUTTON
+   ICON BUTTON
 ========================================== */
 
-.dbs-data-table input[type="radio"] {
-  width: 17px;
-  height: 17px;
-  margin: 0;
-  cursor: pointer;
-  accent-color: var(--dbs-primary);
-  transition: var(--dbs-transition);
-}
-
-.dbs-data-table input[type="radio"]:hover {
-  transform: scale(1.08);
-}
-
-/* ==========================================
-   ACTIONS
-========================================== */
-
-.dbs-actionss {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-/* ==========================================
-   ACTION BUTTON
-========================================== */
-
-.dbs-leave-action-btn {
+.dbs-teaching-method-icon-btn {
   width: 34px;
   height: 34px;
-
+  padding: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  padding: 0;
-
   border-radius: var(--dbs-radius-sm);
-
-  background: var(--dbs-surface);
-  border: 1px solid var(--dbs-border);
-
   cursor: pointer;
-
   transition:
     background 0.25s ease,
     border-color 0.25s ease,
     color 0.25s ease,
     transform 0.2s ease,
     box-shadow 0.25s ease;
-}
 
-.dbs-leave-action-btn svg {
-  width: 16px;
-  height: 16px;
+  box-sizing: border-box;
 }
 
 /* ==========================================
    EDIT BUTTON
 ========================================== */
 
-.dbs-leave-edit-btn {
+.dbs-teaching-method-icon-btn.edit {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
   color: var(--dbs-primary);
 }
 
-.dbs-leave-edit-btn:hover {
+.dbs-teaching-method-icon-btn.edit:hover {
   background: var(--dbs-primary-light);
   border-color: var(--dbs-primary);
   color: var(--dbs-primary);
@@ -563,11 +519,13 @@
    DELETE BUTTON
 ========================================== */
 
-.dbs-leave-delete-btn {
+.dbs-teaching-method-icon-btn.delete {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
   color: var(--dbs-danger);
 }
 
-.dbs-leave-delete-btn:hover {
+.dbs-teaching-method-icon-btn.delete:hover {
   background: var(--dbs-danger-light);
   border-color: var(--dbs-danger);
   color: var(--dbs-danger);
@@ -575,7 +533,11 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-.dbs-leave-action-btn:active {
+/* ==========================================
+   ICON BUTTON ACTIVE
+========================================== */
+
+.dbs-teaching-method-icon-btn:active {
   transform: scale(0.95);
 }
 
@@ -586,15 +548,11 @@
 .dbs-empty-state {
   min-height: 260px;
   padding: 40px 20px;
-
   display: flex;
   flex-direction: column;
-
   justify-content: center;
   align-items: center;
-
   gap: 14px;
-
   text-align: center;
   background: var(--dbs-surface);
 }
@@ -619,50 +577,33 @@
   color: var(--dbs-text-muted);
 }
 
-.dbs-empty-state-desc strong {
-  color: var(--dbs-primary);
-}
-
 /* ==========================================
    LOADING STATE
 ========================================== */
 
 .dbs-loading-state {
   min-height: 240px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
+  color: var(--dbs-text-muted);
   font-size: 0.92rem;
   font-weight: 600;
-
-  color: var(--dbs-text-muted);
 }
 
 /* ==========================================
    GLOBAL BOX SIZING
 ========================================== */
 
-.dbs-programme-container *,
-.dbs-programme-container *::before,
-.dbs-programme-container *::after {
+.dbs-teaching-method-container *,
+.dbs-teaching-method-container *::before,
+.dbs-teaching-method-container *::after {
   box-sizing: border-box;
 }
 
 /* ==========================================
-   ANIMATIONS
+   ANIMATION
 ========================================== */
-
-@keyframes dbsFade {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
 
 @keyframes dbsSlideUp {
   from {
@@ -674,11 +615,6 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.dbs-form-card,
-.dbs-table-container {
-  animation: dbsSlideUp 0.25s ease;
 }
 
 /* ==========================================
@@ -702,7 +638,7 @@
 }
 
 /* ==========================================
-   CANCEL MODAL BUTTON
+   MODAL CANCEL BUTTON
 ========================================== */
 
 .dbs-form-cancel-btn {
@@ -722,21 +658,8 @@
 ========================================== */
 
 @media (max-width: 1024px) {
-  .dbs-form-grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .dbs-custom-dropdown {
-    width: 100%;
-  }
-
-  .dbs-dropdown-selected,
-  .dbs-dropdown-options {
-    width: 100%;
-  }
-
-  .dbs-table-search {
-    width: 260px;
+  .dbs-teaching-method-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -745,27 +668,29 @@
 ========================================== */
 
 @media (max-width: 768px) {
-  .dbs-programme-form-header,
+  .dbs-teaching-method-header,
   .dbs-table-head {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
   }
 
-  .dbs-table-search {
-    width: 100%;
-  }
-
-  .dbs-form-card {
+  .dbs-teaching-method-card {
     padding: 18px;
   }
 
-  .dbs-footer-actions {
-    justify-content: stretch;
-    flex-direction: column;
+  .dbs-teaching-method-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
 
-  .dbs-footer-actions button {
+  .dbs-teaching-method-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dbs-teaching-method-save,
+  .dbs-teaching-method-cancel {
     width: 100%;
   }
 
@@ -773,12 +698,12 @@
     padding: 12px;
   }
 
-  .dbs-data-table {
-    min-width: 700px;
-  }
-
   .dbs-table-scroll {
     max-height: 400px;
+  }
+
+  .dbs-data-table {
+    min-width: 700px;
   }
 }
 
@@ -787,20 +712,18 @@
 ========================================== */
 
 @media (max-width: 480px) {
-  .dbs-programme-form-header h2 {
+  .dbs-teaching-method-header h2,
+  .dbs-table-head h2 {
     font-size: 1.2rem;
   }
 
-  .dbs-page-subtitle {
+  .dbs-teaching-method-header p,
+  .dbs-table-head p {
     font-size: 0.82rem;
   }
 
-  .dbs-form-card {
+  .dbs-teaching-method-card {
     padding: 16px;
-  }
-
-  .dbs-dropdown-selected {
-    font-size: 0.85rem;
   }
 
   .dbs-table-container {
@@ -809,5 +732,11 @@
 
   .dbs-data-table {
     min-width: 650px;
+  }
+
+  .dbs-data-table thead th,
+  .dbs-data-table tbody td {
+    padding-left: 14px;
+    padding-right: 14px;
   }
 }

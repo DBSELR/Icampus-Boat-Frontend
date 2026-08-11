@@ -1,325 +1,506 @@
+/* ==========================================
+Sub Caste Master Container
+========================================== */
+
 .dbs-subcaste-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
 }
 
-/* HEADER */
+/* ==========================================
+Page Header
+========================================== */
 
-.dbs-subcaste-header {
-  border-bottom: 1px solid var(--dbs-border);
+.dbs-subcaste-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
 }
 
-.dbs-subcaste-header h2 {
+.dbs-subcaste-form-header h2 {
   margin: 0;
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: 800;
   color: var(--dbs-text);
 }
 
-/* CARD */
-
-.dbs-subcaste-form-card,
-.dbs-subcaste-table-card {
-  background: var(--dbs-surface);
-
-  border: 1px solid var(--dbs-border);
-
-  border-radius: var(--dbs-radius);
-
-  box-shadow: var(--dbs-shadow);
-
-  padding: 24px;
+.dbs-subcaste-page-subtitle {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
 }
 
+/* ==========================================
+Form Card
+========================================== */
+
 .dbs-subcaste-form-card {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  padding: 24px;
   display: flex;
-
   flex-direction: column;
-
   gap: 22px;
 }
 
 .dbs-subcaste-form-card h3 {
   margin: 0;
-
-  font-size: 1.1rem;
-
-  font-weight: 700;
-
-  color: var(--dbs-text);
-
-  border-bottom: 1px solid var(--dbs-border);
-
   padding-bottom: 12px;
+  border-bottom: 1px solid var(--dbs-border);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dbs-text);
 }
 
-/* FORM */
+/* ==========================================
+Form Grid
+========================================== */
 
 .dbs-subcaste-form-grid {
   display: grid;
-
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
 .dbs-subcaste-input-box {
   display: flex;
-
   flex-direction: column;
 }
 
 .dbs-subcaste-input-box label {
-  font-size: 13px;
-
-  font-weight: 700;
-
-  margin-bottom: 6px;
-
+  margin-bottom: 7px;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--dbs-text);
 }
 
-.dbs-subcaste-input-box input,
-.dbs-subcaste-input-box select {
+/* ==========================================
+Input Controls
+========================================== */
+
+.dbs-subcaste-input {
   width: 100%;
-
-  padding: 10px 12px;
-
+  height: 44px;
+  padding: 0 14px;
   border-radius: var(--dbs-radius-sm);
-
   border: 1px solid var(--dbs-border);
-
   background: var(--dbs-surface);
-
   color: var(--dbs-text);
-
+  font-size: 0.9rem;
   outline: none;
-
   transition: var(--dbs-transition);
 }
 
-.dbs-subcaste-input-box input:focus,
-.dbs-subcaste-input-box select:focus {
+.dbs-subcaste-input:hover {
   border-color: var(--dbs-primary);
-
-  box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
-/* BUTTONS */
+.dbs-subcaste-input:focus {
+  border-color: var(--dbs-primary);
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
 
-.dbs-subcaste-actions {
+/* ==========================================
+Footer Buttons
+========================================== */
+
+.dbs-subcaste-footer-actions {
   display: flex;
-
   justify-content: flex-end;
-
-  gap: 14px;
-
-  border-top: 1px solid var(--dbs-border);
-
-  padding-top: 18px;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
 }
 
-.dbs-subcaste-save-btn {
+.dbs-subcaste-footer-actions button {
+  height: 44px;
+  min-width: 120px;
+  padding: 0 22px;
   display: flex;
-
+  justify-content: center;
   align-items: center;
-
   gap: 8px;
-
-  background: var(--dbs-primary);
-
-  color: #fff;
-
-  border: none;
-
-  padding: 10px 20px;
-
   border-radius: var(--dbs-radius-sm);
-
+  font-size: 0.9rem;
   font-weight: 700;
-
   cursor: pointer;
-
   transition: var(--dbs-transition);
 }
 
-.dbs-subcaste-save-btn:hover {
-  background: var(--dbs-primary-hover);
-}
-
-.dbs-subcaste-reset-btn {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
+.dbs-subcaste-btn-secondary {
   background: var(--dbs-surface);
-
-  color: var(--dbs-text);
-
   border: 1px solid var(--dbs-border);
-
-  padding: 10px 20px;
-
-  border-radius: var(--dbs-radius-sm);
-
-  font-weight: 700;
-
-  cursor: pointer;
-}
-
-.dbs-subcaste-reset-btn:hover {
-  background: var(--dbs-bg);
-}
-
-/* TABLE HEADER */
-
-.dbs-subcaste-table-header {
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  margin-bottom: 18px;
-}
-
-.dbs-subcaste-table-header h3 {
-  margin: 0;
-
   color: var(--dbs-text);
-
-  font-size: 1.1rem;
 }
 
-.dbs-subcaste-table-header span {
+.dbs-subcaste-btn-secondary:hover {
   background: var(--dbs-primary-light);
-
+  border-color: var(--dbs-primary);
   color: var(--dbs-primary);
-
-  padding: 6px 12px;
-
-  border-radius: 20px;
-
-  font-size: 12px;
-
-  font-weight: 700;
+  transform: translateY(-2px);
 }
 
-/* TABLE SCROLL */
+.dbs-subcaste-btn-primary {
+  background: var(--dbs-primary);
+  border: none;
+  color: #fff;
+}
+
+.dbs-subcaste-btn-primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.dbs-subcaste-btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ==========================================
+Table Container
+========================================== */
+
+.dbs-subcaste-table-container {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  overflow: hidden;
+  box-shadow: var(--dbs-shadow);
+  padding: 18px;
+}
+
+/* ==========================================
+Table Scroll
+========================================== */
 
 .dbs-subcaste-table-scroll {
+  max-height: 430px;
   overflow: auto;
-
-  max-height: 420px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
 }
 
-.dbs-subcaste-table-scroll::-webkit-scrollbar {
-  width: 8px;
+/* ==========================================
+Registry Table
+========================================== */
 
-  height: 8px;
-}
-
-.dbs-subcaste-table-scroll::-webkit-scrollbar-track {
-  background: var(--dbs-bg);
-}
-
-.dbs-subcaste-table-scroll::-webkit-scrollbar-thumb {
-  background: var(--dbs-primary);
-
-  border-radius: 10px;
-}
-
-/* TABLE */
-
-.dbs-subcaste-data-table {
+.dbs-subcaste-registry-table {
   width: 100%;
-
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
-.dbs-subcaste-data-table th {
+/* =========================================================
+   TABLE HEADER
+   ========================================================= */
+
+.dbs-subcaste-registry-table thead th {
   position: sticky;
-
   top: 0;
-
-  z-index: 2;
-
+  z-index: 10;
+  height: 44px;
+  padding: 0 18px;
   background: var(--dbs-primary);
-
   color: #fff;
-
-  padding: 13px;
-
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   text-align: left;
-
-  font-size: 13px;
-
-  font-weight: 800;
+  border: none;
 }
 
-.dbs-subcaste-data-table td {
-  padding: 13px;
+/* Top-left rounded corner */
+.dbs-subcaste-registry-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
+}
 
-  border-bottom: 1px solid var(--dbs-border);
+/* Top-right rounded corner */
+.dbs-subcaste-registry-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
+}
 
+.dbs-subcaste-registry-table tbody td {
+  height: 54px;
+  padding: 0 18px;
   color: var(--dbs-text);
-
-  font-size: 14px;
-
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--dbs-border);
   background: var(--dbs-surface);
 }
 
-.dbs-subcaste-data-table tr:hover td {
-  background: var(--dbs-primary-light);
+.dbs-subcaste-registry-table tbody tr:hover td {
+  background: var(--dbs-background);
 }
 
-/* EDIT BUTTON */
+.dbs-subcaste-registry-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ==========================================
+Column Width
+========================================== */
+
+.dbs-subcaste-registry-table th:nth-child(1),
+.dbs-subcaste-registry-table td:nth-child(1) {
+  width: 15%;
+}
+
+.dbs-subcaste-registry-table th:nth-child(2),
+.dbs-subcaste-registry-table td:nth-child(2) {
+  width: 30%;
+}
+
+.dbs-subcaste-registry-table th:nth-child(3),
+.dbs-subcaste-registry-table td:nth-child(3) {
+  width: 35%;
+}
+
+.dbs-subcaste-registry-table th:nth-child(4),
+.dbs-subcaste-registry-table td:nth-child(4) {
+  width: 20%;
+}
+
+/* ==========================================
+Action Buttons
+========================================== */
+
+.dbs-subcaste-actionss {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dbs-subcaste-action-btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--dbs-radius-sm);
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  cursor: pointer;
+  transition: var(--dbs-transition);
+}
 
 .dbs-subcaste-edit-btn {
-  width: 34px;
-
-  height: 34px;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  background: var(--dbs-primary-light);
-
   color: var(--dbs-primary);
-
-  border: 1px solid var(--dbs-primary);
-
-  border-radius: var(--dbs-radius-sm);
-
-  cursor: pointer;
-
-  transition: var(--dbs-transition);
 }
 
 .dbs-subcaste-edit-btn:hover {
-  background: var(--dbs-primary);
-
-  color: white;
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  transform: translateY(-2px);
 }
 
-/* RESPONSIVE */
+/* ==========================================
+Empty State
+========================================== */
+
+.dbs-subcaste-empty-state {
+  min-height: 260px;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.dbs-subcaste-empty-icon {
+  color: var(--dbs-text-muted);
+  opacity: 0.7;
+}
+
+.dbs-subcaste-empty-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dbs-text);
+}
+
+.dbs-subcaste-empty-desc {
+  font-size: 0.88rem;
+  color: var(--dbs-text-muted);
+  line-height: 1.7;
+}
+
+.dbs-subcaste-empty-desc strong {
+  color: var(--dbs-primary);
+}
+
+/* ==========================================
+Responsive
+========================================== */
+
+@media (max-width: 1024px) {
+  .dbs-subcaste-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 @media (max-width: 768px) {
-  .dbs-subcaste-actions {
+  .dbs-subcaste-form-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .dbs-subcaste-footer-actions {
     flex-direction: column;
   }
 
-  .dbs-subcaste-save-btn,
-  .dbs-subcaste-reset-btn {
+  .dbs-subcaste-footer-actions button {
     width: 100%;
+  }
 
-    justify-content: center;
+  .dbs-subcaste-registry-table {
+    min-width: 700px;
+  }
+}
+/* ==========================================
+GLOBAL TRANSITION
+========================================== */
+
+.dbs-subcaste-form-card,
+.dbs-subcaste-table-container,
+.dbs-subcaste-action-btn,
+.dbs-subcaste-footer-actions button {
+  transition: var(--dbs-transition);
+}
+
+/* ==========================================
+PAGE LOAD ANIMATION
+========================================== */
+
+@keyframes dbsSubCasteFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dbs-subcaste-form-card,
+.dbs-subcaste-table-container {
+  animation: dbsSubCasteFade 0.3s ease;
+}
+
+/* ==========================================
+RESPONSIVE
+========================================== */
+
+@media (max-width: 1100px) {
+  .dbs-subcaste-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dbs-subcaste-form-card,
+  .dbs-subcaste-table-container {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dbs-subcaste-form-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .dbs-subcaste-form-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .dbs-subcaste-form-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .dbs-subcaste-form-card,
+  .dbs-subcaste-table-container {
+    padding: 18px;
+  }
+
+  .dbs-subcaste-footer-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .dbs-subcaste-footer-actions button {
+    width: 100%;
+  }
+
+  .dbs-subcaste-registry-table {
+    min-width: 700px;
+  }
+
+  .dbs-subcaste-registry-table thead th {
+    font-size: 0.75rem;
+  }
+
+  .dbs-subcaste-registry-table tbody td {
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .dbs-subcaste-container {
+    gap: 18px;
+  }
+
+  .dbs-subcaste-form-card,
+  .dbs-subcaste-table-container {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .dbs-subcaste-form-header {
+    padding-bottom: 14px;
+  }
+
+  .dbs-subcaste-form-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .dbs-subcaste-page-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .dbs-subcaste-input {
+    height: 42px;
+  }
+
+  .dbs-subcaste-footer-actions button {
+    height: 42px;
+    font-size: 0.88rem;
+  }
+
+  .dbs-subcaste-table-scroll {
+    max-height: 320px;
+  }
+
+  .dbs-subcaste-empty-state {
+    min-height: 220px;
+    padding: 30px 16px;
+  }
+
+  .dbs-subcaste-empty-title {
+    font-size: 1rem;
+  }
+
+  .dbs-subcaste-empty-desc {
+    font-size: 0.84rem;
   }
 }

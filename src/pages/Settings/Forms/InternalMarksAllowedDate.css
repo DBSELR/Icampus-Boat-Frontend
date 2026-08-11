@@ -1,164 +1,144 @@
-/* =====================================
-   INTERNAL MARKS ALLOWED DATE CONTAINER
-===================================== */
+/* ==========================================================
+   INTERNAL MARKS ALLOWED DATE - DBS THEME
+========================================================== */
 
-.dbs-attendance-container {
+.dbs-imad-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
+  animation: dbsSlideUp 0.25s ease;
 }
 
-/* =====================================
+.dbs-imad-container *,
+.dbs-imad-container *::before,
+.dbs-imad-container *::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================================
    PAGE HEADER
-===================================== */
+========================================================== */
 
 .dbs-attendance-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  border-bottom: 1px solid var(--dbs-border);
   padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
 }
 
 .dbs-attendance-header h2 {
   margin: 0;
-
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: 800;
-
   color: var(--dbs-text);
 }
 
-/* =====================================
-   FORM & TABLE CARD
-===================================== */
-
-.dbs-form-card,
-.dbs-table-card {
-  background: var(--dbs-surface);
-
-  border: 1px solid var(--dbs-border);
-
-  border-radius: var(--dbs-radius);
-
-  box-shadow: var(--dbs-shadow);
-
-  padding: 24px;
-}
+/* ==========================================================
+   FORM CARD
+========================================================== */
 
 .dbs-form-card {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  padding: 24px;
   display: flex;
-
   flex-direction: column;
-
   gap: 22px;
 }
 
 .dbs-form-card h3 {
   margin: 0;
-
-  font-size: 1.1rem;
-
-  font-weight: 700;
-
-  color: var(--dbs-text);
-
-  border-bottom: 1px solid var(--dbs-border);
-
   padding-bottom: 12px;
+  border-bottom: 1px solid var(--dbs-border);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dbs-text);
 }
 
-/* =====================================
+/* ==========================================================
    FORM GRID
-===================================== */
+========================================================== */
 
 .dbs-imad-form-grid {
   display: grid;
-
-  grid-template-columns: repeat(4, 1fr);
-
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
   gap: 20px;
 }
 
-/* =====================================
+/* ==========================================================
    INPUT BOX
-===================================== */
+========================================================== */
 
+.dbs-imad-field,
 .dbs-imad-input-box {
   display: flex;
-
   flex-direction: column;
 }
 
+.dbs-imad-field label,
 .dbs-imad-input-box label {
-  font-size: 13px;
-
-  font-weight: 700;
-
+  margin-bottom: 8px;
+  font-size: 0.86rem;
+  font-weight: 600;
   color: var(--dbs-text);
-
-  margin-bottom: 6px;
 }
 
+.dbs-imad-field input,
+.dbs-imad-field select,
 .dbs-imad-input-box input,
 .dbs-imad-input-box select {
   width: 100%;
-
-  height: 40px;
-
-  padding: 10px 12px;
-
+  height: 44px;
+  padding: 0 14px;
   border-radius: var(--dbs-radius-sm);
-
   border: 1px solid var(--dbs-border);
-
   background: var(--dbs-surface);
-
   color: var(--dbs-text);
-
-  outline: none;
-
+  font-size: 0.9rem;
   transition: var(--dbs-transition);
 }
 
-.dbs-imad-input-box input:focus,
-.dbs-imad-input-box select:focus {
+.dbs-imad-field input:hover,
+.dbs-imad-field select:hover,
+.dbs-imad-input-box input:hover,
+.dbs-imad-input-box select:hover {
   border-color: var(--dbs-primary);
-
-  box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
-/* =====================================
-   MID TYPE DROPDOWN
-===================================== */
+.dbs-imad-field input:focus,
+.dbs-imad-field select:focus,
+.dbs-imad-input-box input:focus,
+.dbs-imad-input-box select:focus {
+  outline: none;
+  border-color: var(--dbs-primary);
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* ==========================================================
+   MID TYPE MULTI SELECT
+========================================================== */
 
 .mid-type-wrapper {
   position: relative;
-
   width: 100%;
 }
 
 .mid-type-select {
-  height: 40px;
-
-  border: 1px solid var(--dbs-border);
-
+  height: 44px;
+  padding: 0 14px;
   border-radius: var(--dbs-radius-sm);
-
+  border: 1px solid var(--dbs-border);
   background: var(--dbs-surface);
-
-  padding: 0 12px;
-
   display: flex;
-
-  justify-content: space-between;
-
   align-items: center;
-
+  justify-content: space-between;
   cursor: pointer;
-
   color: var(--dbs-text);
+  font-size: 0.9rem;
 }
 
 .mid-type-select:hover {
@@ -167,41 +147,25 @@
 
 .mid-type-options {
   position: absolute;
-
-  top: 44px;
-
+  top: 48px;
   left: 0;
-
   width: 100%;
-
-  background: var(--dbs-surface);
-
-  border: 1px solid var(--dbs-border);
-
-  border-radius: var(--dbs-radius-sm);
-
   max-height: 250px;
-
   overflow-y: auto;
-
-  z-index: 1000;
-
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
   box-shadow: var(--dbs-shadow);
+  z-index: 100;
 }
 
 .mid-type-option {
   display: flex;
-
   align-items: center;
-
-  gap: 8px;
-
-  padding: 10px 12px;
-
+  gap: 10px;
+  padding: 10px 14px;
   cursor: pointer;
-
-  font-size: 14px;
-
+  font-size: 0.9rem;
   color: var(--dbs-text);
 }
 
@@ -210,188 +174,324 @@
 }
 
 .mid-type-option input {
-  width: 15px;
-
-  height: 15px;
-
+  width: 16px;
+  height: 16px;
   accent-color: var(--dbs-primary);
 }
 
-/* =====================================
-   CHECKBOX
-===================================== */
+/* ==========================================================
+   EXAM TYPE
+========================================================== */
 
 .dbs-imad-checkbox-row {
   display: flex;
-
   align-items: center;
-
   gap: 25px;
 }
 
 .dbs-imad-checkbox-row label {
   display: flex;
-
   align-items: center;
-
   gap: 8px;
-
-  font-size: 14px;
-
   font-weight: 600;
-
-  cursor: pointer;
-
+  font-size: 0.9rem;
   color: var(--dbs-text);
 }
 
 .dbs-imad-checkbox-row input {
   width: 16px;
-
   height: 16px;
-
   accent-color: var(--dbs-primary);
 }
 
-/* =====================================
+/* ==========================================================
+   BUTTONS
+========================================================== */
+
+.dbs-imad-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--dbs-border);
+}
+
+.dbs-imad-primary-btn,
+.dbs-imad-secondary-btn {
+  height: 44px;
+  min-width: 120px;
+  padding: 0 22px;
+  border-radius: var(--dbs-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--dbs-transition);
+}
+
+.dbs-imad-primary-btn {
+  background: var(--dbs-primary);
+  color: white;
+  border: none;
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-imad-primary-btn:hover {
+  transform: translateY(-2px);
+}
+
+.dbs-imad-secondary-btn {
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  border: 1px solid var(--dbs-border);
+}
+
+.dbs-imad-secondary-btn:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================
    TABLE HEADER
-===================================== */
+========================================================== */
 
 .dbs-programme-form-header {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
 }
 
 .dbs-programme-form-header h2 {
   margin: 0;
-
   font-size: 1.3rem;
-
   font-weight: 800;
-
   color: var(--dbs-text);
 }
 
 .dbs-page-subtitle {
-  margin: 6px 0 0;
-
-  font-size: 14px;
-
-  color: var(--dbs-text-light);
+  margin-top: 6px;
+  color: var(--dbs-text-muted);
+  font-size: 0.9rem;
 }
 
-/* =====================================
+/* ==========================================================
    TABLE CARD
-===================================== */
+========================================================== */
 
 .dbs-table-card {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 25px;
-}
-
-.dbs-table-scroll {
-  display: flex;
-
-  gap: 20px;
-
-  width: 100%;
-
-  overflow-x: auto;
-
-  max-height: 450px;
-}
-
-.dbs-table-scroll > div {
-  margin-bottom: 0;
-}
-
-.dbs-table-scroll h3 {
-  margin: 0 0 12px;
-
-  padding-bottom: 10px;
-
-  border-bottom: 1px solid var(--dbs-border);
-
-  color: var(--dbs-text);
-
-  font-size: 1rem;
-
-  font-weight: 800;
-}
-
-/* =====================================
-   DATA TABLE
-===================================== */
-
-.dbs-data-table {
-  width: 100%;
-
-  border-collapse: collapse;
-
   background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  padding: 18px;
 }
 
-.dbs-data-table thead th {
-  position: sticky;
+.dbs-imad-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+}
 
-  top: 0;
+/* ==========================================================
+   TABLE SECTION
+========================================================== */
 
-  z-index: 2;
+.dbs-table-section {
+  flex: 1;
+  min-width: 600px;
+}
 
-  background: var(--dbs-primary);
+.table-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
 
-  color: white;
-
-  padding: 13px 16px;
-
-  font-size: 13px;
-
+.table-title-row h3 {
+  margin: 0;
+  font-size: 1rem;
   font-weight: 800;
-
-  text-align: left;
-}
-
-.dbs-data-table tbody td {
-  padding: 13px 16px;
-
-  font-size: 14px;
-
   color: var(--dbs-text);
-
-  border-bottom: 1px solid var(--dbs-border);
 }
 
-.dbs-data-table tbody tr:hover td {
+.table-count {
+  padding: 7px 14px;
+  border-radius: 999px;
   background: var(--dbs-primary-light);
+  color: var(--dbs-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
 }
 
-/* =====================================
-   SCROLLBAR
-===================================== */
+/* ==========================================================
+   TABLE
+========================================================== */
 
-.dbs-table-scroll::-webkit-scrollbar,
-.mid-type-options::-webkit-scrollbar {
+.dbs-imad-table-scroll {
+  max-height: 430px;
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+}
+
+/* ==========================================================
+   TABLE ALIGNMENT
+========================================================== */
+
+.dbs-imad-table-scroll {
+  max-height: 430px;
+  overflow-y: auto;
+  overflow-x: hidden; /* removes horizontal scrollbar */
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+}
+
+.dbs-imad-table {
+  width: 100%;
+  table-layout: fixed; /* keeps td under correct th */
+  border-collapse: collapse;
+}
+
+/* Header */
+.dbs-imad-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  height: 46px;
+  padding: 0 12px;
+  background: var(--dbs-primary);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Body */
+.dbs-imad-table tbody td {
+  height: 50px;
+  padding: 0 12px;
+  font-size: 0.88rem;
+  color: var(--dbs-text);
+  border-bottom: 1px solid var(--dbs-border);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Keep every column aligned */
+.dbs-imad-table th:nth-child(1),
+.dbs-imad-table td:nth-child(1) {
+  width: 8%;
+}
+
+.dbs-imad-table th:nth-child(2),
+.dbs-imad-table td:nth-child(2) {
+  width: 20%;
+}
+
+.dbs-imad-table th:nth-child(3),
+.dbs-imad-table td:nth-child(3) {
+  width: 12%;
+}
+
+.dbs-imad-table th:nth-child(4),
+.dbs-imad-table td:nth-child(4) {
+  width: 12%;
+}
+
+.dbs-imad-table th:nth-child(5),
+.dbs-imad-table td:nth-child(5) {
+  width: 16%;
+}
+
+.dbs-imad-table th:nth-child(6),
+.dbs-imad-table td:nth-child(6) {
+  width: 16%;
+}
+
+.dbs-imad-table th:nth-child(7),
+.dbs-imad-table td:nth-child(7) {
+  width: 16%;
+}
+
+.dbs-imad-table tbody tr:hover td {
+  background: var(--dbs-background);
+}
+.dbs-imad-table tbody tr:hover td {
+  background: var(--dbs-background);
+}
+
+.dbs-no-data {
+  height: 200px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================================
+TABLE SCROLL AREA
+========================================================== */
+
+.dbs-imad-table-scroll {
+  max-height: 430px;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
+}
+
+/* Chrome / Edge / Safari */
+
+.dbs-imad-table-scroll::-webkit-scrollbar {
   width: 8px;
-
   height: 8px;
 }
 
-.dbs-table-scroll::-webkit-scrollbar-thumb,
-.mid-type-options::-webkit-scrollbar-thumb {
-  background: var(--dbs-primary);
-
-  border-radius: 10px;
+.dbs-imad-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-/* =====================================
+.dbs-imad-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 20px;
+}
+
+.dbs-imad-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+
+/* Dropdown Scroll */
+
+.mid-type-options::-webkit-scrollbar {
+  width: 8px;
+}
+
+.mid-type-options::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mid-type-options::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 20px;
+}
+
+.mid-type-options::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+/* ==========================================================
    RESPONSIVE
-===================================== */
+========================================================== */
 
 @media (max-width: 1024px) {
   .dbs-imad-form-grid {
@@ -406,11 +506,19 @@
 
   .dbs-imad-checkbox-row {
     flex-direction: column;
-
     align-items: flex-start;
   }
 
-  .dbs-table-scroll {
+  .dbs-imad-actions {
+    flex-direction: column-reverse;
+  }
+
+  .dbs-imad-primary-btn,
+  .dbs-imad-secondary-btn {
+    width: 100%;
+  }
+
+  .dbs-imad-scroll {
     flex-direction: column;
   }
 
@@ -418,151 +526,24 @@
     min-width: 100%;
   }
 }
-.dbs-table-section {
-  flex: 1;
 
-  min-width: 600px;
+/* ==========================================================
+   ANIMATION
+========================================================== */
 
-  margin-bottom: 0;
+@keyframes dbsSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-
-.dbs-table-section h3 {
-  margin: 0 0 12px;
-
-  padding-bottom: 10px;
-
-  font-size: 16px;
-
-  font-weight: 800;
-
-  color: var(--dbs-text);
-
-  border-bottom: 1px solid var(--dbs-border);
-}
-
-.dbs-no-data {
-  text-align: center;
-
-  padding: 30px !important;
-
-  color: var(--dbs-text-light);
-
-  font-size: 14px;
-
-  font-weight: 700;
-}
-/* =====================================
-   TABLE SCROLL
-===================================== */
-
-.table-scroll-container {
-  max-height: 350px;
-
-  overflow-y: auto;
-
-  overflow-x: auto;
-
-  border: 1px solid var(--dbs-border);
-
-  border-radius: var(--dbs-radius-sm);
-}
-
-/* Keep table width */
-
-.table-scroll-container .dbs-data-table {
-  min-width: 750px;
-}
-
-/* Sticky table header */
-
-.table-scroll-container thead th {
-  position: sticky;
-
-  top: 0;
-
-  z-index: 5;
-
-  background: var(--dbs-primary);
-
-  color: white;
-}
-
-/* Scrollbar style */
-
-.table-scroll-container::-webkit-scrollbar {
-  width: 8px;
-
-  height: 8px;
-}
-
-.table-scroll-container::-webkit-scrollbar-thumb {
-  background: var(--dbs-primary);
-
-  border-radius: 10px;
-}
-/* =====================================
-   FORM ACTION BUTTONS
-===================================== */
-
-.dbs-form-actions {
-  display: flex;
-
-  justify-content: flex-end;
-
-  gap: 15px;
-
-  margin-top: 20px;
-
-  padding-top: 20px;
-
-  border-top: 1px solid var(--dbs-border);
-}
-
-.dbs-save-btn,
-.dbs-cancel-btn {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  height: 40px;
-
-  padding: 0 22px;
-
-  border-radius: var(--dbs-radius-sm);
-
-  border: none;
-
-  font-size: 14px;
-
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition: var(--dbs-transition);
-}
-
-/* Save */
-
-.dbs-save-btn {
-  background: var(--dbs-primary);
-
-  color: white;
-}
-
-.dbs-save-btn:hover {
-  opacity: 0.9;
-}
-
-/* Cancel */
-
-.dbs-cancel-btn {
-  background: #e5e7eb;
-
-  color: #374151;
-}
-
-.dbs-cancel-btn:hover {
-  background: #d1d5db;
+.dbs-imad-subtitle {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted);
 }
