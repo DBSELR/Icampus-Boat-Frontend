@@ -994,3 +994,124 @@ export const deleteTLM = async (id: string) => {
 
   return response.data;
 };
+
+
+
+// ===================== Category Type =====================
+
+export const fetchCategorytype = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}Categorytype/LoadCategorygrid`);
+    return response.data;
+  }
+  catch (error) {
+    console.error("Error fetching departments:", error);
+    throw error;
+  }
+};
+
+
+export const saveCategorytype = async (payload: any)=>{
+  try{
+    const response = await axios.post(`${API_BASE}Categorytype/CategorytypeSave`,
+      payload
+    );
+    return response.data
+  }
+  catch(error){
+    console.error("Error Saving  Regulations", error);
+    throw error;
+  }
+}
+
+
+// ===================== Designation Master =====================
+
+export const fetchDesignationList = async (workmode: string)=>{
+   try{
+    const response = await axios.post(`${API_BASE}DesignationMaster/Designationlist`,      
+      {WorkMode:workmode}
+    );
+    return response.data
+  }
+  catch(error){
+    console.error("Error Saving  Regulations", error);
+    throw error;
+  }
+}
+
+
+export const SaveDesignation = async (payload: any) => {
+    try{
+        const response = await axios.post(`${API_BASE}DesignationMaster/SaveDesignation`,    
+        payload
+    );
+
+    return response.data;
+    }
+  catch(error){
+    console.error("Error Saving  Regulations", error);
+    throw error;
+  }
+};
+
+export const DeleteDesignation = async (payload: any) => {
+    const response = await axios.post(`${API_BASE}DesignationMaster/DeleteDesignation`,
+        payload
+    );
+    return response.data;
+};
+
+export const SaveDesignationOrder = async (payload: any) => {
+    const response = await axios.post(`${API_BASE}/Designation/SaveDesignationOrder`,
+        payload
+    );
+    return response.data;
+};
+
+
+
+// ===================== SMS Template Registration =====================
+export const loadSmsTemplates = async () => {
+    try {
+        const response = await axios.get(
+            `${API_BASE}SmsTemplateRegistration/LoadSmsTemplates`
+        );
+        return response.data;
+    } catch (error) {
+        console.error("Error loading SMS Templates", error);
+        throw error;
+    }
+};
+
+
+export const saveSmsTemplate = async (payload: any) => {
+    try {
+        const response = await axios.post(
+            `${API_BASE}SmsTemplateRegistration/SaveSMSTemplate`,
+            payload
+        );
+
+        return response.data;
+    } catch (error) {
+        console.error("Error Saving SMS Template", error);
+        throw error;
+    }
+};
+
+
+export const deleteSmsTemplate = async (id: number | string) => {
+    try {
+        const response = await axios.post(
+            `${API_BASE}SmsTemplateRegistration/DeleteTemplateMaster`,
+            {
+                Ident: id
+            }
+        );
+
+        return response.data;
+    } catch (error) {
+        console.error("Delete Error", error);
+        throw error;
+    }
+};
