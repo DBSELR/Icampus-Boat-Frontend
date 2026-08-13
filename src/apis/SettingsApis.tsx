@@ -1063,7 +1063,7 @@ export const DeleteDesignation = async (payload: any) => {
 };
 
 export const SaveDesignationOrder = async (payload: any) => {
-    const response = await axios.post(`${API_BASE}/Designation/SaveDesignationOrder`,
+    const response = await axios.post(`${API_BASE}DesignationMaster/SaveDesignationOrder`,
         payload
     );
     return response.data;

@@ -154,24 +154,49 @@ const DesignationMaster = () => {
         }
     };
 
+    // const handleSaveOrder = async () => {
+    //     try {
+    //         console.log(designationLoad)
+    //         for (const item of designationLoad) {
+    //             const payload = {
+    //                 id: item.id.toString(),
+    //                 WorkMode: item.wORKMODE,
+    //                 DesigOrderId: item.desgOrdr.toString(),
+    //             };
+    //              console.log(payload)
+    //             await SaveDesignationOrder(payload);
+    //         }
+
+    //         toast.success("Designation Order Saved Successfully");
+    //         fetchdesgn();
+    //     } catch (error) {
+    //         toast.error("Unable to Save Order");
+    //     }
+    // };
+
     const handleSaveOrder = async () => {
+    console.log("Total Records:", designationLoad.length);
+    for (const item of designationLoad) {
         try {
-            for (const item of designationLoad) {
-                const payload = {
-                    id: item.id,
-                    WorkMode: item.wORKMODE,
-                    DesigOrderId: item.desgOrdr,
-                };
+            const payload = {
+                id: item.id.toString(),
+                WorkMode: item.wORKMODE,
+                DesigOrderId: item.desgOrdr.toString(),
+            };
 
-                await SaveDesignationOrder(payload);
-            }
-
-            toast.success("Designation Order Saved Successfully");
-            fetchdesgn();
-        } catch (error) {
-            toast.error("Unable to Save Order");
-        }
-    };
+            console.log("Calling API:", payload);
+            const res = await SaveDesignationOrder(payload);
+            // console.log("Response:", res);
+        }catch (error: any) {
+    console.log("Status:", error.response?.status);
+    console.log("Data:", error.response?.data);
+    console.log("Headers:", error.response?.headers);
+    console.log("Full Error:", error);
+}
+    }
+    toast.success("Designation Order Saved Successfully");
+    fetchdesgn();
+}; 
 
     useEffect(() => {
         fetchdesgn();
