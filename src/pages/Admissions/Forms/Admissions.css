@@ -51,7 +51,9 @@
 }
 
 @keyframes dbs-spin-animation {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* --- Stepper Header --- */
@@ -146,8 +148,14 @@
 }
 
 @keyframes dbs-fade-in-slide {
-  from { opacity: 0; transform: translateX(10px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .dbs-form-card {
@@ -949,4 +957,278 @@
     grid-column: span 1 / span 1;
   }
 }
+/* =========================================================
+   PHOTO & SIGNATURE UPLOAD PANEL
+   ========================================================= */
 
+.dbs-photo-upload-card {
+  align-items: stretch;
+  text-align: left;
+}
+
+.dbs-photo-upload-card h3 {
+  margin-bottom: 0;
+}
+
+/* Upload sections wrapper */
+.dbs-upload-items-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
+/* Individual upload section */
+.dbs-upload-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  background: transparent;
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  transition: var(--dbs-transition);
+}
+
+.dbs-upload-item:hover {
+  border-color: color-mix(in srgb, var(--dbs-primary) 35%, var(--dbs-border));
+  box-shadow: var(--dbs-shadow-sm);
+}
+
+/* Upload title area */
+.dbs-upload-item-header {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.dbs-upload-item-title {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--dbs-text);
+  margin-bottom: 3px;
+}
+
+.dbs-upload-item-subtitle {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--dbs-text-muted);
+  line-height: 1.4;
+}
+
+.dbs-upload-required {
+  flex-shrink: 0;
+  padding: 3px 7px;
+  border-radius: 20px;
+  background: var(--dbs-primary-light);
+  color: var(--dbs-primary);
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------
+   Photo Preview
+   --------------------------------------------------------- */
+
+.dbs-photo-preview-box {
+  width: 132px;
+  height: 158px;
+  border: 1px dashed var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: var(--dbs-transition);
+}
+
+.dbs-photo-preview-box:hover {
+  border-color: var(--dbs-primary);
+}
+
+.dbs-preview-student-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------------------------------------------------------
+   Signature Preview
+   --------------------------------------------------------- */
+
+.dbs-signature-preview-box {
+  width: 100%;
+  max-width: 280px;
+  height: 90px;
+  border: 1px dashed var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: var(--dbs-transition);
+}
+
+.dbs-signature-preview-box:hover {
+  border-color: var(--dbs-primary);
+}
+
+.dbs-preview-signature-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 8px;
+}
+
+/* ---------------------------------------------------------
+   Empty Upload Placeholder
+   --------------------------------------------------------- */
+
+.dbs-upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: var(--dbs-text-muted);
+  text-align: center;
+}
+
+.dbs-upload-placeholder svg {
+  color: var(--dbs-text-muted);
+  opacity: 0.7;
+}
+
+.dbs-upload-placeholder span {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.dbs-signature-placeholder {
+  gap: 6px;
+}
+
+/* ---------------------------------------------------------
+   Action Buttons
+   --------------------------------------------------------- */
+
+.dbs-photo-actions-box {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  width: 100%;
+  max-width: 280px;
+  margin-top: 12px;
+}
+
+.dbs-photo-btn {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 12px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  border-radius: var(--dbs-radius-sm);
+  cursor: pointer;
+  flex: 1;
+  border: 1px solid var(--dbs-border);
+  background-color: var(--dbs-surface);
+  color: var(--dbs-text);
+  transition: var(--dbs-transition);
+  outline: none;
+  white-space: nowrap;
+}
+
+.dbs-photo-btn svg {
+  flex-shrink: 0;
+}
+
+.dbs-btn-camera:hover,
+.dbs-btn-upload:hover {
+  background-color: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+}
+
+.dbs-photo-btn:active {
+  transform: translateY(1px);
+}
+
+/* ---------------------------------------------------------
+   Upload Hint
+   --------------------------------------------------------- */
+
+.dbs-upload-hint {
+  display: block;
+  margin-top: 8px;
+  color: var(--dbs-text-muted);
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------
+   Divider
+   --------------------------------------------------------- */
+
+.dbs-upload-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--dbs-border);
+  position: relative;
+}
+
+.dbs-upload-divider::after {
+  content: "AND";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 3px 9px;
+  background: var(--dbs-surface);
+  color: var(--dbs-text-muted);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ---------------------------------------------------------
+   Responsive
+   --------------------------------------------------------- */
+
+@media (max-width: 480px) {
+  .dbs-upload-item {
+    padding: 14px 12px;
+  }
+
+  .dbs-upload-item-header {
+    align-items: flex-start;
+  }
+
+  .dbs-upload-required {
+    font-size: 0.6rem;
+  }
+
+  .dbs-photo-actions-box {
+    flex-direction: column;
+    max-width: 220px;
+  }
+
+  .dbs-photo-preview-box {
+    width: 120px;
+    height: 145px;
+  }
+
+  .dbs-signature-preview-box {
+    height: 80px;
+  }
+}

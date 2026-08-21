@@ -5,9 +5,10 @@ import {
   bindInternalDates,
   bindInternalDatesflag2,
   bindRegulation,
+  getMidTypeMaster,
   saveInternalDates,
 } from "../../../apis/SettingsApis";
-import { getMidTypeMaster, getProgramme, getYear } from "../../../apis/Common";
+import { getProgramme, getYear } from "../../../apis/Common";
 import { toast } from "sonner";
 
 const InternalMarksAllowedDate = () => {

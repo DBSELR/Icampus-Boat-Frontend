@@ -1,8 +1,21 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import {
-  School, CreditCard, Wallet, BookOpen, Users, Settings, UserCheck, Award,
-  ShieldAlert, FileText, Settings2, ShieldQuestion, HelpCircle, Heart, Bell
+  School,
+  CreditCard,
+  Wallet,
+  BookOpen,
+  Users,
+  Settings,
+  UserCheck,
+  Award,
+  ShieldAlert,
+  FileText,
+  Settings2,
+  ShieldQuestion,
+  HelpCircle,
+  Heart,
+  Bell,
 } from "lucide-react";
 import { toast } from "sonner";
 import "./Home.css";
@@ -42,14 +55,25 @@ const LANDING_MODULES = [
   { id: "library", name: "Library", icon: BookOpen, color: "blue" },
   { id: "transport", name: "Transport", icon: BusIcon, color: "orange" },
   { id: "discipline", name: "Discipline", icon: ShieldAlert, color: "purple" },
-  { id: "performance", name: "Performance", icon: PerformanceIcon, color: "emerald" },
+  {
+    id: "performance",
+    name: "Performance",
+    icon: PerformanceIcon,
+    color: "emerald",
+  },
   { id: "hostels", name: "Hostels", icon: School, color: "pink" },
   { id: "medicare", name: "Medicare", icon: Heart, color: "teal" },
   { id: "front-office", name: "Front Office", icon: Users, color: "slate" },
-  { id: "People's Connect", icon: Users, color: "blue", name: "People's Connect", displayName: "Groups", },
+  {
+    id: "People's Connect",
+    icon: Users,
+    color: "blue",
+    name: "People's Connect",
+    displayName: "Groups",
+  },
   { id: "tappal", name: "Tappal", icon: FileText, color: "orange" },
   { id: "establishment", name: "Establishment", icon: School, color: "purple" },
-  { id: "settings", name: "Settings", icon: Settings2, color: "slate" }
+  { id: "settings", name: "Settings", icon: Settings2, color: "slate" },
 ];
 
 const getUserData = () => safeJsonParse<any>(localStorage.getItem("user"), {});
@@ -69,7 +93,18 @@ const forms = user?.forms || [];
 // Helper icons that aren't native to Lucide
 function BusIcon(props: any) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
       <rect x="2" y="6" width="20" height="12" rx="2" />
       <path d="M17 18h2a2 2 0 0 0 2-2v-3" />
       <path d="M7 18h8" />
@@ -82,7 +117,18 @@ function BusIcon(props: any) {
 
 function CalculatorIcon(props: any) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
       <rect x="4" y="2" width="16" height="20" rx="2" />
       <line x1="9" y1="22" x2="9" y2="16" />
       <line x1="8" y1="6" x2="16" y2="6" />
@@ -95,7 +141,18 @@ function CalculatorIcon(props: any) {
 
 function PerformanceIcon(props: any) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
       <path d="M3 3v18h18" />
       <path d="m19 9-5 5-4-4-3 3" />
     </svg>
@@ -153,7 +210,6 @@ function PerformanceIcon(props: any) {
 //   );
 // };
 
-
 // export default Home;
 
 export const Home: React.FC = () => {
@@ -168,10 +224,11 @@ export const Home: React.FC = () => {
     console.log("Module clicked:", module);
     const subMenus = safeJsonParse<any[]>(localStorage.getItem("subMenus"), []);
 
-    const menu = subMenus.find((m: any) =>
-      normalize(m.menuName) === normalize(module.name) ||
-      normalize(m.menuName).includes(normalize(module.name)) ||
-      normalize(module.name).includes(normalize(m.menuName))
+    const menu = subMenus.find(
+      (m: any) =>
+        normalize(m.menuName) === normalize(module.name) ||
+        normalize(m.menuName).includes(normalize(module.name)) ||
+        normalize(module.name).includes(normalize(m.menuName)),
     );
 
     if (!menu) {
@@ -180,9 +237,8 @@ export const Home: React.FC = () => {
     }
 
     const firstSubMenu = subMenus.find(
-      (s: any) => String(s.menuId) === String(menu.menuId)
+      (s: any) => String(s.menuId) === String(menu.menuId),
     );
-
 
     if (firstSubMenu) {
       console.log("Clicked Module:", module.name);
@@ -198,16 +254,12 @@ export const Home: React.FC = () => {
     }
     console.log(
       "Saved selectedMenuId:",
-      localStorage.getItem("selectedMenuId")
+      localStorage.getItem("selectedMenuId"),
     );
-
   };
-
-
 
   return (
     <div className="dbs-landing-page-container">
-
       {/* Central Branding */}
       <div className="dbs-landing-central-brand">
         <div className="dbs-landing-brand-header">
@@ -257,10 +309,8 @@ export const Home: React.FC = () => {
           );
         })}
       </div>
-
     </div>
   );
 };
 
 export default Home;
-

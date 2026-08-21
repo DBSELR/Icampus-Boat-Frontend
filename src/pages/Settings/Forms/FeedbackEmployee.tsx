@@ -67,10 +67,7 @@ const FeedbackEmployee = () => {
         userType: "EMPLOYEE",
       };
 
-  
       const response = await saveFeedBackReg(payload);
- 
-
       if (response?.message === "Success" || response?.rowsAffected > 0) {
         toast.success("Feedback submitted successfully");
         setFeedback("");

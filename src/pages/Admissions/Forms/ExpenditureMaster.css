@@ -1,0 +1,873 @@
+/* ==========================================================
+   CONTAINER
+========================================================== */
+
+.dbs-expenditure-master-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+.dbs-expenditure-master-container *,
+.dbs-expenditure-master-container *::before,
+.dbs-expenditure-master-container *::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================================
+   PAGE HEADER
+========================================================== */
+
+.dbs-expenditure-master-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-expenditure-master-header h2 {
+  margin: 0;
+  color: var(--dbs-text);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.dbs-expenditure-master-subtitle {
+  margin: 6px 0 0;
+  color: var(--dbs-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ==========================================================
+   FORM CARD
+========================================================== */
+
+.dbs-expenditure-master-form-card {
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  animation: dbsExpenditureMasterSlideUp 0.25s ease;
+}
+
+.dbs-expenditure-master-form-card h3 {
+  margin: 0;
+  padding-bottom: 14px;
+  color: var(--dbs-text);
+  border-bottom: 1px solid var(--dbs-border);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* ==========================================================
+   FORM GRID
+========================================================== */
+
+.dbs-expenditure-master-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+/* ==========================================================
+   FORM INPUT
+========================================================== */
+
+.dbs-expenditure-master-input {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.dbs-expenditure-master-input label {
+  margin-bottom: 8px;
+  color: var(--dbs-text);
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.dbs-expenditure-required {
+  color: #dc2626;
+  margin-left: 2px;
+}
+
+/* ==========================================================
+   INPUTS / SELECTS
+========================================================== */
+
+.dbs-expenditure-master-input input,
+.dbs-expenditure-master-input select {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  color: var(--dbs-text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+/* ==========================================================
+   INPUT HOVER
+========================================================== */
+
+.dbs-expenditure-master-input input:hover,
+.dbs-expenditure-master-input select:hover {
+  border-color: var(--dbs-primary);
+}
+
+/* ==========================================================
+   INPUT FOCUS
+========================================================== */
+
+.dbs-expenditure-master-input input:focus,
+.dbs-expenditure-master-input select:focus {
+  border-color: var(--dbs-primary);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+}
+
+/* ==========================================================
+   SELECT
+========================================================== */
+
+.dbs-expenditure-master-input select {
+  cursor: pointer;
+}
+
+.dbs-expenditure-master-input select option {
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+}
+
+/* ==========================================================
+   NUMBER INPUT
+========================================================== */
+
+.dbs-expenditure-master-input input[type="number"] {
+  appearance: textfield;
+}
+
+.dbs-expenditure-master-input input[type="number"]::-webkit-inner-spin-button,
+.dbs-expenditure-master-input input[type="number"]::-webkit-outer-spin-button {
+  margin: 0;
+}
+
+/* ==========================================================
+   PLACEHOLDER
+========================================================== */
+
+.dbs-expenditure-master-input input::placeholder {
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================================
+   ACTION AREA
+========================================================== */
+
+.dbs-expenditure-master-actions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--dbs-border);
+}
+
+/* ==========================================================
+   ACTION BUTTON BASE
+========================================================== */
+
+.dbs-expenditure-master-actions button {
+  min-width: 120px;
+  height: 44px;
+  padding: 0 22px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border-radius: var(--dbs-radius-sm);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+/* ==========================================================
+   SAVE BUTTON
+========================================================== */
+
+.dbs-expenditure-master-save-btn {
+  background: var(--dbs-primary);
+  border: 1px solid var(--dbs-primary);
+  color: #ffffff;
+  box-shadow: var(--dbs-shadow);
+}
+
+.dbs-expenditure-master-save-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.dbs-expenditure-master-save-btn:active {
+  transform: scale(0.98);
+}
+
+.dbs-expenditure-master-save-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* ==========================================================
+   CANCEL BUTTON
+========================================================== */
+
+.dbs-expenditure-master-cancel-btn {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  color: var(--dbs-text);
+}
+
+.dbs-expenditure-master-cancel-btn:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
+}
+
+.dbs-expenditure-master-cancel-btn:active {
+  transform: scale(0.98);
+}
+
+.dbs-expenditure-master-cancel-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* ==========================================================
+   TABLE HEADER
+========================================================== */
+
+.dbs-expenditure-master-table-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-expenditure-master-table-header h2 {
+  margin: 0;
+  color: var(--dbs-text);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.dbs-expenditure-master-table-header p {
+  margin: 6px 0 0;
+  color: var(--dbs-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ==========================================================
+   TABLE OUTER CONTAINER
+========================================================== */
+
+.dbs-expenditure-master-table-container {
+  width: 100%;
+  padding: 18px;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  animation: dbsExpenditureMasterSlideUp 0.25s ease;
+}
+
+/* ==========================================================
+   TABLE CARD
+========================================================== */
+
+.dbs-expenditure-table-card {
+  width: 100%;
+  overflow: hidden;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+}
+
+/* ==========================================================
+   TABLE SCROLL
+========================================================== */
+
+.dbs-expenditure-table-scroll {
+  width: 100%;
+  max-height: 430px;
+  overflow-x: auto;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
+}
+
+.dbs-expenditure-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dbs-expenditure-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dbs-expenditure-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 20px;
+}
+
+.dbs-expenditure-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+
+/* ==========================================================
+   DATA TABLE
+========================================================== */
+
+.dbs-expenditure-data-table {
+  width: 100%;
+  min-width: 1050px;
+
+  border-collapse: separate;
+  border-spacing: 0;
+
+  table-layout: fixed;
+}
+
+/* ==========================================================
+   TABLE HEADER
+========================================================== */
+
+.dbs-expenditure-data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  height: 46px;
+  padding: 0 16px;
+
+  background: var(--dbs-primary);
+  color: #ffffff;
+
+  border-bottom: 2px solid var(--dbs-primary);
+
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  line-height: 1.2;
+
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ==========================================================
+   HEADER CORNERS
+========================================================== */
+
+.dbs-expenditure-data-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
+}
+
+.dbs-expenditure-data-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
+}
+
+/* ==========================================================
+   COLUMN WIDTHS
+
+   1 - SL.NO
+   2 - COURSE
+   3 - YEAR
+   4 - EXPENDITURE HEAD
+   5 - AMOUNT
+   6 - EDIT
+   7 - DELETE
+========================================================== */
+
+.dbs-expenditure-data-table th:nth-child(1),
+.dbs-expenditure-data-table td:nth-child(1) {
+  width: 8%;
+}
+
+.dbs-expenditure-data-table th:nth-child(2),
+.dbs-expenditure-data-table td:nth-child(2) {
+  width: 18%;
+}
+
+.dbs-expenditure-data-table th:nth-child(3),
+.dbs-expenditure-data-table td:nth-child(3) {
+  width: 13%;
+}
+
+.dbs-expenditure-data-table th:nth-child(4),
+.dbs-expenditure-data-table td:nth-child(4) {
+  width: 28%;
+}
+
+.dbs-expenditure-data-table th:nth-child(5),
+.dbs-expenditure-data-table td:nth-child(5) {
+  width: 15%;
+}
+
+.dbs-expenditure-data-table th:nth-child(6),
+.dbs-expenditure-data-table td:nth-child(6) {
+  width: 9%;
+}
+
+.dbs-expenditure-data-table th:nth-child(7),
+.dbs-expenditure-data-table td:nth-child(7) {
+  width: 9%;
+}
+
+/* ==========================================================
+   TABLE BODY
+========================================================== */
+
+.dbs-expenditure-data-table tbody td {
+  height: 54px;
+  padding: 0 16px;
+
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  font-size: 0.88rem;
+  line-height: 1.4;
+
+  vertical-align: middle;
+}
+
+/* ==========================================================
+   TABLE ROW
+========================================================== */
+
+.dbs-expenditure-data-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.dbs-expenditure-data-table tbody tr:hover td {
+  background: var(--dbs-primary-light);
+}
+
+.dbs-expenditure-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ==========================================================
+   CELL ALIGNMENT
+========================================================== */
+
+.dbs-expenditure-data-table th:first-child,
+.dbs-expenditure-data-table td:first-child {
+  text-align: center;
+}
+
+.dbs-expenditure-data-table th:nth-child(3),
+.dbs-expenditure-data-table td:nth-child(3) {
+  text-align: center;
+}
+
+.dbs-expenditure-data-table th:nth-child(5),
+.dbs-expenditure-data-table td:nth-child(5) {
+  text-align: right;
+}
+
+.dbs-expenditure-data-table th:nth-child(6),
+.dbs-expenditure-data-table td:nth-child(6),
+.dbs-expenditure-data-table th:nth-child(7),
+.dbs-expenditure-data-table td:nth-child(7) {
+  text-align: center;
+}
+
+/* ==========================================================
+   COURSE
+========================================================== */
+
+.dbs-expenditure-data-table td:nth-child(2) {
+  font-weight: 700;
+}
+
+/* ==========================================================
+   AMOUNT
+========================================================== */
+
+.dbs-expenditure-amount-cell {
+  font-weight: 700;
+  color: var(--dbs-primary) !important;
+  white-space: nowrap;
+}
+
+/* ==========================================================
+   EDIT BUTTON
+========================================================== */
+
+.dbs-expenditure-edit-btn,
+.dbs-expenditure-delete-btn {
+  width: 34px;
+  height: 34px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--dbs-radius-sm);
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.dbs-expenditure-edit-btn {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  color: var(--dbs-primary);
+}
+
+.dbs-expenditure-edit-btn:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  transform: translateY(-2px);
+}
+
+.dbs-expenditure-edit-btn:active {
+  transform: scale(0.95);
+}
+
+/* ==========================================================
+   DELETE BUTTON
+========================================================== */
+
+.dbs-expenditure-delete-btn {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  color: #dc2626;
+}
+
+.dbs-expenditure-delete-btn:hover {
+  background: #fef2f2;
+  border-color: #dc2626;
+  color: #dc2626;
+  transform: translateY(-2px);
+}
+
+.dbs-expenditure-delete-btn:active {
+  transform: scale(0.95);
+}
+
+/* ==========================================================
+   EMPTY STATE
+========================================================== */
+
+.dbs-expenditure-empty-state {
+  min-height: 240px;
+  padding: 40px 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  gap: 10px;
+
+  color: var(--dbs-text-muted);
+}
+
+.dbs-expenditure-empty-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 4px;
+  color: var(--dbs-primary);
+}
+
+.dbs-expenditure-empty-title {
+  color: var(--dbs-text);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.dbs-expenditure-empty-desc {
+  max-width: 420px;
+  color: var(--dbs-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+/* ==========================================================
+   ANIMATION
+========================================================== */
+
+@keyframes dbsExpenditureMasterSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================
+   LARGE TABLET
+========================================================== */
+
+@media (max-width: 1200px) {
+  .dbs-expenditure-master-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dbs-expenditure-master-form-card {
+    padding: 22px;
+  }
+
+  .dbs-expenditure-master-table-container {
+    padding: 16px;
+  }
+}
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width: 1024px) {
+  .dbs-expenditure-master-container {
+    gap: 20px;
+  }
+
+  .dbs-expenditure-master-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .dbs-expenditure-master-form-card {
+    padding: 20px;
+  }
+
+  .dbs-expenditure-master-table-container {
+    padding: 14px;
+  }
+
+  .dbs-expenditure-data-table {
+    min-width: 1050px;
+  }
+}
+
+/* ==========================================================
+   MOBILE / TABLET
+========================================================== */
+
+@media (max-width: 768px) {
+  .dbs-expenditure-master-container {
+    gap: 18px;
+  }
+
+  /* Header */
+
+  .dbs-expenditure-master-header,
+  .dbs-expenditure-master-table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .dbs-expenditure-master-header h2,
+  .dbs-expenditure-master-table-header h2 {
+    font-size: 1.25rem;
+  }
+
+  /* Form */
+
+  .dbs-expenditure-master-form-card {
+    padding: 18px;
+    gap: 18px;
+  }
+
+  .dbs-expenditure-master-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Actions */
+
+  .dbs-expenditure-master-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .dbs-expenditure-master-actions button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Table */
+
+  .dbs-expenditure-master-table-container {
+    padding: 12px;
+  }
+
+  .dbs-expenditure-data-table {
+    min-width: 1050px;
+  }
+
+  .dbs-expenditure-data-table thead th {
+    height: 44px;
+    padding: 0 12px;
+    font-size: 0.72rem;
+  }
+
+  .dbs-expenditure-data-table tbody td {
+    height: 52px;
+    padding: 0 12px;
+    font-size: 0.82rem;
+  }
+}
+
+/* ==========================================================
+   SMALL MOBILE
+========================================================== */
+
+@media (max-width: 480px) {
+  .dbs-expenditure-master-form-card {
+    padding: 16px;
+    border-radius: var(--dbs-radius-sm);
+  }
+
+  .dbs-expenditure-master-form-card h3 {
+    font-size: 1rem;
+  }
+
+  .dbs-expenditure-master-header h2,
+  .dbs-expenditure-master-table-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .dbs-expenditure-master-subtitle,
+  .dbs-expenditure-master-table-header p {
+    font-size: 0.82rem;
+  }
+
+  .dbs-expenditure-master-input label {
+    font-size: 0.82rem;
+  }
+
+  .dbs-expenditure-master-input input,
+  .dbs-expenditure-master-input select {
+    height: 42px;
+    font-size: 0.85rem;
+  }
+
+  .dbs-expenditure-master-actions button {
+    height: 42px;
+    font-size: 0.85rem;
+  }
+
+  .dbs-expenditure-master-table-container {
+    padding: 10px;
+    border-radius: var(--dbs-radius-sm);
+  }
+
+  .dbs-expenditure-empty-state {
+    min-height: 210px;
+    padding: 30px 16px;
+  }
+
+  .dbs-expenditure-empty-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .dbs-expenditure-empty-title {
+    font-size: 1rem;
+  }
+
+  .dbs-expenditure-empty-desc {
+    font-size: 0.82rem;
+  }
+}
+
+/* ==========================================================
+   EXTRA SMALL MOBILE
+========================================================== */
+
+@media (max-width: 360px) {
+  .dbs-expenditure-master-form-card {
+    padding: 12px;
+  }
+
+  .dbs-expenditure-master-table-container {
+    padding: 8px;
+  }
+
+  .dbs-expenditure-data-table {
+    min-width: 1000px;
+  }
+}
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .dbs-expenditure-master-form-card,
+  .dbs-expenditure-master-table-container {
+    animation: none;
+  }
+
+  .dbs-expenditure-master-actions button,
+  .dbs-expenditure-master-input input,
+  .dbs-expenditure-master-input select,
+  .dbs-expenditure-edit-btn,
+  .dbs-expenditure-delete-btn {
+    transition: none;
+  }
+}

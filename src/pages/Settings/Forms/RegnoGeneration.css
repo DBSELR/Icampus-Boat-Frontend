@@ -1,0 +1,1157 @@
+/* =========================================================
+   REGISTRATION NUMBER GENERATION
+   Professional Admin UI
+   ========================================================= */
+
+.rgn-generation-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+.rgn-generation-container *,
+.rgn-generation-container *::before,
+.rgn-generation-container *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.rgn-page-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 0 14px;
+
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.rgn-page-header h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.3;
+  font-weight: 800;
+  color: var(--dbs-text);
+  letter-spacing: -0.2px;
+}
+
+.rgn-page-header p {
+  margin: 5px 0 0;
+
+  font-size: 0.84rem;
+  line-height: 1.5;
+  font-weight: 500;
+
+  color: var(--dbs-text-muted);
+}
+
+/* =========================================================
+   FORM CARD
+   ========================================================= */
+
+.rgn-form-card {
+  width: 100%;
+
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+
+  box-shadow: var(--dbs-shadow);
+
+  animation: rgnSlideUp 0.3s ease;
+}
+
+/* =========================================================
+   CARD HEADING
+   ========================================================= */
+
+.rgn-card-heading {
+  width: 100%;
+
+  padding-bottom: 13px;
+
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.rgn-card-heading h3 {
+  margin: 0;
+
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 750;
+
+  color: var(--dbs-text);
+}
+
+.rgn-card-heading p {
+  margin: 4px 0 0;
+
+  font-size: 0.82rem;
+  line-height: 1.5;
+
+  color: var(--dbs-text-muted);
+}
+
+/* =========================================================
+   BASIC DETAILS
+   Course | Branch | Year | Section | Admission Type
+   ========================================================= */
+
+.rgn-form-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1.25fr
+    0.85fr
+    0.7fr
+    1fr;
+
+  gap: 10px;
+
+  align-items: end;
+}
+
+.rgn-input-group {
+  width: 100%;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.rgn-input-group > label,
+.rgn-format-field > label {
+  margin-bottom: 6px;
+
+  font-size: 0.78rem;
+  font-weight: 650;
+
+  color: var(--dbs-text);
+}
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.rgn-input-group input,
+.rgn-format-field input {
+  width: 100%;
+  height: 40px;
+
+  padding: 0 11px;
+
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+
+  font-family: inherit;
+  font-size: 0.83rem;
+  font-weight: 500;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.rgn-input-group input::placeholder,
+.rgn-format-field input::placeholder {
+  color: var(--dbs-text-muted);
+}
+
+.rgn-input-group input:hover,
+.rgn-format-field input:hover {
+  border-color: var(--dbs-primary);
+}
+
+.rgn-input-group input:focus,
+.rgn-format-field input:focus {
+  border-color: var(--dbs-primary);
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* =========================================================
+   CUSTOM DROPDOWN
+   ========================================================= */
+
+.rgn-custom-dropdown {
+  position: relative;
+
+  width: 100%;
+}
+
+.rgn-dropdown-trigger {
+  width: 100%;
+  height: 40px;
+
+  padding: 0 11px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 8px;
+
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+
+  color: var(--dbs-text);
+
+  font-family: inherit;
+  font-size: 0.83rem;
+  font-weight: 550;
+
+  cursor: pointer;
+  text-align: left;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.rgn-dropdown-trigger:hover {
+  border-color: var(--dbs-primary);
+  background: var(--dbs-primary-light);
+}
+
+.rgn-dropdown-trigger:focus-visible {
+  outline: none;
+
+  border-color: var(--dbs-primary);
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+.rgn-placeholder {
+  color: var(--dbs-text-muted);
+}
+
+.rgn-chevron {
+  flex-shrink: 0;
+
+  color: var(--dbs-text-muted);
+
+  transition: transform 0.2s ease;
+}
+
+.rgn-chevron-open {
+  transform: rotate(180deg);
+
+  color: var(--dbs-primary);
+}
+
+/* =========================================================
+   DROPDOWN MENU
+   ========================================================= */
+
+.rgn-dropdown-menu {
+  position: absolute;
+
+  top: calc(100% + 5px);
+  left: 0;
+
+  width: 100%;
+  max-height: 220px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  padding: 4px;
+
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+  z-index: 9999;
+
+  animation: rgnDropdownIn 0.16s ease;
+}
+
+.rgn-dropdown-item {
+  min-height: 36px;
+
+  padding: 0 10px;
+
+  display: flex;
+  align-items: center;
+
+  border-radius: 5px;
+
+  color: var(--dbs-text);
+
+  font-size: 0.82rem;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.rgn-dropdown-item:hover {
+  background: var(--dbs-primary-light);
+
+  color: var(--dbs-primary);
+}
+
+/* =========================================================
+   REGNO FORMAT WRAPPER
+   Matches JSX:
+   .rgn-regno-format-wrapper
+   .rgn-format-fields-row
+   ========================================================= */
+
+.rgn-regno-format-wrapper {
+  width: 100%;
+
+  padding: 14px;
+
+  background: var(--dbs-bg);
+
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+}
+
+.rgn-regno-format-label {
+  display: block;
+
+  margin-bottom: 9px;
+
+  font-size: 0.79rem;
+  font-weight: 700;
+
+  color: var(--dbs-text);
+}
+
+.rgn-format-fields-row {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+
+  gap: 9px;
+}
+
+/* =========================================================
+   COMPACT FORMAT DROPDOWNS
+   ========================================================= */
+
+.rgn-format-dropdown-item {
+  min-width: 0;
+}
+
+.rgn-format-trigger {
+  height: 38px;
+
+  padding: 0 9px;
+
+  font-size: 0.78rem;
+}
+
+.rgn-format-trigger .rgn-chevron {
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   YEAR + SAMPLE ROW
+   Matches JSX:
+   .rgn-format-details-row
+   ========================================================= */
+
+.rgn-format-details-row {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(180px, 0.7fr)
+    minmax(300px, 1.3fr);
+
+  gap: 12px;
+
+  align-items: end;
+}
+
+.rgn-format-field {
+  width: 100%;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================================
+   SAMPLE REGISTRATION NUMBER
+   ========================================================= */
+
+.rgn-sample-field input {
+  background: linear-gradient(
+    135deg,
+    var(--dbs-primary-light),
+    var(--dbs-surface)
+  );
+
+  color: var(--dbs-primary);
+
+  font-weight: 800;
+
+  letter-spacing: 0.6px;
+
+  cursor: default;
+}
+
+.rgn-sample-field input::placeholder {
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* =========================================================
+   FORM ACTIONS
+   ========================================================= */
+
+.rgn-form-actions {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 9px;
+
+  margin-top: 1px;
+}
+
+.rgn-form-actions button {
+  height: 40px;
+
+  min-width: 105px;
+
+  padding: 0 17px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border-radius: var(--dbs-radius-sm);
+
+  font-family: inherit;
+  font-size: 0.83rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
+}
+
+/* Secondary */
+
+.rgn-secondary-btn {
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  color: var(--dbs-text);
+}
+
+.rgn-secondary-btn:hover {
+  background: var(--dbs-primary-light);
+
+  border-color: var(--dbs-primary);
+
+  color: var(--dbs-primary);
+
+  transform: translateY(-1px);
+}
+
+/* Primary */
+
+.rgn-primary-btn {
+  background: var(--dbs-primary);
+
+  border: 1px solid var(--dbs-primary);
+
+  color: #ffffff;
+
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.rgn-primary-btn:hover {
+  filter: brightness(1.07);
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+}
+
+.rgn-primary-btn:active,
+.rgn-secondary-btn:active {
+  transform: scale(0.98);
+}
+
+/* =========================================================
+   TABLE HEADER
+   ========================================================= */
+
+.rgn-table-header {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding-bottom: 13px;
+
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.rgn-table-header h2 {
+  margin: 0;
+
+  font-size: 1.18rem;
+  line-height: 1.4;
+  font-weight: 800;
+
+  color: var(--dbs-text);
+
+  letter-spacing: -0.15px;
+}
+
+.rgn-table-header p {
+  margin: 4px 0 0;
+
+  font-size: 0.81rem;
+
+  color: var(--dbs-text-muted);
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.rgn-search-box {
+  width: 290px;
+  height: 40px;
+
+  padding: 0 11px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+
+  color: var(--dbs-text-muted);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.rgn-search-box:focus-within {
+  border-color: var(--dbs-primary);
+
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+.rgn-search-box input {
+  width: 100%;
+  min-width: 0;
+
+  padding: 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: var(--dbs-text);
+
+  font-family: inherit;
+  font-size: 0.82rem;
+}
+
+.rgn-search-box input::placeholder {
+  color: var(--dbs-text-muted);
+}
+
+/* =========================================================
+   TABLE CONTAINER
+   ========================================================= */
+
+.rgn-table-container {
+  width: 100%;
+
+  padding: 14px;
+
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+
+  box-shadow: var(--dbs-shadow);
+
+  overflow: hidden;
+
+  animation: rgnSlideUp 0.3s ease;
+}
+
+.rgn-table-card {
+  width: 100%;
+
+  overflow: hidden;
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: var(--dbs-radius-sm);
+
+  background: var(--dbs-surface);
+}
+
+.rgn-table-scroll {
+  width: 100%;
+
+  max-height: 430px;
+
+  overflow-x: auto;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+
+  scrollbar-color: var(--dbs-border) transparent;
+}
+
+.rgn-table-scroll::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.rgn-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.rgn-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+
+  border-radius: 20px;
+}
+
+.rgn-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+
+/* =========================================================
+   DATA TABLE
+   ========================================================= */
+
+.rgn-data-table {
+  width: 100%;
+
+  min-width: 1150px;
+
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  background: var(--dbs-surface);
+
+  table-layout: fixed;
+
+  font-size: 0.83rem;
+}
+
+/* Header */
+
+.rgn-data-table thead {
+  background: var(--dbs-primary);
+}
+
+.rgn-data-table th {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 10;
+
+  height: 43px;
+
+  padding: 0 13px;
+
+  background: var(--dbs-primary);
+
+  color: #ffffff;
+
+  font-size: 0.7rem;
+  font-weight: 750;
+
+  letter-spacing: 0.35px;
+
+  text-align: left;
+
+  white-space: nowrap;
+
+  border: none;
+}
+
+/* Body */
+
+.rgn-data-table td {
+  height: 50px;
+
+  padding: 0 13px;
+
+  background: var(--dbs-surface);
+
+  color: var(--dbs-text);
+
+  border: none;
+
+  border-bottom: 1px solid var(--dbs-border);
+
+  white-space: nowrap;
+
+  vertical-align: middle;
+}
+
+.rgn-data-table tbody tr {
+  transition: background 0.18s ease;
+}
+
+.rgn-data-table tbody tr:hover td {
+  background: var(--dbs-primary-light);
+}
+
+.rgn-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================================================
+   TABLE COLUMN WIDTHS
+   ========================================================= */
+
+.rgn-data-table th:nth-child(1),
+.rgn-data-table td:nth-child(1) {
+  width: 60px;
+  text-align: center;
+}
+
+.rgn-data-table th:nth-child(2),
+.rgn-data-table td:nth-child(2) {
+  width: 110px;
+}
+
+.rgn-data-table th:nth-child(3),
+.rgn-data-table td:nth-child(3) {
+  width: 170px;
+}
+
+.rgn-data-table th:nth-child(4),
+.rgn-data-table td:nth-child(4) {
+  width: 110px;
+}
+
+.rgn-data-table th:nth-child(5),
+.rgn-data-table td:nth-child(5) {
+  width: 85px;
+  text-align: center;
+}
+
+.rgn-data-table th:nth-child(6),
+.rgn-data-table td:nth-child(6) {
+  width: 140px;
+}
+
+.rgn-data-table th:nth-child(7),
+.rgn-data-table td:nth-child(7) {
+  width: 175px;
+}
+
+.rgn-data-table th:nth-child(8),
+.rgn-data-table td:nth-child(8) {
+  width: 170px;
+}
+
+.rgn-data-table th:nth-child(9),
+.rgn-data-table td:nth-child(9) {
+  width: 105px;
+  text-align: center;
+}
+
+/* =========================================================
+   REGISTRATION NUMBER BADGE
+   ========================================================= */
+
+.rgn-regno {
+  display: inline-flex;
+
+  align-items: center;
+
+  min-height: 27px;
+
+  padding: 4px 9px;
+
+  border-radius: 6px;
+
+  background: var(--dbs-primary-light);
+
+  color: var(--dbs-primary);
+
+  font-size: 0.76rem;
+
+  font-weight: 800;
+
+  letter-spacing: 0.35px;
+
+  border: 1px solid transparent;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+.rgn-action-buttons {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+}
+
+.rgn-action-btn {
+  width: 31px;
+  height: 31px;
+
+  padding: 0;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: var(--dbs-surface);
+
+  border: 1px solid var(--dbs-border);
+
+  border-radius: var(--dbs-radius-sm);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+/* Edit */
+
+.rgn-edit-btn {
+  color: var(--dbs-primary);
+}
+
+.rgn-edit-btn:hover {
+  background: var(--dbs-primary-light);
+
+  border-color: var(--dbs-primary);
+
+  transform: translateY(-1px);
+}
+
+/* Delete */
+
+.rgn-delete-btn {
+  color: var(--dbs-danger);
+}
+
+.rgn-delete-btn:hover {
+  background: var(--dbs-danger-light);
+
+  border-color: var(--dbs-danger);
+
+  transform: translateY(-1px);
+}
+
+.rgn-action-btn:active {
+  transform: scale(0.94);
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.rgn-empty-state {
+  min-height: 250px;
+
+  padding: 35px 20px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  text-align: center;
+}
+
+.rgn-empty-icon {
+  width: 52px;
+  height: 52px;
+
+  color: var(--dbs-text-muted);
+
+  opacity: 0.6;
+}
+
+.rgn-empty-title {
+  font-size: 1rem;
+
+  font-weight: 700;
+
+  color: var(--dbs-text);
+}
+
+.rgn-empty-description {
+  max-width: 420px;
+
+  font-size: 0.82rem;
+
+  line-height: 1.55;
+
+  color: var(--dbs-text-muted);
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes rgnSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rgnDropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE - 1200px
+   ========================================================= */
+
+@media (max-width: 1200px) {
+  .rgn-form-grid {
+    grid-template-columns: repeat(5, minmax(120px, 1fr));
+  }
+
+  .rgn-format-fields-row {
+    grid-template-columns: repeat(5, minmax(105px, 1fr));
+  }
+}
+
+/* =========================================================
+   RESPONSIVE - 1024px
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  .rgn-form-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .rgn-format-fields-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .rgn-format-details-row {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .rgn-search-box {
+    width: 250px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE - 768px
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .rgn-generation-container {
+    gap: 16px;
+  }
+
+  .rgn-page-header,
+  .rgn-table-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 11px;
+  }
+
+  .rgn-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rgn-format-fields-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rgn-format-details-row {
+    grid-template-columns: 1fr;
+  }
+
+  .rgn-form-card {
+    padding: 16px;
+  }
+
+  .rgn-form-actions {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .rgn-form-actions button {
+    width: 100%;
+  }
+
+  .rgn-search-box {
+    width: 100%;
+  }
+
+  .rgn-table-container {
+    padding: 10px;
+  }
+
+  .rgn-table-scroll {
+    max-height: 400px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE - 480px
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .rgn-page-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .rgn-page-header p {
+    font-size: 0.78rem;
+  }
+
+  .rgn-form-card {
+    padding: 14px;
+
+    gap: 15px;
+  }
+
+  .rgn-form-grid {
+    grid-template-columns: 1fr;
+
+    gap: 8px;
+  }
+
+  .rgn-regno-format-wrapper {
+    padding: 11px;
+  }
+
+  .rgn-format-fields-row {
+    grid-template-columns: 1fr;
+
+    gap: 7px;
+  }
+
+  .rgn-format-details-row {
+    grid-template-columns: 1fr;
+
+    gap: 10px;
+  }
+
+  .rgn-dropdown-trigger {
+    height: 39px;
+
+    font-size: 0.81rem;
+  }
+
+  .rgn-table-container {
+    padding: 8px;
+  }
+
+  .rgn-data-table {
+    min-width: 1150px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .rgn-generation-container *,
+  .rgn-generation-container *::before,
+  .rgn-generation-container *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

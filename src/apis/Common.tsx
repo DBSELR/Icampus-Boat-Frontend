@@ -29,30 +29,49 @@ export const getYear = async (programme: string) => {
   return response.data;
 };
 
-export const getPeriodTimeList = async (programme: string) => {
-  const response = await axios.post(
-    `${API_BASE}PeriodSettings/GetPeriodTimeList`,
-    {
-      programme: programme,
+export const getBranch = async (programme: string) => {
+  const academicYear = localStorage.getItem("academicYear");
+  const response = await axios.post(`${API_BASE}Commonfields/GetBranch`, null, {
+    params: {
+      PROGRAMME: programme,
+      ACADEMICYEAR: academicYear,
     },
-  );
+  });
 
   return response.data;
 };
 
-export const savePeriodTime = async (payload: any) => {
-  const response = await axios.post(
-    `${API_BASE}PeriodSettings/SavePeriodTime`,
-    payload,
-  );
+export const getReguList = async () => {
+  try {
+    const response = await axios.get(
+      `${API_BASE}SubjectsMaster/GetRegulationList`,
+    );
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    console.error("Get Regulation List Error:", error);
+
+    throw error;
+  }
 };
 
-export const getMidTypeMaster = async () => {
-  const response = await axios.get(
-    `${API_BASE}InternalMarksAllowedDate/GetMidTypeMaster`,
-  );
+export const loadExpenditureAmount = async (
+  expenditureHeads: string,
+  courseCode: string,
+  year: string,
+) => {
+  try {
+    const response = await axios.get(`${API_BASE}ExpenditureMaster/amount`, {
+      params: {
+        expenditureHeads,
+        courseCode,
+      year,
+      },
+    });
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    console.error("Load Expenditure Amount Error:", error);
+    throw error;
+  }
 };
