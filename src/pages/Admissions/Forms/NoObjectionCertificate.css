@@ -1,146 +1,706 @@
-/* =====================================
-   FORM LAYOUT
-===================================== */
+/* ==========================================
+   NO OBJECTION CERTIFICATE (NOC) STYLESHEET
+========================================== */
 
-.dbs-noc-form{
-    display:flex;
-    flex-direction:column;
-    gap:18px;
+.dbs-noc-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
 }
 
-/* =====================================
-   FORM SECTION TITLE
-===================================== */
-
-.dbs-form-section-title{
-    position:relative;
-    margin:0 0 22px;
-    padding-bottom:12px;
-    font-size:20px;
-    font-weight:600;
-    color:#1f2937;
-    letter-spacing:.2px;
+/* Header */
+.dbs-admissions-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  padding-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
-.dbs-form-section-title::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:0;
-    width:100%;
-    height:1px;
-    background:#e5e7eb;
+.dbs-admissions-form-header h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--dbs-text, #1e293b);
+  margin-bottom: 4px;
 }
 
-/* =====================================
-   FORM ROWS
-===================================== */
-
-.dbs-noc-row{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:24px;
+.dbs-admissions-form-header p {
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted, #64748b);
 }
 
-.dbs-field{
-    display:flex;
-    flex-direction:column;
-    gap:7px;
+.dbs-header-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.dbs-field label{
-    font-size:14px;
-    font-weight:600;
-    color:#374151;
+.dbs-badge-pill {
+  font-size: 0.82rem;
+  background: var(--dbs-background, #f1f5f9);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  color: var(--dbs-text, #1e293b);
 }
 
-.dbs-field input,
-.dbs-field select,
-.dbs-field textarea{
-    width:100%;
-    height:42px;
-    border:1px solid #d6dbe5;
-    border-radius:8px;
-    padding:0 12px;
-    font-size:14px;
-    background:#fff;
-    transition:.2s;
+.dbs-pill-cert {
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: var(--dbs-primary, #3b82f6);
 }
 
-.dbs-field input:focus,
-.dbs-field select:focus,
-.dbs-field textarea:focus{
-    outline:none;
-    border-color:#2563eb;
-    box-shadow:0 0 0 3px rgba(37,99,235,.12);
+/* Form Wrapper Card */
+.dbs-admissions-stepper-form-card {
+  background-color: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius, 12px);
+  box-shadow: var(--dbs-shadow, 0 4px 6px -1px rgba(0,0,0,0.05));
+  padding: 24px;
 }
 
-.dbs-field textarea{
-    min-height:90px;
-    padding:12px;
+.dbs-form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.dbs-field-full{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
+.dbs-card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--dbs-border, #e2e8f0);
 }
 
-.dbs-two-inputs{
-    display:grid;
-    grid-template-columns:1fr 180px;
-    gap:14px;
+.dbs-card-title-icon {
+  color: var(--dbs-primary, #3b82f6);
 }
 
-/* =====================================
-   FORM ACTIONS
-===================================== */
-
-.dbs-form-actions-row{
-    display:flex;
-    gap:14px;
-    margin-top:24px;
-    padding-top:20px;
-    border-top:1px solid #e5e7eb;
+/* Grid Layouts */
+.dbs-form-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
-/* =====================================
-   REPRINT BUTTON
-===================================== */
-
-.dbs-form-reprint-btn{
-    background:#f59e0b;
-    color:#fff;
-    border:none;
-    padding:10px 14px;
-    border-radius:6px;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    cursor:pointer;
-    transition:.2s;
+.dbs-form-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
-.dbs-form-reprint-btn:hover{
-    background:#d97706;
+.dbs-grid-col-span-2 {
+  grid-column: span 2 / span 2;
 }
 
-/* =====================================
-   RESPONSIVE
-===================================== */
-
-@media (max-width:992px){
-
-    .dbs-noc-row{
-        grid-template-columns:1fr;
-    }
-
-    .dbs-two-inputs{
-        grid-template-columns:1fr;
-    }
-
-    .dbs-form-actions-row{
-        flex-wrap:wrap;
-    }
+.dbs-grid-col-span-3 {
+  grid-column: span 3 / span 3;
 }
 
+/* Input Boxes */
+.dbs-input-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.dbs-input-box label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--dbs-text, #1e293b);
+  margin-bottom: 6px;
+}
+
+.dbs-input-box input,
+.dbs-input-box select,
+.dbs-input-box textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  border-radius: var(--dbs-radius-sm, 6px);
+  background-color: var(--dbs-surface, #ffffff);
+  color: var(--dbs-text, #1e293b);
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.dbs-input-box input:focus,
+.dbs-input-box select:focus,
+.dbs-input-box textarea:focus {
+  border-color: var(--dbs-primary, #3b82f6);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Search Input Group */
+.dbs-search-input-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dbs-search-input-group input {
+  flex: 1;
+}
+
+.dbs-input-search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  background-color: var(--dbs-primary, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: var(--dbs-radius-sm, 6px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dbs-input-search-btn:hover {
+  background-color: var(--dbs-primary-hover, #2563eb);
+}
+
+/* Form Actions Row */
+.dbs-form-actions-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid var(--dbs-border, #e2e8f0);
+  padding-top: 20px;
+  margin-top: 10px;
+}
+
+.dbs-form-cancel-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--dbs-surface, #ffffff);
+  color: var(--dbs-text, #1e293b);
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  padding: 10px 18px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: var(--dbs-radius-sm, 6px);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.dbs-form-cancel-btn:hover {
+  background-color: var(--dbs-background, #f1f5f9);
+}
+
+.dbs-form-save-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--dbs-primary, #3b82f6);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: var(--dbs-radius-sm, 6px);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.dbs-form-save-btn:hover {
+  background-color: var(--dbs-primary-hover, #2563eb);
+}
+
+.dbs-form-reprint-btn {
+  background-color: #f59e0b;
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: var(--dbs-radius-sm, 6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.dbs-form-reprint-btn:hover {
+  background-color: #d97706;
+}
+
+/* Datatable Card */
+.dbs-dashboard-card {
+  background-color: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius, 12px);
+  box-shadow: var(--dbs-shadow, 0 4px 6px -1px rgba(0,0,0,0.05));
+  padding: 24px;
+}
+
+.dbs-datatable-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Datatable Header Area with Right-Aligned Search Box */
+.dbs-datatable-header-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  padding-bottom: 16px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dbs-datatable-header-area h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--dbs-text, #1e293b);
+}
+
+.dbs-datatable-header-area p {
+  font-size: 0.82rem;
+  color: var(--dbs-text-muted, #64748b);
+}
+
+/* Push Search Box to Far Right Side */
+.dbs-table-search-wrapper {
+  margin-left: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dbs-table-search-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--dbs-text-muted, #64748b);
+  pointer-events: none;
+}
+
+.dbs-table-search-input {
+  padding: 8px 12px 8px 36px;
+  font-size: 0.85rem;
+  width: 260px;
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  border-radius: 6px;
+  outline: none;
+}
+
+.dbs-table-search-input:focus {
+  border-color: var(--dbs-primary, #3b82f6);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Table Container & Grid */
+.dbs-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Table Scrollbar like Group Change */
+.dbs-table-scroll.active-scroll {
+  max-height: 330px;
+  overflow-y: auto;
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+.dbs-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dbs-table-scroll::-webkit-scrollbar-track {
+  background: var(--dbs-bg, #f1f5f9);
+  border-radius: 10px;
+}
+
+.dbs-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-primary, #3b82f6);
+  border-radius: 10px;
+}
+
+.dbs-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-secondary, #1d4ed8);
+}
+
+.dbs-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.dbs-data-table th {
+  padding: 12px 16px;
+  font-weight: 700;
+  color: #ffffff;
+  border-bottom: 2px solid var(--dbs-border, #e2e8f0);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  user-select: none;
+  background-color: var(--dbs-primary, #3b82f6);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.dbs-data-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  color: var(--dbs-text, #1e293b);
+}
+
+.dbs-data-table tr:hover td {
+  background-color: var(--dbs-background, #f8fafc);
+}
+
+.dbs-table-student-name {
+  font-weight: 700;
+  color: var(--dbs-text, #1e293b);
+}
+
+.dbs-table-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dbs-table-action-icon-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  background-color: var(--dbs-surface, #ffffff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.dbs-btn-edit {
+  color: var(--dbs-primary, #3b82f6);
+}
+
+.dbs-btn-edit:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: var(--dbs-primary, #3b82f6);
+}
+
+.dbs-btn-reprint {
+  color: #f59e0b;
+}
+
+.dbs-btn-reprint:hover {
+  background-color: rgba(245, 158, 11, 0.1);
+  border-color: #f59e0b;
+}
+
+.dbs-btn-delete {
+  color: #dc2626;
+}
+
+.dbs-btn-delete:hover {
+  background-color: rgba(220, 38, 38, 0.1);
+  border-color: #dc2626;
+}
+
+.dbs-pill-purpose {
+  display: inline-block;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #059669;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.dbs-font-mono {
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.dbs-text-primary {
+  color: var(--dbs-primary, #3b82f6);
+  font-weight: 700;
+}
+
+/* Modals Overlay */
+.dbs-search-overlay-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.dbs-search-modal-box {
+  background-color: var(--dbs-surface, #ffffff);
+  border-radius: var(--dbs-radius, 12px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+.dbs-confirm-modal-box {
+  max-width: 420px;
+  width: 100%;
+  padding: 28px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dbs-warning-danger-icon {
+  color: #dc2626;
+  margin-bottom: 12px;
+}
+
+.dbs-confirm-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.dbs-btn-danger {
+  background-color: #dc2626 !important;
+}
+
+.dbs-btn-danger:hover {
+  background-color: #b91c1c !important;
+}
+
+.dbs-spin {
+  animation: dbs-spin-animation 1s infinite linear;
+}
+
+@keyframes dbs-spin-animation {
+  to { transform: rotate(360deg); }
+}
+
+/* Certificate Report Preview Modal */
+.dbs-report-modal-box {
+  max-width: 720px;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dbs-dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background-color: var(--dbs-background, #f8fafc);
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--dbs-text, #1e293b);
+}
+
+.dbs-panel-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--dbs-text-muted, #64748b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dbs-panel-close-btn:hover {
+  color: #dc2626;
+}
+
+/* Certificate Printable Paper Sheet (Monochrome / Color-Free Ink) */
+.dbs-certificate-paper-preview {
+  background-color: #ffffff;
+  padding: 36px 40px;
+  border: 8px double #000000;
+  margin: 20px;
+  color: #000000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.dbs-cert-header {
+  text-align: center;
+  border-bottom: 2px solid #000000;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.dbs-cert-header h2 {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #000000;
+  letter-spacing: 0.5px;
+}
+
+.dbs-cert-header h4 {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #000000;
+  margin-top: 4px;
+}
+
+.dbs-cert-header p {
+  font-size: 0.8rem;
+  color: #000000;
+}
+
+.dbs-cert-title-badge {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.dbs-cert-title-badge h3 {
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-decoration: underline;
+  color: #000000;
+  letter-spacing: 1px;
+}
+
+.dbs-cert-meta-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  margin-bottom: 24px;
+  color: #000000;
+}
+
+.dbs-cert-body-text {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #000000;
+  text-align: justify;
+}
+
+.dbs-cert-body-text strong {
+  color: #000000;
+  font-weight: 800;
+}
+
+.dbs-cert-footer-signatures {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+  padding-top: 10px;
+}
+
+.dbs-sig-box {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #000000;
+  border-top: 1px solid #000000;
+  padding-top: 6px;
+  min-width: 100px;
+  text-align: center;
+}
+
+/* Centered Modal Footer for Print Preview Popup */
+.dbs-report-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background-color: var(--dbs-background, #f8fafc);
+  border-top: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+/* Responsive Grid Adaptation */
+@media (max-width: 1024px) {
+  .dbs-form-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dbs-grid-col-span-3 {
+    grid-column: span 2 / span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .dbs-form-grid-3,
+  .dbs-form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .dbs-grid-col-span-2,
+  .dbs-grid-col-span-3 {
+    grid-column: span 1 / span 1;
+  }
+  .dbs-table-search-wrapper {
+    width: 100%;
+    margin-left: 0;
+  }
+  .dbs-table-search-input {
+    width: 100%;
+  }
+}
+
+/* ==========================================
+   PRINT ONLY CERTIFICATE RULE (@media print)
+========================================== */
+@media print {
+  /* Hide all app elements and overlays */
+  body * {
+    visibility: hidden !important;
+  }
+
+  /* Make ONLY the certificate paper preview visible */
+  .dbs-certificate-paper-preview,
+  .dbs-certificate-paper-preview * {
+    visibility: visible !important;
+    color: #000000 !important;
+  }
+
+  /* Fit the certificate perfectly onto the printable sheet */
+  .dbs-certificate-paper-preview {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 30px !important;
+    border: 6px double #000000 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+  }
+
+  /* Hide print modal wrapper controls */
+  .dbs-search-overlay-modal,
+  .dbs-dropdown-header,
+  .dbs-report-modal-footer,
+  .dbs-search-modal-box {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
