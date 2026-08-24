@@ -10,7 +10,6 @@ import {
   Save,
   ArrowLeft,
   ArrowRight,
-  Trash2,
   Edit3,
   Search,
   Filter,
@@ -29,7 +28,6 @@ import {
   FileSpreadsheet,
 } from "lucide-react";
 import { toast } from "sonner";
-import { useDropzone } from "react-dropzone";
 import "./Admissions.css";
 import {
   getBranch,
@@ -42,6 +40,11 @@ import {
   loadAdmissionInitialFields,
   saveAdmission,
 } from "../../../apis/AdmissionsApis";
+import {
+  savePhotoSign,
+  getPhotoSign,
+  fileToDataUrl,
+} from "../../../utils/studentPhotoSignStorage";
 import Footer from "../../../common/Footer";
 
 // Form steps definition
@@ -51,24 +54,67 @@ const STEPS = [
   "Parent Details",
   "Previous Education",
   "Fees Scope",
-  "Upload Docs",
   "Review & Submit",
 ];
 
-const parseApiDate = (value?: string | null) => {
-  if (!value) return "";
-  const match = String(value).match(/^(\d{2})-(\d{2})-(\d{4})$/);
-  if (!match) return "";
-  const [, dd, mm, yyyy] = match;
-  return `${yyyy}-${mm}-${dd}`;
+const getUserId = () => {
+  try {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsed = JSON.parse(storedUser);
+      if (parsed?.userId) return parsed.userId;
+    }
+    const directUserId = localStorage.getItem("userId");
+    if (directUserId) return directUserId;
+  } catch (err) {
+    console.error("Error reading userId:", err);
+  }
+  return "NT125";
 };
 
-const toApiDate = (value?: string | null) => {
+const parseApiDate = (value?: string | null) => {
   if (!value) return "";
-  const match = String(value).match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (!match) return value;
-  const [, yyyy, mm, dd] = match;
-  return `${dd}-${mm}-${yyyy}`;
+  const str = String(value).trim();
+  const matchDdMm = str.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})/);
+  if (matchDdMm) {
+    const [, dd, mm, yyyy] = matchDdMm;
+    return `${yyyy}-${mm.padStart(2, "0")}-${dd.padStart(2, "0")}`;
+  }
+  const matchYyyyMm = str.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
+  if (matchYyyyMm) {
+    const [, yyyy, mm, dd] = matchYyyyMm;
+    return `${yyyy}-${mm.padStart(2, "0")}-${dd.padStart(2, "0")}`;
+  }
+  const parsedDate = new Date(str);
+  if (!isNaN(parsedDate.getTime())) {
+    const yyyy = parsedDate.getFullYear();
+    const mm = String(parsedDate.getMonth() + 1).padStart(2, "0");
+    const dd = String(parsedDate.getDate()).padStart(2, "0");
+    return `${yyyy}-${mm}-${dd}`;
+  }
+  return str;
+};
+
+const getVal = (obj: any, ...keys: string[]) => {
+  if (!obj || typeof obj !== "object") return "";
+  for (const k of keys) {
+    if (obj[k] !== undefined && obj[k] !== null && obj[k] !== "") {
+      return obj[k];
+    }
+  }
+  const objEntries = Object.entries(obj);
+  for (const k of keys) {
+    const normalizedTarget = k.toLowerCase().replace(/[^a-z0-9]/g, "");
+    for (const [objKey, val] of objEntries) {
+      if (val !== undefined && val !== null && val !== "") {
+        const normalizedObjKey = objKey.toLowerCase().replace(/[^a-z0-9]/g, "");
+        if (normalizedObjKey === normalizedTarget) {
+          return val;
+        }
+      }
+    }
+  }
+  return "";
 };
 
 export const AdmissionsEntry: React.FC = () => {
@@ -86,6 +132,8 @@ export const AdmissionsEntry: React.FC = () => {
   // Active step state
   const [currentStep, setCurrentStep] = useState(0);
   const [isEditingId, setIsEditingId] = useState<string | null>(null);
+  const [editingIdent, setEditingIdent] = useState<string>("");
+  const isEditingRef = useRef(false);
 
   // Auto-save Indicator state
   const [lastSaved, setLastSaved] = useState<string>("Draft Saved just now");
@@ -106,9 +154,6 @@ export const AdmissionsEntry: React.FC = () => {
   // Tracks the in-flight state of the final "Save Student Registry" API call
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Confirmation dialog overlays
-  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
-
   // Search & Filter state for students database
   const [tableSearch, setTableSearch] = useState("");
   const [filterCourse, setFilterCourse] = useState("All");
@@ -125,6 +170,7 @@ export const AdmissionsEntry: React.FC = () => {
     handleSubmit,
     reset,
     setValue,
+    getValues,
     watch,
     formState: { errors },
   } = useForm({
@@ -141,17 +187,20 @@ export const AdmissionsEntry: React.FC = () => {
       year: "1",
       sem: "1",
       section: "A",
-      joiningAcademicYear: "2025-2026",
-      currentAcademicYear: "2025-2026",
+      joiningAcademicYear: "2026-2027",
+      currentAcademicYear: "2026-2027",
       cet: "EAPCET",
+      set: "EAPCET",
       hallTicket: "",
+      hallTicketNo: "",
       rank: "",
+      setRank: "",
       branchRank: "",
       interHallTicketNo: "",
       ugRank: "",
       jnanaBhumiId: "",
       regulation: "R23",
-      libraryMemberGroup: "General Student",
+      libraryMemberGroup: "Student",
       apaarId: "",
 
       // 2. Student Details - Personal / Identity
@@ -161,8 +210,8 @@ export const AdmissionsEntry: React.FC = () => {
       nationality: "Indian",
       motherTongue: "Telugu",
       religion: "Hindu",
-      bloodGroup: "O+",
-      differentlyAbled: "No",
+      bloodGroup: "B+ve",
+      differentlyAbled: "NO",
       caste: "OC",
       subcaste: "",
       category: "General",
@@ -177,6 +226,7 @@ export const AdmissionsEntry: React.FC = () => {
       studentEmail: "",
       address: "",
       state: "Andhra Pradesh",
+      routePoint: "select route",
       rationCardNo: "",
       incomeCertNo: "",
       aadhaarNo: "",
@@ -188,7 +238,7 @@ export const AdmissionsEntry: React.FC = () => {
       le: false,
       staffChild: false,
       nsp: false,
-      status: "Enrolled",
+      status: "",
       statusDate: new Date().toISOString().split("T")[0],
       statusReason: "Regular Admission",
 
@@ -214,7 +264,7 @@ export const AdmissionsEntry: React.FC = () => {
       sscAggregate: "",
       sscPassingDate: "",
 
-      // Intermediate
+      // Intermediate / Last Attended
       interCollege: "",
       interMarks: "",
       interBoardDetail: "BIEAP",
@@ -223,8 +273,13 @@ export const AdmissionsEntry: React.FC = () => {
       interMaths: "",
       interPhysics: "",
       interChemistry: "",
+      lastAttendedCollegeName: "",
+      groupSubjectsMarksPercentage: "",
+      aggregate: "",
+      myPassing: "",
 
       // UG
+      ugCourse: "",
       ugCollege: "",
       ugMarks: "",
       ugHallTicket: "",
@@ -233,9 +288,14 @@ export const AdmissionsEntry: React.FC = () => {
       ugPassingDateDetail: "",
 
       // 5. Fees Scope
+      fee_admType: "",
+      tuitionFee: "",
+      miscellaneousfee: "",
       scholarshipAmount: "0",
       boysHostelFee: "0",
       ladiesHostelFee: "0",
+      busFee: "0",
+      donation: "0",
       spotFee: "0",
     },
   });
@@ -271,130 +331,633 @@ export const AdmissionsEntry: React.FC = () => {
     return () => window.removeEventListener("keydown", handleSaveShortcut);
   }, []);
 
-  // Dropzone setup for document uploads
-  const onDrop = (acceptedFiles: File[]) => {
-    toast.success(`${acceptedFiles.length} file(s) attached successfully!`);
-  };
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const handleEditStudent = async (student: any) => {
+    isEditingRef.current = true;
+    const rawIdent = getVal(student, "ident", "Ident", "id", "ID");
+    const validNumericIdent = /^\d+$/.test(String(rawIdent).trim())
+      ? String(rawIdent).trim()
+      : "";
+    setEditingIdent(validNumericIdent);
 
-  // Confirmation modal triggers
-  const confirmDeleteStudent = (studentSerialNo: string) => {
-    setDeleteTargetId(studentSerialNo);
-  };
+    const editId =
+      getVal(
+        student,
+        "STUDENTSERIALNO",
+        "studentSerialNo",
+        "sNo",
+        "ident",
+        "Ident",
+        "id",
+        "ID",
+      ) ||
+      student.sNo ||
+      validNumericIdent ||
+      "";
+    setIsEditingId(editId ? String(editId) : null);
 
-  const executeDelete = () => {
-    if (deleteTargetId) {
-      // TODO: also call a DELETE endpoint (e.g. /api/Admission/{id}) once
-      // one exists — this only removes the row from local state/UI so far.
-      setStudentData((prev) =>
-        prev.filter((s) => s.STUDENTSERIALNO !== deleteTargetId),
-      );
-      toast.success(`Record ${deleteTargetId} deleted successfully.`);
-      setDeleteTargetId(null);
+    const rawCourse = String(
+      getVal(
+        student,
+        "programme",
+        "course",
+        "Course",
+        "COURSE",
+        "COURSECODE",
+        "ProgrammeCode",
+        "programmeCode",
+        "PROGRAMME",
+      ) || "01",
+    ).trim();
+
+    const courseCodePrefix = rawCourse.includes("-")
+      ? rawCourse.split("-")[0].trim()
+      : rawCourse;
+
+    let resolvedCourse = courseCodePrefix || rawCourse;
+
+    if (programe && programe.length > 0) {
+      const matchP = programe.find((p: any) => {
+        const pCode = String(
+          p.COURSECODE ?? p.COURSE_CODE ?? p.ID ?? p.ProgrammeCode ?? "",
+        ).trim();
+        const pName = String(
+          p.COURSE ?? p.PROGRAMME ?? p.ProgrammeName ?? p.NAME ?? "",
+        )
+          .toLowerCase()
+          .trim();
+        return (
+          pCode === rawCourse ||
+          pCode === courseCodePrefix ||
+          pName === rawCourse.toLowerCase() ||
+          pName.includes(rawCourse.toLowerCase()) ||
+          rawCourse.toLowerCase().includes(pName)
+        );
+      });
+      if (matchP) {
+        resolvedCourse = String(
+          matchP.COURSECODE ??
+            matchP.COURSE_CODE ??
+            matchP.ID ??
+            matchP.ProgrammeCode ??
+            resolvedCourse,
+        );
+      }
     }
-  };
 
-  const handleEditStudent = (student: any) => {
-    setIsEditingId(student.STUDENTSERIALNO);
-    reset({
-      admDate: parseApiDate(student.ADMISSIONDATE),
-      sNo: student.STUDENTSERIALNO || "",
-      admNo: student.AdmNo || "",
-      regNo: student.REGISTRATIONNO || "",
-      course: student.Course || "01-B.Tech",
-      branch: student.BranchName || "05-COMPUTER SCIENCE AND ENGINEERING",
-      admittedYear: student.AYEAR != null ? String(student.AYEAR) : "1",
-      admittedSem: student.ASEMESTER != null ? String(student.ASEMESTER) : "1",
-      year: student.SYEAR != null ? String(student.SYEAR) : "1",
-      sem: student.SSEMESTER != null ? String(student.SSEMESTER) : "1",
-      section: student.SECTION || "A",
-      joiningAcademicYear: student.ACADAMICYEAR || "2025-2026",
-      currentAcademicYear: student.ACADAMICYEAR || "2025-2026",
-      cet: "EAPCET",
-      hallTicket: "",
-      rank: "",
-      branchRank: "",
-      interHallTicketNo: "",
-      ugRank: "",
-      jnanaBhumiId: "",
-      regulation: "R23",
-      libraryMemberGroup: "General Student",
-      apaarId: "",
-      name: student.SNAME || "",
-      dob: parseApiDate(student.DOB),
-      gender: student.GENDER || "Male",
-      nationality: "Indian",
-      motherTongue: "Telugu",
-      religion: student.RELIGION || "Hindu",
-      bloodGroup: "O+",
-      differentlyAbled: "No",
-      caste: student.CASTE || "OC",
-      subcaste: student.SUBCASTE || "",
-      category: "General",
-      allottedQuota: "Convenor",
-      // NOTE: API's MODEOFADM (e.g. "Spot (Cat-A)") uses different labels
-      // than this select's options (CET / Direct / Management) — stored
-      // as-is so nothing is lost, but the dropdown may show unselected.
-      modeOfAdmission: student.MODEOFADM || "CET",
-      categoryOfAdmission: "Regular",
-      mole1: "",
-      mole2: "",
-      studentMobile: "",
-      studentEmail: "",
-      address: "",
-      state: "Andhra Pradesh",
-      rationCardNo: "",
-      incomeCertNo: "",
-      aadhaarNo: "",
-      activeStatus: "Active",
-      isActive: true,
-      scholor: false,
-      le: false,
-      staffChild: false,
-      nsp: false,
-      status: student.status || "Enrolled",
-      statusDate: new Date().toISOString().split("T")[0],
-      statusReason: "Regular Admission",
-      fatherName: "",
-      fatherOccupation: "",
-      fatherIncome: "",
-      parentMobile: "",
-      mobileNo1: "",
-      mobileNo2: "",
-      parentAadhaarNo: "",
-      motherName: "",
-      motherAadhaarNo: "",
-      sscSchool: "",
-      sscMarks: "",
-      sscHallTicket: "",
-      sscBoard: "SSC Board AP",
-      sscStudied: "Regular",
-      sscAggregate: "",
-      sscPassingDate: "",
-      interCollege: "",
-      interMarks: "",
-      interBoardDetail: "BIEAP",
-      interAggregateDetail: "",
-      interPassingDateDetail: "",
-      ugCollege: "",
-      ugMarks: "",
-      ugHallTicket: "",
-      ugUniversity: "",
-      ugAggregateDetail: "",
-      ugPassingDateDetail: "",
-      scholarshipAmount: student.TUITIONFEE || "0",
-      boysHostelFee: "0",
-      ladiesHostelFee: "0",
-      spotFee: student.MISCELLANEOUSFEE || "0",
+    let branchList: any[] = [];
+    let yearList: any[] = [];
+    if (resolvedCourse) {
+      try {
+        branchList = (await getBranch(resolvedCourse)) || [];
+        setBranches(branchList);
+      } catch (e) {
+        console.error("Error fetching branches on edit:", e);
+      }
+      try {
+        yearList = (await getYear(resolvedCourse)) || [];
+        setYears(yearList);
+        setAdmittedYears(yearList);
+      } catch (e) {
+        console.error("Error fetching years on edit:", e);
+      }
+    }
+
+    const rawBranch = String(
+      getVal(
+        student,
+        "branch",
+        "BranchName",
+        "BRANCH",
+        "BRANCHCODE",
+        "branchCode",
+        "BRANCHNAME",
+      ) || "",
+    ).trim();
+
+    const branchCodePrefix = rawBranch.includes("-")
+      ? rawBranch.split("-")[0].trim()
+      : rawBranch;
+
+    let resolvedBranch = branchCodePrefix || rawBranch;
+    if (branchList && branchList.length > 0) {
+      const matchB = branchList.find((b: any) => {
+        const bCode = String(
+          b.BRANCHCODE ?? b.BranchCode ?? b.branchCode ?? b.ID ?? "",
+        ).trim();
+        const bName = String(
+          b.BRANCHNAME ?? b.BranchName ?? b.branchName ?? b.NAME ?? "",
+        )
+          .toLowerCase()
+          .trim();
+        return (
+          bCode === rawBranch ||
+          bCode === branchCodePrefix ||
+          bName === rawBranch.toLowerCase() ||
+          bName.includes(rawBranch.toLowerCase()) ||
+          rawBranch.toLowerCase().includes(bName)
+        );
+      });
+      if (matchB) {
+        resolvedBranch = String(
+          matchB.BRANCHCODE ?? matchB.BranchCode ?? resolvedBranch,
+        );
+      }
+    }
+
+    const rawAdmittedYear = String(
+      getVal(student, "aYear", "AYEAR", "admittedYear", "admitted_year") || "1",
+    );
+    const rawStudyingYear = String(
+      getVal(student, "sYear", "SYEAR", "year", "YEAR", "studyingYear") || "1",
+    );
+
+    const rawPh = String(
+      getVal(student, "ph", "PH", "differentlyAbled") || "NO",
+    ).toUpperCase();
+    const resolvedPh =
+      rawPh === "YES" || rawPh === "Y" || rawPh === "TRUE" ? "YES" : "NO";
+
+    const formValues: any = {
+      admDate: parseApiDate(
+        getVal(
+          student,
+          "admissionDate",
+          "admDate",
+          "ADMISSIONDATE",
+          "DateOfAdmission",
+        ),
+      ),
+      sNo: String(
+        getVal(
+          student,
+          "studentSerialNo",
+          "sNo",
+          "STUDENTSERIALNO",
+          "serialNo",
+          "s_no",
+        ),
+      ),
+      admNo: String(
+        getVal(student, "admNo", "AdmNo", "ADMNO", "admissionNo", "adm_no"),
+      ),
+      regNo: String(
+        getVal(
+          student,
+          "registrationNo",
+          "regNo",
+          "REGISTRATIONNO",
+          "reg_no",
+          "RegNo",
+        ),
+      ),
+      course: resolvedCourse,
+      branch: resolvedBranch,
+      admittedYear: rawAdmittedYear,
+      admittedSem: String(
+        getVal(
+          student,
+          "aSemester",
+          "ASEMESTER",
+          "admittedSem",
+          "admitted_sem",
+        ) || "1",
+      ),
+      year: rawStudyingYear,
+      sem: String(
+        getVal(
+          student,
+          "sSemester",
+          "SSEMESTER",
+          "sem",
+          "SEMESTER",
+          "studyingSem",
+        ) || "1",
+      ),
+      section: String(getVal(student, "section", "SECTION") || "A"),
+      joiningAcademicYear: String(
+        getVal(
+          student,
+          "jAcadamicYear",
+          "joiningAcademicYear",
+          "JACADAMICYEAR",
+          "jAcademicYear",
+        ) ||
+          getVal(
+            student,
+            "acadamicYear",
+            "currentAcademicYear",
+            "ACADAMICYEAR",
+          ) ||
+          "2026-2027",
+      ),
+      currentAcademicYear: String(
+        getVal(
+          student,
+          "acadamicYear",
+          "currentAcademicYear",
+          "ACADAMICYEAR",
+          "academicYear",
+        ) || "2026-2027",
+      ),
+      cet: String(getVal(student, "set", "SET", "cet", "CET") || "EAPCET"),
+      hallTicket: String(
+        getVal(
+          student,
+          "hallTicket",
+          "HALLTICKET",
+          "hallTicketNo",
+          "HALLTICKETNO",
+        ),
+      ),
+      rank: String(getVal(student, "rank", "RANK", "setRank", "SETRANK")),
+      branchRank: String(
+        getVal(student, "branchRank", "BRANCHRANK", "branch_rank"),
+      ),
+      jnanaBhumiId: String(
+        getVal(student, "jnanaBhumiId", "JNANABHUMIID", "jnanabhumi_id"),
+      ),
+      regulation: String(getVal(student, "regulation", "REGULATION") || "R23"),
+      libraryMemberGroup: String(
+        getVal(
+          student,
+          "librarymembergroup",
+          "LIBRARYMEMBERGROUP",
+          "libraryMemberGroup",
+        ) || "Student",
+      ),
+      apaarId: String(getVal(student, "apaar", "APAAR", "apaarId", "apaar_id")),
+      name: String(
+        getVal(
+          student,
+          "sName",
+          "SNAME",
+          "name",
+          "studentName",
+          "StudentName",
+          "searchName",
+        ),
+      ),
+      dob: parseApiDate(
+        getVal(
+          student,
+          "dob",
+          "DOB",
+          "dateOfBirth",
+          "DateOfBirth",
+          "birthDate",
+        ),
+      ),
+      gender: String(getVal(student, "gender", "GENDER") || "Male"),
+      nationality: String(
+        getVal(student, "nationality", "NATIONALITY") || "Indian",
+      ),
+      motherTongue: String(
+        getVal(student, "motherTongue", "MOTHERTONGUE", "mother_tongue") ||
+          "Telugu",
+      ),
+      religion: String(getVal(student, "religion", "RELIGION") || "Hindu"),
+      bloodGroup: String(
+        getVal(student, "bloodGrp", "BLOODGRP", "bloodGroup", "blood_grp") ||
+          "B+ve",
+      ),
+      differentlyAbled: resolvedPh,
+      caste: String(getVal(student, "caste", "CASTE") || "OC"),
+      subcaste: String(getVal(student, "subCaste", "SUBCASTE", "subcaste")),
+      category: String(getVal(student, "category", "CATEGORY") || "General"),
+      allottedQuota: String(
+        getVal(student, "allottedQuota", "ALLOTTEDQUOTA") || "Convenor",
+      ),
+      modeOfAdmission: String(
+        getVal(student, "modeofAdm", "MODEOFADM", "modeOfAdmission") || "CET",
+      ),
+      categoryOfAdmission: String(
+        getVal(student, "modeofCtgy", "MODEOFCTGY", "categoryOfAdmission") ||
+          "Regular",
+      ),
+      mole1: String(getVal(student, "mole1", "MOLE1")),
+      mole2: String(getVal(student, "mole2", "MOLE2")),
+      studentMobile: String(
+        getVal(student, "stdMobNo", "STDMOBNO", "studentMobile", "std_mobile"),
+      ),
+      studentEmail: String(
+        getVal(student, "emailid", "EMAILID", "studentEmail", "email"),
+      ),
+      address: String(getVal(student, "address", "ADDRESS")),
+      state: String(
+        getVal(student, "states", "STATES", "state", "STATE") ||
+          "Andhra Pradesh",
+      ),
+      routePoint: String(
+        getVal(student, "routePoint", "ROUTEPOINT", "route_point") ||
+          "select route",
+      ),
+      rationCardNo: String(
+        getVal(student, "rationcardNo", "RATIONCARDNO", "rationCardNo"),
+      ),
+      incomeCertNo: String(getVal(student, "icNo", "ICNO", "incomeCertNo")),
+      aadhaarNo: String(getVal(student, "aadhaarNo", "AADHAARNO", "aadharNo")),
+      activeStatus: String(
+        getVal(
+          student,
+          "status",
+          "STATUS",
+          "aStatus",
+          "ASTATUS",
+          "activeStatus",
+        ) || "Active",
+      ),
+      statusDate:
+        parseApiDate(getVal(student, "date", "DATE", "statusDate")) ||
+        new Date().toISOString().split("T")[0],
+      statusReason: String(
+        getVal(student, "reason", "REASON", "statusReason") ||
+          "Regular Admission",
+      ),
+      isActive:
+        String(getVal(student, "status", "STATUS")).toLowerCase() === "active"
+          ? true
+          : getVal(student, "isactive", "ISACTIVE") !== ""
+            ? Boolean(getVal(student, "isactive", "ISACTIVE"))
+            : true,
+      scholor: Boolean(
+        getVal(student, "schlor", "SCHLOR", "scholor", "scholarship"),
+      ),
+      le: Boolean(getVal(student, "le", "LE")),
+      staffChild: Boolean(
+        getVal(student, "fac_Child", "FAC_CHILD", "staffChild"),
+      ),
+      nsp: Boolean(getVal(student, "nsp", "NSP")),
+      fatherName: String(
+        getVal(student, "fName", "FNAME", "fatherName", "FatherName"),
+      ),
+      fatherOccupation: String(
+        getVal(
+          student,
+          "parentOccupation",
+          "PARENTOCCUPATION",
+          "fatherOccupation",
+        ),
+      ),
+      fatherIncome: String(getVal(student, "income", "INCOME", "fatherIncome")),
+      parentMobile: String(
+        getVal(student, "parentMbNo", "PARENTMBNO", "parentMobile"),
+      ),
+      mobileNo1: String(getVal(student, "mobileNo1", "MOBILENO1")),
+      mobileNo2: String(
+        getVal(student, "parentMbNo2", "PARENTMBNO2", "mobileNo2"),
+      ),
+      parentAadhaarNo: String(
+        getVal(student, "parentAadhaarNo", "PARENTAADHAARNO", "parentAadharNo"),
+      ),
+      motherName: String(
+        getVal(student, "mName", "MNAME", "motherName", "MotherName"),
+      ),
+      motherAadhaarNo: String(
+        getVal(
+          student,
+          "mAadharNo",
+          "MAADHARNO",
+          "motherAadhaarNo",
+          "motherAadharNo",
+        ),
+      ),
+      sscSchool: String(
+        getVal(student, "sscSchoolName", "SSCSCHOOLNAME", "sscSchool"),
+      ),
+      sscMarks: String(
+        getVal(student, "sscMarksPercentage", "SSCMARKSPERCENTAGE", "sscMarks"),
+      ),
+      sscHallTicket: String(
+        getVal(
+          student,
+          "ssC_HallTicketNo",
+          "SSC_HALLTICKETNO",
+          "sscHallTicket",
+        ),
+      ),
+      sscBoard: String(
+        getVal(student, "ssC_Board", "SSC_BOARD", "sscBoard") || "SSC Board AP",
+      ),
+      sscStudied: String(
+        getVal(student, "sscStudied", "SSCSTUDIED") || "Regular",
+      ),
+      sscAggregate: String(
+        getVal(student, "ssC_Aggregate", "SSC_AGGREGATE", "sscAggregate"),
+      ),
+      sscPassingDate: String(
+        getVal(
+          student,
+          "ssC_MYPassing",
+          "SSC_MYPASSING",
+          "sscPassingDate",
+          "myPassing",
+          "MYPASSING",
+        ),
+      ),
+      interCollege: String(
+        getVal(
+          student,
+          "int_CollegeName",
+          "INT_COLLEGENAME",
+          "interCollege",
+          "lastAttendedCollegeName",
+          "LASTATTENDEDCOLLEGENAME",
+        ),
+      ),
+      interMarks: String(
+        getVal(
+          student,
+          "int_MarksPerc",
+          "INT_MARKSPERC",
+          "interMarks",
+          "groupSubjectsMarksPercentage",
+          "GROUPSUBJECTSMARKSPERCENTAGE",
+        ),
+      ),
+      interHallTicketNo: String(
+        getVal(
+          student,
+          "int_HallTicketNo",
+          "INT_HALLTICKETNO",
+          "interHallTicketNo",
+        ),
+      ),
+      interBoardDetail: String(
+        getVal(student, "int_Board", "INT_BOARD", "interBoardDetail") ||
+          "BIEAP",
+      ),
+      interAggregateDetail: String(
+        getVal(
+          student,
+          "int_Aggregate",
+          "INT_AGGREGATE",
+          "interAggregateDetail",
+          "aggregate",
+          "AGGREGATE",
+        ),
+      ),
+      interPassingDateDetail: String(
+        getVal(
+          student,
+          "int_MYPassing",
+          "INT_MYPASSING",
+          "interPassingDateDetail",
+        ),
+      ),
+      interMaths: String(getVal(student, "maths", "MATHS", "interMaths")),
+      interPhysics: String(
+        getVal(student, "physics", "PHYSICS", "interPhysics"),
+      ),
+      interChemistry: String(
+        getVal(student, "chemistry", "CHEMISTRY", "interChemistry"),
+      ),
+      lastAttendedCollegeName: String(
+        getVal(
+          student,
+          "lastAttendedCollegeName",
+          "LASTATTENDEDCOLLEGENAME",
+          "int_CollegeName",
+          "interCollege",
+        ),
+      ),
+      groupSubjectsMarksPercentage: String(
+        getVal(
+          student,
+          "groupSubjectsMarksPercentage",
+          "GROUPSUBJECTSMARKSPERCENTAGE",
+          "int_MarksPerc",
+          "interMarks",
+        ),
+      ),
+      aggregate: String(
+        getVal(
+          student,
+          "aggregate",
+          "AGGREGATE",
+          "int_Aggregate",
+          "interAggregateDetail",
+        ),
+      ),
+      myPassing: String(
+        getVal(
+          student,
+          "myPassing",
+          "MYPASSING",
+          "ssC_MYPassing",
+          "sscPassingDate",
+        ),
+      ),
+      ugCourse: String(getVal(student, "ugCourse", "UGCOURSE", "ug_course")),
+      ugCollege: String(
+        getVal(student, "uG_CollegeName", "UG_COLLEGENAME", "ugCollege"),
+      ),
+      ugMarks: String(
+        getVal(student, "uG_MarksPerc", "UG_MARKSPERC", "ugMarks"),
+      ),
+      ugHallTicket: String(
+        getVal(student, "uG_HallTicketNo", "UG_HALLTICKETNO", "ugHallTicket"),
+      ),
+      ugUniversity: String(
+        getVal(student, "uG_University", "UG_UNIVERSITY", "ugUniversity"),
+      ),
+      ugAggregateDetail: String(
+        getVal(student, "uG_Aggregate", "UG_AGGREGATE", "ugAggregateDetail"),
+      ),
+      ugPassingDateDetail: String(
+        getVal(student, "uG_MYPassing", "UG_MYPASSING", "ugPassingDateDetail"),
+      ),
+      ugRank: String(getVal(student, "ugRank", "UGRANK")),
+      fee_admType: String(getVal(student, "fee_admType", "FEE_ADMTYPE")),
+      tuitionFee: String(getVal(student, "tuitionFee", "TUITIONFEE")),
+      miscellaneousfee: String(
+        getVal(student, "miscellaneousfee", "MISCELLANEOUSFEE"),
+      ),
+      scholarshipAmount: String(
+        getVal(student, "schAmount", "SCHAMOUNT", "scholarshipAmount") || "0",
+      ),
+      boysHostelFee: String(
+        getVal(student, "bhFee", "BHFEE", "boysHostelFee") || "0",
+      ),
+      ladiesHostelFee: String(
+        getVal(student, "lhFee", "LHFEE", "ladiesHostelFee") || "0",
+      ),
+      busFee: String(getVal(student, "busFee", "BUSFEE") || "0"),
+      donation: String(getVal(student, "donation", "DONATION") || "0"),
+      spotFee: String(
+        getVal(student, "spotAdmFee", "SPOTADMFEE", "spotFee") || "0",
+      ),
+    };
+
+    reset(formValues);
+    Object.keys(formValues).forEach((key) => {
+      setValue(key as any, formValues[key]);
     });
 
-    setPhotoPreview("");
+    const admNo = String(
+      formValues.admNo ||
+        getVal(
+          student,
+          "AdmNo",
+          "ADMNO",
+          "admNo",
+          "admissionNo",
+          "admissionNumber",
+        ) ||
+        "",
+    ).trim();
+
+    const regNo = String(
+      formValues.regNo ||
+        getVal(
+          student,
+          "REGISTRATIONNO",
+          "regNo",
+          "RegistrationNo",
+          "studentSerialNo",
+          "sNo",
+        ) ||
+        "",
+    ).trim();
+
+    const primaryKey = admNo || regNo;
+
+    // Check Stu_Photo_Sign store for existing photo comparing with admission number
+    let storedPhoto = admNo ? await getPhotoSign(`P-${admNo}`) : null;
+    if (!storedPhoto && regNo && regNo !== admNo) {
+      storedPhoto = await getPhotoSign(`P-${regNo}`);
+    }
+
+    if (storedPhoto) {
+      setPhotoPreview(storedPhoto);
+    } else if (primaryKey) {
+      setPhotoPreview(
+        `/src/pages/Admissions/Stu_Photo_Sign/P-${encodeURIComponent(primaryKey)}.jpg`,
+      );
+    } else {
+      setPhotoPreview("");
+    }
+
+    // Check Stu_Photo_Sign store for existing signature comparing with admission number
+    let storedSign = admNo ? await getPhotoSign(`S-${admNo}`) : null;
+    if (!storedSign && regNo && regNo !== admNo) {
+      storedSign = await getPhotoSign(`S-${regNo}`);
+    }
+
+    if (storedSign) {
+      setSignaturePreview(storedSign);
+    } else if (primaryKey) {
+      setSignaturePreview(
+        `/src/pages/Admissions/Stu_Photo_Sign/S-${encodeURIComponent(primaryKey)}.jpg`,
+      );
+    } else {
+      setSignaturePreview("");
+    }
+
     setPhotoFile(null);
-    setSignaturePreview("");
     setSignatureFile(null);
 
     setCurrentStep(0);
-    toast.info(`Loaded student profile: ${student.SNAME}`);
+    toast.info(`Loaded student profile: ${formValues.name || "Student"}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -411,120 +974,143 @@ export const AdmissionsEntry: React.FC = () => {
     }
 
     // Final Submission Handler
-    const finalSNo =
-      data.sNo || `9${Math.floor(100 + Math.random() * 900)}/25-26`;
-    const finalAdmNo =
-      data.admNo || `25MDS${Math.floor(10 + Math.random() * 89)}`;
-    const finalRegNo =
-      data.regNo || `25MDS${Math.floor(10 + Math.random() * 89)}`;
-    const upperName = (data.name || "NEW STUDENT").toUpperCase();
+    const upperName = (data.name || "").toUpperCase();
 
     const savePayload = {
-      ident: isEditingId || "0",
-      studentSerialNo: finalSNo,
-      admNo: finalAdmNo,
-      registrationNo: finalRegNo,
-      admissionDate: toApiDate(data.admDate),
-      dob: toApiDate(data.dob),
+      ident: "",
+      studentSerialNo: data.sNo || isEditingId || "",
+      admNo: data.admNo || "",
+      registrationNo: data.regNo || "",
+      admissionDate: parseApiDate(data.admDate),
+      dob: parseApiDate(data.dob),
       sName: upperName,
       searchName: upperName,
-      modeofAdm: data.modeOfAdmission,
-      programme: data.course,
-      branch: data.branch,
-      section: data.section,
-      aYear: data.admittedYear,
-      sYear: data.year,
-      acadamicYear: data.currentAcademicYear,
-      jAcadamicYear: data.joiningAcademicYear,
-      aSemester: data.admittedSem,
-      sSemester: data.sem,
-      caste: data.caste,
-      subCaste: data.subcaste,
-      gender: data.gender,
-      nationality: data.nationality,
-      religion: data.religion,
-      bloodGrp: data.bloodGroup,
-      ph: data.differentlyAbled,
-      schAmount: data.scholarshipAmount,
-      bhFee: data.boysHostelFee,
-      lhFee: data.ladiesHostelFee,
-      spotAdmFee: data.spotFee,
-      rank: data.rank,
-      hallTicketNo: data.hallTicket,
-      hallTicket: "",
-      sscSchoolName: data.sscSchool,
-      sscMarksPercentage: data.sscMarks,
-      fName: data.fatherName,
-      parentOccupation: data.fatherOccupation,
-      income: data.fatherIncome,
-      mName: data.motherName,
-      address: data.address,
-      parentMbNo: data.parentMobile,
-      parentMbNo2: data.mobileNo2,
-      stdMobNo: data.studentMobile,
-      aadhaarNo: data.aadhaarNo,
-      rationcardNo: data.rationCardNo,
-      icNo: data.incomeCertNo,
-      emailid: data.studentEmail,
-      status: data.status,
-      ssC_HallTicketNo: data.sscHallTicket,
-      ssC_Board: data.sscBoard,
-      sscStudied: data.sscStudied,
-      ssC_Aggregate: data.sscAggregate,
-      ssC_MYPassing: data.sscPassingDate,
-      int_CollegeName: data.interCollege,
-      int_MarksPerc: data.interMarks,
-      int_HallTicketNo: data.interHallTicketNo,
-      int_Board: data.interBoardDetail,
-      int_Aggregate: data.interAggregateDetail,
-      int_MYPassing: data.interPassingDateDetail,
-      uG_CollegeName: data.ugCollege,
-      uG_MarksPerc: data.ugMarks,
-      uG_HallTicketNo: data.ugHallTicket,
-      uG_University: data.ugUniversity,
-      uG_Aggregate: data.ugAggregateDetail,
-      uG_MYPassing: data.ugPassingDateDetail,
-      isactive: data.isActive,
-      reason: data.statusReason,
-      date: toApiDate(data.statusDate),
-      aStatus: data.activeStatus,
-      branchRank: data.branchRank,
-      mole1: data.mole1,
-      mole2: data.mole2,
-      states: data.state,
-      category: data.category,
-      motherTongue: data.motherTongue,
-      maths: data.interMaths,
-      physics: data.interPhysics,
-      chemistry: data.interChemistry,
-      le: data.le,
-      fac_Child: data.staffChild,
-      jnanaBhumiId: data.jnanaBhumiId,
-      regulation: data.regulation,
-      mAadharNo: data.motherAadhaarNo,
-      librarymembergroup: data.libraryMemberGroup,
-      schlor: data.scholor,
-      modeofCtgy: data.categoryOfAdmission,
-      allottedQuota: data.allottedQuota,
-      nsp: data.nsp,
-      apaar: data.apaarId,
-
-      cet: data.cet,
-      ugRank: data.ugRank,
-      mobileNo1: data.mobileNo1,
-      parentAadhaarNo: data.parentAadhaarNo,
+      modeofAdm: data.modeOfAdmission || "",
+      programme: data.course || "",
+      branch: data.branch || "",
+      section: data.section || "",
+      aYear: data.admittedYear ? String(data.admittedYear) : "1",
+      sYear: data.year ? String(data.year) : "1",
+      acadamicYear: data.currentAcademicYear || "",
+      jAcadamicYear: data.joiningAcademicYear || "",
+      aSemester: data.admittedSem ? String(data.admittedSem) : "1",
+      sSemester: data.sem ? String(data.sem) : "1",
+      caste: data.caste || "",
+      subCaste: data.subcaste || "",
+      gender: data.gender || "",
+      nationality: data.nationality || "",
+      religion: data.religion || "",
+      bloodGrp: data.bloodGroup || "",
+      ph: data.differentlyAbled || "",
+      tuitionFee: data.tuitionFee || "",
+      miscellaneousfee: data.miscellaneousfee || "",
+      schAmount: data.scholarshipAmount || "",
+      bhFee: data.boysHostelFee || "",
+      lhFee: data.ladiesHostelFee || "",
+      busFee: data.busFee || "",
+      donation: data.donation || "",
+      rank: data.rank || "",
+      hallTicketNo: data.hallTicketNo || data.hallTicket || "",
+      sscSchoolName: data.sscSchool || "",
+      sscMarksPercentage: data.sscMarks || "",
+      lastAttendedCollegeName:
+        data.lastAttendedCollegeName || data.interCollege || "",
+      groupSubjectsMarksPercentage:
+        data.groupSubjectsMarksPercentage || data.interMarks || "",
+      aggregate: data.aggregate || data.interAggregateDetail || "",
+      myPassing: data.myPassing || data.sscPassingDate || "",
+      fName: data.fatherName || "",
+      parentOccupation: data.fatherOccupation || "",
+      income: data.fatherIncome || "",
+      mName: data.motherName || "",
+      address: data.address || "",
+      parentMbNo: data.parentMobile || "",
+      parentMbNo2: data.mobileNo2 || "",
+      stdMobNo: data.studentMobile || "",
+      aadhaarNo: data.aadhaarNo || "",
+      rationcardNo: data.rationCardNo || "",
+      icNo: data.incomeCertNo || "",
+      emailid: data.studentEmail || "",
+      userId: getUserId(),
+      status: isEditingId ? "UPDATE" : "INSERT",
+      ssC_HallTicketNo: data.sscHallTicket || "",
+      ssC_Board: data.sscBoard || "",
+      sscStudied: data.sscStudied || "",
+      ssC_Aggregate: data.sscAggregate || "",
+      ssC_MYPassing: data.sscPassingDate || "",
+      int_CollegeName: data.interCollege || "",
+      int_MarksPerc: data.interMarks || "",
+      int_HallTicketNo: data.interHallTicketNo || "",
+      int_Board: data.interBoardDetail || "",
+      int_Aggregate: data.interAggregateDetail || "",
+      int_MYPassing: data.interPassingDateDetail || "",
+      uG_CollegeName: data.ugCollege || "",
+      uG_MarksPerc: data.ugMarks || "",
+      uG_HallTicketNo: data.ugHallTicket || "",
+      uG_University: data.ugUniversity || "",
+      uG_Aggregate: data.ugAggregateDetail || "",
+      uG_MYPassing: data.ugPassingDateDetail || "",
+      fee_admType: data.fee_admType || "",
+      isactive: Boolean(data.isActive),
+      reason: data.statusReason || "",
+      date: parseApiDate(data.statusDate),
+      aStatus: data.activeStatus || "",
+      set: data.set || data.cet || "",
+      hallTicket: data.hallTicket || "",
+      setRank: data.setRank || data.rank || "",
+      branchRank: data.branchRank || "",
+      mole1: data.mole1 || "",
+      mole2: data.mole2 || "",
+      states: data.state || "",
+      category: data.category || "",
+      routePoint: data.routePoint || "select route",
+      motherTongue: data.motherTongue || "",
+      maths: data.interMaths || "",
+      physics: data.interPhysics || "",
+      chemistry: data.interChemistry || "",
+      spotAdmFee: data.spotFee || "",
+      le: Boolean(data.le),
+      fac_Child: Boolean(data.staffChild),
+      jnanaBhumiId: data.jnanaBhumiId || "",
+      regulation: data.regulation || "",
+      mAadharNo: data.motherAadhaarNo || "",
+      ugCourse: data.ugCourse || "",
+      librarymembergroup: data.libraryMemberGroup || "Student",
+      schlor: Boolean(data.scholor),
+      modeofCtgy: data.categoryOfAdmission || "",
+      allottedQuota: data.allottedQuota || "",
+      nsp: Boolean(data.nsp),
+      apaar: data.apaarId || "",
     };
 
     try {
       setIsSubmitting(true);
-      await saveAdmission(savePayload);
+      const res = await saveAdmission(savePayload);
+
+      // Save / update photo and signature in frontend Stu_Photo_Sign store (client-side)
+      const primaryId =
+        data.admNo || data.regNo || data.sNo || isEditingId || "student";
+      if (photoPreview && photoPreview.startsWith("data:")) {
+        await savePhotoSign(`P-${primaryId}`, photoPreview);
+        if (data.regNo && data.regNo !== primaryId) {
+          await savePhotoSign(`P-${data.regNo}`, photoPreview);
+        }
+      }
+      if (signaturePreview && signaturePreview.startsWith("data:")) {
+        await savePhotoSign(`S-${primaryId}`, signaturePreview);
+        if (data.regNo && data.regNo !== primaryId) {
+          await savePhotoSign(`S-${data.regNo}`, signaturePreview);
+        }
+      }
 
       toast.success(
-        isEditingId
-          ? "Student details updated successfully!"
-          : "New student registration completed!",
+        res?.message ||
+          (isEditingId
+            ? "Student details updated successfully!"
+            : "New student registration saved successfully!"),
       );
       setIsEditingId(null);
+      setEditingIdent("");
       fetchAdmissions();
 
       // Reset form after submit
@@ -534,9 +1120,12 @@ export const AdmissionsEntry: React.FC = () => {
       setSignaturePreview("");
       setSignatureFile(null);
       setCurrentStep(0);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error saving admission:", error);
-      toast.error("Failed to save student registration. Please try again.");
+      toast.error(
+        error?.response?.data?.message ||
+          "Failed to save student registration. Please try again.",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -556,13 +1145,13 @@ export const AdmissionsEntry: React.FC = () => {
   };
 
   const saveWebcamPhoto = async () => {
-    // Convert the mock webcam image into a real File object so the "Save
-    // Student Registry" step can upload it exactly like a manually chosen file.
     try {
       const response = await fetch(mockPhotoSelection);
       const blob = await response.blob();
       const extension = blob.type.split("/")[1] || "jpg";
-      const capturedFile = new File([blob], `webcam-capture.${extension}`, {
+      const currentRegNo =
+        getValues("regNo") || getValues("sNo") || isEditingId || "temp";
+      const capturedFile = new File([blob], `P-${currentRegNo}.${extension}`, {
         type: blob.type,
       });
       setPhotoFile(capturedFile);
@@ -577,18 +1166,24 @@ export const AdmissionsEntry: React.FC = () => {
 
   // Filter students database (operates on the live API data, studentData)
   const filteredStudents = studentData.filter((s) => {
+    const studentName = String(
+      getVal(s, "SNAME", "sName", "StudentName", "name"),
+    );
+    const admNo = String(getVal(s, "AdmNo", "ADMNO", "admNo"));
+    const sNo = String(getVal(s, "STUDENTSERIALNO", "studentSerialNo", "sNo"));
+    const course = String(getVal(s, "Course", "COURSE", "programme"));
+    const branch = String(getVal(s, "BranchName", "BRANCHNAME", "branch"));
+    const section = String(getVal(s, "SECTION", "section"));
+
     const matchesSearch =
-      (s.SNAME || "").toLowerCase().includes(tableSearch.toLowerCase()) ||
-      (s.AdmNo || "").toLowerCase().includes(tableSearch.toLowerCase()) ||
-      (s.STUDENTSERIALNO || "")
-        .toLowerCase()
-        .includes(tableSearch.toLowerCase());
+      studentName.toLowerCase().includes(tableSearch.toLowerCase()) ||
+      admNo.toLowerCase().includes(tableSearch.toLowerCase()) ||
+      sNo.toLowerCase().includes(tableSearch.toLowerCase());
     const matchesCourse =
-      filterCourse === "All" || (s.Course || "").includes(filterCourse);
+      filterCourse === "All" || course.includes(filterCourse);
     const matchesBranch =
-      filterBranch === "All" || (s.BranchName || "").includes(filterBranch);
-    const matchesSection =
-      filterSection === "All" || s.SECTION === filterSection;
+      filterBranch === "All" || branch.includes(filterBranch);
+    const matchesSection = filterSection === "All" || section === filterSection;
     return matchesSearch && matchesCourse && matchesBranch && matchesSection;
   });
 
@@ -704,6 +1299,10 @@ export const AdmissionsEntry: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (isEditingRef.current) {
+      isEditingRef.current = false;
+      return;
+    }
     setValue("branch", "");
     setValue("admittedYear", "");
     setValue("year", "");
@@ -746,19 +1345,54 @@ export const AdmissionsEntry: React.FC = () => {
       {/* HEADER CONTROLS WITH AUTO SAVE INDICATOR */}
       <div className="dbs-admissions-form-header">
         <div>
-          <h2>Student Admission Form</h2>
-          <p>Structured 5-Step Academic & Student Enrolment Console</p>
+          <h2>
+            {isEditingId ? "Edit Student Admission" : "Student Admission Form"}
+          </h2>
+          <p>
+            {isEditingId
+              ? `Updating record for Student Serial No: ${isEditingId}`
+              : "Structured 6-Step Academic & Student Enrolment Console"}
+          </p>
         </div>
-        <div className="dbs-autosave-indicator">
-          {isSaving ? (
-            <span className="dbs-autosave-saving">
-              <RefreshCw size={14} className="dbs-spin" /> Draft Saving...
-            </span>
-          ) : (
-            <span className="dbs-autosave-saved">
-              <Check size={14} /> {lastSaved}
-            </span>
+        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+          {isEditingId && (
+            <button
+              type="button"
+              className="dbs-btn-secondary"
+              style={{
+                padding: "6px 12px",
+                fontSize: "13px",
+                cursor: "pointer",
+                borderRadius: "6px",
+                border: "1px solid #ccc",
+                background: "#f8f9fa",
+              }}
+              onClick={() => {
+                setIsEditingId(null);
+                setEditingIdent("");
+                reset();
+                setPhotoPreview("");
+                setPhotoFile(null);
+                setSignaturePreview("");
+                setSignatureFile(null);
+                setCurrentStep(0);
+                toast.info("Switched to new student registration mode.");
+              }}
+            >
+              Cancel Edit
+            </button>
           )}
+          <div className="dbs-autosave-indicator">
+            {isSaving ? (
+              <span className="dbs-autosave-saving">
+                <RefreshCw size={14} className="dbs-spin" /> Draft Saving...
+              </span>
+            ) : (
+              <span className="dbs-autosave-saved">
+                <Check size={14} /> {lastSaved}
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
@@ -817,10 +1451,10 @@ export const AdmissionsEntry: React.FC = () => {
                   />
                 </div>
                 <div className="dbs-input-box">
-                  <label>Student Serial No. *</label>
+                  <label>Student Serial No.</label>
                   <input
                     type="text"
-                    {...register("sNo", { required: true })}
+                    {...register("sNo")}
                     placeholder="e.g. 9809/25-26"
                   />
                 </div>
@@ -850,14 +1484,24 @@ export const AdmissionsEntry: React.FC = () => {
                     })}
                   >
                     <option value="">Select Programme</option>
-                    {programe.map((item: any, index: number) => (
-                      <option
-                        key={index}
-                        value={item.COURSECODE ?? item.COURSE_CODE ?? item.ID}
-                      >
-                        {item.COURSE ?? item.PROGRAMME ?? item.NAME}
-                      </option>
-                    ))}
+                    {programe.map((item: any, index: number) => {
+                      const progCode =
+                        item.COURSECODE ??
+                        item.COURSE_CODE ??
+                        item.ID ??
+                        item.ProgrammeCode ??
+                        item.programmeCode;
+                      const progName =
+                        item.COURSE ??
+                        item.PROGRAMME ??
+                        item.ProgrammeName ??
+                        item.NAME;
+                      return (
+                        <option key={index} value={progCode}>
+                          {progName}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="dbs-input-box">
@@ -870,11 +1514,23 @@ export const AdmissionsEntry: React.FC = () => {
                   >
                     <option value="">Select Branch</option>
 
-                    {branches.map((item: any) => (
-                      <option key={item.BRANCHCODE} value={item.BRANCHCODE}>
-                        {item.BRANCHNAME}
-                      </option>
-                    ))}
+                    {branches.map((item: any, index: number) => {
+                      const bCode =
+                        item.BRANCHCODE ??
+                        item.BranchCode ??
+                        item.branchCode ??
+                        item.ID;
+                      const bName =
+                        item.BRANCHNAME ??
+                        item.BranchName ??
+                        item.branchName ??
+                        item.NAME;
+                      return (
+                        <option key={index} value={bCode}>
+                          {bName}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="dbs-input-box">
@@ -887,11 +1543,27 @@ export const AdmissionsEntry: React.FC = () => {
                   >
                     <option value="">Select Year</option>
 
-                    {admittedYears.map((year) => (
-                      <option key={year.ID} value={year.ID}>
-                        {year.DATA}
-                      </option>
-                    ))}
+                    {admittedYears.map((year: any, index: number) => {
+                      const yId = String(
+                        year.ID ??
+                          year.id ??
+                          year.Year ??
+                          year.year ??
+                          year.YEAR,
+                      );
+                      const yData =
+                        year.DATA ??
+                        year.Data ??
+                        year.data ??
+                        year.YEAR ??
+                        year.Year ??
+                        `Year ${yId}`;
+                      return (
+                        <option key={index} value={yId}>
+                          {yData}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="dbs-input-box">
@@ -910,11 +1582,27 @@ export const AdmissionsEntry: React.FC = () => {
                   >
                     <option value="">Select Year</option>
 
-                    {years.map((year) => (
-                      <option key={year.ID} value={year.ID}>
-                        {year.DATA}
-                      </option>
-                    ))}
+                    {years.map((year: any, index: number) => {
+                      const yId = String(
+                        year.ID ??
+                          year.id ??
+                          year.Year ??
+                          year.year ??
+                          year.YEAR,
+                      );
+                      const yData =
+                        year.DATA ??
+                        year.Data ??
+                        year.data ??
+                        year.YEAR ??
+                        year.Year ??
+                        `Year ${yId}`;
+                      return (
+                        <option key={index} value={yId}>
+                          {yData}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
 
@@ -1001,11 +1689,21 @@ export const AdmissionsEntry: React.FC = () => {
                   <select {...register("regulation")}>
                     <option value="">Select Regulation</option>
 
-                    {regulations.map((regu, index) => (
-                      <option key={index} value={regu.regulation}>
-                        {regu.regulation}
-                      </option>
-                    ))}
+                    {regulations.map((regu: any, index: number) => {
+                      const regVal =
+                        typeof regu === "string"
+                          ? regu
+                          : (regu.regulation ??
+                            regu.REGULATION ??
+                            regu.Regulation ??
+                            regu.NAME ??
+                            regu.name);
+                      return (
+                        <option key={index} value={regVal}>
+                          {regVal}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="dbs-input-box">
@@ -1106,6 +1804,8 @@ export const AdmissionsEntry: React.FC = () => {
                     <div className="dbs-input-box">
                       <label>Differently Abled (PH) *</label>
                       <select {...register("differentlyAbled")}>
+                        <option value="NO">No</option>
+                        <option value="YES">Yes</option>
                         <option value="No">No</option>
                         <option value="Yes">Yes</option>
                       </select>
@@ -1116,11 +1816,19 @@ export const AdmissionsEntry: React.FC = () => {
                       <select {...register("caste")}>
                         <option value="">Select Caste</option>
 
-                        {castes.map((item, index) => (
-                          <option key={index} value={item.Caste}>
-                            {item.Caste}
-                          </option>
-                        ))}
+                        {castes.map((item: any, index: number) => {
+                          const casteVal =
+                            item.Caste ??
+                            item.CASTE ??
+                            item.caste ??
+                            item.NAME ??
+                            item.Category;
+                          return (
+                            <option key={index} value={casteVal}>
+                              {casteVal}
+                            </option>
+                          );
+                        })}
                       </select>
                     </div>
 
@@ -1216,6 +1924,14 @@ export const AdmissionsEntry: React.FC = () => {
                         type="text"
                         {...register("state")}
                         placeholder="Andhra Pradesh"
+                      />
+                    </div>
+                    <div className="dbs-input-box">
+                      <label>Route Point</label>
+                      <input
+                        type="text"
+                        {...register("routePoint")}
+                        placeholder="select route / pickup point"
                       />
                     </div>
                     <div className="dbs-input-box">
@@ -1337,6 +2053,7 @@ export const AdmissionsEntry: React.FC = () => {
                           src={photoPreview}
                           alt="Student Preview"
                           className="dbs-preview-student-img"
+                          onError={() => setPhotoPreview("")}
                         />
                       ) : (
                         <div className="dbs-upload-placeholder">
@@ -1364,12 +2081,19 @@ export const AdmissionsEntry: React.FC = () => {
                           type="file"
                           accept="image/*"
                           style={{ display: "none" }}
-                          onChange={(e) => {
+                          onChange={async (e) => {
                             if (e.target.files && e.target.files[0]) {
                               const file = e.target.files[0];
+                              const dataUrl = await fileToDataUrl(file);
                               setPhotoFile(file);
-                              setPhotoPreview(URL.createObjectURL(file));
-                              toast.success("Image file attached successfully");
+                              setPhotoPreview(dataUrl);
+                              const currentId =
+                                getValues("admNo") ||
+                                getValues("regNo") ||
+                                getValues("sNo") ||
+                                isEditingId ||
+                                "temp";
+                              toast.success(`Photo attached: P-${currentId}`);
                             }
                           }}
                         />
@@ -1402,6 +2126,7 @@ export const AdmissionsEntry: React.FC = () => {
                           src={signaturePreview}
                           alt="Signature Preview"
                           className="dbs-preview-student-img"
+                          onError={() => setSignaturePreview("")}
                         />
                       ) : (
                         <div className="dbs-upload-placeholder dbs-signature-placeholder">
@@ -1420,13 +2145,20 @@ export const AdmissionsEntry: React.FC = () => {
                           type="file"
                           accept="image/*"
                           style={{ display: "none" }}
-                          onChange={(e) => {
+                          onChange={async (e) => {
                             if (e.target.files && e.target.files[0]) {
                               const file = e.target.files[0];
+                              const dataUrl = await fileToDataUrl(file);
                               setSignatureFile(file);
-                              setSignaturePreview(URL.createObjectURL(file));
+                              setSignaturePreview(dataUrl);
+                              const currentId =
+                                getValues("admNo") ||
+                                getValues("regNo") ||
+                                getValues("sNo") ||
+                                isEditingId ||
+                                "temp";
                               toast.success(
-                                "Signature file attached successfully",
+                                `Signature attached: S-${currentId}`,
                               );
                             }
                           }}
@@ -1714,7 +2446,15 @@ export const AdmissionsEntry: React.FC = () => {
                 </div>
                 <div className="dbs-form-grid-3">
                   <div className="dbs-input-box">
-                    <label>UG College Name *</label>
+                    <label>UG Course</label>
+                    <input
+                      type="text"
+                      {...register("ugCourse")}
+                      placeholder="e.g. B.Tech / B.Sc / BCA"
+                    />
+                  </div>
+                  <div className="dbs-input-box">
+                    <label>UG College Name</label>
                     <input
                       type="text"
                       {...register("ugCollege")}
@@ -1722,7 +2462,7 @@ export const AdmissionsEntry: React.FC = () => {
                     />
                   </div>
                   <div className="dbs-input-box">
-                    <label>UG Marks Percentage *</label>
+                    <label>UG Marks Percentage</label>
                     <input
                       type="text"
                       {...register("ugMarks")}
@@ -1730,7 +2470,7 @@ export const AdmissionsEntry: React.FC = () => {
                     />
                   </div>
                   <div className="dbs-input-box">
-                    <label>UG Hall Ticket No. *</label>
+                    <label>UG Hall Ticket No.</label>
                     <input
                       type="text"
                       {...register("ugHallTicket")}
@@ -1739,7 +2479,7 @@ export const AdmissionsEntry: React.FC = () => {
                   </div>
 
                   <div className="dbs-input-box">
-                    <label>University *</label>
+                    <label>University</label>
                     <input
                       type="text"
                       {...register("ugUniversity")}
@@ -1747,7 +2487,7 @@ export const AdmissionsEntry: React.FC = () => {
                     />
                   </div>
                   <div className="dbs-input-box">
-                    <label>UG Aggregate *</label>
+                    <label>UG Aggregate</label>
                     <input
                       type="text"
                       {...register("ugAggregateDetail")}
@@ -1755,15 +2495,15 @@ export const AdmissionsEntry: React.FC = () => {
                     />
                   </div>
                   <div className="dbs-input-box">
-                    <label>UG Month & Year of Passing *</label>
+                    <label>UG Month & Year of Passing</label>
                     <input
                       type="text"
                       {...register("ugPassingDateDetail")}
                       placeholder="e.g. May 2025"
                     />
                   </div>
-                  <div className="dbs-input-box dbs-grid-col-span-3">
-                    <label>Rank *</label>
+                  <div className="dbs-input-box dbs-grid-col-span-2">
+                    <label>Rank</label>
                     <input
                       type="text"
                       {...register("ugRank")}
@@ -1784,37 +2524,77 @@ export const AdmissionsEntry: React.FC = () => {
                 <CreditCard className="dbs-card-title-icon" size={20} />
                 <h3>5. Fees Scope & Scholarship Allocations</h3>
               </div>
-              <div className="dbs-form-grid-2">
+              <div className="dbs-form-grid-3">
                 <div className="dbs-input-box">
-                  <label>Scholarship Amount *</label>
+                  <label>Fee Admission Type</label>
                   <input
                     type="text"
-                    {...register("scholarshipAmount", { required: true })}
+                    {...register("fee_admType")}
+                    placeholder="e.g. Regular / Convenor"
+                  />
+                </div>
+                <div className="dbs-input-box">
+                  <label>Tuition Fee</label>
+                  <input
+                    type="text"
+                    {...register("tuitionFee")}
+                    placeholder="Tuition Fee Amount"
+                  />
+                </div>
+                <div className="dbs-input-box">
+                  <label>Miscellaneous Fee</label>
+                  <input
+                    type="text"
+                    {...register("miscellaneousfee")}
+                    placeholder="Misc Fee Amount"
+                  />
+                </div>
+                <div className="dbs-input-box">
+                  <label>Scholarship Amount</label>
+                  <input
+                    type="text"
+                    {...register("scholarshipAmount")}
                     placeholder="INR Amount (e.g. 15000)"
                   />
                 </div>
                 <div className="dbs-input-box">
-                  <label>Spot Admission Fee *</label>
+                  <label>Spot Admission Fee</label>
                   <input
                     type="text"
-                    {...register("spotFee", { required: true })}
+                    {...register("spotFee")}
                     placeholder="INR Amount (e.g. 2000)"
                   />
                 </div>
                 <div className="dbs-input-box">
-                  <label>Boys Hostel Fee *</label>
+                  <label>Boys Hostel Fee</label>
                   <input
                     type="text"
-                    {...register("boysHostelFee", { required: true })}
+                    {...register("boysHostelFee")}
                     placeholder="INR Amount per year"
                   />
                 </div>
                 <div className="dbs-input-box">
-                  <label>Ladies Hostel Fee *</label>
+                  <label>Ladies Hostel Fee</label>
                   <input
                     type="text"
-                    {...register("ladiesHostelFee", { required: true })}
+                    {...register("ladiesHostelFee")}
                     placeholder="INR Amount per year"
+                  />
+                </div>
+                <div className="dbs-input-box">
+                  <label>Bus Fee</label>
+                  <input
+                    type="text"
+                    {...register("busFee")}
+                    placeholder="Transport / Bus Fee"
+                  />
+                </div>
+                <div className="dbs-input-box">
+                  <label>Donation Fee</label>
+                  <input
+                    type="text"
+                    {...register("donation")}
+                    placeholder="Donation Amount"
                   />
                 </div>
               </div>
@@ -1822,40 +2602,8 @@ export const AdmissionsEntry: React.FC = () => {
           </div>
         )}
 
-        {/* STEP 6: Upload Documents */}
+        {/* STEP 6: Review & Submit */}
         {currentStep === 5 && (
-          <div className="dbs-stepper-slide">
-            <div className="dbs-form-card">
-              <div className="dbs-card-title-row">
-                <Upload className="dbs-card-title-icon" size={20} />
-                <h3>Upload Academic Certificates (Drag & Drop)</h3>
-              </div>
-
-              <div
-                {...getRootProps()}
-                className={`dbs-file-dropzone ${isDragActive ? "dbs-dropzone-active" : ""}`}
-              >
-                <input {...getInputProps()} />
-                <Upload size={36} className="dbs-dropzone-icon" />
-                {isDragActive ? (
-                  <p>Drop certification files here...</p>
-                ) : (
-                  <p>
-                    Drag & drop SSC Memo, Inter Certificate, Transfer
-                    Certificate, and Caste/Income Memos here, or click to
-                    browse.
-                  </p>
-                )}
-                <span className="dbs-dropzone-sub">
-                  Supported formats: PDF, JPG, PNG (Max 5MB per file)
-                </span>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* STEP 7: Review & Submit */}
-        {currentStep === 6 && (
           <div className="dbs-stepper-slide">
             <div className="dbs-form-card dbs-review-card">
               <h3>Review Details Before Final Registration</h3>
@@ -1923,32 +2671,46 @@ export const AdmissionsEntry: React.FC = () => {
           <button
             type="button"
             className="dbs-stepper-back-btn"
-            onClick={() => setCurrentStep((prev) => Math.max(0, prev - 1))}
+            onClick={() => {
+              setCurrentStep((prev) => Math.max(0, prev - 1));
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
             disabled={currentStep === 0}
           >
             <ArrowLeft size={16} />
             <span>Previous</span>
           </button>
 
-          <button
-            type="submit"
-            className="dbs-stepper-next-btn"
-            disabled={isSubmitting}
-          >
-            {currentStep === STEPS.length - 1 ? (
-              <>
-                <Save size={16} />
-                <span>
-                  {isSubmitting ? "Saving..." : "Save Student Registry"}
-                </span>
-              </>
-            ) : (
-              <>
-                <span>Next Step</span>
-                <ArrowRight size={16} />
-              </>
-            )}
-          </button>
+          {currentStep < STEPS.length - 1 ? (
+            <button
+              type="button"
+              className="dbs-stepper-next-btn"
+              onClick={() => {
+                setCurrentStep((prev) => Math.min(STEPS.length - 1, prev + 1));
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              <span>Next Step</span>
+              <ArrowRight size={16} />
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="dbs-stepper-next-btn"
+              disabled={isSubmitting}
+            >
+              <Save size={16} />
+              <span>
+                {isSubmitting
+                  ? isEditingId
+                    ? "Updating..."
+                    : "Saving..."
+                  : isEditingId
+                    ? "Update Student Record"
+                    : "Save Student Registry"}
+              </span>
+            </button>
+          )}
         </div>
       </form>
 
@@ -2051,49 +2813,58 @@ export const AdmissionsEntry: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {currentData.map((student, idx) => (
-                  <tr key={student.STUDENTSERIALNO ?? idx}>
-                    <td>{startIndex + idx + 1}</td>
+                {currentData.map((student, idx) => {
+                  const studentName = String(
+                    getVal(student, "SNAME", "sName", "StudentName", "name"),
+                  );
+                  const admNo = String(
+                    getVal(student, "AdmNo", "ADMNO", "admNo"),
+                  );
+                  const course = String(
+                    getVal(student, "Course", "COURSE", "programme"),
+                  );
+                  const branch = String(
+                    getVal(student, "BranchName", "BRANCHNAME", "branch"),
+                  );
+                  const sNo = String(
+                    getVal(
+                      student,
+                      "STUDENTSERIALNO",
+                      "studentSerialNo",
+                      "sNo",
+                      "ident",
+                      "id",
+                    ),
+                  );
 
-                    <td>{student.AdmNo}</td>
-
-                    <td className="dbs-table-student-name">{student.SNAME}</td>
-
-                    <td>
-                      <span className="dbs-pill-category">
-                        {student.Course}
-                      </span>
-                    </td>
-
-                    <td className="dbs-table-branch-td">
-                      {student.BranchName}
-                    </td>
-
-                    <td>
-                      <div className="dbs-table-actions-row">
-                        <button
-                          type="button"
-                          className="dbs-table-action-icon-btn dbs-btn-edit"
-                          onClick={() => handleEditStudent(student)}
-                          title="Edit Student Record"
-                        >
-                          <Edit3 size={14} />
-                        </button>
-
-                        <button
-                          type="button"
-                          className="dbs-table-action-icon-btn dbs-btn-delete"
-                          onClick={() =>
-                            confirmDeleteStudent(student.STUDENTSERIALNO)
-                          }
-                          title="Delete Student Record"
-                        >
-                          <Trash2 size={14} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                  return (
+                    <tr key={sNo || idx}>
+                      <td>{startIndex + idx + 1}</td>
+                      <td>{admNo || "-"}</td>
+                      <td className="dbs-table-student-name">
+                        {studentName || "-"}
+                      </td>
+                      <td>
+                        <span className="dbs-pill-category">
+                          {course || "-"}
+                        </span>
+                      </td>
+                      <td className="dbs-table-branch-td">{branch || "-"}</td>
+                      <td>
+                        <div className="dbs-table-actions-row">
+                          <button
+                            type="button"
+                            className="dbs-table-action-icon-btn dbs-btn-edit"
+                            onClick={() => handleEditStudent(student)}
+                            title="Update Student Record"
+                          >
+                            <Edit3 size={14} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           )}
@@ -2173,39 +2944,6 @@ export const AdmissionsEntry: React.FC = () => {
         </div>
       )}
 
-      {/* --- CONFIRMATION DELETE DIALOG OVERLAY --- */}
-      {deleteTargetId && (
-        <div className="dbs-search-overlay-modal dbs-z-index-high">
-          <div className="dbs-search-modal-box dbs-confirm-modal-box">
-            <div className="dbs-confirm-modal-body">
-              <AlertTriangle size={36} className="dbs-warning-danger-icon" />
-              <h3>Delete Student Record?</h3>
-              <p>
-                Are you sure you want to delete student{" "}
-                <strong>{deleteTargetId}</strong>? This operation cannot be
-                undone.
-              </p>
-            </div>
-            <div className="dbs-confirm-modal-actions">
-              <button
-                type="button"
-                className="dbs-confirm-btn-cancel"
-                onClick={() => setDeleteTargetId(null)}
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                className="dbs-confirm-btn-delete"
-                onClick={executeDelete}
-              >
-                Delete Permanently
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       <Footer
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
@@ -2222,6 +2960,3 @@ export const AdmissionsEntry: React.FC = () => {
 };
 
 export default AdmissionsEntry;
- 
-
-

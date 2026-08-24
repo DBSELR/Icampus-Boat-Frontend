@@ -177,6 +177,83 @@
   box-shadow: 0 0 0 3px var(--dbs-primary-light);
 }
 
+.dbs-expenditure-search-wrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+}
+
+.dbs-expenditure-search-wrapper input {
+  flex: 1;
+  background: #ffffff;
+  color: var(--dbs-text);
+  cursor: text;
+}
+
+.dbs-expenditure-search-btn {
+  height: 44px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--dbs-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--dbs-radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dbs-expenditure-search-btn:hover:not(:disabled) {
+  background: var(--dbs-primary-hover);
+  box-shadow: 0 2px 8px rgba(13, 148, 136, 0.25);
+}
+
+.dbs-expenditure-search-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.dbs-expenditure-print-btn {
+  height: 40px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  color: var(--dbs-primary);
+  border: 1px solid var(--dbs-primary);
+  border-radius: var(--dbs-radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.dbs-expenditure-print-btn:hover:not(:disabled) {
+  background: var(--dbs-primary-light);
+}
+
+.dbs-expenditure-print-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dbs-spin {
+  animation: dbs-spin-animation 1s infinite linear;
+}
+
+@keyframes dbs-spin-animation {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* ==========================================================
    TABLE HEADER
 ========================================================== */

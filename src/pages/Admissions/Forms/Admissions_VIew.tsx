@@ -1,14 +1,37 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { 
-  Camera, RotateCw, Check, X, Upload, Save, ArrowLeft, ArrowRight, Trash2, 
-  Edit3, Search, Filter, RefreshCw, AlertTriangle, AlertCircle, FileText, CheckCircle,
-  UserCheck, ShieldAlert, Award, CreditCard, GraduationCap, Users, User, FileSpreadsheet
+import {
+  Eye,
+  Check,
+  ArrowLeft,
+  ArrowRight,
+  Search,
+  Filter,
+  RefreshCw,
+  FileSpreadsheet,
+  UserCheck,
+  ShieldAlert,
+  Award,
+  CreditCard,
+  GraduationCap,
+  Users,
+  User,
 } from "lucide-react";
 import { toast } from "sonner";
-import { useDropzone } from "react-dropzone";
+import "./Admissions.css";
 import "./Admissions_VIew.css";
+import {
+  getBranch,
+  getProgramme,
+  getReguList,
+  getYear,
+} from "../../../apis/Common";
+import {
+  loadAdmissionData,
+  loadAdmissionInitialFields,
+} from "../../../apis/AdmissionsApis";
+import { getPhotoSign } from "../../../utils/studentPhotoSignStorage";
+import Footer from "../../../common/Footer";
 
 // Form steps definition
 const STEPS = [
@@ -17,69 +40,74 @@ const STEPS = [
   "Parent Details",
   "Previous Education",
   "Fees Scope",
-  "Upload Docs",
-  "Review & Submit"
+  "Review & Summary",
 ];
 
-// Initial mock dataset
-const INITIAL_STUDENTS = [
-  { 
-    sNo: "9808/25-26", admNo: "25MDS06", regNo: "25MDS06", admDate: "2025-10-23", 
-    name: "SHAIK MOHAMMED GHOUSE JANI", course: "02-M.Tech", branch: "88-Data Science(CSE)", 
-    year: "1", sem: "1", section: "A", photo: "", sscSchool: "St. Joseph High School", sscMarks: "85", 
-    fatherName: "Shaik Ghouse", fatherMobile: "9876543210", category: "General", isActive: true,
-    scholarshipAmount: "15000", spotFee: "2000", boysHostelFee: "45000", ladiesHostelFee: "0"
-  },
-  { 
-    sNo: "9807/25-26", admNo: "25MDS05", regNo: "25MDS05", admDate: "2025-10-23", 
-    name: "GUDIMELLI MONIKA", course: "02-M.Tech", branch: "88-Data Science(CSE)", 
-    year: "1", sem: "1", section: "A", photo: "", sscSchool: "Montessori English Medium", sscMarks: "92", 
-    fatherName: "G. Srinivasa Rao", fatherMobile: "8765432109", category: "BC-B", isActive: true,
-    scholarshipAmount: "20000", spotFee: "0", boysHostelFee: "0", ladiesHostelFee: "48000"
-  },
-  { 
-    sNo: "9806/25-26", admNo: "25MDS04", regNo: "25MDS04", admDate: "2025-10-23", 
-    name: "DARAPUNENI BHAVYA", course: "02-M.Tech", branch: "88-Data Science(CSE)", 
-    year: "1", sem: "1", section: "A", photo: "", sscSchool: "Nirmala High School", sscMarks: "88", 
-    fatherName: "D. Prasad", fatherMobile: "7654321098", category: "OC", isActive: true,
-    scholarshipAmount: "0", spotFee: "5000", boysHostelFee: "0", ladiesHostelFee: "0"
-  },
-  { 
-    sNo: "9805/25-26", admNo: "25MBA167", regNo: "25MBA167", admDate: "2025-10-22", 
-    name: "TALAM BHARGAVI", course: "03-MBA", branch: "125-MASTER OF BUSINESS ADMINISTRATION", 
-    year: "1", sem: "1", section: "B", photo: "", sscSchool: "Aditya Public School", sscMarks: "90", 
-    fatherName: "T. Narayana", fatherMobile: "9812345678", category: "SC", isActive: true,
-    scholarshipAmount: "35000", spotFee: "0", boysHostelFee: "0", ladiesHostelFee: "45000"
-  },
-  { 
-    sNo: "9804/25-26", admNo: "25MBA165", regNo: "25MBA165", admDate: "2025-10-22", 
-    name: "MUCHINTALA HARI KRISHNA", course: "03-MBA", branch: "125-MASTER OF BUSINESS ADMINISTRATION", 
-    year: "1", sem: "1", section: "B", photo: "", sscSchool: "ZPHS School", sscMarks: "78", 
-    fatherName: "M. Kondaiah", fatherMobile: "8899776655", category: "BC-A", isActive: true,
-    scholarshipAmount: "12000", spotFee: "1000", boysHostelFee: "42000", ladiesHostelFee: "0"
+// Helper to convert DD-MM-YYYY or ISO dates to YYYY-MM-DD for <input type="date" />
+const parseApiDate = (dateStr: any) => {
+  if (!dateStr) return "";
+  const s = String(dateStr).trim();
+  if (!s || s === "null" || s === "undefined") return "";
+
+  // If already YYYY-MM-DD
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+
+  // If DD-MM-YYYY or DD/MM/YYYY
+  const dmyMatch = s.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})/);
+  if (dmyMatch) {
+    const day = dmyMatch[1].padStart(2, "0");
+    const month = dmyMatch[2].padStart(2, "0");
+    const year = dmyMatch[3];
+    return `${year}-${month}-${day}`;
   }
-];
+
+  // If ISO string
+  if (s.includes("T")) {
+    return s.split("T")[0];
+  }
+
+  const timestamp = Date.parse(s);
+  if (!isNaN(timestamp)) {
+    return new Date(timestamp).toISOString().split("T")[0];
+  }
+  return "";
+};
+
+// Case-insensitive helper for extracting property values from backend objects
+const getVal = (obj: any, ...keys: string[]) => {
+  if (!obj) return "";
+  for (const k of keys) {
+    if (obj[k] !== undefined && obj[k] !== null) return obj[k];
+  }
+  const objKeys = Object.keys(obj);
+  for (const k of keys) {
+    const matched = objKeys.find((ok) => ok.toLowerCase() === k.toLowerCase());
+    if (matched && obj[matched] !== undefined && obj[matched] !== null) {
+      return obj[matched];
+    }
+  }
+  return "";
+};
 
 export const AdmissionView: React.FC = () => {
-  const location = useLocation();
-  const [students, setStudents] = useState(INITIAL_STUDENTS);
-  
+  const [studentData, setStudentData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
   // Active step state
   const [currentStep, setCurrentStep] = useState(0);
-  const [isEditingId, setIsEditingId] = useState<string | null>(null);
+  const [selectedStudent, setSelectedStudent] = useState<any | null>(null);
 
-  // Auto-save Indicator state
-  const [lastSaved, setLastSaved] = useState<string>("Draft Saved just now");
-  const [isSaving, setIsSaving] = useState(false);
-
-  // Webcam Mock modal states
-  const [webcamOpen, setWebcamOpen] = useState(false);
-  const [rotationAngle, setRotationAngle] = useState(0);
-  const [mockPhotoSelection, setMockPhotoSelection] = useState<string>("");
+  // Photo & Signature previews (Read-only)
   const [photoPreview, setPhotoPreview] = useState<string>("");
+  const [signaturePreview, setSignaturePreview] = useState<string>("");
 
-  // Confirmation dialog overlays
-  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+  // Dropdown list states
+  const [programmes, setProgrammes] = useState<any[]>([]);
+  const [branches, setBranches] = useState<any[]>([]);
+  const [years, setYears] = useState<any[]>([]);
+  const [regulations, setRegulations] = useState<any[]>([]);
+  const [castes, setCastes] = useState<any[]>([]);
+  const [phOptions, setPhOptions] = useState<any[]>([]);
 
   // Search & Filter state for students database
   const [tableSearch, setTableSearch] = useState("");
@@ -89,10 +117,10 @@ export const AdmissionView: React.FC = () => {
   const [sortBy, setSortBy] = useState<string>("sNo");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const [recordsPerPage, setRecordsPerPage] = useState(5);
 
-  // React Hook Form setup
-  const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm({
+  // React Hook Form setup (View-only)
+  const { register, reset, setValue, watch } = useForm({
     defaultValues: {
       // 1. Academic Info
       admDate: new Date().toISOString().split("T")[0],
@@ -106,39 +134,26 @@ export const AdmissionView: React.FC = () => {
       year: "1",
       sem: "1",
       section: "A",
-      joiningAcademicYear: "2025-2026",
-      currentAcademicYear: "2025-2026",
-      cet: "EAPCET",
+      joiningAcademicYear: "2026-2027",
+      currentAcademicYear: "2026-2027",
+      cet: "CET",
       hallTicket: "",
       rank: "",
       branchRank: "",
-      interCollegeName: "",
-      interMarksPercentage: "",
-      interHallTicketNo: "",
-      interBoard: "BIEAP",
-      interAggregate: "",
-      interPassingDate: "",
-      ugCollegeName: "",
-      ugMarksPercentage: "",
-      ugHallTicketNo: "",
-      university: "",
-      ugAggregate: "",
-      ugPassingDate: "",
-      ugRank: "",
       jnanaBhumiId: "",
       regulation: "R23",
-      libraryMemberGroup: "General Student",
+      libraryMemberGroup: "Student",
       apaarId: "",
 
-      // 2. Student Details - Personal / Identity
+      // 2. Student Details
       name: "",
       dob: "",
       gender: "Male",
       nationality: "Indian",
       motherTongue: "Telugu",
       religion: "Hindu",
-      bloodGroup: "O+",
-      differentlyAbled: "No",
+      bloodGroup: "B+ve",
+      differentlyAbled: "NO",
       caste: "OC",
       subcaste: "",
       category: "General",
@@ -147,28 +162,24 @@ export const AdmissionView: React.FC = () => {
       categoryOfAdmission: "Regular",
       mole1: "",
       mole2: "",
-
-      // Student Contact
       studentMobile: "",
       studentEmail: "",
       address: "",
       state: "Andhra Pradesh",
+      routePoint: "select route",
       rationCardNo: "",
       incomeCertNo: "",
       aadhaarNo: "",
-
-      // Other Student Details
       activeStatus: "Active",
+      statusDate: new Date().toISOString().split("T")[0],
+      statusReason: "Regular Admission",
       isActive: true,
       scholor: false,
       le: false,
       staffChild: false,
       nsp: false,
-      status: "Enrolled",
-      statusDate: new Date().toISOString().split("T")[0],
-      statusReason: "Regular Admission",
 
-      // 3. Parent Details - Father / Parent
+      // 3. Parent Details
       fatherName: "",
       fatherOccupation: "",
       fatherIncome: "",
@@ -176,336 +187,650 @@ export const AdmissionView: React.FC = () => {
       mobileNo1: "",
       mobileNo2: "",
       parentAadhaarNo: "",
-
-      // Mother
       motherName: "",
       motherAadhaarNo: "",
 
-      // 4. Previous Education - SSC
+      // 4. Previous Education
       sscSchool: "",
       sscMarks: "",
       sscHallTicket: "",
-      sscBoard: "SSC Board AP",
-      sscStudied: "Regular",
-      sscAggregate: "",
+      sscBoard: "BSEAP",
       sscPassingDate: "",
-
-      // Intermediate
+      sscStudied: "",
+      sscAggregate: "",
       interCollege: "",
       interMarks: "",
-      interHallTicket: "",
+      interHallTicketNo: "",
       interBoardDetail: "BIEAP",
       interAggregateDetail: "",
       interPassingDateDetail: "",
-
-      // UG
+      interMaths: "",
+      interPhysics: "",
+      interChemistry: "",
+      ugCourse: "",
       ugCollege: "",
       ugMarks: "",
       ugHallTicket: "",
       ugUniversity: "",
       ugAggregateDetail: "",
       ugPassingDateDetail: "",
-      ugRankDetail: "",
+      ugRank: "",
 
       // 5. Fees Scope
+      fee_admType: "",
+      tuitionFee: "",
+      miscellaneousfee: "",
       scholarshipAmount: "0",
       boysHostelFee: "0",
       ladiesHostelFee: "0",
-      spotFee: "0"
-    }
+      busFee: "0",
+      donation: "0",
+      spotFee: "0",
+    },
   });
 
   const formData = watch();
+  const selectedProgramme = watch("course");
 
-  // Auto-save trigger simulation on form changes
-  useEffect(() => {
-    setIsSaving(true);
-    const saveTimer = setTimeout(() => {
-      setIsSaving(false);
-      const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      setLastSaved(`Draft Saved at ${time}`);
-    }, 1000);
-    return () => clearTimeout(saveTimer);
-  }, [formData]);
-
-  // Keyboard shortcut Ctrl+S (Save draft manually)
-  useEffect(() => {
-    const handleSaveShortcut = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
-        e.preventDefault();
-        toast.success("Draft saved successfully to local storage!");
+  const fetchAdmissions = async () => {
+    try {
+      setLoading(true);
+      const res = await loadAdmissionData();
+      if (res && Array.isArray(res)) {
+        setStudentData(res);
+        // Pre-select first student if available and none selected
+        if (res.length > 0 && !selectedStudent) {
+          handleViewStudent(res[0]);
+        }
       }
-    };
-    window.addEventListener("keydown", handleSaveShortcut);
-    return () => window.removeEventListener("keydown", handleSaveShortcut);
-  }, []);
-
-  // Dropzone setup for document uploads
-  const onDrop = (acceptedFiles: File[]) => {
-    toast.success(`${acceptedFiles.length} file(s) attached successfully!`);
-  };
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-
-  // Confirmation modal triggers
-  const confirmDeleteStudent = (sNo: string) => {
-    setDeleteTargetId(sNo);
-  };
-
-  const executeDelete = () => {
-    if (deleteTargetId) {
-      setStudents(prev => prev.filter(s => s.sNo !== deleteTargetId));
-      toast.success(`Record ${deleteTargetId} deleted successfully.`);
-      setDeleteTargetId(null);
+    } catch (error) {
+      console.error("Error loading admissions view data:", error);
+      toast.error("Failed to load admissions data.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleEditStudent = (student: any) => {
-    setIsEditingId(student.sNo);
-    reset({
-      admDate: student.admDate || "",
-      sNo: student.sNo || "",
-      admNo: student.admNo || "",
-      regNo: student.regNo || "",
-      course: student.course || "01-B.Tech",
-      branch: student.branch || "05-COMPUTER SCIENCE AND ENGINEERING",
-      admittedYear: student.admittedYear || "1",
-      admittedSem: student.admittedSem || "1",
-      year: student.year || "1",
-      sem: student.sem || "1",
-      section: student.section || "A",
-      joiningAcademicYear: student.joiningAcademicYear || "2025-2026",
-      currentAcademicYear: student.currentAcademicYear || "2025-2026",
-      cet: student.cet || "EAPCET",
-      hallTicket: student.hallTicket || "",
-      rank: student.rank || "",
-      branchRank: student.branchRank || "",
-      interCollegeName: student.interCollegeName || "",
-      interMarksPercentage: student.interMarksPercentage || "",
-      interHallTicketNo: student.interHallTicketNo || "",
-      interBoard: student.interBoard || "BIEAP",
-      interAggregate: student.interAggregate || "",
-      interPassingDate: student.interPassingDate || "",
-      ugCollegeName: student.ugCollegeName || "",
-      ugMarksPercentage: student.ugMarksPercentage || "",
-      ugHallTicketNo: student.ugHallTicketNo || "",
-      university: student.university || "",
-      ugAggregate: student.ugAggregate || "",
-      ugPassingDate: student.ugPassingDate || "",
-      ugRank: student.ugRank || "",
-      jnanaBhumiId: student.jnanaBhumiId || "",
-      regulation: student.regulation || "R23",
-      libraryMemberGroup: student.libraryMemberGroup || "General Student",
-      apaarId: student.apaarId || "",
-      name: student.name || "",
-      dob: student.dob || "",
-      gender: student.gender || "Male",
-      nationality: student.nationality || "Indian",
-      motherTongue: student.motherTongue || "Telugu",
-      religion: student.religion || "Hindu",
-      bloodGroup: student.bloodGroup || "O+",
-      differentlyAbled: student.differentlyAbled || "No",
-      caste: student.caste || "OC",
-      subcaste: student.subcaste || "",
-      category: student.category || "General",
-      allottedQuota: student.allottedQuota || "Convenor",
-      modeOfAdmission: student.modeOfAdmission || "CET",
-      categoryOfAdmission: student.categoryOfAdmission || "Regular",
-      mole1: student.mole1 || "",
-      mole2: student.mole2 || "",
-      studentMobile: student.studentMobile || "",
-      studentEmail: student.studentEmail || "",
-      address: student.address || "",
-      state: student.state || "Andhra Pradesh",
-      rationCardNo: student.rationCardNo || "",
-      incomeCertNo: student.incomeCertNo || "",
-      aadhaarNo: student.aadhaarNo || "",
-      activeStatus: student.activeStatus || "Active",
-      isActive: student.isActive ?? true,
-      scholor: student.scholor ?? false,
-      le: student.le ?? false,
-      staffChild: student.staffChild ?? false,
-      nsp: student.nsp ?? false,
-      status: student.status || "Enrolled",
-      statusDate: student.statusDate || new Date().toISOString().split("T")[0],
-      statusReason: student.statusReason || "Regular Admission",
-      fatherName: student.fatherName || "",
-      fatherOccupation: student.fatherOccupation || "",
-      fatherIncome: student.fatherIncome || "",
-      parentMobile: student.fatherMobile || student.parentMobile || "",
-      mobileNo1: student.mobileNo1 || "",
-      mobileNo2: student.mobileNo2 || "",
-      parentAadhaarNo: student.parentAadhaarNo || "",
-      motherName: student.motherName || "",
-      motherAadhaarNo: student.motherAadhaarNo || "",
-      sscSchool: student.sscSchool || "",
-      sscMarks: student.sscMarks || "",
-      sscHallTicket: student.sscHallTicket || "",
-      sscBoard: student.sscBoard || "SSC Board AP",
-      sscStudied: student.sscStudied || "Regular",
-      sscAggregate: student.sscAggregate || "",
-      sscPassingDate: student.sscPassingDate || "",
-      interCollege: student.interCollege || "",
-      interMarks: student.interMarks || "",
-      interHallTicket: student.interHallTicket || "",
-      interBoardDetail: student.interBoardDetail || "BIEAP",
-      interAggregateDetail: student.interAggregateDetail || "",
-      interPassingDateDetail: student.interPassingDateDetail || "",
-      ugCollege: student.ugCollege || "",
-      ugMarks: student.ugMarks || "",
-      ugHallTicket: student.ugHallTicket || "",
-      ugUniversity: student.ugUniversity || "",
-      ugAggregateDetail: student.ugAggregateDetail || "",
-      ugPassingDateDetail: student.ugPassingDateDetail || "",
-      ugRankDetail: student.ugRankDetail || "",
-      scholarshipAmount: student.scholarshipAmount || "0",
-      boysHostelFee: student.boysHostelFee || "0",
-      ladiesHostelFee: student.ladiesHostelFee || "0",
-      spotFee: student.spotFee || "0"
+  useEffect(() => {
+    fetchAdmissions();
+  }, []);
+
+  // Fetch initial fields from API
+  useEffect(() => {
+    const fetchInitialFields = async () => {
+      try {
+        const data = await loadAdmissionInitialFields();
+        if (data) {
+          if (data.caste) setCastes(data.caste);
+          if (data.differentlyAbled) setPhOptions(data.differentlyAbled);
+          if (data.regulation) setRegulations(data.regulation);
+        }
+      } catch (error) {
+        console.error("Error loading initial fields:", error);
+      }
+    };
+    fetchInitialFields();
+  }, []);
+
+  // Fetch programmes on mount
+  useEffect(() => {
+    const fetchProgrammes = async () => {
+      try {
+        const response = await getProgramme();
+        if (response && response.data) {
+          setProgrammes(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching programmes:", error);
+      }
+    };
+    fetchProgrammes();
+  }, []);
+
+  // Cascading Branch and Year dropdown fetch on Programme change
+  useEffect(() => {
+    if (selectedProgramme) {
+      const courseCode = selectedProgramme.includes("-")
+        ? selectedProgramme.split("-")[0].trim()
+        : selectedProgramme.trim();
+
+      const fetchBranchesAndYears = async () => {
+        try {
+          const [branchRes, yearRes] = await Promise.all([
+            getBranch(courseCode),
+            getYear(courseCode),
+          ]);
+          if (branchRes && branchRes.data) {
+            setBranches(branchRes.data);
+          }
+          if (yearRes && yearRes.data) {
+            setYears(yearRes.data);
+          }
+        } catch (error) {
+          console.error("Error fetching branches and years:", error);
+        }
+      };
+      fetchBranchesAndYears();
+    } else {
+      setBranches([]);
+      setYears([]);
+    }
+  }, [selectedProgramme]);
+
+  // Load a student into the View-only form
+  const handleViewStudent = async (student: any) => {
+    setSelectedStudent(student);
+
+    const rawCourse = String(
+      getVal(
+        student,
+        "programme",
+        "course",
+        "Course",
+        "Programme",
+        "PROGRAMME",
+        "COURSE",
+      ) || "01-B.Tech",
+    );
+    const courseCode = rawCourse.includes("-")
+      ? rawCourse.split("-")[0].trim()
+      : rawCourse.trim();
+
+    // Preload branches and years for courseCode
+    if (courseCode) {
+      try {
+        const [branchRes, yearRes] = await Promise.all([
+          getBranch(courseCode),
+          getYear(courseCode),
+        ]);
+        if (branchRes && branchRes.data) setBranches(branchRes.data);
+        if (yearRes && yearRes.data) setYears(yearRes.data);
+      } catch (e) {
+        console.error("Error fetching dependent options for view:", e);
+      }
+    }
+
+    const rawBranch = String(
+      getVal(
+        student,
+        "branch",
+        "BranchName",
+        "branchName",
+        "BRANCHNAME",
+        "BRANCH",
+      ) || "05-COMPUTER SCIENCE AND ENGINEERING",
+    );
+    const branchCode = rawBranch.includes("-")
+      ? rawBranch.split("-")[0].trim()
+      : rawBranch.trim();
+
+    const rawAdmittedYear = String(
+      getVal(student, "aYear", "AYEAR", "admittedYear", "admitted_year") || "1",
+    );
+    const rawStudyingYear = String(
+      getVal(
+        student,
+        "sYear",
+        "SYEAR",
+        "year",
+        "studyingYear",
+        "studying_year",
+      ) || "1",
+    );
+
+    const resolvedCourse =
+      programmes.find(
+        (p) =>
+          String(p.courseCode || p.code || p.id).trim() === courseCode ||
+          String(p.courseName || p.name).trim() === rawCourse,
+      )?.courseCode || rawCourse;
+
+    const resolvedBranch = branchCode || rawBranch;
+
+    const rawPh = String(
+      getVal(student, "ph", "PH", "differentlyAbled", "differently_abled") ||
+        "NO",
+    );
+    const resolvedPh =
+      rawPh.toUpperCase() === "YES" ||
+      rawPh === "1" ||
+      rawPh.toUpperCase() === "TRUE"
+        ? "YES"
+        : "NO";
+
+    const formValues: any = {
+      admDate: parseApiDate(
+        getVal(
+          student,
+          "admissionDate",
+          "admDate",
+          "ADMISSIONDATE",
+          "DateOfAdmission",
+        ),
+      ),
+      sNo: String(
+        getVal(
+          student,
+          "studentSerialNo",
+          "sNo",
+          "STUDENTSERIALNO",
+          "serialNo",
+        ),
+      ),
+      admNo: String(getVal(student, "admNo", "AdmNo", "ADMNO", "admissionNo")),
+      regNo: String(
+        getVal(student, "registrationNo", "regNo", "REGISTRATIONNO", "RegNo"),
+      ),
+      course: resolvedCourse,
+      branch: resolvedBranch,
+      admittedYear: rawAdmittedYear,
+      admittedSem: String(
+        getVal(student, "aSemester", "ASEMESTER", "admittedSem") || "1",
+      ),
+      year: rawStudyingYear,
+      sem: String(
+        getVal(student, "sSemester", "SSEMESTER", "sem", "SEMESTER") || "1",
+      ),
+      section: String(getVal(student, "section", "SECTION") || "A"),
+      joiningAcademicYear: String(
+        getVal(
+          student,
+          "jAcadamicYear",
+          "joiningAcademicYear",
+          "JACADAMICYEAR",
+          "jAcademicYear",
+        ) ||
+          getVal(student, "acadamicYear", "ACADAMICYEAR") ||
+          "2026-2027",
+      ),
+      currentAcademicYear: String(
+        getVal(
+          student,
+          "acadamicYear",
+          "ACADAMICYEAR",
+          "academicYear",
+          "currentAcademicYear",
+        ) || "2026-2027",
+      ),
+      cet: String(
+        getVal(student, "set", "SET", "cet", "CET", "modeofAdm", "MODEOFADM") ||
+          "CET",
+      ),
+      hallTicket: String(
+        getVal(student, "hallTicket", "HALLTICKET", "hallTicketNo"),
+      ),
+      rank: String(getVal(student, "rank", "RANK", "setRank", "SETRANK")),
+      branchRank: String(
+        getVal(student, "branchRank", "BRANCHRANK", "branch_rank"),
+      ),
+      jnanaBhumiId: String(getVal(student, "jnanaBhumiId", "JNANABHUMIID")),
+      regulation: String(getVal(student, "regulation", "REGULATION") || "R23"),
+      libraryMemberGroup: String(
+        getVal(student, "librarymembergroup", "LIBRARYMEMBERGROUP") ||
+          "Student",
+      ),
+      apaarId: String(getVal(student, "apaar", "APAAR", "apaarId")),
+      name: String(
+        getVal(student, "sName", "SNAME", "name", "studentName", "StudentName"),
+      ),
+      dob: parseApiDate(
+        getVal(student, "dob", "DOB", "dateOfBirth", "DateOfBirth"),
+      ),
+      gender: String(getVal(student, "gender", "GENDER") || "Male"),
+      nationality: String(
+        getVal(student, "nationality", "NATIONALITY") || "Indian",
+      ),
+      motherTongue: String(
+        getVal(student, "motherTongue", "MOTHERTONGUE") || "Telugu",
+      ),
+      religion: String(getVal(student, "religion", "RELIGION") || "Hindu"),
+      bloodGroup: String(
+        getVal(student, "bloodGrp", "BLOODGRP", "bloodGroup") || "B+ve",
+      ),
+      differentlyAbled: resolvedPh,
+      caste: String(getVal(student, "caste", "CASTE") || "OC"),
+      subcaste: String(getVal(student, "subCaste", "SUBCASTE", "subcaste")),
+      category: String(getVal(student, "category", "CATEGORY") || "General"),
+      allottedQuota: String(
+        getVal(student, "allottedQuota", "ALLOTTEDQUOTA") || "Convenor",
+      ),
+      modeOfAdmission: String(
+        getVal(student, "modeofAdm", "MODEOFADM") || "CET",
+      ),
+      categoryOfAdmission: String(
+        getVal(student, "modeofCtgy", "MODEOFCTGY") || "Regular",
+      ),
+      mole1: String(getVal(student, "mole1", "MOLE1")),
+      mole2: String(getVal(student, "mole2", "MOLE2")),
+      studentMobile: String(
+        getVal(student, "stdMobNo", "STDMOBNO", "studentMobile"),
+      ),
+      studentEmail: String(
+        getVal(student, "emailid", "EMAILID", "studentEmail", "email"),
+      ),
+      address: String(getVal(student, "address", "ADDRESS")),
+      state: String(
+        getVal(student, "states", "STATES", "state", "STATE") ||
+          "Andhra Pradesh",
+      ),
+      routePoint: String(
+        getVal(student, "routePoint", "ROUTEPOINT") || "select route",
+      ),
+      rationCardNo: String(
+        getVal(student, "rationcardNo", "RATIONCARDNO", "rationCardNo"),
+      ),
+      incomeCertNo: String(getVal(student, "icNo", "ICNO", "incomeCertNo")),
+      aadhaarNo: String(getVal(student, "aadhaarNo", "AADHAARNO")),
+      activeStatus: String(
+        getVal(student, "status", "STATUS", "aStatus", "ASTATUS") || "Active",
+      ),
+      statusDate:
+        parseApiDate(getVal(student, "date", "DATE", "statusDate")) ||
+        new Date().toISOString().split("T")[0],
+      statusReason: String(
+        getVal(student, "reason", "REASON", "statusReason") ||
+          "Regular Admission",
+      ),
+      isActive:
+        getVal(student, "isactive", "ISACTIVE", "isActive") === ""
+          ? true
+          : Boolean(getVal(student, "isactive", "ISACTIVE", "isActive")),
+      scholor: Boolean(getVal(student, "schlor", "SCHLOR", "scholor")),
+      le: Boolean(getVal(student, "le", "LE")),
+      staffChild: Boolean(
+        getVal(student, "fac_Child", "FAC_CHILD", "staffChild"),
+      ),
+      nsp: Boolean(getVal(student, "nsp", "NSP")),
+      fatherName: String(
+        getVal(student, "fName", "FNAME", "fatherName", "FatherName"),
+      ),
+      fatherOccupation: String(
+        getVal(student, "parentOccupation", "PARENTOCCUPATION"),
+      ),
+      fatherIncome: String(getVal(student, "income", "INCOME")),
+      parentMobile: String(
+        getVal(student, "parentMbNo", "PARENTMBNO", "parentMobile"),
+      ),
+      mobileNo1: String(getVal(student, "mobileNo1", "MOBILENO1")),
+      mobileNo2: String(
+        getVal(student, "parentMbNo2", "PARENTMBNO2", "mobileNo2"),
+      ),
+      parentAadhaarNo: String(
+        getVal(student, "parentAadhaarNo", "PARENTAADHAARNO"),
+      ),
+      motherName: String(
+        getVal(student, "mName", "MNAME", "motherName", "MotherName"),
+      ),
+      motherAadhaarNo: String(
+        getVal(student, "mAadharNo", "MAADHARNO", "motherAadhaarNo"),
+      ),
+      sscSchool: String(
+        getVal(student, "sscSchoolName", "SSCSCHOOLNAME", "sscSchool"),
+      ),
+      sscMarks: String(
+        getVal(student, "sscMarksPercentage", "SSCMARKSPERCENTAGE"),
+      ),
+      sscHallTicket: String(
+        getVal(student, "ssC_HallTicketNo", "SSC_HALLTICKETNO"),
+      ),
+      sscBoard: String(
+        getVal(student, "ssC_Board", "SSC_BOARD", "sscBoard") || "BSEAP",
+      ),
+      sscPassingDate: String(
+        getVal(student, "ssC_MYPassing", "SSC_MYPASSING", "sscPassingDate"),
+      ),
+      sscStudied: String(getVal(student, "sscStudied", "SSCSTUDIED")),
+      sscAggregate: String(
+        getVal(student, "ssC_Aggregate", "SSC_AGGREGATE", "sscAggregate"),
+      ),
+      interCollege: String(
+        getVal(
+          student,
+          "lastAttendedCollegeName",
+          "int_CollegeName",
+          "interCollege",
+        ),
+      ),
+      interMarks: String(
+        getVal(
+          student,
+          "groupSubjectsMarksPercentage",
+          "int_MarksPerc",
+          "interMarks",
+        ),
+      ),
+      interHallTicketNo: String(
+        getVal(student, "int_HallTicketNo", "INT_HALLTICKETNO"),
+      ),
+      interBoardDetail: String(
+        getVal(student, "int_Board", "INT_BOARD") || "BIEAP",
+      ),
+      interAggregateDetail: String(
+        getVal(student, "int_Aggregate", "INT_AGGREGATE", "aggregate"),
+      ),
+      interPassingDateDetail: String(
+        getVal(student, "int_MYPassing", "INT_MYPASSING", "myPassing"),
+      ),
+      interMaths: String(getVal(student, "maths", "MATHS")),
+      interPhysics: String(getVal(student, "physics", "PHYSICS")),
+      interChemistry: String(getVal(student, "chemistry", "CHEMISTRY")),
+      ugCourse: String(getVal(student, "ugCourse", "UGCOURSE")),
+      ugCollege: String(getVal(student, "uG_CollegeName", "UG_COLLEGENAME")),
+      ugMarks: String(getVal(student, "uG_MarksPerc", "UG_MARKSPERC")),
+      ugHallTicket: String(
+        getVal(student, "uG_HallTicketNo", "UG_HALLTICKETNO"),
+      ),
+      ugUniversity: String(getVal(student, "uG_University", "UG_UNIVERSITY")),
+      ugAggregateDetail: String(
+        getVal(student, "uG_Aggregate", "UG_AGGREGATE"),
+      ),
+      ugPassingDateDetail: String(
+        getVal(student, "uG_MYPassing", "UG_MYPASSING"),
+      ),
+      ugRank: String(getVal(student, "ugRank", "UGRANK")),
+      fee_admType: String(getVal(student, "fee_admType", "FEE_ADMTYPE")),
+      tuitionFee: String(getVal(student, "tuitionFee", "TUITIONFEE")),
+      miscellaneousfee: String(
+        getVal(student, "miscellaneousfee", "MISCELLANEOUSFEE"),
+      ),
+      scholarshipAmount: String(
+        getVal(student, "schAmount", "SCHAMOUNT") || "0",
+      ),
+      boysHostelFee: String(getVal(student, "bhFee", "BHFEE") || "0"),
+      ladiesHostelFee: String(getVal(student, "lhFee", "LHFEE") || "0"),
+      busFee: String(getVal(student, "busFee", "BUSFEE") || "0"),
+      donation: String(getVal(student, "donation", "DONATION") || "0"),
+      spotFee: String(getVal(student, "spotAdmFee", "SPOTADMFEE") || "0"),
+    };
+
+    reset(formValues);
+    Object.keys(formValues).forEach((key) => {
+      setValue(key as any, formValues[key]);
     });
 
-    if (student.photo) {
-      setPhotoPreview(student.photo);
+    const admNo = String(
+      formValues.admNo ||
+        getVal(student, "AdmNo", "ADMNO", "admNo", "admissionNo") ||
+        "",
+    ).trim();
+
+    const regNo = String(
+      formValues.regNo ||
+        getVal(
+          student,
+          "REGISTRATIONNO",
+          "regNo",
+          "RegistrationNo",
+          "studentSerialNo",
+          "sNo",
+        ) ||
+        "",
+    ).trim();
+
+    const primaryKey = admNo || regNo;
+
+    // Check Stu_Photo_Sign store for existing photo comparing with admission number
+    let storedPhoto = admNo ? await getPhotoSign(`P-${admNo}`) : null;
+    if (!storedPhoto && regNo && regNo !== admNo) {
+      storedPhoto = await getPhotoSign(`P-${regNo}`);
+    }
+
+    if (storedPhoto) {
+      setPhotoPreview(storedPhoto);
+    } else if (primaryKey) {
+      setPhotoPreview(
+        `/src/pages/Admissions/Stu_Photo_Sign/P-${encodeURIComponent(primaryKey)}.jpg`,
+      );
     } else {
       setPhotoPreview("");
     }
+
+    // Check Stu_Photo_Sign store for existing signature comparing with admission number
+    let storedSign = admNo ? await getPhotoSign(`S-${admNo}`) : null;
+    if (!storedSign && regNo && regNo !== admNo) {
+      storedSign = await getPhotoSign(`S-${regNo}`);
+    }
+
+    if (storedSign) {
+      setSignaturePreview(storedSign);
+    } else if (primaryKey) {
+      setSignaturePreview(
+        `/src/pages/Admissions/Stu_Photo_Sign/S-${encodeURIComponent(primaryKey)}.jpg`,
+      );
+    } else {
+      setSignaturePreview("");
+    }
+
     setCurrentStep(0);
-    toast.info(`Loaded student profile: ${student.name}`);
+    toast.info(`Viewing profile: ${formValues.name || "Student"}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleStepSubmit = (data: any) => {
-    if (currentStep < STEPS.length - 1) {
-      setCurrentStep(currentStep + 1);
-      return;
-    }
-
-    // Final Submission Handler
-    const newRecord = {
-      ...data,
-      sNo: data.sNo || `9${Math.floor(100 + Math.random() * 900)}/25-26`,
-      admNo: data.admNo || `25MDS${Math.floor(10 + Math.random() * 89)}`,
-      regNo: data.regNo || `25MDS${Math.floor(10 + Math.random() * 89)}`,
-      admDate: data.admDate,
-      name: (data.name || "NEW STUDENT").toUpperCase(),
-      course: data.course,
-      branch: data.branch,
-      year: data.year,
-      sem: data.sem,
-      section: data.section,
-      photo: photoPreview || "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=100&auto=format&fit=crop",
-      fatherName: data.fatherName,
-      fatherMobile: data.parentMobile
-    };
-
-    if (isEditingId) {
-      setStudents(prev => prev.map(s => s.sNo === isEditingId ? newRecord : s));
-      toast.success("Student details updated successfully!");
-      setIsEditingId(null);
-    } else {
-      setStudents(prev => [newRecord, ...prev]);
-      toast.success("New student registration completed!");
-    }
-
-    // Reset form after submit
-    reset();
-    setPhotoPreview("");
-    setCurrentStep(0);
-  };
-
-  const handleWebcamCapture = () => {
-    const mockAvatars = [
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=150&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop"
-    ];
-    const randomIndex = Math.floor(Math.random() * mockAvatars.length);
-    setMockPhotoSelection(mockAvatars[randomIndex]);
-    setRotationAngle(0);
-    setWebcamOpen(true);
-  };
-
-  const saveWebcamPhoto = () => {
-    setPhotoPreview(mockPhotoSelection);
-    setWebcamOpen(false);
-    toast.success("Webcam photo attached successfully!");
-  };
-
   // Filter students database
-  const filteredStudents = students.filter(s => {
-    const matchesSearch = (s.name || "").toLowerCase().includes(tableSearch.toLowerCase()) || 
-                          (s.admNo || "").toLowerCase().includes(tableSearch.toLowerCase()) ||
-                          (s.sNo || "").toLowerCase().includes(tableSearch.toLowerCase());
-    const matchesCourse = filterCourse === "All" || (s.course || "").includes(filterCourse);
-    const matchesBranch = filterBranch === "All" || (s.branch || "").includes(filterBranch);
-    const matchesSection = filterSection === "All" || s.section === filterSection;
+  const filteredStudents = studentData.filter((s) => {
+    const studentName = String(
+      getVal(s, "SNAME", "sName", "StudentName", "name"),
+    );
+    const admNo = String(getVal(s, "AdmNo", "ADMNO", "admNo"));
+    const sNo = String(getVal(s, "STUDENTSERIALNO", "studentSerialNo", "sNo"));
+    const course = String(getVal(s, "Course", "COURSE", "programme"));
+    const branch = String(getVal(s, "BranchName", "BRANCHNAME", "branch"));
+    const section = String(getVal(s, "SECTION", "section"));
+
+    const matchesSearch =
+      studentName.toLowerCase().includes(tableSearch.toLowerCase()) ||
+      admNo.toLowerCase().includes(tableSearch.toLowerCase()) ||
+      sNo.toLowerCase().includes(tableSearch.toLowerCase());
+
+    const matchesCourse =
+      filterCourse === "All" || course.includes(filterCourse);
+    const matchesBranch =
+      filterBranch === "All" || branch.includes(filterBranch);
+    const matchesSection = filterSection === "All" || section === filterSection;
+
     return matchesSearch && matchesCourse && matchesBranch && matchesSection;
   });
 
   // Sort students database
-  const sortedStudents = [...filteredStudents].sort((a: any, b: any) => {
-    const aVal = a[sortBy] || "";
-    const bVal = b[sortBy] || "";
-    if (sortOrder === "asc") {
-      return aVal.localeCompare ? aVal.localeCompare(bVal) : aVal - bVal;
-    } else {
-      return bVal.localeCompare ? bVal.localeCompare(aVal) : bVal - aVal;
-    }
+  const sortedStudents = [...filteredStudents].sort((a, b) => {
+    let aVal = a[sortBy] || "";
+    let bVal = b[sortBy] || "";
+
+    if (typeof aVal === "string") aVal = aVal.toLowerCase();
+    if (typeof bVal === "string") bVal = bVal.toLowerCase();
+
+    if (aVal < bVal) return sortOrder === "asc" ? -1 : 1;
+    if (aVal > bVal) return sortOrder === "asc" ? 1 : -1;
+    return 0;
   });
 
-  // Pagination logic
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = sortedStudents.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(sortedStudents.length / itemsPerPage);
+  const totalRecords = filteredStudents.length;
+  const totalPages = Math.ceil(totalRecords / recordsPerPage) || 1;
+  const startIndex = (currentPage - 1) * recordsPerPage;
+  const endIndex = startIndex + recordsPerPage;
+  const paginatedStudents = sortedStudents.slice(startIndex, endIndex);
 
-  const triggerSort = (field: string) => {
-    if (sortBy === field) {
-      setSortOrder(prev => prev === "asc" ? "desc" : "asc");
+  const getPagination = () => {
+    const pages: (number | string)[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
     } else {
-      setSortBy(field);
-      setSortOrder("asc");
+      pages.push(1);
+      if (currentPage > 3) {
+        pages.push("...");
+      }
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      if (currentPage < totalPages - 2) {
+        pages.push("...");
+      }
+      pages.push(totalPages);
     }
+    return pages;
   };
 
   return (
     <div className="dbs-admissions-container">
-      
-      {/* HEADER CONTROLS WITH AUTO SAVE INDICATOR */}
+      {/* HEADER CONTROLS */}
       <div className="dbs-admissions-form-header">
         <div>
-          <h2>Student Admission View & Edit Console</h2>
-          <p>Structured 5-Step Academic & Student Enrolment View</p>
+          <h2>Student Admission Details (View Only)</h2>
+          <p>
+            {selectedStudent
+              ? `Viewing record for: ${getVal(selectedStudent, "SNAME", "sName", "StudentName") || "Student"} (Adm No: ${getVal(selectedStudent, "AdmNo", "ADMNO", "admNo") || "N/A"})`
+              : "Structured 6-Step Academic & Student Enrolment Console"}
+          </p>
         </div>
-        <div className="dbs-autosave-indicator">
-          {isSaving ? (
-            <span className="dbs-autosave-saving"><RefreshCw size={14} className="dbs-spin" /> Draft Saving...</span>
-          ) : (
-            <span className="dbs-autosave-saved"><Check size={14} /> {lastSaved}</span>
-          )}
+        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+          <div className="dbs-autosave-indicator">
+            <span className="dbs-autosave-saved">
+              <Check size={14} /> Read-Only View Mode
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* --- 7-STEP HORIZONTAL STEPPER --- */}
+      {/* --- 6-STEP HORIZONTAL STEPPER --- */}
       <div className="dbs-stepper-header-wrapper">
         {STEPS.map((step, idx) => {
           const isActive = idx === currentStep;
           const isCompleted = idx < currentStep;
           return (
-            <div key={idx} className="dbs-stepper-node-container" onClick={() => setCurrentStep(idx)} style={{ cursor: 'pointer' }}>
-              <div className={`dbs-stepper-circle ${isActive ? "dbs-step-active" : ""} ${isCompleted ? "dbs-step-completed" : ""}`}>
-                {isCompleted ? <Check size={14} /> : idx + 1}
+            <div
+              key={idx}
+              className="dbs-stepper-node-container"
+              onClick={() => setCurrentStep(idx)}
+              style={{ cursor: "pointer" }}
+            >
+              <div
+                className={`dbs-stepper-circle ${isActive ? "dbs-step-active" : ""} ${isCompleted ? "dbs-step-completed" : ""}`}
+              >
+                {idx + 1}
               </div>
-              <span className={`dbs-stepper-label ${isActive ? "dbs-label-active" : ""}`}>{step}</span>
-              {idx < STEPS.length - 1 && <div className={`dbs-stepper-bar-connector ${idx < currentStep ? "dbs-bar-completed" : ""}`} />}
+              <span
+                className={`dbs-stepper-label ${isActive ? "dbs-step-label-active" : ""}`}
+              >
+                {step}
+              </span>
+              {idx < STEPS.length - 1 && (
+                <div
+                  className={`dbs-stepper-line ${isCompleted ? "dbs-step-line-completed" : ""}`}
+                />
+              )}
             </div>
           );
         })}
       </div>
 
-      {/* --- FORM WRAPPER CARD --- */}
-      <form onSubmit={handleSubmit(handleStepSubmit)} className="dbs-admissions-stepper-form-card">
-        
+      {/* ========================================================= */}
+      {/* MULTI-STEP SLIDES CONTAINER (VIEW ONLY)                   */}
+      {/* ========================================================= */}
+      <div>
         {/* STEP 1: Academic Info */}
         {currentStep === 0 && (
           <div className="dbs-stepper-slide">
@@ -514,191 +839,197 @@ export const AdmissionView: React.FC = () => {
                 <GraduationCap className="dbs-card-title-icon" size={20} />
                 <h3>1. Academic Info - Admission / Academic Details</h3>
               </div>
-
               <div className="dbs-form-grid-3">
                 <div className="dbs-input-box">
-                  <label>Date Of Admission *</label>
-                  <input type="date" {...register("admDate", { required: true })} />
-                </div>
-                <div className="dbs-input-box">
-                  <label>Student Serial No. *</label>
-                  <input type="text" {...register("sNo", { required: true })} placeholder="e.g. 9809/25-26" />
-                </div>
-                <div className="dbs-input-box">
-                  <label>Admission No.</label>
-                  <input type="text" {...register("admNo")} placeholder="e.g. 25MDS07" />
+                  <label>Date of Admission</label>
+                  <input type="date" {...register("admDate")} disabled />
                 </div>
 
                 <div className="dbs-input-box">
-                  <label>Registration No.</label>
-                  <input type="text" {...register("regNo")} placeholder="e.g. 25MDS07" />
-                </div>
-                <div className="dbs-input-box">
-                  <label>Programme *</label>
-                  <select {...register("course")}>
-                    <option value="01-B.Tech">01-B.Tech</option>
-                    <option value="02-M.Tech">02-M.Tech</option>
-                    <option value="03-MBA">03-MBA</option>
-                    <option value="04-MCA">04-MCA</option>
-                  </select>
-                </div>
-                <div className="dbs-input-box">
-                  <label>Branch *</label>
-                  <select {...register("branch")}>
-                    <option value="05-COMPUTER SCIENCE AND ENGINEERING">05-COMPUTER SCIENCE AND ENGINEERING</option>
-                    <option value="88-Data Science(CSE)">88-Data Science(CSE)</option>
-                    <option value="125-MASTER OF BUSINESS ADMINISTRATION">125-MASTER OF BUSINESS ADMINISTRATION</option>
-                    <option value="12-ELECTRONICS AND COMMUNICATION ENGINEERING">12-ELECTRONICS AND COMMUNICATION ENGINEERING</option>
-                  </select>
+                  <label>Student Serial No.</label>
+                  <input
+                    type="text"
+                    {...register("sNo")}
+                    placeholder="Auto Generated S.No"
+                    disabled
+                  />
                 </div>
 
                 <div className="dbs-input-box">
-                  <label>Admitted Year *</label>
-                  <select {...register("admittedYear")}>
-                    <option value="1">Year 1</option>
-                    <option value="2">Year 2</option>
-                    <option value="3">Year 3</option>
-                    <option value="4">Year 4</option>
-                  </select>
+                  <label>Admission Number</label>
+                  <input
+                    type="text"
+                    {...register("admNo")}
+                    placeholder="Enter Admission No"
+                    disabled
+                  />
                 </div>
+
                 <div className="dbs-input-box">
-                  <label>Admitted Semester *</label>
-                  <select {...register("admittedSem")}>
-                    <option value="1">Sem 1</option>
-                    <option value="2">Sem 2</option>
-                  </select>
+                  <label>Registration Number</label>
+                  <input
+                    type="text"
+                    {...register("regNo")}
+                    placeholder="Enter Registration No"
+                    disabled
+                  />
                 </div>
+
                 <div className="dbs-input-box">
-                  <label>Studying Year *</label>
-                  <select {...register("year")}>
-                    <option value="1">Year 1</option>
-                    <option value="2">Year 2</option>
-                    <option value="3">Year 3</option>
-                    <option value="4">Year 4</option>
+                  <label>Programme / Course</label>
+                  <select {...register("course")} disabled>
+                    {programmes.map((p) => {
+                      const code = p.courseCode || p.code || p.id;
+                      const name = p.courseName || p.name;
+                      return (
+                        <option key={code} value={code}>
+                          {code}-{name}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
 
                 <div className="dbs-input-box">
-                  <label>Studying Semester *</label>
-                  <select {...register("sem")}>
-                    <option value="1">Sem 1</option>
-                    <option value="2">Sem 2</option>
+                  <label>Branch</label>
+                  <select {...register("branch")} disabled>
+                    {branches.map((b) => {
+                      const code = b.branchCode || b.code || b.id;
+                      const name = b.branchName || b.name;
+                      return (
+                        <option key={code} value={code}>
+                          {code}-{name}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
+
+                <div className="dbs-input-box">
+                  <label>Admitted Year</label>
+                  <select {...register("admittedYear")} disabled>
+                    {years.map((y) => {
+                      const val = String(y.year || y.id || y.name || y);
+                      return (
+                        <option key={val} value={val}>
+                          Year {val}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+
+                <div className="dbs-input-box">
+                  <label>Admitted Semester</label>
+                  <select {...register("admittedSem")} disabled>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                  </select>
+                </div>
+
+                <div className="dbs-input-box">
+                  <label>Studying Year</label>
+                  <select {...register("year")} disabled>
+                    {years.map((y) => {
+                      const val = String(y.year || y.id || y.name || y);
+                      return (
+                        <option key={val} value={val}>
+                          Year {val}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+
+                <div className="dbs-input-box">
+                  <label>Studying Semester</label>
+                  <select {...register("sem")} disabled>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                  </select>
+                </div>
+
                 <div className="dbs-input-box">
                   <label>Section</label>
-                  <select {...register("section")}>
-                    <option value="A">Section A</option>
-                    <option value="B">Section B</option>
-                    <option value="C">Section C</option>
-                    <option value="D">Section D</option>
+                  <select {...register("section")} disabled>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
                   </select>
                 </div>
+
                 <div className="dbs-input-box">
-                  <label>Joining Academic Year *</label>
-                  <input type="text" {...register("joiningAcademicYear")} placeholder="e.g. 2025-2026" />
+                  <label>Joining Academic Year</label>
+                  <input
+                    type="text"
+                    {...register("joiningAcademicYear")}
+                    disabled
+                  />
                 </div>
 
                 <div className="dbs-input-box">
-                  <label>Current Academic Year *</label>
-                  <input type="text" {...register("currentAcademicYear")} placeholder="e.g. 2025-2026" />
-                </div>
-                <div className="dbs-input-box">
-                  <label>CET *</label>
-                  <input type="text" {...register("cet")} placeholder="e.g. EAPCET / ICET / PGECET" />
-                </div>
-                <div className="dbs-input-box">
-                  <label>Hall Ticket *</label>
-                  <input type="text" {...register("hallTicket")} placeholder="Entrance Hall Ticket No." />
+                  <label>Current Academic Year</label>
+                  <input
+                    type="text"
+                    {...register("currentAcademicYear")}
+                    disabled
+                  />
                 </div>
 
                 <div className="dbs-input-box">
-                  <label>Rank *</label>
-                  <input type="text" {...register("rank")} placeholder="State / CET Rank" />
-                </div>
-                <div className="dbs-input-box">
-                  <label>Branch Rank *</label>
-                  <input type="text" {...register("branchRank")} placeholder="Branch Rank" />
-                </div>
-                <div className="dbs-input-box">
-                  <label>Jnana Bhumi Id *</label>
-                  <input type="text" {...register("jnanaBhumiId")} placeholder="Jnanabhumi Portal ID" />
+                  <label>Common Entrance Test (CET)</label>
+                  <input type="text" {...register("cet")} disabled />
                 </div>
 
                 <div className="dbs-input-box">
-                  <label>Regulation *</label>
-                  <select {...register("regulation")}>
-                    <option value="R23">R23</option>
-                    <option value="R20">R20</option>
-                    <option value="R17">R17</option>
+                  <label>CET Hall Ticket Number</label>
+                  <input type="text" {...register("hallTicket")} disabled />
+                </div>
+
+                <div className="dbs-input-box">
+                  <label>CET Rank</label>
+                  <input type="text" {...register("rank")} disabled />
+                </div>
+
+                <div className="dbs-input-box">
+                  <label>CET Branch Rank</label>
+                  <input type="text" {...register("branchRank")} disabled />
+                </div>
+
+                <div className="dbs-input-box">
+                  <label>JnanaBhumi Student ID</label>
+                  <input type="text" {...register("jnanaBhumiId")} disabled />
+                </div>
+
+                <div className="dbs-input-box">
+                  <label>Regulation</label>
+                  <select {...register("regulation")} disabled>
+                    {regulations.map((r) => {
+                      const regVal = String(r.regulation || r.name || r);
+                      return (
+                        <option key={regVal} value={regVal}>
+                          {regVal}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
+
                 <div className="dbs-input-box">
-                  <label>Library Member Group *</label>
-                  <input type="text" {...register("libraryMemberGroup")} placeholder="e.g. General Student" />
+                  <label>Library Member Group</label>
+                  <input
+                    type="text"
+                    {...register("libraryMemberGroup")}
+                    disabled
+                  />
                 </div>
+
                 <div className="dbs-input-box">
-                  <label>APAAR ID</label>
-                  <input type="text" {...register("apaarId")} placeholder="12-Digit APAAR Identity" />
+                  <label>APAAR / ABC ID</label>
+                  <input type="text" {...register("apaarId")} disabled />
                 </div>
               </div>
-
-              {/* Optional Inter / UG fields in Academic Info */}
-              <div className="dbs-subcard-container mt-4">
-                <h4 className="dbs-subcard-title">Inter / UG Quick Entry (Optional)asdf</h4>
-                <div className="dbs-form-grid-3">
-                  <div className="dbs-input-box">
-                    <label>Inter College Name</label>
-                    <input type="text" {...register("interCollegeName")} placeholder="College name" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>Inter Marks %</label>
-                    <input type="text" {...register("interMarksPercentage")} placeholder="Percentage" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>Inter Hall Ticket No.</label>
-                    <input type="text" {...register("interHallTicketNo")} placeholder="Hall ticket" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>Inter Board</label>
-                    <input type="text" {...register("interBoard")} placeholder="Board" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>Inter Aggregate</label>
-                    <input type="text" {...register("interAggregate")} placeholder="Total marks" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>Inter Month & Year of Passing</label>
-                    <input type="text" {...register("interPassingDate")} placeholder="MM/YYYY" />
-                  </div>
-
-                  <div className="dbs-input-box">
-                    <label>UG College Name *</label>
-                    <input type="text" {...register("ugCollegeName")} placeholder="UG College" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>UG Marks % *</label>
-                    <input type="text" {...register("ugMarksPercentage")} placeholder="Percentage" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>UG Hall Ticket No. *</label>
-                    <input type="text" {...register("ugHallTicketNo")} placeholder="Hall Ticket" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>University *</label>
-                    <input type="text" {...register("university")} placeholder="University Name" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>UG Aggregate *</label>
-                    <input type="text" {...register("ugAggregate")} placeholder="CGPA / Marks" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>UG Month & Year of Passing *</label>
-                    <input type="text" {...register("ugPassingDate")} placeholder="MM/YYYY" />
-                  </div>
-                </div>
-              </div>
-
             </div>
           </div>
         )}
@@ -706,159 +1037,219 @@ export const AdmissionView: React.FC = () => {
         {/* STEP 2: Student Details */}
         {currentStep === 1 && (
           <div className="dbs-stepper-slide">
-            <div className="dbs-form-grid-image">
-              <div className="dbs-flex-col-gap flex-2">
-                
-                {/* 2.1 Student Personal / Identity */}
+            <div className="dbs-student-details-split-layout">
+              <div className="dbs-student-details-main-pane flex-2">
+                {/* 2.1 Personal Identification */}
                 <div className="dbs-form-card">
                   <div className="dbs-card-title-row">
                     <User className="dbs-card-title-icon" size={20} />
-                    <h3>2. Student Personal / Identity</h3>
+                    <h3>2.1 Personal Identification</h3>
                   </div>
                   <div className="dbs-form-grid-3">
-                    <div className="dbs-input-box">
-                      <label>Name of the Student *</label>
-                      <input type="text" {...register("name", { required: true })} placeholder="Full Name in Block Letters" />
+                    <div className="dbs-input-box dbs-grid-col-span-2">
+                      <label>Full Student Name (BLOCK LETTERS)</label>
+                      <input
+                        type="text"
+                        style={{ textTransform: "uppercase" }}
+                        {...register("name")}
+                        disabled
+                      />
                     </div>
+
                     <div className="dbs-input-box">
-                      <label>Date of Birth *</label>
-                      <input type="date" {...register("dob", { required: true })} />
+                      <label>Date of Birth</label>
+                      <input type="date" {...register("dob")} disabled />
                     </div>
+
                     <div className="dbs-input-box">
-                      <label>Gender *</label>
-                      <select {...register("gender")}>
+                      <label>Gender</label>
+                      <select {...register("gender")} disabled>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
-                        <option value="Other">Other</option>
+                        <option value="Transgender">Transgender</option>
                       </select>
                     </div>
 
                     <div className="dbs-input-box">
-                      <label>Nationality *</label>
-                      <input type="text" {...register("nationality")} placeholder="Indian" />
-                    </div>
-                    <div className="dbs-input-box">
-                      <label>Mother Tongue *</label>
-                      <input type="text" {...register("motherTongue")} placeholder="Telugu" />
-                    </div>
-                    <div className="dbs-input-box">
-                      <label>Religion *</label>
-                      <input type="text" {...register("religion")} placeholder="Hindu" />
+                      <label>Nationality</label>
+                      <input
+                        type="text"
+                        {...register("nationality")}
+                        disabled
+                      />
                     </div>
 
                     <div className="dbs-input-box">
-                      <label>Blood Group *</label>
-                      <select {...register("bloodGroup")}>
-                        <option value="A+">A+</option>
-                        <option value="B+">B+</option>
-                        <option value="O+">O+</option>
-                        <option value="AB+">AB+</option>
-                        <option value="A-">A-</option>
-                        <option value="B-">B-</option>
-                        <option value="O-">O-</option>
-                        <option value="AB-">AB-</option>
+                      <label>Mother Tongue</label>
+                      <input
+                        type="text"
+                        {...register("motherTongue")}
+                        disabled
+                      />
+                    </div>
+
+                    <div className="dbs-input-box">
+                      <label>Religion</label>
+                      <input type="text" {...register("religion")} disabled />
+                    </div>
+
+                    <div className="dbs-input-box">
+                      <label>Blood Group</label>
+                      <select {...register("bloodGroup")} disabled>
+                        <option value="A+ve">A+ve</option>
+                        <option value="A-ve">A-ve</option>
+                        <option value="B+ve">B+ve</option>
+                        <option value="B-ve">B-ve</option>
+                        <option value="O+ve">O+ve</option>
+                        <option value="O-ve">O-ve</option>
+                        <option value="AB+ve">AB+ve</option>
+                        <option value="AB-ve">AB-ve</option>
                       </select>
                     </div>
+
                     <div className="dbs-input-box">
-                      <label>Differently Abled (PH) *</label>
-                      <select {...register("differentlyAbled")}>
-                        <option value="No">No</option>
-                        <option value="Yes">Yes</option>
+                      <label>Differently Abled (PH)</label>
+                      <select {...register("differentlyAbled")} disabled>
+                        {phOptions.map((ph) => {
+                          const phVal = String(ph.name || ph.status || ph);
+                          return (
+                            <option key={phVal} value={phVal}>
+                              {phVal}
+                            </option>
+                          );
+                        })}
                       </select>
                     </div>
+
                     <div className="dbs-input-box">
-                      <label>Caste *</label>
-                      <select {...register("caste")}>
-                        <option value="OC">OC</option>
-                        <option value="BC-A">BC-A</option>
-                        <option value="BC-B">BC-B</option>
-                        <option value="BC-C">BC-C</option>
-                        <option value="BC-D">BC-D</option>
-                        <option value="BC-E">BC-E</option>
+                      <label>Caste Category</label>
+                      <select {...register("caste")} disabled>
+                        {castes.map((c) => {
+                          const cVal = String(c.caste || c.name || c);
+                          return (
+                            <option key={cVal} value={cVal}>
+                              {cVal}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+
+                    <div className="dbs-input-box">
+                      <label>Subcaste</label>
+                      <input type="text" {...register("subcaste")} disabled />
+                    </div>
+
+                    <div className="dbs-input-box">
+                      <label>Category</label>
+                      <select {...register("category")} disabled>
+                        <option value="General">General</option>
+                        <option value="OBC">OBC</option>
                         <option value="SC">SC</option>
                         <option value="ST">ST</option>
                       </select>
                     </div>
 
                     <div className="dbs-input-box">
-                      <label>Subcaste *</label>
-                      <input type="text" {...register("subcaste")} placeholder="Subcaste details" />
-                    </div>
-                    <div className="dbs-input-box">
-                      <label>Category *</label>
-                      <input type="text" {...register("category")} placeholder="General / EWS" />
-                    </div>
-                    <div className="dbs-input-box">
-                      <label>Allotted Quota *</label>
-                      <select {...register("allottedQuota")}>
+                      <label>Allotted Quota</label>
+                      <select {...register("allottedQuota")} disabled>
                         <option value="Convenor">Convenor Quota</option>
                         <option value="Management">Management Quota</option>
-                        <option value="NRI">NRI Quota</option>
                         <option value="Spot">Spot Admission</option>
                       </select>
                     </div>
 
                     <div className="dbs-input-box">
-                      <label>Mode of Admission *</label>
-                      <select {...register("modeOfAdmission")}>
-                        <option value="CET">CET</option>
-                        <option value="Direct">Direct</option>
-                        <option value="Management">Management</option>
+                      <label>Mode of Admission</label>
+                      <select {...register("modeOfAdmission")} disabled>
+                        <option value="CET">CET Counselling</option>
+                        <option value="Spot">Spot Round</option>
+                        <option value="Management">Management Direct</option>
                       </select>
                     </div>
+
                     <div className="dbs-input-box">
-                      <label>Category of Admission *</label>
-                      <select {...register("categoryOfAdmission")}>
-                        <option value="Regular">Regular</option>
-                        <option value="Lateral Entry (LE)">Lateral Entry (LE)</option>
-                        <option value="Transfer">Transfer</option>
+                      <label>Category of Admission</label>
+                      <select {...register("categoryOfAdmission")} disabled>
+                        <option value="Regular">Regular Admission</option>
+                        <option value="Lateral Entry">Lateral Entry</option>
+                        <option value="Transfer">College Transfer</option>
                       </select>
-                    </div>
-                    <div className="dbs-input-box">
-                      <label>Mole 1 (Identification Mark)</label>
-                      <input type="text" {...register("mole1")} placeholder="Identification Mark 1" />
-                    </div>
-                    <div className="dbs-input-box dbs-grid-col-span-2">
-                      <label>Mole 2 (Identification Mark)</label>
-                      <input type="text" {...register("mole2")} placeholder="Identification Mark 2" />
                     </div>
                   </div>
                 </div>
 
-                {/* 2.2 Student Contact */}
+                {/* 2.2 Contact Information */}
                 <div className="dbs-form-card">
                   <div className="dbs-card-title-row">
                     <UserCheck className="dbs-card-title-icon" size={20} />
-                    <h3>Student Contact Information</h3>
+                    <h3>2.2 Identification Moles & Address Details</h3>
                   </div>
                   <div className="dbs-form-grid-3">
-                    <div className="dbs-input-box">
-                      <label>Student Mobile No.</label>
-                      <input type="tel" {...register("studentMobile")} placeholder="10-Digit Mobile" />
+                    <div className="dbs-input-box dbs-grid-col-span-3">
+                      <label>Personal Identification Mole 1</label>
+                      <input type="text" {...register("mole1")} disabled />
                     </div>
-                    <div className="dbs-input-box">
-                      <label>Student Email-Id</label>
-                      <input type="email" {...register("studentEmail")} placeholder="student@example.com" />
+
+                    <div className="dbs-input-box dbs-grid-col-span-3">
+                      <label>Personal Identification Mole 2</label>
+                      <input type="text" {...register("mole2")} disabled />
                     </div>
+
                     <div className="dbs-input-box">
-                      <label>State *</label>
-                      <input type="text" {...register("state")} placeholder="Andhra Pradesh" />
+                      <label>Student Mobile Number</label>
+                      <input
+                        type="text"
+                        {...register("studentMobile")}
+                        disabled
+                      />
                     </div>
+
+                    <div className="dbs-input-box dbs-grid-col-span-2">
+                      <label>Student Email Address</label>
+                      <input
+                        type="email"
+                        {...register("studentEmail")}
+                        disabled
+                      />
+                    </div>
+
+                    <div className="dbs-input-box dbs-grid-col-span-3">
+                      <label>Permanent Residential Address</label>
+                      <textarea rows={2} {...register("address")} disabled />
+                    </div>
+
                     <div className="dbs-input-box">
-                      <label>Ration Card No.</label>
-                      <input type="text" {...register("rationCardNo")} placeholder="Ration Card Number" />
+                      <label>State</label>
+                      <input type="text" {...register("state")} disabled />
                     </div>
+
+                    <div className="dbs-input-box">
+                      <label>Route Point (College Transport)</label>
+                      <input type="text" {...register("routePoint")} disabled />
+                    </div>
+
+                    <div className="dbs-input-box">
+                      <label>Ration Card Number</label>
+                      <input
+                        type="text"
+                        {...register("rationCardNo")}
+                        disabled
+                      />
+                    </div>
+
                     <div className="dbs-input-box">
                       <label>Income Certificate No.</label>
-                      <input type="text" {...register("incomeCertNo")} placeholder="Income Cert No." />
+                      <input
+                        type="text"
+                        {...register("incomeCertNo")}
+                        disabled
+                      />
                     </div>
+
                     <div className="dbs-input-box">
-                      <label>Aadhaar No. *</label>
-                      <input type="text" {...register("aadhaarNo", { required: true })} placeholder="12-Digit Aadhaar No." />
-                    </div>
-                    <div className="dbs-input-box dbs-grid-col-span-3">
-                      <label>Address *</label>
-                      <input type="text" {...register("address", { required: true })} placeholder="Complete Door No, Street, Village/City, Mandal, District" />
+                      <label>Student Aadhaar Number</label>
+                      <input type="text" {...register("aadhaarNo")} disabled />
                     </div>
                   </div>
                 </div>
@@ -872,84 +1263,134 @@ export const AdmissionView: React.FC = () => {
                   <div className="dbs-form-grid-3">
                     <div className="dbs-input-box">
                       <label>Active Status</label>
-                      <select {...register("activeStatus")}>
+                      <select {...register("activeStatus")} disabled>
                         <option value="Active">Active</option>
                         <option value="Inactive">Inactive</option>
                         <option value="Detained">Detained</option>
                         <option value="Discontinued">Discontinued</option>
                       </select>
                     </div>
-                    <div className="dbs-input-box">
-                      <label>Status</label>
-                      <input type="text" {...register("status")} placeholder="Enrolled" />
-                    </div>
+
                     <div className="dbs-input-box">
                       <label>Status Date</label>
-                      <input type="date" {...register("statusDate")} />
+                      <input type="date" {...register("statusDate")} disabled />
                     </div>
                     <div className="dbs-input-box dbs-grid-col-span-3">
                       <label>Status Reason</label>
-                      <input type="text" {...register("statusReason")} placeholder="Reason for status change if applicable" />
+                      <input
+                        type="text"
+                        {...register("statusReason")}
+                        disabled
+                      />
                     </div>
                   </div>
 
-                  {/* Toggle switches for flags */}
                   <div className="dbs-flags-pill-row mt-3">
                     <label className="dbs-toggle-switch-label">
-                      <input type="checkbox" {...register("isActive")} />
+                      <input
+                        type="checkbox"
+                        {...register("isActive")}
+                        disabled
+                      />
                       <span className="dbs-toggle-pill-text">IsActive</span>
                     </label>
                     <label className="dbs-toggle-switch-label">
-                      <input type="checkbox" {...register("scholor")} />
+                      <input
+                        type="checkbox"
+                        {...register("scholor")}
+                        disabled
+                      />
                       <span className="dbs-toggle-pill-text">Scholor</span>
                     </label>
                     <label className="dbs-toggle-switch-label">
-                      <input type="checkbox" {...register("le")} />
-                      <span className="dbs-toggle-pill-text">Lateral Entry (LE)</span>
+                      <input type="checkbox" {...register("le")} disabled />
+                      <span className="dbs-toggle-pill-text">
+                        Lateral Entry (LE)
+                      </span>
                     </label>
                     <label className="dbs-toggle-switch-label">
-                      <input type="checkbox" {...register("staffChild")} />
+                      <input
+                        type="checkbox"
+                        {...register("staffChild")}
+                        disabled
+                      />
                       <span className="dbs-toggle-pill-text">Staff Child</span>
                     </label>
                     <label className="dbs-toggle-switch-label">
-                      <input type="checkbox" {...register("nsp")} />
+                      <input type="checkbox" {...register("nsp")} disabled />
                       <span className="dbs-toggle-pill-text">NSP Scholar</span>
                     </label>
                   </div>
                 </div>
-
               </div>
 
-              {/* Photo Upload Side Panel */}
+              {/* Photo & Signature Preview Panel */}
               <div className="dbs-form-card dbs-photo-upload-card flex-1">
-                <h3>Student Photo Profile</h3>
-                <div className="dbs-photo-preview-box">
-                  {photoPreview ? (
-                    <img src={photoPreview} alt="Student Preview" className="dbs-preview-student-img" />
-                  ) : (
-                    <div className="dbs-no-img-text">No Photo Attached</div>
-                  )}
-                </div>
-                <div className="dbs-photo-actions-box">
-                  <button type="button" className="dbs-photo-btn dbs-btn-camera" onClick={handleWebcamCapture}>
-                    <Camera size={14} />
-                    <span>Webcam Capture</span>
-                  </button>
-                  <label className="dbs-photo-btn dbs-btn-upload">
-                    <Upload size={14} />
-                    <span>Upload Image</span>
-                    <input 
-                      type="file" 
-                      accept="image/*" 
-                      style={{ display: "none" }} 
-                      onChange={(e) => {
-                        if (e.target.files && e.target.files[0]) {
-                          setPhotoPreview(URL.createObjectURL(e.target.files[0]));
-                          toast.success("Image file attached successfully");
-                        }
-                      }}
-                    />
-                  </label>
+                <h3>Student Photo & Signature</h3>
+
+                <div className="dbs-upload-items-wrapper">
+                  {/* Student Photo */}
+                  <div className="dbs-upload-item">
+                    <div className="dbs-upload-item-header">
+                      <div>
+                        <label className="dbs-upload-item-title">
+                          Student Photo
+                        </label>
+                        <span className="dbs-upload-item-subtitle">
+                          Passport-size photograph
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="dbs-photo-preview-box">
+                      {photoPreview ? (
+                        <img
+                          src={photoPreview}
+                          alt="Student Preview"
+                          className="dbs-preview-student-img"
+                          onError={() => setPhotoPreview("")}
+                        />
+                      ) : (
+                        <div className="dbs-upload-placeholder">
+                          <User size={32} />
+                          <span>No Photo Attached</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="dbs-upload-divider" />
+
+                  {/* Student Signature */}
+                  <div className="dbs-upload-item dbs-signature-upload-item">
+                    <div className="dbs-upload-item-header">
+                      <div>
+                        <label className="dbs-upload-item-title">
+                          Student Signature
+                        </label>
+                        <span className="dbs-upload-item-subtitle">
+                          Official signature
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="dbs-signature-preview-box">
+                      {signaturePreview ? (
+                        <img
+                          src={signaturePreview}
+                          alt="Signature Preview"
+                          className="dbs-preview-student-img"
+                          onError={() => setSignaturePreview("")}
+                        />
+                      ) : (
+                        <div className="dbs-upload-placeholder dbs-signature-placeholder">
+                          <UserCheck size={32} />
+                          <span>No Signature Attached</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -960,65 +1401,78 @@ export const AdmissionView: React.FC = () => {
         {currentStep === 2 && (
           <div className="dbs-stepper-slide">
             <div className="dbs-flex-col-gap">
-              
-              {/* Father / Parent Details */}
               <div className="dbs-form-card">
                 <div className="dbs-card-title-row">
                   <Users className="dbs-card-title-icon" size={20} />
-                  <h3>3. Parent Details - Father / Parent</h3>
+                  <h3>3.1 Father / Primary Guardian Information</h3>
                 </div>
                 <div className="dbs-form-grid-3">
                   <div className="dbs-input-box">
-                    <label>Father's Name *</label>
-                    <input type="text" {...register("fatherName", { required: true })} placeholder="Father Full Name" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>Parent Occupation</label>
-                    <input type="text" {...register("fatherOccupation")} placeholder="Occupation / Business" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>Annual Income</label>
-                    <input type="text" {...register("fatherIncome")} placeholder="Income in INR" />
+                    <label>Father's Full Name</label>
+                    <input type="text" {...register("fatherName")} disabled />
                   </div>
 
                   <div className="dbs-input-box">
-                    <label>Parent Mobile No. *</label>
-                    <input type="tel" {...register("parentMobile", { required: true })} placeholder="Primary Mobile Number" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>Mobile No. 1</label>
-                    <input type="tel" {...register("mobileNo1")} placeholder="Alternate Contact 1" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>Mobile No. 2</label>
-                    <input type="tel" {...register("mobileNo2")} placeholder="Alternate Contact 2" />
+                    <label>Father's Occupation</label>
+                    <input
+                      type="text"
+                      {...register("fatherOccupation")}
+                      disabled
+                    />
                   </div>
 
-                  <div className="dbs-input-box dbs-grid-col-span-3">
-                    <label>Parent Aadhaar No. *</label>
-                    <input type="text" {...register("parentAadhaarNo", { required: true })} placeholder="12-Digit Parent Aadhaar No." />
+                  <div className="dbs-input-box">
+                    <label>Annual Family Income (₹)</label>
+                    <input type="text" {...register("fatherIncome")} disabled />
+                  </div>
+
+                  <div className="dbs-input-box">
+                    <label>Parent Primary Mobile</label>
+                    <input type="text" {...register("parentMobile")} disabled />
+                  </div>
+
+                  <div className="dbs-input-box">
+                    <label>Alternative Mobile No. 1</label>
+                    <input type="text" {...register("mobileNo1")} disabled />
+                  </div>
+
+                  <div className="dbs-input-box">
+                    <label>Emergency Mobile No. 2</label>
+                    <input type="text" {...register("mobileNo2")} disabled />
+                  </div>
+
+                  <div className="dbs-input-box">
+                    <label>Father / Guardian Aadhaar Number</label>
+                    <input
+                      type="text"
+                      {...register("parentAadhaarNo")}
+                      disabled
+                    />
                   </div>
                 </div>
               </div>
 
-              {/* Mother Details */}
               <div className="dbs-form-card">
                 <div className="dbs-card-title-row">
-                  <User className="dbs-card-title-icon" size={20} />
-                  <h3>Mother Details</h3>
+                  <Users className="dbs-card-title-icon" size={20} />
+                  <h3>3.2 Mother Information</h3>
                 </div>
-                <div className="dbs-form-grid-2">
+                <div className="dbs-form-grid-3">
                   <div className="dbs-input-box">
-                    <label>Mother's Name</label>
-                    <input type="text" {...register("motherName")} placeholder="Mother Full Name" />
+                    <label>Mother's Full Name</label>
+                    <input type="text" {...register("motherName")} disabled />
                   </div>
+
                   <div className="dbs-input-box">
-                    <label>Mother's Aadhaar No.</label>
-                    <input type="text" {...register("motherAadhaarNo")} placeholder="12-Digit Mother Aadhaar No." />
+                    <label>Mother's Aadhaar Number</label>
+                    <input
+                      type="text"
+                      {...register("motherAadhaarNo")}
+                      disabled
+                    />
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         )}
@@ -1027,121 +1481,190 @@ export const AdmissionView: React.FC = () => {
         {currentStep === 3 && (
           <div className="dbs-stepper-slide">
             <div className="dbs-flex-col-gap">
-              
-              {/* SSC Section */}
+              {/* 4.1 Secondary School Certificate (SSC) */}
               <div className="dbs-form-card">
                 <div className="dbs-card-title-row">
                   <Award className="dbs-card-title-icon" size={20} />
-                  <h3>4. Previous Education - SSC (10th Standard)</h3>
+                  <h3>
+                    4.1 Secondary School Certificate (SSC / 10th Standard)
+                  </h3>
                 </div>
                 <div className="dbs-form-grid-3">
-                  <div className="dbs-input-box">
+                  <div className="dbs-input-box dbs-grid-col-span-2">
                     <label>SSC School Name</label>
-                    <input type="text" {...register("sscSchool")} placeholder="School Name" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>SSC Marks Percentage</label>
-                    <input type="text" {...register("sscMarks")} placeholder="GPA / Percentage" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>SSC Hall Ticket No. *</label>
-                    <input type="text" {...register("sscHallTicket", { required: true })} placeholder="SSC Hall Ticket Number" />
+                    <input type="text" {...register("sscSchool")} disabled />
                   </div>
 
                   <div className="dbs-input-box">
-                    <label>SSC Board</label>
-                    <input type="text" {...register("sscBoard")} placeholder="SSC Board AP / CBSE" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>SSC Studied</label>
-                    <input type="text" {...register("sscStudied")} placeholder="Regular / Private" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>SSC Aggregate</label>
-                    <input type="text" {...register("sscAggregate")} placeholder="Total Marks / Max Marks" />
+                    <label>SSC Percentage / CGPA</label>
+                    <input type="text" {...register("sscMarks")} disabled />
                   </div>
 
-                  <div className="dbs-input-box dbs-grid-col-span-3">
+                  <div className="dbs-input-box">
+                    <label>SSC Hall Ticket Number</label>
+                    <input
+                      type="text"
+                      {...register("sscHallTicket")}
+                      disabled
+                    />
+                  </div>
+
+                  <div className="dbs-input-box">
+                    <label>SSC Board of Examination</label>
+                    <input type="text" {...register("sscBoard")} disabled />
+                  </div>
+
+                  <div className="dbs-input-box">
                     <label>SSC Month & Year of Passing</label>
-                    <input type="text" {...register("sscPassingDate")} placeholder="e.g. March 2021" />
+                    <input
+                      type="text"
+                      {...register("sscPassingDate")}
+                      disabled
+                    />
+                  </div>
+
+                  <div className="dbs-input-box">
+                    <label>Medium of Instruction</label>
+                    <input type="text" {...register("sscStudied")} disabled />
+                  </div>
+
+                  <div className="dbs-input-box">
+                    <label>SSC Aggregate Score</label>
+                    <input type="text" {...register("sscAggregate")} disabled />
                   </div>
                 </div>
               </div>
 
-              {/* Intermediate Section */}
+              {/* 4.2 Intermediate / +2 Standard */}
               <div className="dbs-form-card">
                 <div className="dbs-card-title-row">
                   <Award className="dbs-card-title-icon" size={20} />
-                  <h3>Intermediate / Diploma</h3>
+                  <h3>4.2 Intermediate / Higher Secondary (+2 / Diploma)</h3>
                 </div>
                 <div className="dbs-form-grid-3">
-                  <div className="dbs-input-box">
-                    <label>Inter College Name</label>
-                    <input type="text" {...register("interCollege")} placeholder="Junior College Name" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>Inter Marks Percentage</label>
-                    <input type="text" {...register("interMarks")} placeholder="Percentage / CGPA" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>Inter Hall Ticket No.</label>
-                    <input type="text" {...register("interHallTicket")} placeholder="Inter Hall Ticket" />
+                  <div className="dbs-input-box dbs-grid-col-span-2">
+                    <label>Intermediate College Name</label>
+                    <input type="text" {...register("interCollege")} disabled />
                   </div>
 
                   <div className="dbs-input-box">
-                    <label>Inter Board</label>
-                    <input type="text" {...register("interBoardDetail")} placeholder="BIEAP / TSBIE" />
+                    <label>Inter Group Marks (%)</label>
+                    <input type="text" {...register("interMarks")} disabled />
                   </div>
+
                   <div className="dbs-input-box">
-                    <label>Inter Aggregate</label>
-                    <input type="text" {...register("interAggregateDetail")} placeholder="Aggregate Marks" />
+                    <label>Inter Hall Ticket Number</label>
+                    <input
+                      type="text"
+                      {...register("interHallTicketNo")}
+                      disabled
+                    />
                   </div>
+
                   <div className="dbs-input-box">
-                    <label>Inter Month & Year of Passing</label>
-                    <input type="text" {...register("interPassingDateDetail")} placeholder="e.g. March 2023" />
+                    <label>Inter Board of Education</label>
+                    <input
+                      type="text"
+                      {...register("interBoardDetail")}
+                      disabled
+                    />
+                  </div>
+
+                  <div className="dbs-input-box">
+                    <label>Inter Aggregate Total</label>
+                    <input
+                      type="text"
+                      {...register("interAggregateDetail")}
+                      disabled
+                    />
+                  </div>
+
+                  <div className="dbs-input-box">
+                    <label>Month & Year of Passing</label>
+                    <input
+                      type="text"
+                      {...register("interPassingDateDetail")}
+                      disabled
+                    />
+                  </div>
+
+                  <div className="dbs-input-box">
+                    <label>Mathematics Marks</label>
+                    <input type="text" {...register("interMaths")} disabled />
+                  </div>
+
+                  <div className="dbs-input-box">
+                    <label>Physics Marks</label>
+                    <input type="text" {...register("interPhysics")} disabled />
+                  </div>
+
+                  <div className="dbs-input-box">
+                    <label>Chemistry Marks</label>
+                    <input
+                      type="text"
+                      {...register("interChemistry")}
+                      disabled
+                    />
                   </div>
                 </div>
               </div>
 
-              {/* UG Section */}
+              {/* 4.3 Undergraduate Details */}
               <div className="dbs-form-card">
                 <div className="dbs-card-title-row">
                   <GraduationCap className="dbs-card-title-icon" size={20} />
-                  <h3>Undergraduate (UG) Details</h3>
+                  <h3>4.3 Undergraduate Degree Details (If Applicable)</h3>
                 </div>
                 <div className="dbs-form-grid-3">
                   <div className="dbs-input-box">
-                    <label>UG College Name *</label>
-                    <input type="text" {...register("ugCollege")} placeholder="Degree / Engineering College" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>UG Marks Percentage *</label>
-                    <input type="text" {...register("ugMarks")} placeholder="Aggregate CGPA / %" />
-                  </div>
-                  <div className="dbs-input-box">
-                    <label>UG Hall Ticket No. *</label>
-                    <input type="text" {...register("ugHallTicket")} placeholder="UG Roll / Hall Ticket No." />
+                    <label>UG Course Degree</label>
+                    <input type="text" {...register("ugCourse")} disabled />
                   </div>
 
                   <div className="dbs-input-box">
-                    <label>University *</label>
-                    <input type="text" {...register("ugUniversity")} placeholder="JNTUK / AU / SVU" />
+                    <label>UG College Name</label>
+                    <input type="text" {...register("ugCollege")} disabled />
                   </div>
+
                   <div className="dbs-input-box">
-                    <label>UG Aggregate *</label>
-                    <input type="text" {...register("ugAggregateDetail")} placeholder="Aggregate Score" />
+                    <label>UG Marks Percentage / CGPA</label>
+                    <input type="text" {...register("ugMarks")} disabled />
                   </div>
+
                   <div className="dbs-input-box">
-                    <label>UG Month & Year of Passing *</label>
-                    <input type="text" {...register("ugPassingDateDetail")} placeholder="e.g. May 2025" />
+                    <label>UG Hall Ticket Number</label>
+                    <input type="text" {...register("ugHallTicket")} disabled />
                   </div>
-                  <div className="dbs-input-box dbs-grid-col-span-3">
-                    <label>Rank *</label>
-                    <input type="text" {...register("ugRankDetail")} placeholder="University Rank / Medal" />
+
+                  <div className="dbs-input-box">
+                    <label>Affiliated University</label>
+                    <input type="text" {...register("ugUniversity")} disabled />
+                  </div>
+
+                  <div className="dbs-input-box">
+                    <label>UG Aggregate Percentage</label>
+                    <input
+                      type="text"
+                      {...register("ugAggregateDetail")}
+                      disabled
+                    />
+                  </div>
+
+                  <div className="dbs-input-box">
+                    <label>UG Month & Year of Passing</label>
+                    <input
+                      type="text"
+                      {...register("ugPassingDateDetail")}
+                      disabled
+                    />
+                  </div>
+
+                  <div className="dbs-input-box">
+                    <label>UG Entrance Rank</label>
+                    <input type="text" {...register("ugRank")} disabled />
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         )}
@@ -1154,77 +1677,119 @@ export const AdmissionView: React.FC = () => {
                 <CreditCard className="dbs-card-title-icon" size={20} />
                 <h3>5. Fees Scope & Scholarship Allocations</h3>
               </div>
-              <div className="dbs-form-grid-2">
+              <div className="dbs-form-grid-3">
                 <div className="dbs-input-box">
-                  <label>Scholarship Amount *</label>
-                  <input type="text" {...register("scholarshipAmount", { required: true })} placeholder="INR Amount (e.g. 15000)" />
+                  <label>Fee Admission Type</label>
+                  <input type="text" {...register("fee_admType")} disabled />
                 </div>
+
                 <div className="dbs-input-box">
-                  <label>Spot Admission Fee *</label>
-                  <input type="text" {...register("spotFee", { required: true })} placeholder="INR Amount (e.g. 2000)" />
+                  <label>Tuition Fee (₹)</label>
+                  <input type="text" {...register("tuitionFee")} disabled />
                 </div>
+
                 <div className="dbs-input-box">
-                  <label>Boys Hostel Fee *</label>
-                  <input type="text" {...register("boysHostelFee", { required: true })} placeholder="INR Amount per year" />
+                  <label>Miscellaneous Fee (₹)</label>
+                  <input
+                    type="text"
+                    {...register("miscellaneousfee")}
+                    disabled
+                  />
                 </div>
+
                 <div className="dbs-input-box">
-                  <label>Ladies Hostel Fee *</label>
-                  <input type="text" {...register("ladiesHostelFee", { required: true })} placeholder="INR Amount per year" />
+                  <label>Scholarship Amount (₹)</label>
+                  <input
+                    type="text"
+                    {...register("scholarshipAmount")}
+                    disabled
+                  />
+                </div>
+
+                <div className="dbs-input-box">
+                  <label>Spot Admission Fee (₹)</label>
+                  <input type="text" {...register("spotFee")} disabled />
+                </div>
+
+                <div className="dbs-input-box">
+                  <label>Boys Hostel Fee (₹)</label>
+                  <input type="text" {...register("boysHostelFee")} disabled />
+                </div>
+
+                <div className="dbs-input-box">
+                  <label>Ladies Hostel Fee (₹)</label>
+                  <input
+                    type="text"
+                    {...register("ladiesHostelFee")}
+                    disabled
+                  />
+                </div>
+
+                <div className="dbs-input-box">
+                  <label>Bus / Transport Fee (₹)</label>
+                  <input type="text" {...register("busFee")} disabled />
+                </div>
+
+                <div className="dbs-input-box">
+                  <label>Donation Fee (₹)</label>
+                  <input type="text" {...register("donation")} disabled />
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* STEP 6: Upload Documents */}
+        {/* STEP 6: Review & Summary */}
         {currentStep === 5 && (
           <div className="dbs-stepper-slide">
-            <div className="dbs-form-card">
-              <div className="dbs-card-title-row">
-                <Upload className="dbs-card-title-icon" size={20} />
-                <h3>Upload Academic Certificates (Drag & Drop)</h3>
-              </div>
-              
-              <div {...getRootProps()} className={`dbs-file-dropzone ${isDragActive ? "dbs-dropzone-active" : ""}`}>
-                <input {...getInputProps()} />
-                <Upload size={36} className="dbs-dropzone-icon" />
-                {isDragActive ? (
-                  <p>Drop certification files here...</p>
-                ) : (
-                  <p>Drag & drop SSC Memo, Inter Certificate, Transfer Certificate, and Caste/Income Memos here, or click to browse.</p>
-                )}
-                <span className="dbs-dropzone-sub">Supported formats: PDF, JPG, PNG (Max 5MB per file)</span>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* STEP 7: Review & Submit */}
-        {currentStep === 6 && (
-          <div className="dbs-stepper-slide">
             <div className="dbs-form-card dbs-review-card">
-              <h3>Review Details Before Final Registration</h3>
-              <p className="dbs-review-warning">Please review all academic allocations, student contact details, parent information, and fee scopes before saving to active registry.</p>
-              
-              <div className="dbs-review-grid">
-                <div className="dbs-review-item"><strong>Student Name:</strong> {formData.name || "N/A"}</div>
-                <div className="dbs-review-item"><strong>Date of Admission:</strong> {formData.admDate || "N/A"}</div>
-                <div className="dbs-review-item"><strong>Programme & Branch:</strong> {formData.course} - {formData.branch}</div>
-                <div className="dbs-review-item"><strong>Year & Section:</strong> Year {formData.year}, Sem {formData.sem} ({formData.section})</div>
-                <div className="dbs-review-item"><strong>Father's Name:</strong> {formData.fatherName || "N/A"}</div>
-                <div className="dbs-review-item"><strong>Parent Contact:</strong> {formData.parentMobile || "N/A"}</div>
-                <div className="dbs-review-item"><strong>Aadhaar Number:</strong> {formData.aadhaarNo || "N/A"}</div>
-                <div className="dbs-review-item"><strong>Scholarship Amount:</strong> ₹{formData.scholarshipAmount || "0"}</div>
-                <div className="dbs-review-item"><strong>Spot Fee:</strong> ₹{formData.spotFee || "0"}</div>
-                <div className="dbs-review-item"><strong>Boys Hostel Fee:</strong> ₹{formData.boysHostelFee || "0"}</div>
-                <div className="dbs-review-item"><strong>Ladies Hostel Fee:</strong> ₹{formData.ladiesHostelFee || "0"}</div>
-              </div>
+              <h3>Student Registration Overview</h3>
+              <p className="dbs-review-warning">
+                Academic allocation, identity details, parent contacts, and fee
+                summary.
+              </p>
 
-              <div className="dbs-print-acknowledgement-row mt-4">
-                <label className="dbs-checkbox-label">
-                  <input type="checkbox" defaultChecked />
-                  <span>Generate admission slip receipt after saving</span>
-                </label>
+              <div className="dbs-review-grid">
+                <div className="dbs-review-item">
+                  <strong>Student Name:</strong> {formData.name || "N/A"}
+                </div>
+                <div className="dbs-review-item">
+                  <strong>Date of Admission:</strong>{" "}
+                  {formData.admDate || "N/A"}
+                </div>
+                <div className="dbs-review-item">
+                  <strong>Programme & Branch:</strong> {formData.course} -{" "}
+                  {formData.branch}
+                </div>
+                <div className="dbs-review-item">
+                  <strong>Year & Section:</strong> Year {formData.year}, Sem{" "}
+                  {formData.sem} ({formData.section})
+                </div>
+                <div className="dbs-review-item">
+                  <strong>Father's Name:</strong> {formData.fatherName || "N/A"}
+                </div>
+                <div className="dbs-review-item">
+                  <strong>Parent Contact:</strong>{" "}
+                  {formData.parentMobile || "N/A"}
+                </div>
+                <div className="dbs-review-item">
+                  <strong>Aadhaar Number:</strong> {formData.aadhaarNo || "N/A"}
+                </div>
+                <div className="dbs-review-item">
+                  <strong>Scholarship Amount:</strong> ₹
+                  {formData.scholarshipAmount || "0"}
+                </div>
+                <div className="dbs-review-item">
+                  <strong>Spot Fee:</strong> ₹{formData.spotFee || "0"}
+                </div>
+                <div className="dbs-review-item">
+                  <strong>Boys Hostel Fee:</strong> ₹
+                  {formData.boysHostelFee || "0"}
+                </div>
+                <div className="dbs-review-item">
+                  <strong>Ladies Hostel Fee:</strong> ₹
+                  {formData.ladiesHostelFee || "0"}
+                </div>
               </div>
             </div>
           </div>
@@ -1232,256 +1797,308 @@ export const AdmissionView: React.FC = () => {
 
         {/* --- NAVIGATION FOOTER BUTTONS --- */}
         <div className="dbs-stepper-actions-row">
-          <button 
-            type="button" 
-            className="dbs-stepper-back-btn" 
-            onClick={() => setCurrentStep(prev => Math.max(0, prev - 1))}
+          <button
+            type="button"
+            className="dbs-stepper-back-btn"
+            onClick={() => {
+              setCurrentStep((prev) => Math.max(0, prev - 1));
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
             disabled={currentStep === 0}
           >
             <ArrowLeft size={16} />
             <span>Previous</span>
           </button>
 
-          <button type="submit" className="dbs-stepper-next-btn">
-            {currentStep === STEPS.length - 1 ? (
-              <>
-                <Save size={16} />
-                <span>Save Student Registry</span>
-              </>
-            ) : (
-              <>
-                <span>Next Step</span>
-                <ArrowRight size={16} />
-              </>
-            )}
-          </button>
+          {currentStep < STEPS.length - 1 && (
+            <button
+              type="button"
+              className="dbs-stepper-next-btn"
+              onClick={() => {
+                setCurrentStep((prev) => Math.min(STEPS.length - 1, prev + 1));
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              <span>Next Step</span>
+              <ArrowRight size={16} />
+            </button>
+          )}
         </div>
+      </div>
 
-      </form>
-
-      {/* --- ENROLLMENT DATATABLE LIST --- */}
-      <div className="dbs-dashboard-card dbs-datatable-card">
-        <div className="dbs-datatable-header-area">
-          <div>
-            <h3>Active Enrolled Students Registry</h3>
-            <p>Showing {filteredStudents.length} student records</p>
+      {/* ========================================================= */}
+      {/* 2. ADMISSIONS DATABASE GRID TABLE                          */}
+      {/* ========================================================= */}
+      <div className="dbs-table-card">
+        <div className="dbs-table-header-container">
+          <div className="dbs-table-title-group">
+            <h3>Admissions Registry Directory</h3>
+            <span className="dbs-table-counter-badge">
+              {filteredStudents.length} Records
+            </span>
           </div>
-          
-          <div className="dbs-datatable-filters-row">
-            {/* Table Search Input */}
-            <div className="dbs-search-box-wrapper">
-              <Search size={16} className="dbs-search-box-icon" />
+
+          <div className="dbs-table-controls-row">
+            <div className="dbs-search-box">
+              <Search size={16} />
               <input
                 type="text"
-                placeholder="Search name, S.No or ID..."
+                placeholder="Search name, admission no, serial no..."
                 value={tableSearch}
-                onChange={(e) => {
-                  setTableSearch(e.target.value);
-                  setCurrentPage(1);
-                }}
-                className="dbs-table-search-input"
+                onChange={(e) => setTableSearch(e.target.value)}
               />
             </div>
 
-            {/* Course Filter */}
-            <select
-              value={filterCourse}
-              onChange={(e) => { setFilterCourse(e.target.value); setCurrentPage(1); }}
-              className="dbs-table-select-filter"
-            >
-              <option value="All">All Courses</option>
-              <option value="B.Tech">B.Tech</option>
-              <option value="M.Tech">M.Tech</option>
-              <option value="MBA">MBA</option>
-            </select>
+            <div className="dbs-filter-box">
+              <Filter size={16} />
+              <select
+                value={filterCourse}
+                onChange={(e) => setFilterCourse(e.target.value)}
+              >
+                <option value="All">All Courses</option>
+                {programmes.map((p) => {
+                  const code = p.courseCode || p.code || p.id;
+                  const name = p.courseName || p.name;
+                  return (
+                    <option key={code} value={code}>
+                      {name || code}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
 
-            {/* Section Filter */}
-            <select
-              value={filterSection}
-              onChange={(e) => { setFilterSection(e.target.value); setCurrentPage(1); }}
-              className="dbs-table-select-filter"
+            <div className="dbs-filter-box">
+              <select
+                value={filterBranch}
+                onChange={(e) => setFilterBranch(e.target.value)}
+              >
+                <option value="All">All Branches</option>
+                {branches.map((b) => {
+                  const code = b.branchCode || b.code || b.id;
+                  const name = b.branchName || b.name;
+                  return (
+                    <option key={code} value={code}>
+                      {name || code}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
+            <div className="dbs-filter-box">
+              <select
+                value={filterSection}
+                onChange={(e) => setFilterSection(e.target.value)}
+              >
+                <option value="All">All Sections</option>
+                <option value="A">Section A</option>
+                <option value="B">Section B</option>
+                <option value="C">Section C</option>
+                <option value="D">Section D</option>
+              </select>
+            </div>
+
+            <button
+              className="dbs-refresh-btn"
+              onClick={fetchAdmissions}
+              title="Refresh Registry Data"
             >
-              <option value="All">All Sections</option>
-              <option value="A">Section A</option>
-              <option value="B">Section B</option>
-              <option value="C">Section C</option>
-              <option value="D">Section D</option>
-            </select>
+              <RefreshCw size={16} className={loading ? "dbs-spin" : ""} />
+            </button>
           </div>
         </div>
 
-        {/* Reactive Table Grid */}
         <div className="dbs-table-container">
-          {sortedStudents.length === 0 ? (
-            <div className="dbs-empty-state">
-              <AlertCircle className="dbs-empty-state-icon" />
-              <div className="dbs-empty-state-title">No records found</div>
-              <div className="dbs-empty-state-desc">Try resetting your filters or add a new student above.</div>
-            </div>
-          ) : (
-            <table className="dbs-data-table">
-              <thead>
+          <table className="dbs-custom-table">
+            <thead>
+              <tr>
+                <th
+                  onClick={() => setSortBy("sNo")}
+                  style={{ cursor: "pointer" }}
+                >
+                  S.No / Serial
+                </th>
+                <th
+                  onClick={() => setSortBy("admNo")}
+                  style={{ cursor: "pointer" }}
+                >
+                  Adm No
+                </th>
+                <th
+                  onClick={() => setSortBy("name")}
+                  style={{ cursor: "pointer" }}
+                >
+                  Student Name
+                </th>
+                <th>Course & Branch</th>
+                <th>Year / Sem / Sec</th>
+                <th>Caste / Category</th>
+                <th>Quota / Mode</th>
+                <th>Status</th>
+                <th style={{ textAlign: "center" }}>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {loading ? (
                 <tr>
-                  <th onClick={() => triggerSort("sNo")} style={{ cursor: 'pointer' }}>
-                    Serial No. {sortBy === "sNo" && (sortOrder === "asc" ? "↑" : "↓")}
-                  </th>
-                  <th onClick={() => triggerSort("admNo")} style={{ cursor: 'pointer' }}>
-                    ADM No. {sortBy === "admNo" && (sortOrder === "asc" ? "↑" : "↓")}
-                  </th>
-                  <th onClick={() => triggerSort("name")} style={{ cursor: 'pointer' }}>
-                    Student Name {sortBy === "name" && (sortOrder === "asc" ? "↑" : "↓")}
-                  </th>
-                  <th>Programme</th>
-                  <th>Branch</th>
-                  <th>Actions</th>
+                  <td
+                    colSpan={9}
+                    style={{ textAlign: "center", padding: "40px" }}
+                  >
+                    <RefreshCw
+                      className="dbs-spin"
+                      size={24}
+                      style={{ margin: "0 auto 10px auto" }}
+                    />
+                    <p>Loading Admissions registry...</p>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {currentItems.map((student, idx) => (
-                  <tr key={idx}>
-                    <td>{student.sNo}</td>
-                    <td>{student.admNo}</td>
-                    <td className="dbs-table-student-name">{student.name}</td>
-                    <td><span className="dbs-pill-category">{student.course}</span></td>
-                    <td className="dbs-table-branch-td">{student.branch}</td>
-                    <td>
-                      <div className="dbs-table-actions-row">
-                        <button 
-                          type="button" 
-                          className="dbs-table-action-icon-btn dbs-btn-edit"
-                          onClick={() => handleEditStudent(student)}
-                          title="Edit Student Record"
+              ) : paginatedStudents.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan={9}
+                    style={{ textAlign: "center", padding: "40px" }}
+                  >
+                    <FileSpreadsheet
+                      size={32}
+                      style={{
+                        margin: "0 auto 10px auto",
+                        color: "var(--dbs-text-muted)",
+                      }}
+                    />
+                    <p>No student admission records found.</p>
+                  </td>
+                </tr>
+              ) : (
+                paginatedStudents.map((student, idx) => {
+                  const studentSNo = String(
+                    getVal(
+                      student,
+                      "STUDENTSERIALNO",
+                      "studentSerialNo",
+                      "sNo",
+                      "serialNo",
+                    ) || (currentPage - 1) * recordsPerPage + idx + 1,
+                  );
+                  const studentAdmNo = String(
+                    getVal(student, "AdmNo", "ADMNO", "admNo", "admissionNo") ||
+                      "N/A",
+                  );
+                  const studentName = String(
+                    getVal(student, "SNAME", "sName", "StudentName", "name") ||
+                      "N/A",
+                  );
+                  const courseName = String(
+                    getVal(student, "Course", "COURSE", "programme") || "N/A",
+                  );
+                  const branchName = String(
+                    getVal(student, "BranchName", "BRANCHNAME", "branch") ||
+                      "N/A",
+                  );
+                  const year = String(
+                    getVal(student, "SYEAR", "sYear", "year", "studyingYear") ||
+                      "1",
+                  );
+                  const sem = String(
+                    getVal(
+                      student,
+                      "SSEMESTER",
+                      "sSemester",
+                      "sem",
+                      "SEMESTER",
+                    ) || "1",
+                  );
+                  const section = String(
+                    getVal(student, "SECTION", "section") || "A",
+                  );
+                  const caste = String(
+                    getVal(student, "CASTE", "caste") || "OC",
+                  );
+                  const quota = String(
+                    getVal(
+                      student,
+                      "MODEOFADM",
+                      "modeofAdm",
+                      "allottedQuota",
+                    ) || "CET",
+                  );
+                  const status = String(
+                    getVal(student, "status", "STATUS", "aStatus", "ASTATUS") ||
+                      "Active",
+                  );
+
+                  return (
+                    <tr
+                      key={studentSNo + idx}
+                      className={
+                        selectedStudent &&
+                        getVal(selectedStudent, "STUDENTSERIALNO", "sNo") ===
+                          studentSNo
+                          ? "dbs-row-selected"
+                          : ""
+                      }
+                    >
+                      <td>
+                        <strong>{studentSNo}</strong>
+                      </td>
+                      <td>
+                        <span className="dbs-badge-adm">{studentAdmNo}</span>
+                      </td>
+                      <td>
+                        <span className="dbs-student-name-text">
+                          {studentName}
+                        </span>
+                      </td>
+                      <td>
+                        <div className="dbs-course-branch-cell">
+                          <span className="dbs-course-title">{courseName}</span>
+                          <span className="dbs-branch-sub">{branchName}</span>
+                        </div>
+                      </td>
+                      <td>
+                        Year {year}, Sem {sem} ({section})
+                      </td>
+                      <td>{caste}</td>
+                      <td>{quota}</td>
+                      <td>
+                        <span
+                          className={`dbs-status-badge ${status.toLowerCase() === "active" ? "dbs-badge-active" : "dbs-badge-inactive"}`}
                         >
-                          <Edit3 size={14} />
-                        </button>
-                        <button 
-                          type="button" 
-                          className="dbs-table-action-icon-btn dbs-btn-delete"
-                          onClick={() => confirmDeleteStudent(student.sNo)}
-                          title="Delete Student Record"
+                          {status}
+                        </span>
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        <button
+                          type="button"
+                          className="dbs-action-btn dbs-action-view"
+                          title="View Student Details"
+                          onClick={() => handleViewStudent(student)}
                         >
-                          <Trash2 size={14} />
+                          <Eye size={16} />
                         </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
         </div>
 
-        {/* Datatable Pagination Controls */}
-        {totalPages > 1 && (
-          <div className="dbs-table-pagination-row">
-            <span>Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, sortedStudents.length)} of {sortedStudents.length} items</span>
-            
-            <div className="dbs-pagination-buttons">
-              <button 
-                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                disabled={currentPage === 1}
-                className="dbs-pagination-nav-btn"
-              >
-                Prev
-              </button>
-              {Array.from({ length: totalPages }).map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentPage(i + 1)}
-                  className={`dbs-pagination-page-btn ${currentPage === i + 1 ? "dbs-page-active" : ""}`}
-                >
-                  {i + 1}
-                </button>
-              ))}
-              <button 
-                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                disabled={currentPage === totalPages}
-                className="dbs-pagination-nav-btn"
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        )}
+        {/* Shared Table Pagination Footer */}
+        <Footer
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          recordsPerPage={recordsPerPage}
+          setRecordsPerPage={setRecordsPerPage}
+          totalRecords={totalRecords}
+          totalPages={totalPages}
+          startIndex={startIndex}
+          endIndex={endIndex}
+          getPagination={getPagination}
+        />
       </div>
-
-      {/* --- WEBCAM PHOTO CAPTURE MODAL --- */}
-      {webcamOpen && (
-        <div className="dbs-search-overlay-modal">
-          <div className="dbs-search-modal-box dbs-webcam-modal-box">
-            <div className="dbs-dropdown-header">
-              <span>Webcam Image Capture Console</span>
-              <button className="dbs-panel-close-btn" onClick={() => setWebcamOpen(false)}>
-                <X size={18} />
-              </button>
-            </div>
-
-            <div className="dbs-webcam-console-body">
-              <div className="dbs-webcam-stream-simulation-frame">
-                <div 
-                  className="dbs-webcam-simulation-canvas"
-                  style={{ transform: `rotate(${rotationAngle}deg)` }}
-                >
-                  <img src={mockPhotoSelection} alt="Camera feed stream" className="dbs-simulated-video-feed" />
-                  <div className="dbs-webcam-crop-frame-overlay" />
-                </div>
-                <div className="dbs-webcam-status-overlay">🔴 LIVE WEBCAM STREAM</div>
-              </div>
-
-              <div className="dbs-webcam-toolbar-row">
-                <button 
-                  type="button" 
-                  className="dbs-toolbar-adjust-btn"
-                  onClick={() => setRotationAngle(prev => (prev + 90) % 360)}
-                >
-                  <RotateCw size={14} />
-                  <span>Rotate 90°</span>
-                </button>
-                <button 
-                  type="button" 
-                  className="dbs-toolbar-adjust-btn"
-                  onClick={handleWebcamCapture}
-                >
-                  <RefreshCw size={14} />
-                  <span>Re-snap Image</span>
-                </button>
-              </div>
-            </div>
-
-            <div className="dbs-webcam-modal-footer">
-              <button type="button" className="dbs-form-cancel-btn" onClick={() => setWebcamOpen(false)}>
-                Cancel
-              </button>
-              <button type="button" className="dbs-form-save-btn" onClick={saveWebcamPhoto}>
-                <CheckCircle size={15} />
-                <span>Crop & Save Photo</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* --- CONFIRMATION DELETE DIALOG OVERLAY --- */}
-      {deleteTargetId && (
-        <div className="dbs-search-overlay-modal dbs-z-index-high">
-          <div className="dbs-search-modal-box dbs-confirm-modal-box">
-            <div className="dbs-confirm-modal-body">
-              <AlertTriangle size={36} className="dbs-warning-danger-icon" />
-              <h3>Delete Student Record?</h3>
-              <p>Are you sure you want to delete student <strong>{deleteTargetId}</strong>? This operation cannot be undone.</p>
-            </div>
-            <div className="dbs-confirm-modal-actions">
-              <button type="button" className="dbs-confirm-btn-cancel" onClick={() => setDeleteTargetId(null)}>
-                Cancel
-              </button>
-              <button type="button" className="dbs-confirm-btn-delete" onClick={executeDelete}>
-                Delete Permanently
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
     </div>
   );
 };
