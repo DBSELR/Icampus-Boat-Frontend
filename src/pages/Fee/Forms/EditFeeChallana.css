@@ -1,0 +1,290 @@
+/* ==========================================================
+   EditFeeChallana.css
+   Fee Challan Editing Component Styles
+   Inherits design tokens and base styles from HeadMaster.css
+========================================================== */
+
+@import "./HeadMaster.css";
+
+/* Main Container */
+.dbs-challan-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+/* Receipt Quick Search Box */
+.dbs-challan-receipt-search-box {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.dbs-challan-receipt-search-box input {
+  padding-right: 42px !important;
+}
+
+.dbs-challan-search-icon-btn {
+  position: absolute;
+  right: 6px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--dbs-primary-light, rgba(14, 116, 144, 0.08));
+  color: var(--dbs-primary, #0e7490);
+  border: none;
+  border-radius: var(--dbs-radius-sm, 6px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dbs-challan-search-icon-btn:hover {
+  background: var(--dbs-primary, #0e7490);
+  color: #ffffff;
+}
+
+/* Readonly Highlighted Inputs */
+.dbs-challan-input-readonly {
+  background-color: rgba(14, 116, 144, 0.04) !important;
+  color: var(--dbs-text, #1e293b) !important;
+  font-weight: 600 !important;
+  cursor: default !important;
+  border-color: rgba(14, 116, 144, 0.15) !important;
+}
+
+/* ==========================================================
+   SCOPED TABLE LAYOUT & COLUMN WIDTHS FOR CHALLAN EDITING
+   1 - S.NO (6%)
+   2 - FEE NAME (36%)
+   3 - FEE TYPE (24%)
+   4 - FEE (11%)
+   5 - PAID AMOUNT (11%)
+   6 - AMOUNT (12%)
+========================================================== */
+
+.dbs-challan-container .dbs-data-table {
+  min-width: 800px;
+  table-layout: fixed;
+}
+
+.dbs-challan-container .dbs-data-table th:nth-child(1),
+.dbs-challan-container .dbs-data-table td:nth-child(1) {
+  width: 6% !important;
+  text-align: center !important;
+}
+
+.dbs-challan-container .dbs-data-table th:nth-child(2),
+.dbs-challan-container .dbs-data-table td:nth-child(2) {
+  width: 36% !important;
+  text-align: left !important;
+}
+
+.dbs-challan-container .dbs-data-table th:nth-child(3),
+.dbs-challan-container .dbs-data-table td:nth-child(3) {
+  width: 24% !important;
+  text-align: left !important;
+}
+
+.dbs-challan-container .dbs-data-table th:nth-child(4),
+.dbs-challan-container .dbs-data-table td:nth-child(4) {
+  width: 11% !important;
+  text-align: right !important;
+  font-family: "Courier New", Courier, monospace, sans-serif;
+  font-weight: 600;
+}
+
+.dbs-challan-container .dbs-data-table th:nth-child(5),
+.dbs-challan-container .dbs-data-table td:nth-child(5) {
+  width: 11% !important;
+  text-align: right !important;
+  font-family: "Courier New", Courier, monospace, sans-serif;
+  font-weight: 600;
+}
+
+.dbs-challan-container .dbs-data-table th:nth-child(6),
+.dbs-challan-container .dbs-data-table td:nth-child(6) {
+  width: 12% !important;
+  text-align: right !important;
+}
+
+/* AMOUNT Column Input Cell */
+.dbs-challan-table-amount-td {
+  text-align: right !important;
+  padding: 6px 12px !important;
+}
+
+.dbs-challan-table-input {
+  width: 100%;
+  max-width: 120px;
+  height: 36px;
+  padding: 0 10px;
+  text-align: right;
+  font-weight: 700;
+  font-family: "Courier New", Courier, monospace, sans-serif;
+  font-size: 0.95rem;
+  color: var(--dbs-text, #0f172a);
+  background: #ffffff;
+  border: 1px solid #94a3b8;
+  border-radius: 4px;
+  outline: none;
+  display: inline-block;
+  vertical-align: middle;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.dbs-challan-table-input:hover {
+  border-color: var(--dbs-primary, #0e7490);
+}
+
+.dbs-challan-table-input:focus {
+  border-color: var(--dbs-primary, #0e7490);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px var(--dbs-primary-light, rgba(14, 116, 144, 0.15));
+}
+
+/* ==========================================================
+   PROFESSIONAL TABLE FOOTER TOTAL SUMMARY
+========================================================== */
+
+.dbs-challan-total-row {
+  background: #f8fafc !important;
+  border-top: 2px solid var(--dbs-border, #cbd5e1) !important;
+}
+
+.dbs-challan-total-row td {
+  padding: 14px 16px !important;
+  border-top: 2px solid var(--dbs-border, #cbd5e1) !important;
+  vertical-align: middle;
+}
+
+.dbs-challan-total-label {
+  text-align: right;
+  color: var(--dbs-text, #1e293b);
+  font-weight: 800;
+  font-size: 0.88rem;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.dbs-challan-total-col-val {
+  text-align: right;
+  font-family: "Courier New", Courier, monospace, sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.dbs-challan-total-col-val.fee {
+  color: #475569;
+}
+
+.dbs-challan-total-col-val.paid {
+  color: #059669;
+}
+
+.dbs-challan-total-col-val.current {
+  color: var(--dbs-primary, #0e7490);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+/* ==========================================================
+   FINANCIAL SUMMARY CARDS GRID
+========================================================== */
+
+.dbs-challan-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.dbs-challan-summary-card {
+  padding: 16px 20px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius-sm, 6px);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.dbs-challan-summary-card:hover {
+  border-color: var(--dbs-primary, #0e7490);
+  transform: translateY(-1px);
+}
+
+.dbs-challan-summary-card.primary {
+  background: var(--dbs-primary-light, rgba(14, 116, 144, 0.04));
+  border-color: var(--dbs-primary, #0e7490);
+}
+
+.dbs-challan-summary-card-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--dbs-text-muted, #64748b);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dbs-challan-summary-card-value {
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-family: "Courier New", Courier, monospace, sans-serif;
+  line-height: 1.2;
+}
+
+.dbs-challan-summary-card-value.text-slate {
+  color: #334155;
+}
+
+.dbs-challan-summary-card-value.text-emerald {
+  color: #059669;
+}
+
+.dbs-challan-summary-card-value.text-primary {
+  color: var(--dbs-primary, #0e7490);
+}
+
+/* Print/Download Button */
+.dbs-challan-print-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 18px;
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--dbs-radius-sm, 6px);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dbs-challan-print-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dbs-challan-table-input {
+    max-width: 90px;
+  }
+  .dbs-challan-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

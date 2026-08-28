@@ -1,0 +1,120 @@
+/* ==========================================================
+   ReceiptConcellation.css
+   Receipt Cancellation Component Styles
+   Inherits design tokens and base styles from HeadMaster.css
+========================================================== */
+
+@import "./HeadMaster.css";
+
+/* Container */
+.dbs-receiptcancel-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+/* Receipt input group */
+.dbs-receiptcancel-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.dbs-receiptcancel-input-wrap input {
+  width: 100%;
+  padding-right: 36px;
+}
+
+.dbs-receiptcancel-search-icon {
+  position: absolute;
+  right: 12px;
+  color: var(--dbs-text-muted, #64748b);
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.dbs-receiptcancel-search-icon:hover {
+  color: var(--dbs-primary, #0e7490);
+}
+
+/* Delete button */
+.dbs-headmaster-delete-btn {
+  background: #dc2626;
+  border: 1px solid #b91c1c;
+  color: #ffffff;
+  box-shadow: var(--dbs-shadow);
+  min-width: 120px;
+  height: 44px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--dbs-radius-sm, 6px);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dbs-headmaster-delete-btn:hover:not(:disabled) {
+  background: #b91c1c;
+  transform: translateY(-2px);
+}
+
+.dbs-headmaster-delete-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.dbs-headmaster-delete-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Table scroll wrapper */
+.dbs-receiptcancel-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 8px;
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius-sm, 6px);
+}
+
+/* Table styling */
+.dbs-receiptcancel-table-scroll table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dbs-receiptcancel-table-scroll th {
+  background: var(--dbs-primary, #0e7490);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+
+.dbs-receiptcancel-table-scroll td {
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  color: var(--dbs-text, #1e293b);
+}
+
+.dbs-receiptcancel-table-scroll tbody tr:hover {
+  background: var(--dbs-surface-muted, #f8fafc);
+}
+
+/* Empty state */
+.dbs-receiptcancel-empty {
+  text-align: center;
+  padding: 32px 20px;
+  color: var(--dbs-text-muted, #64748b);
+  font-size: 0.9rem;
+}

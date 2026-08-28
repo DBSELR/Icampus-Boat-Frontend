@@ -1,0 +1,28 @@
+/* ==========================================================
+   BudgetHeads.css
+   Budget Heads Master Stylesheet
+   Inherits design tokens and layout from AccountMaster.css
+========================================================== */
+
+@import "../../Fee/Forms/AccountMaster.css";
+
+/* Specific Action Icon Buttons Matching Screenshot */
+.dbs-btn-edit-purple {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #7c3aed;
+  color: #ffffff;
+  border: 1px solid #6d28d9;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dbs-btn-edit-purple:hover {
+  background: #6d28d9;
+  transform: translateY(-1px);
+}

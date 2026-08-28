@@ -14,6 +14,8 @@ import DeleteInActiveStudents from "../pages/Admissions/Forms/Del_InActive_Stude
 import AdmissionView from "../pages/Admissions/Forms/Admissions_VIew";
 import AccountMaster from "../pages/Fees/Forms/AccountMaster";
 import HeadMaster from "../pages/Fees/Forms/HeadsMaster";
+import MiscHeadsMaster from "../pages/Fee/Forms/MiscHeadsMaster";
+import MiscFeeChallana from "../pages/Fee/Forms/MiscFeeChallana";
 
 export const RouteConfig = [
   { path: "/Admissions/Forms/AdmissionsDashboard", component: AdmissionsDashboard },
@@ -32,4 +34,6 @@ export const RouteConfig = [
   { path: "/Admissions/Forms/AdmissionView", component: AdmissionView },
   { path: "/Fee/Forms/AccountMaster", component: AccountMaster },
   { path: "/Fee/Forms/HeadsMaster", component: HeadMaster },
+  { path: "/Fee/Forms/MiscHeadsMaster", component: MiscHeadsMaster },
+  { path: "/Fee/Forms/MiscFeeChallana", component: MiscFeeChallana },
 ];

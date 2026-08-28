@@ -1,545 +1,299 @@
-/* Account Master Ledger Stylesheet - Scoped with .dbs- prefixes
-   Self-contained: defines its own tokens + every dbs- class it uses,
-   so it renders correctly even without an external design-system sheet. */
+/* ==========================================================
+   AccountMaster.css
+   Account Master Ledger Stylesheet
+   Inherits design tokens and base styles from HeadMaster.css
+========================================================== */
 
-.dbs-accountmaster-container {
-  --dbs-text: #0f3d3e;
-  --dbs-text-muted: #4b7a78;
-  --dbs-heading: #0f4c46;
-  --dbs-primary: #0d9488;
-  --dbs-primary-hover: #0b7d73;
-  --dbs-success: #16a34a;
-  --dbs-danger: #dc2626;
-  --dbs-danger-bg: #fef2f2;
-  --dbs-border: #d9e6e4;
-  --dbs-surface: #ffffff;
-  --dbs-surface-muted: #f7faf9;
-  --dbs-shadow:
-    0 1px 2px rgba(15, 61, 62, 0.04), 0 4px 16px rgba(15, 61, 62, 0.06);
-  --dbs-radius: 12px;
+@import "./HeadMaster.css";
 
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: var(--dbs-text);
-}
-
-/* ---------- Page Header ---------- */
-
-.dbs-admissions-form-header h2 {
-  margin: 0 0 4px 0;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--dbs-heading);
-}
-
-.dbs-admissions-form-header p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--dbs-primary);
-}
-
-/* ---------- Layout ---------- */
-
-.dbs-accountmaster-grid-layout {
+/* Master-Detail Split Layout */
+.dbs-accountmaster-split-layout {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
+  grid-template-columns: 380px 1fr;
   gap: 24px;
   align-items: start;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.dbs-accountmaster-form-column,
-.dbs-accountmaster-list-column {
+@media (max-width: 1024px) {
+  .dbs-accountmaster-split-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Left Form Card */
+.dbs-accountmaster-form-card {
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius, 8px);
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 18px;
 }
 
-/* ---------- Form Card ---------- */
-
-.dbs-form-card {
-  background: var(--dbs-surface);
-  border: 1px solid var(--dbs-border);
-  border-radius: var(--dbs-radius);
-  box-shadow: var(--dbs-shadow);
-  padding: 24px;
-}
-
-.dbs-form-card h3 {
-  margin: 0 0 20px 0;
+.dbs-accountmaster-form-title {
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--dbs-heading);
+  color: var(--dbs-text, #0f172a);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
 }
 
-.dbs-form-grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.dbs-accountmaster-form-grid {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
 }
 
-.dbs-grid-col-span-2 {
-  grid-column: 1 / -1;
+.dbs-field-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--dbs-primary, #0e7490);
+  margin-top: 4px;
+  font-weight: 500;
 }
 
-.dbs-input-box {
+/* Right Table Card */
+.dbs-accountmaster-table-card {
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius, 8px);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.dbs-accountmaster-table-header-area {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: #fafafa;
+}
+
+.dbs-accountmaster-table-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--dbs-text, #0f172a);
+}
+
+.dbs-accountmaster-search-wrap {
+  position: relative;
+  width: 240px;
+}
+
+.dbs-accountmaster-search-input {
+  width: 100%;
+  height: 36px;
+  padding: 0 12px 0 32px;
+  font-size: 0.85rem;
+  border: 1px solid var(--dbs-border, #d9e6e4);
+  border-radius: 6px;
+  outline: none;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: var(--dbs-text, #1e293b);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dbs-accountmaster-search-input:focus {
+  border-color: var(--dbs-primary, #0e7490);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light, rgba(14, 116, 144, 0.12));
+}
+
+.dbs-accountmaster-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 11px;
+  color: var(--dbs-text-muted, #64748b);
+  pointer-events: none;
+}
+
+/* Table scroll area */
+.dbs-accountmaster-table-scroll {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+/* Specific Action Icon Buttons */
+.dbs-table-edit-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #ede9fe;
+  color: #7c3aed;
+  border: 1px solid #ddd6fe;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dbs-table-edit-icon-btn:hover {
+  background: #7c3aed;
+  color: #ffffff;
+  border-color: #7c3aed;
+  transform: translateY(-1px);
+}
+
+.dbs-table-delete-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #fee2e2;
+  color: #ef4444;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dbs-table-delete-icon-btn:hover {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+  transform: translateY(-1px);
+}
+
+/* Table Header Styles */
+.dbs-accountmaster-table th {
+  background: var(--dbs-primary, #0e7490) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  padding: 12px 14px !important;
+  text-align: left;
+  border: none !important;
+  white-space: nowrap;
+}
+
+.dbs-accountmaster-table td {
+  padding: 12px 14px;
+  font-size: 0.9rem;
+  color: var(--dbs-text, #1e293b);
+  border-bottom: 1px solid var(--dbs-border, #f1f5f9);
+}
+
+.dbs-accountmaster-table tr:hover td {
+  background-color: var(--dbs-primary-light, rgba(14, 116, 144, 0.04));
+}
+
+.dbs-pill-category {
+  display: inline-block;
+  padding: 3px 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--dbs-primary, #0e7490);
+  background: var(--dbs-primary-light, rgba(14, 116, 144, 0.1));
+  border: 1px solid rgba(14, 116, 144, 0.2);
+  border-radius: 4px;
+}
+
+/* Modal Overlay & Auth Modal */
+.dbs-auth-overlay-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 1100;
+  padding: 16px;
+  animation: dbsFadeIn 0.2s ease;
+}
+
+.dbs-auth-modal-box {
+  width: 100%;
+  max-width: 400px;
+  background: var(--dbs-surface, #ffffff);
+  border-radius: var(--dbs-radius, 8px);
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  animation: dbsHeadmasterSlideUp 0.25s ease;
+  border: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+.dbs-auth-modal-header {
+  background: var(--dbs-primary, #0e7490);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 14px 20px;
+}
+
+.dbs-auth-modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dbs-auth-field-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.dbs-input-box label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--dbs-heading);
+.dbs-auth-field-group label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--dbs-text, #1e293b);
 }
 
-.dbs-input-box input {
+.dbs-auth-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dbs-auth-input-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--dbs-text-muted, #64748b);
+  pointer-events: none;
+}
+
+.dbs-auth-input {
   width: 100%;
-  box-sizing: border-box;
-  padding: 10px 12px;
+  height: 40px;
+  padding: 0 12px 0 36px;
   font-size: 0.9rem;
-  color: var(--dbs-text);
-  background: var(--dbs-surface);
-  border: 1px solid var(--dbs-border);
-  border-radius: 8px;
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius-sm, 6px);
   outline: none;
-  transition:
-    border-color 0.15s ease,
-    box-shadow 0.15s ease;
-}
-
-.dbs-input-box input::placeholder {
-  color: #9db8b6;
-}
-
-.dbs-input-box input:focus {
-  border-color: var(--dbs-primary);
-  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
-}
-
-.dbs-input-box input:disabled {
-  background: var(--dbs-surface-muted);
-  color: var(--dbs-text-muted);
-  cursor: not-allowed;
-}
-
-.dbs-form-actions-row {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 12px;
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid var(--dbs-border);
-}
-
-.dbs-form-cancel-btn {
-  padding: 10px 16px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--dbs-text-muted);
-  background: transparent;
-  border: 1px solid var(--dbs-border);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.15s ease;
-}
-
-.dbs-form-cancel-btn:hover {
-  background: var(--dbs-surface-muted);
-}
-
-.dbs-form-save-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #ffffff;
-  background: var(--dbs-primary);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.15s ease;
-}
-
-.dbs-form-save-btn:hover {
-  background: var(--dbs-primary-hover);
-}
-
-/* ---------- Data Table Card ---------- */
-
-.dbs-dashboard-card {
-  background: var(--dbs-surface);
-  border: 1px solid var(--dbs-border);
-  border-radius: var(--dbs-radius);
-  box-shadow: var(--dbs-shadow);
-  overflow: hidden;
-}
-
-.dbs-datatable-header-area {
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--dbs-border);
-}
-
-.dbs-datatable-header-area h3 {
-  margin: 0 0 4px 0;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--dbs-heading);
-}
-
-.dbs-datatable-header-area p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--dbs-primary);
-}
-
-.dbs-table-container {
-  overflow-x: auto;
-}
-
-.dbs-data-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.88rem;
-}
-
-.dbs-data-table thead th {
-  text-align: left;
-  padding: 12px 24px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--dbs-text-muted);
-  background: var(--dbs-surface-muted);
-  white-space: nowrap;
-  border-bottom: 1px solid var(--dbs-border);
-}
-
-.dbs-data-table tbody td {
-  padding: 14px 24px;
-  border-bottom: 1px solid var(--dbs-border);
-  color: var(--dbs-text);
-  vertical-align: middle;
-  white-space: nowrap;
-}
-
-.dbs-data-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.dbs-data-table tbody tr:hover {
-  background: var(--dbs-surface-muted);
-}
-
-.dbs-account-name-td {
-  font-weight: 600;
-  color: var(--dbs-text);
-  white-space: normal;
-  min-width: 200px;
-}
-
-.dbs-pill-category {
-  display: inline-block;
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--dbs-primary-hover);
-  background: rgba(13, 148, 136, 0.1);
-  border-radius: 999px;
-}
-
-.dbs-opening-bal-td {
-  font-family: "SFMono-Regular", Consolas, monospace;
-  font-weight: 700;
-  color: var(--dbs-success);
-  font-size: 0.85rem;
-}
-
-.dbs-table-actions-row {
-  display: flex;
-  gap: 8px;
-}
-
-.dbs-table-action-icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 7px;
-  border: 1px solid var(--dbs-border);
-  background: var(--dbs-surface);
-  color: var(--dbs-text-muted);
-  cursor: pointer;
-  transition:
-    background 0.15s ease,
-    color 0.15s ease,
-    border-color 0.15s ease;
-}
-
-.dbs-btn-edit:hover {
-  color: var(--dbs-primary);
-  border-color: var(--dbs-primary);
-  background: rgba(13, 148, 136, 0.08);
-}
-
-.dbs-btn-delete:hover {
-  color: var(--dbs-danger);
-  border-color: var(--dbs-danger);
-  background: var(--dbs-danger-bg);
-}
-
-/* ---------- Empty State ---------- */
-
-.dbs-empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 48px 24px;
-  color: var(--dbs-text-muted);
-}
-
-.dbs-empty-state-icon {
-  width: 36px;
-  height: 36px;
-  margin-bottom: 12px;
-  color: var(--dbs-border);
-}
-
-.dbs-empty-state-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--dbs-heading);
-  margin-bottom: 4px;
-}
-
-.dbs-empty-state-desc {
-  font-size: 0.85rem;
-  max-width: 320px;
-}
-
-/* ---------- Confirm Modal ---------- */
-
-.dbs-search-overlay-modal {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(15, 61, 62, 0.45);
-  z-index: 1000;
-  padding: 16px;
-}
-
-.dbs-search-modal-box {
-  background: var(--dbs-surface);
-  border-radius: var(--dbs-radius);
-  box-shadow: 0 20px 50px rgba(15, 61, 62, 0.25);
-  width: 100%;
-}
-
-.dbs-confirm-modal-box {
-  max-width: 420px;
-  padding: 28px;
-}
-
-.dbs-confirm-modal-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 8px;
-}
-
-.dbs-warning-danger-icon {
-  color: var(--dbs-danger);
-  margin-bottom: 8px;
-}
-
-.dbs-confirm-modal-body h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--dbs-heading);
-}
-
-.dbs-confirm-modal-body p {
-  margin: 0;
-  font-size: 0.88rem;
-  color: var(--dbs-text-muted);
-  line-height: 1.5;
-}
-
-.dbs-confirm-modal-actions {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 24px;
-}
-
-.dbs-confirm-btn-cancel {
-  padding: 10px 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--dbs-text-muted);
-  background: var(--dbs-surface-muted);
-  border: 1px solid var(--dbs-border);
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.dbs-confirm-btn-cancel:hover {
-  background: var(--dbs-border);
-}
-
-.dbs-confirm-btn-delete {
-  padding: 10px 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #ffffff;
-  background: var(--dbs-danger);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.dbs-confirm-btn-delete:hover {
-  background: #b91c1c;
-}
-
-/* ---------- Responsive ---------- */
-
-@media (max-width: 1024px) {
-  .dbs-accountmaster-grid-layout {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 560px) {
-  .dbs-form-grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .dbs-data-table thead th,
-  .dbs-data-table tbody td {
-    padding: 10px 14px;
-  }
-}
-/* ---------- Modal overlay (shared background dim) ---------- */
-
-.dbs-search-overlay-modal {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(15, 61, 62, 0.45);
-  z-index: 1000;
-  padding: 16px;
-}
-
-/* ---------- Authentication Popup ---------- */
-
-.dbs-auth-modal-box {
-  width: 100%;
-  max-width: 420px;
-  background: #ffffff;
-  border: 1px solid #29abe2;
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(15, 61, 62, 0.25);
-}
-
-.dbs-auth-modal-header {
-  background: #3ba9dd;
-  color: #ffffff;
-  text-align: center;
-  font-weight: 700;
-  font-size: 0.95rem;
-  padding: 10px 16px;
-}
-
-.dbs-auth-modal-body {
-  padding: 28px 32px 24px;
-}
-
-.dbs-auth-field-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 18px;
-}
-
-.dbs-auth-field-row label {
-  flex: 0 0 90px;
-  font-size: 0.85rem;
-  color: #333333;
-}
-
-.dbs-auth-field-row input {
-  flex: 1;
   box-sizing: border-box;
-  padding: 7px 10px;
-  font-size: 0.85rem;
-  border: 1px solid #b7c2c8;
-  border-radius: 3px;
-  outline: none;
+  background: #ffffff;
+  color: var(--dbs-text, #1e293b);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.dbs-auth-field-row input:focus {
-  border-color: #3ba9dd;
-  box-shadow: 0 0 0 3px rgba(59, 169, 221, 0.15);
+.dbs-auth-input:focus {
+  border-color: var(--dbs-primary, #0e7490);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light, rgba(14, 116, 144, 0.12));
 }
 
 .dbs-auth-modal-actions {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 10px;
   margin-top: 8px;
-}
-
-.dbs-auth-btn {
-  min-width: 76px;
-  padding: 6px 16px;
-  font-size: 0.82rem;
-  color: #333333;
-  background: linear-gradient(#fdfdfd, #e6e9eb);
-  border: 1px solid #9aa7ad;
-  border-radius: 3px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dbs-auth-btn:hover {
-  background: linear-gradient(#ffffff, #eef1f2);
-}
-
-.dbs-auth-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* ---------- Spinner (used by the Submit button while loading) ---------- */
-
-.dbs-spin {
-  animation: dbs-spin 0.8s linear infinite;
-}
-
-@keyframes dbs-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  padding-top: 14px;
+  border-top: 1px solid var(--dbs-border, #e2e8f0);
 }

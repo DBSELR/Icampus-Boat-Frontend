@@ -1,0 +1,350 @@
+/* ==========================================================
+   FEE MASTER STYLESHEET
+   Follows HeadsMaster theme with professional multi-select UI
+========================================================== */
+
+@import "./HeadMaster.css";
+
+/* Multi-Select Field Container */
+.dbs-feemaster-multiselect-wrap {
+  position: relative;
+  width: 100%;
+}
+
+/* Multi-Select Trigger Button */
+.dbs-feemaster-multiselect-btn {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #d9e6e4);
+  border-radius: var(--dbs-radius-sm, 6px);
+  color: var(--dbs-text, #0f3d3e);
+  font-family: inherit;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+  user-select: none;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.dbs-feemaster-multiselect-btn:hover {
+  border-color: var(--dbs-primary, #0d9488);
+}
+
+.dbs-feemaster-multiselect-btn.active,
+.dbs-feemaster-multiselect-btn:focus {
+  border-color: var(--dbs-primary, #0d9488);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light, rgba(13, 148, 136, 0.15));
+}
+
+.dbs-feemaster-multiselect-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  font-weight: 500;
+  color: var(--dbs-text, #0f3d3e);
+}
+
+.dbs-feemaster-multiselect-label.placeholder {
+  color: var(--dbs-text-muted, #4b7a78);
+  font-weight: normal;
+}
+
+.dbs-feemaster-multiselect-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--dbs-primary-light, rgba(13, 148, 136, 0.12));
+  color: var(--dbs-primary, #0d9488);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+.dbs-feemaster-multiselect-arrow {
+  color: var(--dbs-text-muted, #4b7a78);
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.2s ease;
+}
+
+.dbs-feemaster-multiselect-arrow.open {
+  transform: rotate(180deg);
+}
+
+/* Multi-Select Popup Menu */
+.dbs-feemaster-multiselect-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  right: 0;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #d9e6e4);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(15, 61, 62, 0.15), 0 4px 8px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: dbsHeadmasterSlideUp 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Search bar inside dropdown */
+.dbs-feemaster-multiselect-search-box {
+  padding: 8px 12px;
+  background: var(--dbs-surface-muted, #f7faf9);
+  border-bottom: 1px solid var(--dbs-border, #d9e6e4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dbs-feemaster-multiselect-search-input {
+  width: 100% !important;
+  height: 32px !important;
+  padding: 0 10px !important;
+  font-size: 0.84rem !important;
+  border: 1px solid var(--dbs-border, #d9e6e4) !important;
+  border-radius: 5px !important;
+  background: var(--dbs-surface, #ffffff) !important;
+  color: var(--dbs-text, #0f3d3e) !important;
+  outline: none !important;
+}
+
+.dbs-feemaster-multiselect-search-input:focus {
+  border-color: var(--dbs-primary, #0d9488) !important;
+  box-shadow: 0 0 0 2px var(--dbs-primary-light, rgba(13, 148, 136, 0.15)) !important;
+}
+
+/* Select All Bar */
+.dbs-feemaster-multiselect-all-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--dbs-surface-muted, #f7faf9);
+  border-bottom: 1px solid var(--dbs-border, #d9e6e4);
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease;
+}
+
+.dbs-feemaster-multiselect-all-header:hover {
+  background: var(--dbs-primary-light, rgba(13, 148, 136, 0.1));
+}
+
+.dbs-feemaster-multiselect-all-header-text {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--dbs-heading, #0f4c46);
+  flex: 1;
+  text-align: left;
+}
+
+/* Options Scroll List */
+.dbs-feemaster-multiselect-items {
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Individual Option Row */
+.dbs-feemaster-multiselect-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 14px;
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: background-color 0.12s ease;
+}
+
+.dbs-feemaster-multiselect-row:hover {
+  background-color: var(--dbs-primary-light, rgba(13, 148, 136, 0.08));
+}
+
+.dbs-feemaster-multiselect-row.checked {
+  background-color: var(--dbs-primary-light, rgba(13, 148, 136, 0.1));
+}
+
+.dbs-feemaster-multiselect-row-text {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--dbs-text, #0f3d3e);
+  flex: 1;
+  text-align: left;
+  line-height: 1.3;
+}
+
+.dbs-feemaster-multiselect-row.checked .dbs-feemaster-multiselect-row-text {
+  font-weight: 700;
+  color: var(--dbs-primary, #0d9488);
+}
+
+.dbs-feemaster-multiselect-empty {
+  padding: 16px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--dbs-text-muted, #4b7a78);
+}
+
+/* ==========================================================
+   CUSTOM CHECKBOX (Crisp 18x18px box, unaffected by global styles)
+========================================================== */
+
+.dbs-custom-cb-box {
+  width: 18px !important;
+  min-width: 18px !important;
+  max-width: 18px !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  max-height: 18px !important;
+  border-radius: 4px;
+  border: 1.5px solid var(--dbs-border, #d9e6e4);
+  background: var(--dbs-surface, #ffffff);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-sizing: border-box;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.dbs-custom-cb-box:hover {
+  border-color: var(--dbs-primary, #0d9488);
+}
+
+.dbs-custom-cb-box.checked {
+  background: var(--dbs-primary, #0d9488);
+  border-color: var(--dbs-primary, #0d9488);
+  box-shadow: 0 0 0 2px var(--dbs-primary-light, rgba(13, 148, 136, 0.2));
+}
+
+.dbs-custom-cb-icon {
+  width: 12px;
+  height: 12px;
+  color: #ffffff;
+  stroke-width: 3;
+}
+
+/* Table Amount Input & Row Checkbox Alignment */
+.dbs-feemaster-table-amount-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.dbs-feemaster-table-input {
+  width: 120px;
+  height: 36px;
+  padding: 0 10px;
+  text-align: right;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--dbs-text, #0f3d3e);
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #d9e6e4);
+  border-radius: var(--dbs-radius-sm, 6px);
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.dbs-feemaster-table-input:focus {
+  border-color: var(--dbs-primary, #0d9488);
+  box-shadow: 0 0 0 2px var(--dbs-primary-light, rgba(13, 148, 136, 0.2));
+}
+
+.dbs-feemaster-th-header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.dbs-feemaster-th-select-all-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  font-size: 0.76rem;
+  color: #ffffff;
+  text-transform: none;
+  font-weight: 700;
+  user-select: none;
+}
+
+/* Custom Table Select All Checkbox (White outline on Primary Header) */
+.dbs-custom-cb-box-header {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: transparent;
+}
+
+.dbs-custom-cb-box-header:hover {
+  border-color: #ffffff;
+}
+
+.dbs-custom-cb-box-header.checked {
+  background: #ffffff;
+  border-color: #ffffff;
+}
+
+.dbs-custom-cb-box-header.checked .dbs-custom-cb-icon {
+  color: var(--dbs-primary, #0d9488);
+}
+
+.dbs-feemaster-total-row {
+  background: var(--dbs-primary-light, rgba(13, 148, 136, 0.08)) !important;
+  font-weight: 700;
+}
+
+.dbs-feemaster-total-row td {
+  border-top: 2px solid var(--dbs-primary, #0d9488) !important;
+}
+
+.dbs-feemaster-total-label {
+  text-align: right;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--dbs-text, #0f3d3e);
+}
+
+.dbs-feemaster-total-amount {
+  text-align: right;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--dbs-primary, #0d9488);
+}
+
+.dbs-feemaster-input-readonly {
+  background: var(--dbs-surface, #ffffff) !important;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-weight: 700;
+  color: var(--dbs-primary, #0d9488) !important;
+  cursor: default;
+}

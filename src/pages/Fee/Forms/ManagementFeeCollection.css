@@ -1,0 +1,131 @@
+/* ==========================================================
+   ManagementFeeCollection.css
+   Management Fee / Donation Collection Component Styles
+   Inherits design tokens and base styles from HeadMaster.css
+========================================================== */
+
+@import "./HeadMaster.css";
+
+/* Container */
+.dbs-donation-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+/* Header badge */
+.dbs-donation-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--dbs-primary-light, rgba(14, 116, 144, 0.08));
+  color: var(--dbs-primary, #0e7490);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Number / Currency Input Adornments */
+.dbs-donation-currency-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.dbs-donation-currency-prefix {
+  position: absolute;
+  left: 12px;
+  font-weight: 700;
+  color: var(--dbs-text-muted, #64748b);
+  pointer-events: none;
+  font-size: 0.95rem;
+}
+
+.dbs-donation-currency-wrap input {
+  padding-left: 28px !important;
+  font-weight: 600;
+  color: var(--dbs-text, #0f172a);
+}
+
+/* Financial Summary Stats Cards */
+.dbs-donation-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.dbs-donation-summary-card {
+  padding: 16px 20px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius-sm, 6px);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.dbs-donation-summary-card:hover {
+  border-color: var(--dbs-primary, #0e7490);
+  transform: translateY(-1px);
+}
+
+.dbs-donation-summary-card.highlight {
+  background: var(--dbs-primary-light, rgba(14, 116, 144, 0.04));
+  border-color: var(--dbs-primary, #0e7490);
+}
+
+.dbs-donation-summary-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--dbs-text-muted, #64748b);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dbs-donation-summary-value {
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-family: "Courier New", Courier, monospace, sans-serif;
+  line-height: 1.2;
+}
+
+.dbs-donation-summary-value.slate {
+  color: #334155;
+}
+
+.dbs-donation-summary-value.emerald {
+  color: #059669;
+}
+
+.dbs-donation-summary-value.amber {
+  color: #d97706;
+}
+
+.dbs-donation-summary-value.primary {
+  color: var(--dbs-primary, #0e7490);
+}
+
+/* Form actions */
+.dbs-donation-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dbs-donation-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

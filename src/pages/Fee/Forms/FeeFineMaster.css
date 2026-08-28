@@ -1,0 +1,124 @@
+/* ==========================================================
+   FeeFineMaster.css
+   Fee Fine Master Component Styles
+   Inherits design tokens and base styles from HeadMaster.css
+========================================================== */
+
+@import "./HeadMaster.css";
+
+/* Container */
+.dbs-feefine-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+/* Header badge */
+.dbs-feefine-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--dbs-primary-light, rgba(14, 116, 144, 0.08));
+  color: var(--dbs-primary, #0e7490);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Currency / Number Input Adornments */
+.dbs-feefine-currency-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.dbs-feefine-currency-prefix {
+  position: absolute;
+  left: 12px;
+  font-weight: 700;
+  color: var(--dbs-text-muted, #64748b);
+  pointer-events: none;
+  font-size: 0.95rem;
+}
+
+.dbs-feefine-currency-wrap input {
+  padding-left: 28px !important;
+  font-weight: 600;
+  color: var(--dbs-text, #0f172a);
+}
+
+/* Date input wrapper */
+.dbs-feefine-date-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.dbs-feefine-date-wrap input {
+  width: 100%;
+}
+
+/* Radio Group for Fee Paid Year */
+.dbs-feefine-radio-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.dbs-feefine-radio-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius-sm, 6px);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--dbs-text, #334155);
+}
+
+.dbs-feefine-radio-item:hover {
+  border-color: var(--dbs-primary, #0e7490);
+  background: var(--dbs-primary-light, rgba(14, 116, 144, 0.03));
+}
+
+.dbs-feefine-radio-item.selected {
+  border-color: var(--dbs-primary, #0e7490);
+  background: var(--dbs-primary-light, rgba(14, 116, 144, 0.08));
+  color: var(--dbs-primary, #0e7490);
+  box-shadow: 0 0 0 1px var(--dbs-primary, #0e7490);
+}
+
+.dbs-feefine-radio-item input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--dbs-primary, #0e7490);
+  cursor: pointer;
+  margin: 0;
+}
+
+/* Card Header Subtitle / Section title */
+.dbs-feefine-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dbs-feefine-radio-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

@@ -1,302 +1,866 @@
-/* ============================
-   Fee Head Master
-============================ */
+/* ==========================================================
+   CONTAINER
+   Relies on global design tokens (--dbs-primary, --dbs-text,
+   --dbs-text-muted, --dbs-surface, --dbs-border, --dbs-radius,
+   --dbs-radius-sm, --dbs-shadow, --dbs-primary-light,
+   --dbs-primary-focus) defined in the app's shared stylesheet.
+========================================================== */
 
-.dbs-feehead-container {
-  padding: 20px;
-  background: #f6f8fc;
-  min-height: 100vh;
-}
-
-/* Header */
-
-.dbs-feehead-header {
-  margin-bottom: 18px;
-}
-
-.dbs-feehead-header h2 {
-  margin: 0;
-  font-size: 30px;
-  font-weight: 700;
-  color: #1d2746;
-}
-
-.dbs-feehead-header p {
-  margin-top: 5px;
-  color: #68768f;
-  font-size: 15px;
-}
-
-/* Layout */
-
-.dbs-feehead-layout {
-  display: grid;
-  grid-template-columns: 420px 1fr;
-  gap: 24px;
-}
-
-@media (max-width: 1100px) {
-  .dbs-feehead-layout {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Cards */
-
-.dbs-card {
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 8px 20px rgba(20, 40, 80, 0.08);
-  padding: 25px;
-}
-
-.dbs-card h3 {
-  margin: 0 0 20px;
-  color: #1b2746;
-  font-size: 24px;
-  font-weight: 700;
-}
-
-/* Form */
-
-.dbs-form-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.dbs-input-box {
-  display: flex;
-  flex-direction: column;
-}
-
-.dbs-input-box label {
-  margin-bottom: 7px;
-  font-weight: 600;
-  color: #374151;
-  font-size: 14px;
-}
-
-.dbs-input-box input,
-.dbs-input-box select {
+.dbs-headmaster-container {
   width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid #d5dbe8;
-  font-size: 15px;
-  outline: none;
-  transition: 0.25s;
-  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
 }
 
-.dbs-input-box input:focus,
-.dbs-input-box select:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+.dbs-headmaster-container *,
+.dbs-headmaster-container *::before,
+.dbs-headmaster-container *::after {
+  box-sizing: border-box;
 }
 
-/* Two Column */
+/* ==========================================================
+   PAGE HEADER
+========================================================== */
 
-.dbs-form-grid-2 {
+.dbs-headmaster-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-headmaster-header h2 {
+  margin: 0;
+  color: var(--dbs-text);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.dbs-headmaster-subtitle {
+  margin: 6px 0 0;
+  color: var(--dbs-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ==========================================================
+   FORM CARD
+========================================================== */
+
+.dbs-headmaster-form-card {
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  animation: dbsHeadmasterSlideUp 0.25s ease;
+}
+
+.dbs-headmaster-form-card h3 {
+  margin: 0;
+  padding-bottom: 14px;
+  color: var(--dbs-text);
+  border-bottom: 1px solid var(--dbs-border);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* ==========================================================
+   FORM GRID
+========================================================== */
+
+.dbs-headmaster-grid {
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
 }
 
-@media (max-width: 768px) {
-  .dbs-form-grid-2 {
-    grid-template-columns: 1fr;
-  }
+/* ==========================================================
+   FORM FIELD
+========================================================== */
+
+.dbs-headmaster-input {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Buttons */
+.dbs-headmaster-input label {
+  margin-bottom: 8px;
+  color: var(--dbs-text);
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
 
-.dbs-button-row {
+/* ==========================================================
+   INPUTS / SELECTS
+========================================================== */
+
+.dbs-headmaster-input input,
+.dbs-headmaster-input select {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  color: var(--dbs-text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.dbs-headmaster-input input:hover,
+.dbs-headmaster-input select:hover {
+  border-color: var(--dbs-primary);
+}
+
+.dbs-headmaster-input input:focus,
+.dbs-headmaster-input select:focus {
+  border-color: var(--dbs-primary);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+}
+
+.dbs-headmaster-input select {
+  cursor: pointer;
+}
+
+.dbs-headmaster-input select option {
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+}
+
+.dbs-headmaster-input input::placeholder,
+.dbs-headmaster-input select::placeholder {
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================================
+   ACTION BUTTON AREA
+========================================================== */
+
+.dbs-headmaster-actions {
+  width: 100%;
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-  margin-top: 25px;
-}
-
-.dbs-btn {
-  padding: 11px 22px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  display: flex;
   align-items: center;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--dbs-border);
+}
+
+.dbs-headmaster-actions button {
+  min-width: 120px;
+  height: 44px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
-  font-size: 15px;
-  font-weight: 600;
-  transition: .25s;
+  border-radius: var(--dbs-radius-sm);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
 }
 
+/* ==========================================================
+   SAVE BUTTON
+========================================================== */
 
+.dbs-headmaster-save-btn {
+  background: var(--dbs-primary);
+  border: 1px solid var(--dbs-primary);
+  color: #ffffff;
+  box-shadow: var(--dbs-shadow);
+}
 
-/* Table */
+.dbs-headmaster-save-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
 
-.dbs-table {
+.dbs-headmaster-save-btn:active {
+  transform: scale(0.98);
+}
+
+.dbs-headmaster-save-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* ==========================================================
+   CANCEL / RESET BUTTON
+========================================================== */
+
+.dbs-headmaster-reset-btn {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  color: var(--dbs-text);
+}
+
+.dbs-headmaster-reset-btn:hover {
+  background: var(--dbs-primary-light);
+  border-color: var(--dbs-primary);
+  color: var(--dbs-primary);
+  transform: translateY(-2px);
+}
+
+.dbs-headmaster-reset-btn:active {
+  transform: scale(0.98);
+}
+
+.dbs-headmaster-reset-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus);
+}
+
+/* ==========================================================
+   DISABLED BUTTON
+========================================================== */
+
+.dbs-headmaster-save-btn:disabled,
+.dbs-headmaster-reset-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ==========================================================
+   TABLE HEADER
+========================================================== */
+
+.dbs-headmaster-table-header {
   width: 100%;
-  border-collapse: collapse;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border);
 }
 
-.dbs-table thead {
-  background: #f5f7fb;
+.dbs-headmaster-table-header h2 {
+  margin: 0;
+  color: var(--dbs-text);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.3;
 }
 
-.dbs-table th {
-  padding: 15px;
+.dbs-headmaster-table-header p {
+  margin: 6px 0 0;
+  color: var(--dbs-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ==========================================================
+   TABLE OUTER CONTAINER
+========================================================== */
+
+.dbs-headmaster-table-container {
+  width: 100%;
+  padding: 18px;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  animation: dbsHeadmasterSlideUp 0.25s ease;
+}
+
+/* ==========================================================
+   TABLE CARD / SCROLL / DATA TABLE
+   Shared classes — scoped, not renamed
+========================================================== */
+
+.dbs-headmaster-container .dbs-table-card {
+  width: 100%;
+  overflow: hidden;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+}
+
+.dbs-headmaster-container .dbs-table-scroll {
+  width: 100%;
+  max-height: 430px;
+  overflow-x: auto;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
+}
+
+.dbs-headmaster-container .dbs-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dbs-headmaster-container .dbs-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dbs-headmaster-container .dbs-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 20px;
+}
+
+.dbs-headmaster-container .dbs-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+
+.dbs-headmaster-container .dbs-data-table {
+  width: 100%;
+  min-width: 1000px;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+/* ==========================================================
+   TABLE HEADER CELLS
+========================================================== */
+
+.dbs-headmaster-container .dbs-data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 46px;
+  padding: 0 16px;
+  background: var(--dbs-primary);
+  color: #ffffff;
+  border-bottom: 2px solid var(--dbs-primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  line-height: 1.2;
   text-align: left;
-  color: #64748b;
-  font-size: 14px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.dbs-headmaster-container .dbs-data-table thead th:first-child {
+  border-top-left-radius: var(--dbs-radius-sm);
+}
+
+.dbs-headmaster-container .dbs-data-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm);
+}
+
+/* ==========================================================
+   TABLE COLUMN WIDTHS
+
+   1 - S.NO
+   2 - FEE NAME
+   3 - SHORT NAME
+   4 - FEE TYPE
+   5 - ACCOUNT NO.
+   6 - AMOUNT
+   7 - EDIT
+   8 - DELETE
+========================================================== */
+
+.dbs-headmaster-container .dbs-data-table th:nth-child(1),
+.dbs-headmaster-container .dbs-data-table td:nth-child(1) {
+  width: 7%;
+}
+
+.dbs-headmaster-container .dbs-data-table th:nth-child(2),
+.dbs-headmaster-container .dbs-data-table td:nth-child(2) {
+  width: 24%;
+}
+
+.dbs-headmaster-container .dbs-data-table th:nth-child(3),
+.dbs-headmaster-container .dbs-data-table td:nth-child(3) {
+  width: 12%;
+}
+
+.dbs-headmaster-container .dbs-data-table th:nth-child(4),
+.dbs-headmaster-container .dbs-data-table td:nth-child(4) {
+  width: 18%;
+}
+
+.dbs-headmaster-container .dbs-data-table th:nth-child(5),
+.dbs-headmaster-container .dbs-data-table td:nth-child(5) {
+  width: 14%;
+}
+
+.dbs-headmaster-container .dbs-data-table th:nth-child(6),
+.dbs-headmaster-container .dbs-data-table td:nth-child(6) {
+  width: 12%;
+}
+
+.dbs-headmaster-container .dbs-data-table th:nth-child(7),
+.dbs-headmaster-container .dbs-data-table td:nth-child(7) {
+  width: 6.5%;
+}
+
+.dbs-headmaster-container .dbs-data-table th:nth-child(8),
+.dbs-headmaster-container .dbs-data-table td:nth-child(8) {
+  width: 6.5%;
+}
+
+/* ==========================================================
+   TABLE BODY
+========================================================== */
+
+.dbs-headmaster-container .dbs-data-table tbody td {
+  height: 54px;
+  padding: 0 16px;
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  border-bottom: 1px solid var(--dbs-border);
+  font-size: 0.88rem;
+  line-height: 1.4;
+  vertical-align: middle;
+}
+
+.dbs-headmaster-container .dbs-data-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.dbs-headmaster-container .dbs-data-table tbody tr:hover td {
+  background: var(--dbs-primary-light);
+}
+
+.dbs-headmaster-container .dbs-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ==========================================================
+   TABLE CELL ALIGNMENT
+========================================================== */
+
+.dbs-headmaster-container .dbs-data-table th:first-child,
+.dbs-headmaster-container .dbs-data-table td:first-child {
+  text-align: center;
+}
+
+.dbs-headmaster-container .dbs-data-table td:nth-child(2) {
   font-weight: 700;
 }
 
-.dbs-table td {
-  padding: 15px;
-  border-top: 1px solid #eef2f7;
-  font-size: 15px;
-  color: #1e293b;
-}
+/* ==========================================================
+   AMOUNT COLUMN
+========================================================== */
 
-.dbs-table tbody tr:hover {
-  background: #f8fbff;
-}
-
-/* Badge */
-
-.dbs-badge {
-  display: inline-block;
-  padding: 4px 10px;
-  background: #dbeafe;
-  color: #2563eb;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-/* Amount */
-
-.dbs-amount {
+.dbs-headmaster-amount-td {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-weight: 700;
   text-align: right;
-  font-weight: 600;
+  white-space: nowrap;
 }
 
-/* Action Buttons */
+/* ==========================================================
+   EDIT / DELETE ACTION CELLS
+========================================================== */
 
-.dbs-action-buttons {
-  display: flex;
-  gap: 8px;
+.dbs-headmaster-action-td {
+  text-align: center;
 }
 
-.dbs-icon-btn {
-  width: 34px;
-  height: 34px;
-  border: 1px solid #dbe3f0;
-  background: #fff;
-  border-radius: 8px;
-  display: flex;
+.dbs-headmaster-action-btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: var(--dbs-radius-sm);
+  color: #ffffff;
   cursor: pointer;
-  transition: .25s;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
-.dbs-icon-btn svg {
-  width: 16px;
-  height: 16px;
+.dbs-headmaster-action-btn:hover {
+  transform: translateY(-1px);
 }
 
-.dbs-edit {
-  color: #2563eb;
+.dbs-headmaster-action-btn:active {
+  transform: scale(0.96);
 }
 
-.dbs-edit:hover {
-  background: #eff6ff;
+.dbs-headmaster-edit-btn {
+  background: var(--dbs-primary);
 }
 
-.dbs-delete {
-  color: #ef4444;
+.dbs-headmaster-edit-btn:hover {
+  filter: brightness(1.08);
 }
 
-.dbs-delete:hover {
-  background: #fef2f2;
+.dbs-headmaster-delete-btn {
+  background: var(--dbs-danger, #dc2626);
 }
 
-/* Modal */
+.dbs-headmaster-delete-btn:hover {
+  filter: brightness(1.08);
+}
 
-.dbs-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, .45);
+/* ==========================================================
+   EMPTY STATE
+   Shared classes — scoped, not renamed
+========================================================== */
+
+.dbs-headmaster-container .dbs-empty-state {
+  min-height: 240px;
+  padding: 40px 20px;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-
-.dbs-modal {
-  width: 420px;
-  background: #fff;
-  border-radius: 18px;
-  padding: 30px;
   text-align: center;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, .18);
+  gap: 10px;
+  color: var(--dbs-text-muted);
 }
 
-.dbs-modal h3 {
-  margin: 15px 0;
-  color: #1e293b;
+.dbs-headmaster-container .dbs-empty-state-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 4px;
+  color: var(--dbs-primary);
 }
 
-.dbs-modal p {
-  color: #64748b;
-  margin-bottom: 25px;
+.dbs-headmaster-container .dbs-empty-state-title {
+  color: var(--dbs-text);
+  font-size: 1.05rem;
+  font-weight: 700;
 }
 
-.dbs-modal-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
+.dbs-headmaster-container .dbs-empty-state-desc {
+  max-width: 420px;
+  color: var(--dbs-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
 
-.dbs-warning-icon {
-  color: #f97316;
+/* ==========================================================
+   ANIMATION
+========================================================== */
+
+@keyframes dbsHeadmasterSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Empty Grid */
+/* ==========================================================
+   LARGE TABLET
+========================================================== */
 
-.dbs-empty {
-  text-align: center;
-  padding: 50px;
-  color: #94a3b8;
-  font-size: 15px;
+@media (max-width: 1200px) {
+  .dbs-headmaster-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dbs-headmaster-form-card {
+    padding: 22px;
+  }
+
+  .dbs-headmaster-table-container {
+    padding: 16px;
+  }
 }
 
-/* Scroll */
+/* ==========================================================
+   TABLET
+========================================================== */
 
-.dbs-table-wrapper {
-  overflow-x: auto;
+@media (max-width: 1024px) {
+  .dbs-headmaster-container {
+    gap: 20px;
+  }
+
+  .dbs-headmaster-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .dbs-headmaster-form-card {
+    padding: 20px;
+  }
+
+  .dbs-headmaster-table-container {
+    padding: 14px;
+  }
+
+  .dbs-headmaster-container .dbs-data-table {
+    min-width: 1000px;
+  }
 }
 
-/* Responsive */
+/* ==========================================================
+   MOBILE / TABLET
+========================================================== */
 
 @media (max-width: 768px) {
-  .dbs-card {
+  .dbs-headmaster-container {
+    gap: 18px;
+  }
+
+  .dbs-headmaster-header,
+  .dbs-headmaster-table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .dbs-headmaster-header h2,
+  .dbs-headmaster-table-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .dbs-headmaster-form-card {
     padding: 18px;
+    gap: 18px;
   }
 
-  .dbs-card h3 {
-    font-size: 20px;
+  .dbs-headmaster-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
-  .dbs-table th,
-  .dbs-table td {
+  .dbs-headmaster-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .dbs-headmaster-actions button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .dbs-headmaster-table-container {
     padding: 12px;
   }
 
-  .dbs-button-row {
-    justify-content: center;
-    flex-wrap: wrap;
+  .dbs-headmaster-container .dbs-data-table {
+    min-width: 1000px;
+  }
+
+  .dbs-headmaster-container .dbs-data-table thead th {
+    height: 44px;
+    padding: 0 12px;
+    font-size: 0.72rem;
+  }
+
+  .dbs-headmaster-container .dbs-data-table tbody td {
+    height: 52px;
+    padding: 0 12px;
+    font-size: 0.82rem;
+  }
+}
+
+/* ==========================================================
+   SMALL MOBILE
+========================================================== */
+
+@media (max-width: 480px) {
+  .dbs-headmaster-form-card {
+    padding: 16px;
+    border-radius: var(--dbs-radius-sm);
+  }
+
+  .dbs-headmaster-form-card h3 {
+    font-size: 1rem;
+  }
+
+  .dbs-headmaster-header h2,
+  .dbs-headmaster-table-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .dbs-headmaster-subtitle,
+  .dbs-headmaster-table-header p {
+    font-size: 0.82rem;
+  }
+
+  .dbs-headmaster-input label {
+    font-size: 0.82rem;
+  }
+
+  .dbs-headmaster-input input,
+  .dbs-headmaster-input select {
+    height: 42px;
+    font-size: 0.85rem;
+  }
+
+  .dbs-headmaster-actions button {
+    height: 42px;
+    font-size: 0.85rem;
+  }
+
+  .dbs-headmaster-table-container {
+    padding: 10px;
+    border-radius: var(--dbs-radius-sm);
+  }
+
+  .dbs-headmaster-container .dbs-empty-state {
+    min-height: 210px;
+    padding: 30px 16px;
+  }
+
+  .dbs-headmaster-container .dbs-empty-state-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .dbs-headmaster-container .dbs-empty-state-title {
+    font-size: 1rem;
+  }
+
+  .dbs-headmaster-container .dbs-empty-state-desc {
+    font-size: 0.82rem;
+  }
+}
+
+/* ==========================================================
+   EXTRA SMALL MOBILE
+========================================================== */
+
+@media (max-width: 360px) {
+  .dbs-headmaster-form-card {
+    padding: 12px;
+  }
+
+  .dbs-headmaster-table-container {
+    padding: 8px;
+  }
+
+  .dbs-headmaster-container .dbs-data-table {
+    min-width: 950px;
+  }
+}
+
+/* ==========================================================
+   AUTOCOMPLETE & ACTION INPUTS
+========================================================== */
+
+.dbs-headmaster-input-relative {
+  position: relative;
+  width: 100%;
+}
+
+.dbs-input-with-action {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.dbs-input-with-action input {
+  padding-right: 40px !important;
+}
+
+.dbs-input-action-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  color: var(--dbs-text-muted);
+  cursor: pointer;
+  border-radius: var(--dbs-radius-sm);
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.dbs-input-action-btn:hover {
+  color: var(--dbs-primary);
+  background-color: var(--dbs-primary-light);
+}
+
+.dbs-autocomplete-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  box-shadow: var(--dbs-shadow-md);
+  z-index: 100;
+  padding: 4px 0;
+  margin: 0;
+  list-style: none;
+  animation: dbsHeadmasterSlideUp 0.15s ease;
+}
+
+.dbs-autocomplete-item {
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: var(--dbs-text);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.dbs-autocomplete-item:hover {
+  background-color: var(--dbs-primary-light);
+  color: var(--dbs-primary);
+}
+
+.dbs-autocomplete-empty {
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: var(--dbs-text-muted);
+  font-style: italic;
+}
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .dbs-headmaster-form-card,
+  .dbs-headmaster-table-container {
+    animation: none;
+  }
+
+  .dbs-headmaster-actions button,
+  .dbs-headmaster-input input,
+  .dbs-headmaster-input select,
+  .dbs-headmaster-action-btn {
+    transition: none;
   }
 }

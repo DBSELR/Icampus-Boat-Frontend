@@ -1,0 +1,416 @@
+/* ==========================================================
+   MiscFeeChallana.css
+   Miscellaneous Fee Challan Component Styles
+   Inherits design tokens and base styles from HeadMaster.css
+========================================================== */
+
+@import "./HeadMaster.css";
+
+.dbs-misc-challan-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+/* Reprint button styled in the HeadMaster palette */
+.dbs-headmaster-reprint-btn {
+  min-width: 120px;
+  height: 44px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #d97706;
+  border: 1px solid #d97706;
+  color: #ffffff;
+  border-radius: var(--dbs-radius-sm, 6px);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.dbs-headmaster-reprint-btn:hover {
+  background: #b45309;
+  border-color: #b45309;
+  transform: translateY(-1px);
+}
+
+.dbs-headmaster-reprint-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Amount input inside the data table */
+.dbs-table-amount-input {
+  width: 130px;
+  height: 36px;
+  padding: 0 10px;
+  font-size: 0.9rem;
+  font-family: monospace, inherit;
+  font-weight: 700;
+  text-align: right;
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  border-radius: var(--dbs-radius-sm, 6px);
+  outline: none;
+  background: var(--dbs-surface, #ffffff);
+  color: var(--dbs-text, #1e293b);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dbs-table-amount-input:focus {
+  border-color: var(--dbs-primary, #0e7490);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light, rgba(14, 116, 144, 0.15));
+}
+
+/* Custom Table Checkbox */
+.dbs-table-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--dbs-primary, #0e7490);
+  vertical-align: middle;
+}
+
+/* Total Summary Bar */
+.dbs-challan-total-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius, 8px);
+  box-shadow: var(--dbs-shadow, 0 1px 3px rgba(0, 0, 0, 0.05));
+}
+
+.dbs-challan-total-label {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--dbs-text, #0f172a);
+}
+
+.dbs-challan-total-val {
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-family: monospace, inherit;
+  color: #059669;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 4px 16px;
+  border-radius: 6px;
+}
+
+/* ==========================================================
+   PRINTABLE CHALLAN RECEIPT PREVIEW MODAL
+========================================================== */
+
+/* ==========================================================
+   OFFICIAL PRINTABLE CHALLAN RECEIPT (MATCHING REFERENCE IMAGE)
+========================================================== */
+
+.dbs-misc-modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 1200;
+  padding: 20px;
+  overflow-y: auto;
+  animation: dbsHeadmasterFadeIn 0.2s ease;
+}
+
+.dbs-misc-modal-box {
+  width: 100%;
+  max-width: 780px;
+  background: var(--dbs-surface, #ffffff);
+  border-radius: var(--dbs-radius, 8px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 90vh;
+  animation: dbsHeadmasterSlideUp 0.25s ease;
+}
+
+.dbs-misc-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: var(--dbs-primary, #0e7490);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.dbs-misc-modal-close-btn {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.dbs-misc-modal-close-btn:hover {
+  opacity: 1;
+}
+
+.dbs-misc-modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  background: #f1f5f9;
+  display: flex;
+  justify-content: center;
+}
+
+.dbs-misc-receipt-sheet {
+  width: 100%;
+  max-width: 680px;
+  background: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 12px;
+  padding: 14px 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+  font-family: "Times New Roman", Times, Georgia, serif;
+  color: #000000;
+  position: relative;
+}
+
+/* Header Area */
+.dbs-receipt-header-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.dbs-receipt-logo-wrap {
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.dbs-receipt-center-header {
+  flex: 1;
+  text-align: center;
+}
+
+.dbs-receipt-college-title {
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: #000000;
+  text-transform: uppercase;
+  margin: 0 0 6px 0;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+}
+
+.dbs-receipt-pill {
+  display: inline-block;
+  border: 1.5px solid #000000;
+  border-radius: 8px;
+  padding: 2px 20px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.dbs-receipt-copy-type {
+  font-size: 0.86rem;
+  font-style: italic;
+  font-weight: 700;
+  text-align: right;
+  margin: 2px 0 0 0;
+}
+
+/* Horizontal black dividers */
+.dbs-receipt-hr {
+  border: none;
+  border-top: 1.5px solid #000000;
+  margin: 8px -18px;
+}
+
+/* Pupil Metadata Grid */
+.dbs-receipt-meta-section {
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.dbs-receipt-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3px;
+}
+
+.dbs-receipt-meta-label {
+  font-weight: 800;
+}
+
+.dbs-receipt-meta-val {
+  font-weight: 600;
+}
+
+/* Table Area */
+.dbs-receipt-table-wrapper {
+  margin: 8px -18px 0 -18px;
+  border-top: 1.5px solid #000000;
+  border-bottom: 1.5px solid #000000;
+}
+
+.dbs-receipt-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dbs-receipt-table th {
+  padding: 4px 10px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  border-bottom: 1.5px solid #000000;
+}
+
+.dbs-receipt-table th.col-particulars {
+  text-align: center;
+}
+
+.dbs-receipt-table th.col-amount {
+  width: 130px;
+  text-align: center;
+  border-left: 1.5px solid #000000;
+}
+
+.dbs-receipt-table td {
+  padding: 3px 12px;
+  font-size: 0.92rem;
+  vertical-align: top;
+}
+
+.dbs-receipt-table td.cell-particulars {
+  font-weight: 600;
+}
+
+.dbs-receipt-table td.cell-amount {
+  width: 130px;
+  text-align: right;
+  border-left: 1.5px solid #000000;
+  font-weight: 600;
+}
+
+.dbs-receipt-table tr.row-empty td {
+  height: 70px;
+}
+
+.dbs-receipt-table tr.row-total td {
+  border-top: 1.5px solid #000000;
+  padding: 4px 12px;
+  font-weight: 800;
+}
+
+.dbs-receipt-table tr.row-total td.cell-total-label {
+  text-align: right;
+  font-weight: 800;
+}
+
+.dbs-receipt-table tr.row-total td.cell-total-amount {
+  text-align: right;
+  border-left: 1.5px solid #000000;
+  font-weight: 800;
+}
+
+/* Amount in words */
+.dbs-receipt-words-section {
+  padding: 8px 0;
+  font-size: 0.92rem;
+  border-bottom: 1.5px solid #000000;
+  margin-bottom: 8px;
+}
+
+.dbs-receipt-words-section strong {
+  font-weight: 800;
+  margin-right: 12px;
+}
+
+/* Signatures */
+.dbs-receipt-sign-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 16px 20px 4px 20px;
+}
+
+.dbs-receipt-sign-col {
+  text-align: center;
+}
+
+.dbs-receipt-sign-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.dbs-receipt-sign-img {
+  height: 22px;
+  margin-bottom: 2px;
+}
+
+.dbs-misc-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 14px 20px;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* Print Media Styles */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .dbs-misc-receipt-sheet,
+  .dbs-misc-receipt-sheet * {
+    visibility: visible;
+  }
+  .dbs-misc-receipt-sheet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: none;
+    box-shadow: none;
+    border: 2px solid #000000 !important;
+    border-radius: 12px !important;
+    padding: 14px 18px !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .dbs-misc-modal-overlay {
+    background: transparent !important;
+    padding: 0 !important;
+  }
+  .dbs-misc-modal-box {
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+  .dbs-misc-modal-header,
+  .dbs-misc-modal-actions {
+    display: none !important;
+  }
+}
+

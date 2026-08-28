@@ -26,7 +26,7 @@ export const getYear = async (programme: string) => {
     },
   });
 
-  return response.data;
+  return response.data; 
 };
 
 export const getBranch = async (programme: string) => {

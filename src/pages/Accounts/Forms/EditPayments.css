@@ -1,0 +1,373 @@
+/* ==========================================================
+   EditPayments.css - Professional Modern Enterprise Theme
+   Inherits design tokens and base styles from HeadMaster.css
+========================================================== */
+
+@import "../../Fee/Forms/HeadMaster.css";
+
+/* --- 1. Root Container --- */
+.dbs-pro-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 4px 0 24px 0;
+  animation: dbsFadeIn 0.25s ease-in-out;
+}
+
+@keyframes dbsFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- 2. Page Header --- */
+.dbs-pro-header-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+.dbs-pro-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dbs-pro-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--dbs-primary, #0284c7);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dbs-pro-title {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--dbs-text, #0f172a);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.dbs-pro-subtitle {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--dbs-text-muted, #64748b);
+  line-height: 1.4;
+}
+
+/* Header Status Badge */
+.dbs-pro-stats-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dbs-pro-stat-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--dbs-text-muted, #64748b);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.dbs-pro-stat-val {
+  font-weight: 800;
+  color: var(--dbs-primary, #0284c7);
+  background: var(--dbs-primary-light, rgba(2, 132, 199, 0.1));
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.82rem;
+}
+
+/* --- 3. Form Card Container --- */
+.dbs-pro-card {
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius, 12px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dbs-pro-card:hover {
+  border-color: #cbd5e1;
+}
+
+.dbs-pro-card-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  background: var(--dbs-surface, #ffffff);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dbs-pro-card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dbs-pro-icon-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--dbs-primary-light, rgba(2, 132, 199, 0.1));
+  color: var(--dbs-primary, #0284c7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dbs-pro-card-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dbs-text, #0f172a);
+}
+
+.dbs-pro-card-desc {
+  margin: 2px 0 0 0;
+  font-size: 0.8rem;
+  color: var(--dbs-text-muted, #64748b);
+}
+
+/* --- 4. 2-Column Form Layout --- */
+.dbs-pro-form {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dbs-pro-grid-2col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 18px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .dbs-pro-grid-2col {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+}
+
+/* --- 5. Form Input Groups --- */
+.dbs-pro-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dbs-pro-input-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.dbs-pro-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--dbs-text, #1e293b);
+  margin-bottom: 0;
+}
+
+.dbs-pro-label-req {
+  color: #ef4444;
+  margin-left: 2px;
+  font-weight: 700;
+}
+
+.dbs-pro-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dbs-pro-input-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--dbs-text-muted, #94a3b8);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.dbs-pro-input-icon.top-align {
+  top: 12px;
+}
+
+.dbs-pro-input {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px 0 38px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--dbs-text, #1e293b);
+  background: var(--dbs-surface, #ffffff);
+  border: 1.5px solid var(--dbs-border, #e2e8f0);
+  border-radius: 8px;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.dbs-pro-input:focus {
+  border-color: var(--dbs-primary, #0284c7);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light, rgba(2, 132, 199, 0.12));
+}
+
+.dbs-pro-input:disabled,
+.dbs-pro-input.disabled {
+  background-color: #f1f5f9;
+  color: #64748b;
+  border-color: #e2e8f0;
+  cursor: not-allowed;
+}
+
+.dbs-pro-input::placeholder {
+  color: #94a3b8;
+}
+
+.dbs-pro-select {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px 0 38px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--dbs-text, #1e293b);
+  background: var(--dbs-surface, #ffffff);
+  border: 1.5px solid var(--dbs-border, #e2e8f0);
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.dbs-pro-select:focus {
+  border-color: var(--dbs-primary, #0284c7);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light, rgba(2, 132, 199, 0.12));
+}
+
+.dbs-pro-select:disabled {
+  background-color: #f1f5f9;
+  color: #64748b;
+  border-color: #e2e8f0;
+  cursor: not-allowed;
+}
+
+.dbs-pro-textarea {
+  width: 100%;
+  min-height: 68px;
+  padding: 10px 14px 10px 38px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--dbs-text, #1e293b);
+  background: var(--dbs-surface, #ffffff);
+  border: 1.5px solid var(--dbs-border, #e2e8f0);
+  border-radius: 8px;
+  outline: none;
+  box-sizing: border-box;
+  resize: vertical;
+  transition: all 0.2s ease;
+}
+
+.dbs-pro-textarea:focus {
+  border-color: var(--dbs-primary, #0284c7);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light, rgba(2, 132, 199, 0.12));
+}
+
+/* --- 6. Form Action Buttons --- */
+.dbs-pro-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+  padding-top: 20px;
+  border-top: 1px solid var(--dbs-border, #f1f5f9);
+}
+
+.dbs-pro-btn-cancel {
+  height: 42px;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1.5px solid var(--dbs-border, #e2e8f0);
+  color: var(--dbs-text-muted, #64748b);
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dbs-pro-btn-cancel:hover:not(:disabled) {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: var(--dbs-text, #1e293b);
+}
+
+.dbs-pro-btn-save {
+  height: 42px;
+  padding: 0 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--dbs-primary, #0284c7);
+  border: 1px solid var(--dbs-primary, #0284c7);
+  color: #ffffff;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(2, 132, 199, 0.2);
+}
+
+.dbs-pro-btn-save:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(2, 132, 199, 0.25);
+}
+
+.dbs-pro-btn-save:disabled,
+.dbs-pro-btn-cancel:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
