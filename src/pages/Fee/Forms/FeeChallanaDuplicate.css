@@ -1,0 +1,672 @@
+/* ==========================================================================
+   FEE CHALLANA DUPLICATE MODERN CSS STYLING
+   ========================================================================== */
+
+@keyframes dbsFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.dbs-fee-challana-modern-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: dbsFadeIn 0.3s ease-out;
+}
+
+.dbs-admissions-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  padding-bottom: 16px;
+}
+
+.dbs-admissions-form-header h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--dbs-text, #1e293b);
+  margin-bottom: 4px;
+}
+
+.dbs-admissions-form-header p {
+  font-size: 0.9rem;
+  color: var(--dbs-text-muted, #64748b);
+}
+
+.dbs-header-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dbs-header-status-badge {
+  background-color: #ef4444;
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.dbs-header-staff-child-badge {
+  background-color: #f97316;
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.dbs-admissions-stepper-form-card {
+  background-color: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  animation: dbsFadeIn 0.35s ease-out;
+}
+
+.dbs-form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dbs-card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--dbs-border, #e2e8f0);
+}
+
+.dbs-card-title-icon {
+  color: var(--dbs-primary, #3b82f6);
+}
+
+.dbs-card-title-row h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dbs-text, #1e293b);
+}
+
+/* TOP SECTION LAYOUT (SEARCH + YEAR DUES ON RIGHT) */
+.dbs-top-search-dues-layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.dbs-top-left-search-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* GRIDS */
+.dbs-form-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.dbs-form-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.dbs-input-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.dbs-input-box label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--dbs-text, #1e293b);
+  margin-bottom: 6px;
+}
+
+.dbs-input-box select,
+.dbs-input-box input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  border-radius: 6px;
+  background-color: var(--dbs-surface, #ffffff);
+  color: var(--dbs-text, #1e293b);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dbs-input-box select:focus,
+.dbs-input-box input:focus {
+  border-color: var(--dbs-primary, #3b82f6);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Lookup Wrapper with Dedicated Search Button */
+.dbs-lookup-search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dbs-lookup-search-btn {
+  background-color: var(--dbs-primary, #3b82f6);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.dbs-lookup-search-btn:hover {
+  background-color: var(--dbs-primary-hover, #2563eb);
+}
+
+/* Student Banner Info */
+.dbs-student-info-banner-card {
+  background-color: var(--dbs-background, #f8fafc);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-left: 4px solid var(--dbs-primary, #3b82f6);
+  border-radius: 8px;
+  padding: 16px;
+  animation: dbsFadeIn 0.3s ease-out;
+}
+
+.dbs-student-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.dbs-info-item {
+  font-size: 0.88rem;
+  color: var(--dbs-text, #1e293b);
+  display: flex;
+  gap: 6px;
+}
+
+.dbs-info-label {
+  color: var(--dbs-text-muted, #64748b);
+}
+
+/* Year Dues Mini Card */
+.dbs-year-dues-card {
+  width: 240px;
+  min-width: 220px;
+  background-color: #ffffff;
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  animation: dbsFadeIn 0.35s ease-out;
+}
+
+.dbs-year-dues-header {
+  background-color: var(--dbs-primary, #3b82f6);
+  color: #ffffff;
+  padding: 10px 14px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.dbs-year-dues-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.dbs-year-dues-table th {
+  background-color: var(--dbs-bg, #f1f5f9);
+  color: var(--dbs-text, #1e293b);
+  padding: 8px 12px;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+.dbs-year-dues-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.dbs-year-dues-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+/* FEE HEADS BREAKDOWN DATATABLE STYLING */
+.dbs-fee-breakdown-area {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dbs-table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 8px;
+}
+
+.dbs-table-card {
+  background: #ffffff;
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.dbs-table-scroll.active-scroll {
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.dbs-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.dbs-data-table th {
+  padding: 12px 16px;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #1e40af;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.dbs-data-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  color: var(--dbs-text, #1e293b);
+  white-space: nowrap;
+  vertical-align: middle;
+  transition: background-color 0.2s ease;
+}
+
+.dbs-data-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+.dbs-btn-inline-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.dbs-bold {
+  font-weight: 700;
+}
+
+.dbs-text-success {
+  color: #16a34a;
+}
+
+.dbs-text-primary {
+  color: #2563eb;
+}
+
+.dbs-text-warning {
+  color: #d97706;
+}
+
+/* Inline Inputs in Fee Table */
+.dbs-table-inline-input {
+  width: 110px;
+  padding: 8px 12px;
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dbs-pay-input {
+  border-color: var(--dbs-primary, #3b82f6);
+  font-weight: 700;
+  color: var(--dbs-primary, #3b82f6);
+}
+
+/* Total Pay Summary Banner */
+.dbs-total-pay-summary-banner {
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  box-shadow: 0 4px 14px rgba(30, 58, 138, 0.2);
+}
+
+.dbs-total-pay-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.dbs-total-pay-text strong {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-left: 6px;
+}
+
+.ml-4 {
+  margin-left: 24px;
+}
+
+/* Buttons - RIGHT ALIGNED */
+.dbs-form-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.dbs-form-cancel-btn {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dbs-form-cancel-btn:hover {
+  background: #dc2626;
+}
+
+.dbs-btn-reprint,
+.dbs-btn-blue-reprint {
+  background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  transition: background 0.2s ease;
+}
+
+.dbs-btn-reprint:hover,
+.dbs-btn-blue-reprint:hover {
+  background: linear-gradient(135deg, #4338ca 0%, #2563eb 100%);
+  color: #ffffff;
+}
+
+/* Modals Overlay */
+.dbs-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 24px;
+  box-sizing: border-box;
+  animation: dbsFadeIn 0.2s ease-out;
+}
+
+.dbs-modal-content-box {
+  background-color: #ffffff;
+  border-radius: 12px;
+  width: 750px;
+  max-width: 92vw;
+  max-height: 85vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+  animation: dbsFadeIn 0.25s ease-out;
+}
+
+.dbs-receipt-print-box {
+  width: 800px;
+}
+
+.dbs-modal-header {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: #ffffff;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dbs-modal-header h3 {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.dbs-modal-close-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.dbs-modal-close-btn:hover {
+  opacity: 1;
+}
+
+.dbs-modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.dbs-modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--dbs-border, #e2e8f0);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background-color: var(--dbs-bg, #f8fafc);
+}
+
+/* Empty State */
+.dbs-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: var(--dbs-text-muted, #64748b);
+  gap: 8px;
+}
+
+.dbs-empty-state-icon {
+  width: 36px;
+  height: 36px;
+  color: var(--dbs-text-muted, #64748b);
+}
+
+.dbs-empty-state-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dbs-text, #1e293b);
+}
+
+.dbs-empty-state-desc {
+  font-size: 0.82rem;
+}
+
+/* PRINTABLE RECEIPT DOCUMENT */
+.dbs-fee-receipt-print-document {
+  background-color: #ffffff;
+  padding: 30px;
+  color: #1e293b;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  border: 1px solid #cbd5e1;
+}
+
+.dbs-receipt-header {
+  text-align: center;
+  border-bottom: 2px double #1e293b;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.dbs-receipt-header h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #1e3a8a;
+  margin-bottom: 4px;
+}
+
+.dbs-receipt-header p {
+  font-size: 0.8rem;
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+.dbs-receipt-title-badge {
+  display: inline-block;
+  background-color: #1e3a8a;
+  color: #ffffff;
+  padding: 4px 16px;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.dbs-receipt-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 20px;
+  background-color: #f8fafc;
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 0.88rem;
+}
+
+.dbs-receipt-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.dbs-receipt-table th {
+  background-color: #f1f5f9;
+  color: #1e293b;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  font-weight: 700;
+  text-align: left;
+}
+
+.dbs-receipt-table td {
+  padding: 8px 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.dbs-receipt-table tfoot td {
+  background-color: #f8fafc;
+  border-top: 2px solid #cbd5e1;
+  font-size: 0.95rem;
+}
+
+.dbs-signature-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  padding-top: 10px;
+  font-weight: 700;
+}
+
+.dbs-signature-row div {
+  text-align: center;
+  border-top: 1px dashed #94a3b8;
+  width: 200px;
+  padding-top: 6px;
+}
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #printable-fee-receipt,
+  #printable-fee-receipt * {
+    visibility: visible !important;
+  }
+  html, body, #root, .dbs-fee-challana-modern-container, .dbs-modal-overlay, .dbs-modal-content-box, .dbs-modal-body {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    outline: none !important;
+  }
+  #printable-fee-receipt {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+}

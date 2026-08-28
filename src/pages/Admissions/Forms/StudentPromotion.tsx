@@ -11,7 +11,7 @@ import {
   getPromotionSemesters,
   getPromotionStudents,
   promoteStudents
-} from "../../../apis/AdmissionsApis1";
+} from "../../../apis/AdmissionsApis";
 
 export const StudentPromotion: React.FC = () => {
   // Dropdowns state lists

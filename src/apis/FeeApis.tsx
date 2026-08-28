@@ -599,3 +599,263 @@ export const saveMiscFeeChallana = async (payload: any) => {
     throw error;
   }
 };
+
+
+// ===================== Fee Challana (FeeChallana.aspx) APIs =====================
+
+
+export const getFeeChallanaCurrentAcyr = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}FeeChallana/GetCurrentAcyr`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching current academic year", error);
+    throw error;
+  }
+};
+
+export const getFeeChallanaList = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}FeeChallana/FeeChallanaList`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching fee challana list", error);
+    throw error;
+  }
+};
+
+export const getMaxFeeRcptNo = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}FeeChallana/GetMaxFeeRcptNo`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching max fee receipt number", error);
+    throw error;
+  }
+};
+
+export const getStudentSSNo = async (ssNo: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeChallana/GetSSNo`, { SSNo: ssNo });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching student SSNo mapping", error);
+    throw error;
+  }
+};
+
+export const getStudentFeeData = async (ssNo: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeChallana/GetStudentData`, { SSNo: ssNo });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching student fee data", error);
+    throw error;
+  }
+};
+
+export const getStudentFeeDataSearchName = async (name: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeChallana/GetStudentDataSearchName`, { SSNo: name });
+    return response.data;
+  } catch (error) {
+    console.error("Error searching student by name", error);
+    throw error;
+  }
+};
+
+export const getStudentFeeTerms = async (ssNo: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeChallana/GetTerms`, { SSNo: ssNo });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching student fee terms", error);
+    throw error;
+  }
+};
+
+export const getStudentFeeDetails = async (ssNo: string, year: string, term: string) => {
+  try {
+    console.log(term)
+    const response = await axios.post(`${API_BASE}FeeChallana/FeeChallanaAdmissionLoad`, {
+      SSNo: ssNo,
+      Year: year,
+      Term: term
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching student fee breakdown details", error);
+    throw error;
+  }
+};
+
+export const getStudentFeeDues = async (ssNo: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeChallana/GetFeeDues`, { SSNo: ssNo });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching student fee dues", error);
+    throw error;
+  }
+};
+
+export const getPaidAmount = async (ssNo: string, year: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeChallana/GetPaidAmount`, {
+      SSNo: ssNo,
+      Year: year
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching paid amount history", error);
+    throw error;
+  }
+};
+
+export const saveFeeChallanaDetails = async (payload: any) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeChallana/SaveFeeChallana`, payload);
+    return response.data;
+  } catch (error) {
+    console.error("Error saving fee challan", error);
+    throw error;
+  }
+};
+
+export const deleteFeeChallana = async (fid: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeChallana/DeleteFeeChallana`, { Fid: fid });
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting fee challan", error);
+    throw error;
+  }
+};
+
+export const addAmountFeeChallana = async (payload: any) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeChallana/AddAmount`, payload);
+    return response.data;
+  } catch (error) {
+    console.error("Error saving add amount fee head", error);
+    throw error;
+  }
+};
+
+
+// ===================== Fee Refund Amount (FeeRefundAmount.aspx) APIs =====================
+
+export const getFeeRefundCurrentAcyr = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}FeeConcession/GetCurrentAcyr`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching current academic year for refund", error);
+    throw error;
+  }
+};
+
+export const getRefundReceiptNo = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}FeeConcession/GetRefundReceiptNo`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching refund receipt number", error);
+    throw error;
+  }
+};
+
+export const getFeeRefundStudentSSNo = async (ssNo: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeConcession/GetSSNo?ssNo=${encodeURIComponent(ssNo)}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error mapping student SSNo for refund", error);
+    throw error;
+  }
+};
+
+export const getFeeRefundStudentData = async (ssNo: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeConcession/GetStudentData?ssNo=${encodeURIComponent(ssNo)}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching student data for refund", error);
+    throw error;
+  }
+};
+
+export const getFeeRefundTerms = async (ssNo: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeConcession/GetTerms?ssNo=${encodeURIComponent(ssNo)}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching student terms for refund", error);
+    throw error;
+  }
+};
+
+export const getFeeRefundDetails = async (ssNo: string, year: string, term: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeConcession/FeeChallanaAdmissionLoad`, {
+      SSNo: ssNo,
+      Year: year,
+      Term: term
+    });
+    console.log(response.data,"getFeeRefundDetails")
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching fee refund details breakdown", error);
+    throw error;
+  }
+};
+
+export const getFeeRefundDues = async (ssNo: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeConcession/GetFeeDues?ssNo=${encodeURIComponent(ssNo)}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching fee dues for refund", error);
+    throw error;
+  }
+};
+
+export const saveFeeRefundAmount = async (payload: any) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeConcession/SaveFeeRefundAmount`, payload);
+    return response.data;
+  } catch (error) {
+    console.error("Error saving fee refund amount", error);
+    throw error;
+  }
+};
+
+export const getFeeRefundPaidAmount = async (ssNo: string, year: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeConcession/GetPaidAmount?ssNo=${encodeURIComponent(ssNo)}&year=${encodeURIComponent(year)}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching paid amount history for refund", error);
+    throw error;
+  }
+};
+
+export const getFeeRefundPrintReceiptNo = async (ssNo: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeConcession/GetPrintReceiptNo?ssNo=${encodeURIComponent(ssNo)}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching print receipt number for refund", error);
+    throw error;
+  }
+};
+
+export const getFeeReceiptDataRefund = async (receiptNo: string) => {
+  try {
+    const response = await axios.post(`${API_BASE}FeeConcession/GetFeeReceiptDataRefund?receiptNo=${encodeURIComponent(receiptNo)}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching fee receipt refund printable data", error);
+    throw error;
+  }
+};
