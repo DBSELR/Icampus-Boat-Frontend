@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./PeriodSettings.css";
 import {
-  getPeriodTimeList,
   getProgramme,
   getYear,
-  savePeriodTime,
 } from "../../../apis/Common";
+import {
+  getPeriodTimeList,
+  savePeriodTime,
+} from "../../../apis/SettingsApis";
 import { toast } from "sonner";
 import { AlertCircle, Edit3, Save, X } from "lucide-react";
 

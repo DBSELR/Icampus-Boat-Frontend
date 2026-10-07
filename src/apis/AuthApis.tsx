@@ -56,10 +56,11 @@ export const loginApi = async (
         console.log(response);
         // ✅ Save JWT Token
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userId", data.userId);
 
         // (Optional) Save user information
         if (response.data.user) {
-            localStorage.setItem("user", JSON.stringify(response.data.user));
+            localStorage.setItem("user", JSON.stringify({ ...response.data.user, userId: data.userId }));
         } else {
             localStorage.setItem("user", JSON.stringify({ userId: data.userId }));
         }

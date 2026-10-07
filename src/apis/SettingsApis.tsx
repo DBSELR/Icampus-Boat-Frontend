@@ -188,7 +188,7 @@ export const getSubjectList = async (payload: any) => {
 export const deleteSubjectMaster = async (id: string) => {
   try {
     const response = await axios.post(
-      `${API_BASE}SubjectsMaster/DeleteSubjectMaster`, 
+      `${API_BASE}SubjectsMaster/DeleteSubjectMaster`,
       {
         sid: String(id),
       },
@@ -1137,3 +1137,4 @@ export const getMidTypeMaster = async () => {
 
   return response.data;
 };
+  

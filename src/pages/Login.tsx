@@ -319,7 +319,8 @@ export const Login: React.FC = () => {
                         }
 
                         localStorage.setItem("token", loginRes.data.token);
-                        localStorage.setItem("user", JSON.stringify(loginRes.data.user));
+                        localStorage.setItem("userId", values.userId);
+                        localStorage.setItem("user", JSON.stringify({ ...(loginRes.data?.user || {}), userId: values.userId }));
 
                         const subMenuRes = await loadSubMenus();
 

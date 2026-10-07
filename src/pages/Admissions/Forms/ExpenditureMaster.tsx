@@ -6,11 +6,12 @@ import "./ExpenditureMaster.css";
 import {
   loadExpenditureMaster,
   loadExpenditureYears,
+  loadExpenditureAmount,
   saveExpenditureMaster,
   deleteExpenditureMaster,
 } from "../../../apis/AdmissionsApis";
 
-import { getProgramme, loadExpenditureAmount } from "../../../apis/Common";
+import { getProgramme } from "../../../apis/Common";
 
 import DeleteModal from "../../../common/DeleteModal";
 

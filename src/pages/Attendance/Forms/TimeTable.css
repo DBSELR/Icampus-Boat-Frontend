@@ -1,0 +1,657 @@
+/* ==========================================================
+   TimeTable.css
+   Matches design, layout, variables and typography of AttendanceMaxDates.css
+========================================================== */
+
+/* ==========================================================
+   CONTAINER
+========================================================== */
+
+.dbs-timetable-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+.dbs-timetable-container *,
+.dbs-timetable-container *::before,
+.dbs-timetable-container *::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================================
+   PAGE HEADER
+========================================================== */
+
+.dbs-timetable-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+.dbs-timetable-header h2 {
+  margin: 0;
+  color: var(--dbs-text, #0f172a);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.dbs-timetable-subtitle {
+  margin: 6px 0 0;
+  color: var(--dbs-text-muted, #64748b);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ==========================================================
+   FORM CARD
+========================================================== */
+
+.dbs-timetable-form-card {
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius, 12px);
+  box-shadow: var(--dbs-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.05));
+  animation: dbsTimeTableSlideUp 0.25s ease;
+}
+
+.dbs-timetable-form-card h3 {
+  margin: 0;
+  padding-bottom: 14px;
+  color: var(--dbs-text, #0f172a);
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* ==========================================================
+   FORM GRID
+========================================================== */
+
+.dbs-timetable-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+/* ==========================================================
+   FORM FIELD
+========================================================== */
+
+.dbs-timetable-input {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.dbs-timetable-input label {
+  margin-bottom: 8px;
+  color: var(--dbs-text, #0f172a);
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* ==========================================================
+   INPUTS / SELECTS
+========================================================== */
+
+.dbs-timetable-input input,
+.dbs-timetable-input select {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  border-radius: var(--dbs-radius-sm, 8px);
+  color: var(--dbs-text, #0f172a);
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+/* INPUT HOVER & FOCUS */
+.dbs-timetable-input input:hover,
+.dbs-timetable-input select:hover {
+  border-color: var(--dbs-primary, #0284c7);
+}
+
+.dbs-timetable-input input:focus,
+.dbs-timetable-input select:focus {
+  border-color: var(--dbs-primary, #0284c7);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light, rgba(2, 132, 199, 0.15));
+}
+
+.dbs-timetable-input select {
+  cursor: pointer;
+}
+
+.dbs-timetable-input select option {
+  background: var(--dbs-surface, #ffffff);
+  color: var(--dbs-text, #0f172a);
+}
+
+.dbs-timetable-input input:disabled,
+.dbs-timetable-input input.disabled {
+  background-color: #f8fafc;
+  color: #64748b;
+  border-color: #e2e8f0;
+  cursor: not-allowed;
+}
+
+/* ==========================================================
+   DUAL SELECT / INPUT
+========================================================== */
+
+.dbs-timetable-dual-input {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.dbs-timetable-dual-input select,
+.dbs-timetable-dual-input input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ==========================================================
+   LECTURER + ADD BUTTON ROW
+========================================================== */
+
+.dbs-timetable-lecturer-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.dbs-timetable-lecturer-row select {
+  flex: 1;
+  min-width: 0;
+}
+
+.dbs-timetable-add-btn {
+  height: 44px;
+  padding: 0 20px;
+  background: var(--dbs-primary, #0284c7);
+  border: 1px solid var(--dbs-primary, #0284c7);
+  color: #ffffff;
+  border-radius: var(--dbs-radius-sm, 8px);
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: var(--dbs-shadow, 0 2px 4px rgba(2, 132, 199, 0.2));
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.dbs-timetable-add-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.dbs-timetable-add-btn:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================
+   STAGED FACULTY-SUBJECT PREVIEW TABLE
+========================================================== */
+
+.dbs-timetable-staged-container {
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius-sm, 6px);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  animation: dbsTimeTableSlideUp 0.2s ease;
+}
+
+.dbs-timetable-staged-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  font-size: 0.88rem;
+}
+
+.dbs-timetable-staged-table thead tr {
+  background: var(--dbs-primary, #0284c7);
+  color: #ffffff;
+}
+
+.dbs-timetable-staged-table th {
+  padding: 10px 16px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-align: left;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+}
+
+.dbs-timetable-staged-table th:last-child {
+  border-right: none;
+  text-align: center;
+  width: 80px;
+}
+
+.dbs-timetable-staged-table tbody tr {
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  transition: background-color 0.15s ease;
+}
+
+.dbs-timetable-staged-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.dbs-timetable-staged-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.dbs-timetable-staged-table td {
+  padding: 10px 16px;
+  color: var(--dbs-text, #0f172a);
+  font-size: 0.88rem;
+  vertical-align: middle;
+  border-right: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+.dbs-timetable-staged-table td:last-child {
+  border-right: none;
+  text-align: center;
+}
+
+.dbs-timetable-staged-delete-btn {
+  background: #d9534f;
+  color: #ffffff;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.dbs-timetable-staged-delete-btn:hover {
+  background: #c9302c;
+  transform: scale(1.05);
+}
+
+.dbs-timetable-staged-delete-btn:active {
+  transform: scale(0.95);
+}
+
+/* ==========================================================
+   ACTION BUTTON AREA
+========================================================== */
+
+.dbs-timetable-actions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+.dbs-timetable-actions button {
+  min-width: 120px;
+  height: 44px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--dbs-radius-sm, 8px);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+/* SAVE BUTTON */
+.dbs-timetable-save-btn {
+  background: var(--dbs-primary, #0284c7);
+  border: 1px solid var(--dbs-primary, #0284c7);
+  color: #ffffff;
+  box-shadow: var(--dbs-shadow, 0 2px 4px rgba(2, 132, 199, 0.2));
+}
+
+.dbs-timetable-save-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.dbs-timetable-save-btn:active {
+  transform: scale(0.98);
+}
+
+.dbs-timetable-save-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus, rgba(2, 132, 199, 0.25));
+}
+
+/* RESET / CANCEL BUTTON */
+.dbs-timetable-reset-btn {
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  color: var(--dbs-text, #334155);
+}
+
+.dbs-timetable-reset-btn:hover {
+  background: var(--dbs-primary-light, rgba(2, 132, 199, 0.1));
+  border-color: var(--dbs-primary, #0284c7);
+  color: var(--dbs-primary, #0284c7);
+  transform: translateY(-2px);
+}
+
+.dbs-timetable-reset-btn:active {
+  transform: scale(0.98);
+}
+
+.dbs-timetable-reset-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--dbs-primary-focus, rgba(2, 132, 199, 0.25));
+}
+
+/* DELETE BUTTON */
+.dbs-timetable-delete-btn {
+  background: #ef4444;
+  border: 1px solid #ef4444;
+  color: #ffffff;
+  box-shadow: var(--dbs-shadow, 0 2px 4px rgba(239, 68, 68, 0.2));
+}
+
+.dbs-timetable-delete-btn:hover {
+  background: #dc2626;
+  border-color: #dc2626;
+  transform: translateY(-2px);
+}
+
+.dbs-timetable-delete-btn:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================
+   TABLE HEADER
+========================================================== */
+
+.dbs-timetable-table-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+.dbs-timetable-table-header h2 {
+  margin: 0;
+  color: var(--dbs-text, #0f172a);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.dbs-timetable-table-header p {
+  margin: 6px 0 0;
+  color: var(--dbs-text-muted, #64748b);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ==========================================================
+   TABLE OUTER CONTAINER
+========================================================== */
+
+.dbs-timetable-table-container {
+  width: 100%;
+  padding: 18px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius, 12px);
+  box-shadow: var(--dbs-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.05));
+  animation: dbsTimeTableSlideUp 0.25s ease;
+}
+
+/* TABLE CARD */
+.dbs-timetable-table-card {
+  width: 100%;
+  overflow: hidden;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius-sm, 8px);
+}
+
+/* TABLE SCROLL */
+.dbs-timetable-table-scroll {
+  width: 100%;
+  max-height: 520px;
+  overflow-x: auto;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border, #cbd5e1) transparent;
+}
+
+.dbs-timetable-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dbs-timetable-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dbs-timetable-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border, #cbd5e1);
+  border-radius: 20px;
+}
+
+.dbs-timetable-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary, #0284c7);
+}
+
+/* ==========================================================
+   DATA TABLE
+========================================================== */
+
+.dbs-timetable-data-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: center;
+}
+
+.dbs-timetable-data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 46px;
+  padding: 0 12px;
+  background: var(--dbs-primary, #0284c7);
+  color: #ffffff;
+  border-bottom: 2px solid var(--dbs-primary, #0284c7);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.dbs-timetable-data-table thead th:first-child {
+  width: 90px;
+  border-top-left-radius: var(--dbs-radius-sm, 8px);
+}
+
+.dbs-timetable-data-table thead th:last-child {
+  border-top-right-radius: var(--dbs-radius-sm, 8px);
+}
+
+.dbs-timetable-data-table tbody td {
+  height: 58px;
+  padding: 8px 10px;
+  background: var(--dbs-surface, #ffffff);
+  color: var(--dbs-text, #0f172a);
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  border-right: 1px solid var(--dbs-border, #e2e8f0);
+  font-size: 0.88rem;
+  line-height: 1.4;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dbs-timetable-data-table tbody td:last-child {
+  border-right: none;
+}
+
+.dbs-timetable-data-table tbody td.dbs-timetable-day-cell {
+  font-weight: 800;
+  color: var(--dbs-primary, #0284c7);
+  background-color: var(--dbs-primary-light, rgba(2, 132, 199, 0.08));
+  cursor: default;
+}
+
+.dbs-timetable-data-table tbody tr:hover td:not(.dbs-timetable-day-cell) {
+  background: var(--dbs-primary-light, rgba(2, 132, 199, 0.08));
+}
+
+.dbs-timetable-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ==========================================================
+   PERIOD BADGE IN CELL
+========================================================== */
+
+.dbs-tt-cell-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1e40af;
+  font-size: 0.78rem;
+  gap: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.dbs-tt-cell-subject {
+  font-weight: 700;
+  color: #1d4ed8;
+}
+
+.dbs-tt-cell-lecturer {
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+.dbs-tt-cell-empty {
+  color: #cbd5e1;
+  font-size: 0.8rem;
+}
+
+/* ==========================================================
+   ANIMATION
+========================================================== */
+
+@keyframes dbsTimeTableSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================
+   RESPONSIVE BREAKPOINTS
+========================================================== */
+
+@media (max-width: 1024px) {
+  .dbs-timetable-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dbs-timetable-header,
+  .dbs-timetable-table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .dbs-timetable-header h2,
+  .dbs-timetable-table-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .dbs-timetable-form-card {
+    padding: 18px;
+    gap: 18px;
+  }
+
+  .dbs-timetable-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dbs-timetable-actions button {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .dbs-timetable-dual-input,
+  .dbs-timetable-lecturer-row {
+    flex-direction: column;
+  }
+
+  .dbs-timetable-add-btn {
+    width: 100%;
+  }
+}

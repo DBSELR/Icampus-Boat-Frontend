@@ -1,0 +1,747 @@
+/* ==========================================================
+   MidAttendance_Block.css
+   Crafted to mirror Period Adjustment Enterprise UI Standard
+   Strict adherence to the DBS Application Theme System
+   Fully Responsive & Theme-Adaptive (Blue, Orange, Emerald, Purple, Slate, Dark)
+========================================================== */
+
+/* ==========================================================
+   CONTAINER & ANIMATION
+========================================================== */
+
+.dbs-midatt-container,
+.dbs-groupchange-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+  padding: 20px 24px;
+  background-color: var(--dbs-background, #f8fafc);
+  color: var(--dbs-text, #0f172a);
+  font-family: var(--dbs-font-family, inherit);
+  transition: var(--dbs-transition, all 0.2s ease);
+  animation: dbsMidAttSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dbs-midatt-container *,
+.dbs-midatt-container *::before,
+.dbs-midatt-container *::after {
+  box-sizing: border-box;
+}
+
+@keyframes dbsMidAttSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================
+   PAGE HEADER
+========================================================== */
+
+.dbs-midatt-header,
+.dbs-admissions-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dbs-midatt-title-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dbs-midatt-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--dbs-radius-sm, 12px);
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  color: var(--dbs-primary, #2563eb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+  flex-shrink: 0;
+  border: 1px solid rgba(37, 99, 235, 0.15);
+}
+
+.dbs-midatt-header-text h2,
+.dbs-admissions-form-header h2 {
+  margin: 0;
+  color: var(--dbs-text, #0f172a);
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.dbs-midatt-subtitle,
+.dbs-admissions-form-header p {
+  margin: 4px 0 0;
+  color: var(--dbs-text-muted, #64748b);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.dbs-midatt-header-badges {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.dbs-midatt-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  color: var(--dbs-text-muted, #64748b);
+  font-size: 0.82rem;
+  font-weight: 500;
+  box-shadow: var(--dbs-shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.04));
+}
+
+.dbs-midatt-badge strong {
+  color: var(--dbs-text, #0f172a);
+  font-weight: 700;
+}
+
+.dbs-midatt-badge-warning {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #b45309;
+  font-weight: 600;
+}
+
+/* ==========================================================
+   FORM CARD
+========================================================= */
+
+.dbs-midatt-form-card,
+.dbs-admissions-stepper-form-card .dbs-form-card {
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius, 16px);
+  box-shadow: var(--dbs-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.05));
+  animation: dbsMidAttSlideUp 0.25s ease;
+  transition: var(--dbs-transition, all 0.2s ease);
+}
+
+.dbs-midatt-form-card:hover,
+.dbs-admissions-stepper-form-card .dbs-form-card:hover {
+  box-shadow: var(--dbs-shadow-md, 0 10px 15px -3px rgba(0, 0, 0, 0.08));
+}
+
+.dbs-midatt-form-card h3,
+.dbs-admissions-stepper-form-card .dbs-form-card h3 {
+  margin: 0;
+  padding-bottom: 14px;
+  color: var(--dbs-text, #0f172a);
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==========================================================
+   FORM GRID (3 Columns Responsive Balanced Layout)
+========================================================== */
+
+.dbs-midatt-grid,
+.dbs-timetable-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 22px;
+  box-sizing: border-box;
+}
+
+/* ==========================================================
+   FORM FIELD & LABELS
+========================================================== */
+
+.dbs-midatt-input,
+.dbs-input-box {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.dbs-midatt-input label,
+.dbs-input-box label {
+  margin-bottom: 8px;
+  color: var(--dbs-text, #0f172a);
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dbs-midatt-label-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dbs-midatt-label-text svg {
+  color: var(--dbs-text-muted, #64748b);
+}
+
+.dbs-midatt-required {
+  color: #ef4444;
+  font-weight: 700;
+  margin-left: 2px;
+}
+
+/* ==========================================================
+   INPUTS & SELECTS
+========================================================== */
+
+.dbs-midatt-input input,
+.dbs-midatt-input select,
+.dbs-input-box input,
+.dbs-input-box select {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  border-radius: var(--dbs-radius-sm, 8px);
+  color: var(--dbs-text, #0f172a);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  outline: none;
+  box-sizing: border-box;
+  transition: var(--dbs-transition, all 0.2s ease);
+}
+
+/* Custom Select Dropdown Arrow */
+.dbs-midatt-input select,
+.dbs-input-box select {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  padding-right: 38px;
+}
+
+.dbs-midatt-input input[type="date"],
+.dbs-input-box input[type="date"] {
+  cursor: pointer;
+}
+
+.dbs-midatt-input input:hover:not(:disabled),
+.dbs-midatt-input select:hover:not(:disabled),
+.dbs-input-box input:hover:not(:disabled),
+.dbs-input-box select:hover:not(:disabled) {
+  border-color: var(--dbs-primary, #2563eb);
+}
+
+.dbs-midatt-input input:focus,
+.dbs-midatt-input select:focus,
+.dbs-input-box input:focus,
+.dbs-input-box select:focus {
+  border-color: var(--dbs-primary, #2563eb);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light, rgba(37, 99, 235, 0.15));
+}
+
+.dbs-midatt-input select option,
+.dbs-input-box select option {
+  background: var(--dbs-surface, #ffffff);
+  color: var(--dbs-text, #0f172a);
+}
+
+.dbs-midatt-input input:disabled,
+.dbs-midatt-input select:disabled,
+.dbs-input-box input:disabled,
+.dbs-input-box select:disabled {
+  background-color: var(--dbs-background, #f8fafc);
+  color: var(--dbs-text-muted, #94a3b8);
+  border-color: var(--dbs-border, #e2e8f0);
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* ==========================================================
+   DUAL SELECT / INPUT (From & To Date Range)
+========================================================== */
+
+.dbs-midatt-dual-input,
+.dbs-double-select > div {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.dbs-midatt-dual-input input,
+.dbs-double-select input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Date Range Sub-labels */
+.dbs-midatt-date-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dbs-midatt-date-hint {
+  font-size: 0.72rem;
+  color: var(--dbs-text-muted, #64748b);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* ==========================================================
+   TARGET BLOCK PREVIEW CARD
+========================================================== */
+
+.dbs-midatt-preview-card {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--dbs-primary, #2563eb);
+  border-radius: var(--dbs-radius-sm, 12px);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: dbsMidAttSlideUp 0.2s ease;
+}
+
+.dbs-midatt-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dbs-midatt-preview-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--dbs-text, #0f172a);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dbs-midatt-preview-tag {
+  background: var(--dbs-primary-light, #eff6ff);
+  color: var(--dbs-primary, #2563eb);
+  border: 1px solid var(--dbs-border, #bfdbfe);
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.dbs-midatt-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.dbs-midatt-preview-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dbs-midatt-preview-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--dbs-text-muted, #64748b);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.dbs-midatt-preview-value {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--dbs-text, #0f172a);
+}
+
+/* ==========================================================
+   ACTION BUTTON AREA
+========================================================== */
+
+.dbs-midatt-actions,
+.dbs-form-actions-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+.dbs-midatt-actions button,
+.dbs-form-actions-row button {
+  min-width: 120px;
+  height: 44px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--dbs-radius-sm, 8px);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  transition: var(--dbs-transition, all 0.2s ease);
+}
+
+/* SAVE BUTTON (Theme Primary) */
+.dbs-midatt-save-btn,
+.dbs-form-save-btn {
+  background: var(--dbs-primary, #2563eb);
+  border: 1px solid var(--dbs-primary, #2563eb);
+  color: #ffffff;
+  box-shadow: var(--dbs-shadow, 0 2px 4px rgba(37, 99, 235, 0.2));
+}
+
+.dbs-midatt-save-btn:hover:not(:disabled),
+.dbs-form-save-btn:hover:not(:disabled) {
+  background: var(--dbs-primary-hover, #1d4ed8);
+  border-color: var(--dbs-primary-hover, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: var(--dbs-shadow-md, 0 4px 6px rgba(37, 99, 235, 0.3));
+}
+
+.dbs-midatt-save-btn:active:not(:disabled),
+.dbs-form-save-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.dbs-midatt-save-btn:disabled,
+.dbs-form-save-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* RESET / CANCEL BUTTON */
+.dbs-midatt-reset-btn,
+.dbs-form-delete-btn {
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  color: var(--dbs-text, #334155);
+}
+
+.dbs-midatt-reset-btn:hover:not(:disabled),
+.dbs-form-delete-btn:hover:not(:disabled) {
+  background: var(--dbs-danger-light, #fee2e2);
+  border-color: var(--dbs-danger, #ef4444);
+  color: var(--dbs-danger, #ef4444);
+  transform: translateY(-2px);
+}
+
+.dbs-midatt-reset-btn:active:not(:disabled),
+.dbs-form-delete-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* ==========================================================
+   DATA TABLE CARD (Records List)
+========================================================== */
+
+.dbs-midatt-table-card {
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius, 16px);
+  box-shadow: var(--dbs-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.05));
+  animation: dbsMidAttSlideUp 0.25s ease;
+  transition: var(--dbs-transition, all 0.2s ease);
+}
+
+.dbs-midatt-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.dbs-midatt-table-header h3 {
+  margin: 0;
+  color: var(--dbs-text, #0f172a);
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.dbs-midatt-table-subtitle {
+  margin: 4px 0 0;
+  color: var(--dbs-text-muted, #64748b);
+  font-size: 0.85rem;
+}
+
+.dbs-midatt-table-badges {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dbs-midatt-badge-ay {
+  background: var(--dbs-primary-light, #eff6ff);
+  color: var(--dbs-primary, #2563eb);
+  border: 1px solid var(--dbs-border, #bfdbfe);
+}
+
+.dbs-midatt-badge-count {
+  background: var(--dbs-background, #f8fafc);
+  color: var(--dbs-text-muted, #64748b);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+/* ==========================================================
+   DATA TABLE
+========================================================== */
+
+.dbs-midatt-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius-sm, 8px);
+  background: var(--dbs-surface, #ffffff);
+}
+
+.dbs-midatt-data-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  text-align: left;
+}
+
+.dbs-midatt-data-table thead tr {
+  background: var(--dbs-primary, #2563eb);
+  color: #ffffff;
+}
+
+.dbs-midatt-data-table th {
+  padding: 12px 14px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  text-align: center;
+}
+
+.dbs-midatt-data-table th:first-child,
+.dbs-midatt-data-table th:nth-child(2),
+.dbs-midatt-data-table th:nth-child(3) {
+  text-align: left;
+}
+
+.dbs-midatt-data-table th:last-child {
+  border-right: none;
+}
+
+.dbs-midatt-data-table tbody tr {
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  transition: background-color 0.15s ease;
+}
+
+.dbs-midatt-data-table tbody tr:hover {
+  background-color: var(--dbs-primary-light, #eff6ff);
+}
+
+.dbs-midatt-data-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.dbs-midatt-data-table td {
+  padding: 12px 14px;
+  color: var(--dbs-text, #0f172a);
+  vertical-align: middle;
+  border-right: 1px solid var(--dbs-border, #f1f5f9);
+}
+
+.dbs-midatt-data-table td:last-child {
+  border-right: none;
+}
+
+.dbs-midatt-td-center {
+  text-align: center;
+}
+
+/* Status Pill */
+.dbs-midatt-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.dbs-midatt-status-pill.blocked {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+/* Action Icons */
+.dbs-midatt-action-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: var(--dbs-radius-sm, 6px);
+  transition: var(--dbs-transition, all 0.15s ease);
+}
+
+.dbs-midatt-action-delete {
+  color: var(--dbs-danger, #ef4444);
+}
+
+.dbs-midatt-action-delete:hover {
+  background-color: var(--dbs-danger-light, #fee2e2);
+  transform: scale(1.1);
+}
+
+/* Empty State */
+.dbs-midatt-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 20px;
+}
+
+.dbs-midatt-empty-icon {
+  width: 44px;
+  height: 44px;
+  color: var(--dbs-text-muted, #9ca3af);
+  margin-bottom: 12px;
+}
+
+.dbs-midatt-empty-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dbs-text, #0f172a);
+  margin-bottom: 4px;
+}
+
+.dbs-midatt-empty-desc {
+  font-size: 0.86rem;
+  color: var(--dbs-text-muted, #64748b);
+  max-width: 420px;
+}
+
+/* ==========================================================
+   RESPONSIVE BREAKPOINTS
+========================================================== */
+
+/* Tablets (<= 1024px) */
+@media (max-width: 1024px) {
+  .dbs-midatt-grid,
+  .dbs-timetable-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dbs-midatt-preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
+  .dbs-midatt-container,
+  .dbs-groupchange-container {
+    padding: 16px;
+  }
+
+  .dbs-midatt-header,
+  .dbs-admissions-form-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .dbs-midatt-header-badges {
+    width: 100%;
+  }
+
+  .dbs-midatt-grid,
+  .dbs-timetable-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dbs-midatt-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dbs-midatt-actions,
+  .dbs-form-actions-row {
+    flex-direction: column-reverse;
+  }
+
+  .dbs-midatt-actions button,
+  .dbs-form-actions-row button {
+    width: 100%;
+  }
+
+  .dbs-midatt-dual-input,
+  .dbs-double-select > div {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

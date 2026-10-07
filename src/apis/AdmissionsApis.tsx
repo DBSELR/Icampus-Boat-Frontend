@@ -36,6 +36,27 @@ export const saveAdmission = async (payload: any) => {
 };
 
 // =================Expenditure Master============
+export const loadExpenditureAmount = async (
+  expenditureHeads: string,
+  courseCode: string,
+  year: string,
+) => {
+  try {
+    const response = await axios.get(`${API_BASE}ExpenditureMaster/amount`, {
+      params: {
+        expenditureHeads,
+        courseCode,
+        year,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Load Expenditure Amount Error:", error);
+    throw error;
+  }
+};
+
 export const loadExpenditureMaster = async () => {
   try {
     // const academicYear = localStorage.getItem("academicYear") || "2025-2026";
@@ -973,98 +994,109 @@ export const generateStudentInfoReport = async (payload: {
 
 // ===================== Student Promotion (StudentPromotion.aspx) APIs =====================
 export const getPromotionAcademicYears = async () => {
-    try {
-        const response = await axios.get(`${API_BASE}StudentPromotion/academic-years`);
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching promotion academic years", error);
-        throw error;
-    }
+  try {
+    const response = await axios.get(
+      `${API_BASE}StudentPromotion/academic-years`,
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching promotion academic years", error);
+    throw error;
+  }
 };
 
 export const getPromotionCourses = async (academicYear: string) => {
-    try {
-        const response = await axios.get(`${API_BASE}StudentPromotion/courses`, {
-            params: { academicYear }
-        });
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching promotion courses", error);
-        throw error;
-    }
+  try {
+    const response = await axios.get(`${API_BASE}StudentPromotion/courses`, {
+      params: { academicYear },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching promotion courses", error);
+    throw error;
+  }
 };
 
-export const getPromotionBranches = async (courseCode: string, academicYear: string) => {
-    try {
-        const response = await axios.get(`${API_BASE}StudentPromotion/branches`, {
-            params: { courseCode, academicYear }
-        });
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching promotion branches", error);
-        throw error;
-    }
+export const getPromotionBranches = async (
+  courseCode: string,
+  academicYear: string,
+) => {
+  try {
+    const response = await axios.get(`${API_BASE}StudentPromotion/branches`, {
+      params: { courseCode, academicYear },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching promotion branches", error);
+    throw error;
+  }
 };
 
-export const getPromotionYears = async (courseCode: string, academicYear: string) => {
-    try {
-        const response = await axios.get(`${API_BASE}StudentPromotion/years`, {
-            params: { courseCode, academicYear }
-        });
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching promotion years", error);
-        throw error;
-    }
+export const getPromotionYears = async (
+  courseCode: string,
+  academicYear: string,
+) => {
+  try {
+    const response = await axios.get(`${API_BASE}StudentPromotion/years`, {
+      params: { courseCode, academicYear },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching promotion years", error);
+    throw error;
+  }
 };
 
 export const getPromotionSemesters = async (academicYear: string) => {
-    try {
-        const response = await axios.get(`${API_BASE}StudentPromotion/semesters`, {
-            params: { academicYear }
-        });
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching promotion semesters", error);
-        throw error;
-    }
+  try {
+    const response = await axios.get(`${API_BASE}StudentPromotion/semesters`, {
+      params: { academicYear },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching promotion semesters", error);
+    throw error;
+  }
 };
 
 export const getPromotionStudents = async (params: {
-    AcademicYear: string;
-    CourseCode: string;
-    BranchCode?: string;
-    Year?: string;
-    Semester: string;
+  AcademicYear: string;
+  CourseCode: string;
+  BranchCode?: string;
+  Year?: string;
+  Semester: string;
 }) => {
-    try {
-        const response = await axios.get(`${API_BASE}StudentPromotion/students`, {
-            params
-        });
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching promotion students list", error);
-        throw error;
-    }
+  try {
+    const response = await axios.get(`${API_BASE}StudentPromotion/students`, {
+      params,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching promotion students list", error);
+    throw error;
+  }
 };
 
 export const promoteStudents = async (payload: {
-    AcademicYear: string;
-    Course: string;
-    Branch?: string;
-    Year?: string;
-    Sem: string;
-    PromoteSem: string;
-    PromoteYear: string;
-    SPromoteYear?: string;
-    UserId?: string;
+  AcademicYear: string;
+  Course: string;
+  Branch?: string;
+  Year?: string;
+  Sem: string;
+  PromoteSem: string;
+  PromoteYear: string;
+  SPromoteYear?: string;
+  UserId?: string;
 }) => {
-    try {
-        console.log(payload)
-        const response = await axios.post(`${API_BASE}StudentPromotion/promote`, payload);
-        return response.data;
-    } catch (error) {
-        console.error("Error while promoting students", error);
-        throw error;
-    }
+  try {
+    console.log(payload);
+    const response = await axios.post(
+      `${API_BASE}StudentPromotion/promote`,
+      payload,
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error while promoting students", error);
+    throw error;
+  }
 };

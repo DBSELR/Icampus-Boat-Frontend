@@ -12,8 +12,8 @@ import StudentDataExcelExport from "../pages/Admissions/Forms/StudentData";
 import SectionChange from "../pages/Admissions/Forms/SectionChange";
 import DeleteInActiveStudents from "../pages/Admissions/Forms/Del_InActive_Student";
 import AdmissionView from "../pages/Admissions/Forms/Admissions_VIew";
-import AccountMaster from "../pages/Fees/Forms/AccountMaster";
-import HeadMaster from "../pages/Fees/Forms/HeadsMaster";
+import AccountMaster from "../pages/Fee/Forms/AccountMaster";
+import HeadMaster from "../pages/Fee/Forms/HeadsMaster";
 import MiscHeadsMaster from "../pages/Fee/Forms/MiscHeadsMaster";
 import MiscFeeChallana from "../pages/Fee/Forms/MiscFeeChallana";
 

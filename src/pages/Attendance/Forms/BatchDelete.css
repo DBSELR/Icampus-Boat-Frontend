@@ -1,74 +1,558 @@
-.dbs-timetable-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:20px 40px;
+/* ==========================================================================
+   DBS ERP - Batch Delete Styles
+   Enterprise-grade Design System using DBS CSS Variables
+   ========================================================================== */
+
+.dbs-batch-del-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  animation: dbsBatchDelFadeIn 0.25s ease-out;
 }
 
-.dbs-input-box{
-    display:flex;
-    flex-direction:column;
+@keyframes dbsBatchDelFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.dbs-input-box label{
-    margin-bottom:8px;
-    font-weight:500;
-    color:#333;
+/* ==========================================
+   Page Header
+   ========================================== */
+.dbs-batch-del-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-.dbs-input-box input,
-.dbs-input-box select{
-    width:100%;
-    height:42px;
-    padding:10px 12px;
-    border:1px solid #d9d9d9;
-    border-radius:6px;
-    background:#fff;
-    font-size:14px;
+.dbs-batch-del-title-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
-.dbs-input-box input:focus,
-.dbs-input-box select:focus{
-    outline:none;
-    border-color:#2bb7b3;
-    box-shadow:0 0 0 2px rgba(43,183,179,.12);
+.dbs-batch-del-icon-wrapper {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--dbs-radius-sm, 8px);
+  background: var(--dbs-danger-light, #fef2f2);
+  color: var(--dbs-danger, #ef4444);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.08);
+  flex-shrink: 0;
 }
 
-.dbs-double-select div{
-    display:flex;
-    gap:10px;
+.dbs-batch-del-header h2 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--dbs-text, #0f172a);
+  margin: 0;
+  letter-spacing: -0.01em;
 }
 
-.dbs-double-select select{
-    flex:1;
+.dbs-batch-del-header p {
+  font-size: 0.88rem;
+  color: var(--dbs-text-muted, #64748b);
+  margin: 3px 0 0 0;
 }
 
-.dbs-form-actions-row{
-    display:flex;
-    justify-content:flex-end;
-    margin-top:30px;
+.dbs-batch-del-badges {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.dbs-form-delete-btn{
-    background:#ef4444;
-    color:#fff;
-    border:none;
-    padding:10px 18px;
-    border-radius:6px;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    cursor:pointer;
-    transition:.2s;
+.dbs-batch-del-ay-badge {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  color: var(--dbs-text-muted, #64748b);
+  font-size: 0.82rem;
+  font-weight: 500;
+  box-shadow: var(--dbs-shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
 }
 
-.dbs-form-delete-btn:hover{
-    background:#dc2626;
+.dbs-batch-del-ay-badge strong {
+  color: var(--dbs-text, #0f172a);
+  font-weight: 700;
 }
 
-@media(max-width:900px){
+/* ==========================================
+   Caution Alert Banner
+   ========================================== */
+.dbs-batch-del-alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  background-color: var(--dbs-danger-light, #fef2f2);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: var(--dbs-radius-sm, 8px);
+  color: var(--dbs-danger, #ef4444);
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
 
-    .dbs-timetable-grid{
-        grid-template-columns:1fr;
-    }
+.dbs-batch-del-alert-icon {
+  flex-shrink: 0;
+  color: var(--dbs-danger, #ef4444);
+}
 
-} 
+/* ==========================================
+   Filter / Form Card
+   ========================================== */
+.dbs-batch-del-card {
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius, 16px);
+  box-shadow: var(--dbs-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.05));
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: var(--dbs-transition, all 0.2s ease);
+}
+
+.dbs-batch-del-card:hover {
+  box-shadow: var(--dbs-shadow-md, 0 10px 15px -3px rgba(0, 0, 0, 0.08));
+}
+
+.dbs-batch-del-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+.dbs-batch-del-card-header h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dbs-text, #0f172a);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dbs-card-badge {
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  background: var(--dbs-danger-light, #fef2f2);
+  color: var(--dbs-danger, #ef4444);
+  font-weight: 600;
+}
+
+/* Filter Grid */
+.dbs-batch-del-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px 22px;
+}
+
+.dbs-batch-del-input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dbs-batch-del-input-box label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--dbs-text, #0f172a);
+  margin-bottom: 2px;
+}
+
+.dbs-batch-del-input-box select,
+.dbs-batch-del-input-box input {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius-sm, 8px);
+  background-color: var(--dbs-surface, #ffffff);
+  color: var(--dbs-text, #0f172a);
+  font-size: 0.9rem;
+  outline: none;
+  transition: var(--dbs-transition, all 0.2s ease);
+}
+
+.dbs-batch-del-input-box select:focus,
+.dbs-batch-del-input-box input:focus {
+  border-color: var(--dbs-primary, #2563eb);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light, rgba(37, 99, 235, 0.15));
+}
+
+.dbs-batch-del-input-box select:hover,
+.dbs-batch-del-input-box input:hover {
+  border-color: var(--dbs-primary, #2563eb);
+}
+
+/* Action Buttons */
+.dbs-batch-del-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--dbs-border, #e2e8f0);
+  flex-wrap: wrap;
+}
+
+.dbs-btn-delete {
+  background-color: var(--dbs-danger, #ef4444);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--dbs-radius-sm, 8px);
+  height: 42px;
+  padding: 0 22px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--dbs-shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+  transition: var(--dbs-transition, all 0.2s ease);
+}
+
+.dbs-btn-delete:hover {
+  background-color: #dc2626;
+  box-shadow: var(--dbs-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.05));
+  transform: translateY(-1px);
+}
+
+.dbs-btn-delete:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.dbs-btn-find {
+  background-color: var(--dbs-primary, #2563eb);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--dbs-radius-sm, 8px);
+  height: 42px;
+  padding: 0 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--dbs-shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+  transition: var(--dbs-transition, all 0.2s ease);
+}
+
+.dbs-btn-find:hover {
+  background-color: var(--dbs-primary-hover, #1d4ed8);
+  box-shadow: var(--dbs-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.05));
+  transform: translateY(-1px);
+}
+
+.dbs-btn-reset {
+  background-color: var(--dbs-surface, #ffffff);
+  color: var(--dbs-text-muted, #64748b);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius-sm, 8px);
+  height: 42px;
+  padding: 0 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--dbs-transition, all 0.2s ease);
+}
+
+.dbs-btn-reset:hover {
+  background-color: var(--dbs-background, #f8fafc);
+  color: var(--dbs-text, #0f172a);
+  border-color: var(--dbs-text-muted, #64748b);
+}
+
+/* ==========================================
+   Batches Preview Card & Table
+   ========================================== */
+.dbs-batch-results-card {
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius, 16px);
+  box-shadow: var(--dbs-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.05));
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: var(--dbs-transition, all 0.2s ease);
+}
+
+.dbs-batch-results-card:hover {
+  box-shadow: var(--dbs-shadow-md, 0 10px 15px -3px rgba(0, 0, 0, 0.08));
+}
+
+.dbs-batch-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dbs-batch-table-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dbs-batch-table-title-group h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dbs-text, #0f172a);
+  margin: 0;
+}
+
+.dbs-batch-table-title-group p {
+  font-size: 0.82rem;
+  color: var(--dbs-text-muted, #64748b);
+  margin: 2px 0 0 0;
+}
+
+.dbs-batch-count-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: var(--dbs-danger-light, #fef2f2);
+  color: var(--dbs-danger, #ef4444);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.dbs-batch-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.dbs-batch-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.88rem;
+}
+
+.dbs-batch-table th {
+  padding: 13px 18px;
+  background: var(--dbs-primary, #2563eb);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.dbs-batch-table th:first-child {
+  padding-left: 24px;
+}
+
+.dbs-batch-table th:last-child {
+  padding-right: 24px;
+  text-align: center;
+}
+
+.dbs-batch-table td {
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  color: var(--dbs-text, #0f172a);
+  vertical-align: middle;
+}
+
+.dbs-batch-table td:first-child {
+  padding-left: 24px;
+}
+
+.dbs-batch-table td:last-child {
+  padding-right: 24px;
+  text-align: center;
+}
+
+.dbs-batch-table tbody tr:hover td {
+  background-color: var(--dbs-danger-light, #fef2f2);
+}
+
+.dbs-batch-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.dbs-batch-name-badge {
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--dbs-danger, #ef4444);
+  background: var(--dbs-danger-light, #fef2f2);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.dbs-batch-action-btn {
+  background: #fef2f2;
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--dbs-transition, all 0.2s ease);
+}
+
+.dbs-batch-action-btn:hover {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+/* Empty state */
+.dbs-batch-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  gap: 12px;
+}
+
+.dbs-batch-empty-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--dbs-danger-light, #fef2f2);
+  color: var(--dbs-danger, #ef4444);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================
+   Responsive Adaptations
+   ========================================== */
+@media (max-width: 1024px) {
+  .dbs-batch-del-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .dbs-batch-del-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dbs-batch-del-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dbs-batch-del-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dbs-batch-del-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ==========================================
+   Backward Compatibility Classes
+   ========================================== */
+.dbs-timetable-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px 22px;
+}
+
+.dbs-input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dbs-input-box label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--dbs-text, #0f172a);
+}
+
+.dbs-input-box select,
+.dbs-input-box input {
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius-sm, 8px);
+  background: var(--dbs-surface, #ffffff);
+  color: var(--dbs-text, #0f172a);
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.dbs-double-select div {
+  display: flex;
+  gap: 10px;
+}
+
+.dbs-double-select select {
+  flex: 1;
+}
+
+.dbs-form-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+.dbs-form-delete-btn {
+  background-color: var(--dbs-danger, #ef4444);
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: var(--dbs-radius-sm, 8px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--dbs-transition, all 0.2s ease);
+}
+
+.dbs-form-delete-btn:hover {
+  background-color: #dc2626;
+}
+ 

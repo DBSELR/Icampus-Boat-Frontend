@@ -1,78 +1,711 @@
-.dbs-attendance-note{
-    color:#ef4444;
-    font-size:14px;
-    font-weight:600;
-    margin:8px 0 25px;
+/* ==========================================================================
+   DBS ERP - Check Attendance Styles
+   Following the DBS ERP CSS Variable System
+   ========================================================================== */
+
+.dbs-check-att-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  animation: dbsCheckAttFadeIn 0.25s ease-out;
 }
 
-.dbs-timetable-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:20px 40px;
+@keyframes dbsCheckAttFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.dbs-input-box{
-    display:flex;
-    flex-direction:column;
+/* ==========================================
+   Page Header
+   ========================================== */
+.dbs-check-att-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--dbs-border);
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-.dbs-input-box label{
-    margin-bottom:8px;
-    font-weight:500;
-    color:#333;
+.dbs-check-att-title-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
-.dbs-input-box input,
-.dbs-input-box select{
-    width:100%;
-    padding:10px 12px;
-    border:1px solid #d9d9d9;
-    border-radius:6px;
-    font-size:14px;
-    background:#fff;
+.dbs-check-att-icon-wrapper {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--dbs-radius-sm);
+  background: var(--dbs-primary-light);
+  color: var(--dbs-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.08);
+  flex-shrink: 0;
 }
 
-.dbs-input-box input,
-.dbs-input-box select{
-    height:42px;
+.dbs-check-att-header h2 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--dbs-text);
+  margin: 0;
+  letter-spacing: -0.01em;
 }
 
-.dbs-double-select div{
-    display:flex;
-    gap:10px;
+.dbs-check-att-header p {
+  font-size: 0.88rem;
+  color: var(--dbs-text-muted);
+  margin: 3px 0 0 0;
 }
 
-.dbs-double-select input,
-.dbs-double-select select{
-    flex:1;
+.dbs-check-att-badges {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.dbs-form-actions-row{
-    display:flex;
-    gap:15px;
-    margin-top:30px;
+.dbs-check-att-ay-badge {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  color: var(--dbs-text-muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+  box-shadow: var(--dbs-shadow-sm);
 }
 
-.dbs-form-delete-btn{
-    background:#ef4444;
-    color:#fff;
-    border:none;
-    padding:10px 18px;
-    border-radius:6px;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    gap:6px;
+.dbs-check-att-ay-badge strong {
+  color: var(--dbs-text);
+  font-weight: 700;
 }
 
-.dbs-form-delete-btn:hover{
-    background:#dc2626;
+/* ==========================================
+   Form Card
+   ========================================== */
+.dbs-check-att-card {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: var(--dbs-transition);
 }
 
-@media(max-width:900px){
-
-    .dbs-timetable-grid{
-        grid-template-columns:1fr;
-    }
-
+.dbs-check-att-card:hover {
+  box-shadow: var(--dbs-shadow-md);
 }
+
+.dbs-check-att-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--dbs-border);
+}
+
+.dbs-check-att-card-header h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dbs-text);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Attendance Note */
+.dbs-attendance-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: var(--dbs-danger-light);
+  color: var(--dbs-danger);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: var(--dbs-radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin: 0;
+}
+
+/* Form Grid */
+.dbs-check-att-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.dbs-check-input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dbs-check-input-box label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--dbs-text);
+}
+
+.dbs-check-input-box input,
+.dbs-check-input-box select {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  background-color: var(--dbs-surface);
+  color: var(--dbs-text);
+  font-size: 0.9rem;
+  outline: none;
+  transition: var(--dbs-transition);
+}
+
+.dbs-check-input-box input:focus,
+.dbs-check-input-box select:focus {
+  border-color: var(--dbs-primary);
+  box-shadow: 0 0 0 3px var(--dbs-primary-light);
+}
+
+.dbs-check-input-box input:hover,
+.dbs-check-input-box select:hover {
+  border-color: var(--dbs-primary);
+}
+
+/* Practical Checkbox Box */
+.dbs-check-checkbox-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.dbs-practical-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--dbs-text);
+  user-select: none;
+}
+
+.dbs-practical-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--dbs-primary);
+  cursor: pointer;
+}
+
+/* Actions Row */
+.dbs-check-att-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--dbs-border);
+  flex-wrap: wrap;
+}
+
+.dbs-btn-load-periods {
+  background-color: var(--dbs-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--dbs-radius-sm);
+  height: 42px;
+  padding: 0 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--dbs-shadow-sm);
+  transition: var(--dbs-transition);
+}
+
+.dbs-btn-load-periods:hover {
+  background-color: var(--dbs-primary-hover);
+  box-shadow: var(--dbs-shadow);
+  transform: translateY(-1px);
+}
+
+.dbs-btn-load-periods:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.dbs-btn-load-grid {
+  background-color: var(--dbs-success);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--dbs-radius-sm);
+  height: 42px;
+  padding: 0 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--dbs-shadow-sm);
+  transition: var(--dbs-transition);
+}
+
+.dbs-btn-load-grid:hover {
+  filter: brightness(0.92);
+  box-shadow: var(--dbs-shadow);
+  transform: translateY(-1px);
+}
+
+.dbs-btn-load-grid:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.dbs-btn-reset {
+  background-color: var(--dbs-surface);
+  color: var(--dbs-text);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  height: 42px;
+  padding: 0 18px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--dbs-transition);
+}
+
+.dbs-btn-reset:hover {
+  background-color: var(--dbs-background);
+  border-color: var(--dbs-text-muted);
+}
+
+/* ==========================================
+   Periods List / Table Card
+   ========================================== */
+.dbs-periods-card {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dbs-periods-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--dbs-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dbs-periods-header h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dbs-text);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dbs-periods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+  padding: 20px 24px;
+}
+
+.dbs-period-badge-card {
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  padding: 14px;
+  background: var(--dbs-surface);
+  cursor: pointer;
+  transition: var(--dbs-transition);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dbs-period-badge-card:hover {
+  border-color: var(--dbs-primary);
+  background: var(--dbs-primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--dbs-shadow-sm);
+}
+
+.dbs-period-badge-card.active {
+  border-color: var(--dbs-primary);
+  background: var(--dbs-primary-light);
+  box-shadow: 0 0 0 2px var(--dbs-primary);
+}
+
+.dbs-period-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dbs-period-number {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--dbs-primary);
+}
+
+.dbs-period-time {
+  font-size: 0.78rem;
+  color: var(--dbs-text-muted);
+  font-weight: 600;
+}
+
+.dbs-period-subject {
+  font-weight: 700;
+  color: var(--dbs-text);
+  font-size: 0.88rem;
+}
+
+.dbs-period-subcode {
+  font-size: 0.76rem;
+  font-family: monospace;
+  color: var(--dbs-text-muted);
+}
+
+/* ==========================================
+   Stats Summary Cards Row
+   ========================================== */
+.dbs-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.dbs-stat-card {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: var(--dbs-shadow-sm);
+}
+
+.dbs-stat-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dbs-stat-icon.blue {
+  background: var(--dbs-primary-light);
+  color: var(--dbs-primary);
+}
+
+.dbs-stat-icon.green {
+  background: var(--dbs-success-light);
+  color: var(--dbs-success);
+}
+
+.dbs-stat-icon.red {
+  background: var(--dbs-danger-light);
+  color: var(--dbs-danger);
+}
+
+.dbs-stat-icon.purple {
+  background: #faf5ff;
+  color: #8b5cf6;
+}
+
+.dbs-stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.dbs-stat-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--dbs-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dbs-stat-value {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--dbs-text);
+}
+
+/* ==========================================
+   Students Attendance Grid Card
+   ========================================== */
+.dbs-students-grid-card {
+  background: var(--dbs-surface);
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius);
+  box-shadow: var(--dbs-shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dbs-students-toolbar {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--dbs-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: var(--dbs-background);
+}
+
+.dbs-students-search {
+  position: relative;
+  max-width: 320px;
+  width: 100%;
+}
+
+.dbs-students-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--dbs-text-muted);
+}
+
+.dbs-students-search input {
+  width: 100%;
+  height: 38px;
+  padding: 0 12px 0 36px;
+  border: 1px solid var(--dbs-border);
+  border-radius: var(--dbs-radius-sm);
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  font-size: 0.88rem;
+  outline: none;
+}
+
+.dbs-students-search input:focus {
+  border-color: var(--dbs-primary);
+  box-shadow: 0 0 0 2px var(--dbs-primary-light);
+}
+
+.dbs-students-filters-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dbs-filter-chip {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--dbs-border);
+  background: var(--dbs-surface);
+  color: var(--dbs-text);
+  cursor: pointer;
+  transition: var(--dbs-transition);
+}
+
+.dbs-filter-chip.active {
+  background: var(--dbs-primary);
+  color: #ffffff;
+  border-color: var(--dbs-primary);
+}
+
+/* Data Table */
+.dbs-students-table-scroll {
+  overflow-x: auto;
+  max-height: 520px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dbs-border) transparent;
+}
+
+.dbs-students-table-scroll::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.dbs-students-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--dbs-border);
+  border-radius: 4px;
+}
+
+.dbs-students-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--dbs-primary);
+}
+
+.dbs-students-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.dbs-students-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--dbs-surface);
+  color: var(--dbs-text-muted);
+  padding: 12px 18px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  border-bottom: 2px solid var(--dbs-border);
+}
+
+.dbs-students-table tbody tr {
+  border-bottom: 1px solid var(--dbs-border);
+  transition: var(--dbs-transition);
+}
+
+.dbs-students-table tbody tr:hover {
+  background: var(--dbs-background);
+}
+
+/* RED HIGHLIGHT FOR ABSENT STUDENTS */
+.dbs-students-table tbody tr.dbs-row-absent {
+  background-color: #fef2f2;
+}
+
+.dbs-students-table tbody tr.dbs-row-absent:hover {
+  background-color: #fee2e2;
+}
+
+.dbs-students-table tbody tr.dbs-row-absent td {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.dbs-students-table tbody td {
+  padding: 12px 18px;
+  font-size: 0.88rem;
+  color: var(--dbs-text);
+  vertical-align: middle;
+}
+
+/* Roll No Pill */
+.dbs-roll-pill {
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* Status Badges */
+.dbs-att-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.dbs-att-status-badge.present {
+  background: var(--dbs-success-light);
+  color: var(--dbs-success);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.dbs-att-status-badge.absent {
+  background: #fee2e2;
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Empty State */
+.dbs-att-empty {
+  padding: 48px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--dbs-text-muted);
+}
+
+.dbs-att-empty-icon {
+  width: 46px;
+  height: 46px;
+  color: var(--dbs-border);
+}
+
+/* ==========================================
+   Responsive Adaptations
+   ========================================== */
+@media (max-width: 1200px) {
+  .dbs-check-att-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dbs-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .dbs-check-att-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dbs-stats-row {
+    grid-template-columns: 1fr;
+  }
+
+  .dbs-students-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dbs-students-search {
+    max-width: 100%;
+  }
+
+  .dbs-check-att-actions {
+    flex-direction: column;
+  }
+
+  .dbs-btn-load-periods,
+  .dbs-btn-load-grid,
+  .dbs-btn-reset {
+    width: 100%;
+    justify-content: center;
+  }
+}

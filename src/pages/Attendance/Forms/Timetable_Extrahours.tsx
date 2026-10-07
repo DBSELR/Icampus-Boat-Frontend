@@ -4,35 +4,36 @@ import {
   Save,
   RotateCcw,
   Search,
-  Users,
-  CheckCircle2,
+  Clock,
+  CalendarPlus,
   Loader2,
   Layers,
   AlertCircle,
-  GraduationCap,
+  Trash2,
 } from "lucide-react";
 import { toast } from "sonner";
-import "./Batches.css";
+import "./Timetable_Extrahours.css";
 import {
-  getBatchProgrammes,
-  getBatchBranches,
-  getBatchYears,
-  getBatchSections,
-  getBatchPeriodLoad,
-  getBatchSubjects,
-  getBatchLecturers,
-  getBatchStudents,
-  saveBatchStudents,
-  BatchProgrammeItem,
-  BatchBranchItem,
-  BatchYearItem,
-  BatchSectionItem,
-  BatchPeriodItem,
-  BatchSubjectItem,
-  BatchLecturerItem,
-  BatchStudentItem,
+  getExtraCourses,
+  getExtraBranches,
+  getExtraYears,
+  getExtraDepartments,
+  getExtraFacultyDept,
+  getExtraSubjects,
+  getExtraLecturers,
+  viewTimeTableExtra,
+  saveTimeTableExtra,
+  deleteTimeTableExtra,
+  ExtraCourseItem,
+  ExtraBranchItem,
+  ExtraYearItem,
+  ExtraDepartmentItem,
+  ExtraSubjectItem,
+  ExtraLecturerItem,
+  ExtraTimetableItem,
 } from "../../../apis/AttendanceApis";
 import { getSections } from "../../../apis/Common";
+import DeleteModal from "../../../common/DeleteModal";
 
 const DAYS_OF_WEEK = [
   "Monday",
@@ -58,11 +59,16 @@ const SEMESTER_OPTIONS = [
   { code: "2", label: "Semester 2" },
 ];
 
-// Helper extractors to normalize API responses
+const PERIOD_TYPE_OPTIONS = [
+  { code: "Theory", label: "Theory" },
+  { code: "Practical", label: "Practical" },
+];
+
+// Helper extractors
 const extractCourseCode = (item: any): string => {
   return String(
-    item.Coursecode ??
-      item.CourseCode ??
+    item.CourseCode ??
+      item.Coursecode ??
       item.courseCode ??
       item.code ??
       item.CID ??
@@ -72,7 +78,8 @@ const extractCourseCode = (item: any): string => {
 
 const extractCourseName = (item: any): string => {
   return String(
-    item.Course ??
+    item.COURSE ??
+      item.Course ??
       item.course ??
       item.CourseName ??
       item.courseName ??
@@ -83,8 +90,8 @@ const extractCourseName = (item: any): string => {
 
 const extractBranchCode = (item: any): string => {
   return String(
-    item.Branchcode ??
-      item.BranchCode ??
+    item.BranchCode ??
+      item.Branchcode ??
       item.branchCode ??
       item.code ??
       item.BID ??
@@ -94,7 +101,8 @@ const extractBranchCode = (item: any): string => {
 
 const extractBranchName = (item: any): string => {
   return String(
-    item.BranchName ??
+    item.BRANCHNAME ??
+      item.BranchName ??
       item.branchName ??
       item.name ??
       extractBranchCode(item)
@@ -124,35 +132,36 @@ const extractSection = (item: any): string => {
   ).trim();
 };
 
-const extractPeriodRange = (item: any): string => {
-  return String(
-    item.FRM_TO_PERIODS ??
-      item.frm_to_periods ??
-      item.PeriodRange ??
-      item.periodRange ??
-      ""
-  ).trim();
-};
-
 const extractSubjectCode = (item: any): string => {
   return String(
-    item.SUB_CODE ?? item.subCode ?? item.sub_code ?? item.code ?? ""
+    item.SUBJECTCODE ??
+      item.SubjectCode ??
+      item.subCode ??
+      item.subcode ??
+      item.SUB_CODE ??
+      item.code ??
+      ""
   ).trim();
 };
 
 const extractSubjectName = (item: any): string => {
   return String(
-    item.Subject ?? item.subject ?? item.name ?? extractSubjectCode(item)
+    item.SUBJECTNAME ??
+      item.SubjectName ??
+      item.Subject ??
+      item.subject ??
+      item.name ??
+      extractSubjectCode(item)
   ).trim();
 };
 
 const extractLecturerId = (item: any): string => {
   return String(
-    item.lecturer ??
+    item.EmpID ??
+      item.empId ??
+      item.lecturer ??
       item.Lecturer ??
       item.FacultyID ??
-      item.empId ??
-      item.empid ??
       ""
   ).trim();
 };
@@ -161,14 +170,53 @@ const extractLecturerName = (item: any): string => {
   return String(
     item.Fname ??
       item.fname ??
-      item.name ??
+      item.FName1 ??
       item.FacultyName ??
+      item.name ??
       extractLecturerId(item)
   ).trim();
 };
 
-const Batches: React.FC = () => {
-  // Academic Year from storage or standard default
+const extractDeptCode = (item: any): string => {
+  return String(
+    item.DepartmentCode ??
+      item.departmentCode ??
+      item.code ??
+      item.DEPT ??
+      item.dept ??
+      ""
+  ).trim();
+};
+
+const extractDeptName = (item: any): string => {
+  return String(
+    item.Department ??
+      item.department ??
+      item.name ??
+      extractDeptCode(item)
+  ).trim();
+};
+
+// Date format conversion
+const formatToApiDate = (dateVal: string): string => {
+  if (!dateVal) return "";
+  if (/^\d{4}-\d{2}-\d{2}$/.test(dateVal)) {
+    const [y, m, d] = dateVal.split("-");
+    return `${d}-${m}-${y}`;
+  }
+  return dateVal;
+};
+
+const formatToInputDate = (dateVal: string): string => {
+  if (!dateVal) return "";
+  if (/^\d{2}-\d{2}-\d{4}$/.test(dateVal)) {
+    const [d, m, y] = dateVal.split("-");
+    return `${y}-${m}-${d}`;
+  }
+  return dateVal;
+};
+
+const TimetableExtraHours: React.FC = () => {
   const [academicYear] = useState<string>(() => {
     return (
       localStorage.getItem("academicYear") ||
@@ -177,7 +225,7 @@ const Batches: React.FC = () => {
     );
   });
 
-  // Filter Criteria State
+  // Filter & Form States
   const [shift, setShift] = useState<string>("1");
   const [programme, setProgramme] = useState<string>("");
   const [branch, setBranch] = useState<string>("");
@@ -185,49 +233,65 @@ const Batches: React.FC = () => {
   const [semester, setSemester] = useState<string>("");
   const [stream, setStream] = useState<string>("1");
   const [section, setSection] = useState<string>("");
-  const [day, setDay] = useState<string>("");
-  const [period, setPeriod] = useState<string>("");
+  const [day, setDay] = useState<string>("Monday");
+  const [periodType, setPeriodType] = useState<string>("Theory");
   const [subject, setSubject] = useState<string>("");
   const [lecturer, setLecturer] = useState<string>("");
+  const [department, setDepartment] = useState<string>("");
+  const [wdate, setWdate] = useState<string>(() => {
+    return new Date().toISOString().split("T")[0];
+  });
+  const [spTime, setSpTime] = useState<string>("05.30PM");
 
   // Dropdown Lists
-  const [programmeList, setProgrammeList] = useState<BatchProgrammeItem[]>([]);
-  const [branchList, setBranchList] = useState<BatchBranchItem[]>([]);
-  const [yearList, setYearList] = useState<BatchYearItem[]>([]);
-  const [sectionList, setSectionList] = useState<BatchSectionItem[]>([]);
-  const [periodList, setPeriodList] = useState<BatchPeriodItem[]>([]);
-  const [subjectList, setSubjectList] = useState<BatchSubjectItem[]>([]);
-  const [lecturerList, setLecturerList] = useState<BatchLecturerItem[]>([]);
+  const [programmeList, setProgrammeList] = useState<ExtraCourseItem[]>([]);
+  const [branchList, setBranchList] = useState<ExtraBranchItem[]>([]);
+  const [yearList, setYearList] = useState<ExtraYearItem[]>([]);
+  const [sectionList, setSectionList] = useState<any[]>([]);
+  const [departmentList, setDepartmentList] = useState<ExtraDepartmentItem[]>([]);
+  const [subjectList, setSubjectList] = useState<ExtraSubjectItem[]>([]);
+  const [lecturerList, setLecturerList] = useState<ExtraLecturerItem[]>([]);
 
-  // Students Table State
-  const [students, setStudents] = useState<BatchStudentItem[]>([]);
+  // Extra Timetable Grid
+  const [extraTimetable, setExtraTimetable] = useState<ExtraTimetableItem[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   // Loading States
   const [loadingProgrammes, setLoadingProgrammes] = useState<boolean>(false);
   const [loadingBranchesYears, setLoadingBranchesYears] = useState<boolean>(false);
   const [loadingSections, setLoadingSections] = useState<boolean>(false);
-  const [loadingPeriods, setLoadingPeriods] = useState<boolean>(false);
+  const [loadingDepartments, setLoadingDepartments] = useState<boolean>(false);
   const [loadingSubjects, setLoadingSubjects] = useState<boolean>(false);
   const [loadingLecturers, setLoadingLecturers] = useState<boolean>(false);
-  const [loadingStudents, setLoadingStudents] = useState<boolean>(false);
+  const [loadingTable, setLoadingTable] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
-  // 1. Initial Load: Fetch Programmes
+  // Delete modal state
+  const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+  const [itemToDelete, setItemToDelete] = useState<ExtraTimetableItem | null>(null);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+
+  // 1. Initial Load: Fetch Programmes & Departments
   useEffect(() => {
-    const fetchProgrammes = async () => {
+    const fetchInitialData = async () => {
       setLoadingProgrammes(true);
+      setLoadingDepartments(true);
       try {
-        const data = await getBatchProgrammes(academicYear);
-        setProgrammeList(Array.isArray(data) ? data : []);
+        const [cData, dData] = await Promise.all([
+          getExtraCourses(academicYear),
+          getExtraDepartments(),
+        ]);
+        setProgrammeList(Array.isArray(cData) ? cData : []);
+        setDepartmentList(Array.isArray(dData) ? dData : []);
       } catch (error) {
-        console.error("Failed to load programmes:", error);
-        toast.error("Could not load programmes list.");
+        console.error("Failed to load initial extra timetable options:", error);
+        toast.error("Could not load initial options.");
       } finally {
         setLoadingProgrammes(false);
+        setLoadingDepartments(false);
       }
     };
-    fetchProgrammes();
+    fetchInitialData();
   }, [academicYear]);
 
   // 2. Cascade: Fetch Branches & Years when Programme changes
@@ -239,13 +303,12 @@ const Batches: React.FC = () => {
       setSYear("");
       setSectionList([]);
       setSection("");
-      setPeriodList([]);
-      setPeriod("");
       setSubjectList([]);
       setSubject("");
       setLecturerList([]);
       setLecturer("");
-      setStudents([]);
+      setDepartment("");
+      setExtraTimetable([]);
       return;
     }
 
@@ -253,8 +316,8 @@ const Batches: React.FC = () => {
       setLoadingBranchesYears(true);
       try {
         const [bData, yData] = await Promise.all([
-          getBatchBranches(programme, academicYear),
-          getBatchYears(programme, academicYear),
+          getExtraBranches(programme, academicYear),
+          getExtraYears(programme, academicYear),
         ]);
         setBranchList(Array.isArray(bData) ? bData : []);
         setYearList(Array.isArray(yData) ? yData : []);
@@ -268,7 +331,7 @@ const Batches: React.FC = () => {
     fetchBranchesAndYears();
   }, [programme, academicYear]);
 
-  // 3. Cascade: Fetch Sections using getSections API when Programme, Branch, and Year are selected
+  // 3. Cascade: Fetch Sections when Programme, Branch, and Year are selected
   useEffect(() => {
     if (!programme || !branch || !sYear) {
       setSectionList([]);
@@ -279,108 +342,26 @@ const Batches: React.FC = () => {
     const fetchSections = async () => {
       setLoadingSections(true);
       try {
-        // Load sections using Common getSections API (POST /api/Commonfields/GetSections)
-        let data = await getSections(programme, branch, sYear, academicYear);
-        let list = Array.isArray(data)
+        const data = await getSections(programme, branch, sYear, academicYear);
+        const list = Array.isArray(data)
           ? data
           : Array.isArray((data as any)?.data)
           ? (data as any).data
-          : Array.isArray((data as any)?.result)
-          ? (data as any).result
           : [];
-
-        // Fallback to getBatchSections if getSections returns empty and semester is present
-        if (list.length === 0 && semester) {
-          const bData = await getBatchSections({
-            academicYear,
-            programme,
-            branch,
-            sYear,
-            semester,
-          });
-          list = Array.isArray(bData) ? bData : [];
-        }
-
         setSectionList(list);
       } catch (error) {
-        console.error("Failed to load sections via getSections:", error);
+        console.error("Failed to load sections:", error);
         toast.error("Could not load sections.");
       } finally {
         setLoadingSections(false);
       }
     };
     fetchSections();
-  }, [programme, branch, sYear, semester, academicYear]);
+  }, [programme, branch, sYear, academicYear]);
 
-  // 4. Cascade: Fetch Periods (POST /api/Batches/period-load)
+  // 4. Cascade: Fetch Subjects when Programme, Branch, Year, Semester, Stream, PeriodType change
   useEffect(() => {
-    if (
-      !shift ||
-      !programme ||
-      !branch ||
-      !sYear ||
-      !semester ||
-      !stream ||
-      !section ||
-      !day
-    ) {
-      setPeriodList([]);
-      setPeriod("");
-      return;
-    }
-
-    const fetchPeriods = async () => {
-      setLoadingPeriods(true);
-      try {
-        const data = await getBatchPeriodLoad({
-          academicYear,
-          shift,
-          programme,
-          branch,
-          sYear,
-          semester,
-          stream,
-          section,
-          day,
-        });
-        const list = Array.isArray(data) ? data : [];
-        setPeriodList(list);
-        if (list.length === 0) {
-          toast.info("No active periods found for the selected timetable slot.");
-        }
-      } catch (error) {
-        console.error("Failed to load periods:", error);
-        toast.error("Error loading periods for schedule.");
-      } finally {
-        setLoadingPeriods(false);
-      }
-    };
-    fetchPeriods();
-  }, [
-    shift,
-    programme,
-    branch,
-    sYear,
-    semester,
-    stream,
-    section,
-    day,
-    academicYear,
-  ]);
-
-  // 5. Cascade: Fetch Subjects when Period changes (POST /api/Batches/subjects)
-  useEffect(() => {
-    if (
-      !shift ||
-      !programme ||
-      !branch ||
-      !sYear ||
-      !semester ||
-      !stream ||
-      !section ||
-      !day ||
-      !period
-    ) {
+    if (!programme || !branch || !sYear || !semester || !stream || !periodType) {
       setSubjectList([]);
       setSubject("");
       return;
@@ -389,46 +370,76 @@ const Batches: React.FC = () => {
     const fetchSubjects = async () => {
       setLoadingSubjects(true);
       try {
-        const data = await getBatchSubjects({
-          academicYear,
-          shift,
+        const data = await getExtraSubjects({
           programme,
           branch,
-          sYear,
-          semester,
+          year: sYear,
+          semister: semester,
           stream,
-          section,
-          day,
-          periodRange: period,
+          periodType,
+          lecturer: "",
+          regu: "",
+          subtype: "",
+          acdYr: academicYear,
         });
-        const list = Array.isArray(data) ? data : [];
-        setSubjectList(list);
-        if (list.length === 0) {
-          toast.info("No subjects mapped to this period range.");
-        }
+        setSubjectList(Array.isArray(data) ? data : []);
       } catch (error) {
-        console.error("Failed to load subjects:", error);
-        toast.error("Error loading subjects.");
+        console.error("Failed to load extra subjects:", error);
+        toast.error("Could not load subjects.");
       } finally {
         setLoadingSubjects(false);
       }
     };
     fetchSubjects();
-  }, [
-    shift,
-    programme,
-    branch,
-    sYear,
-    semester,
-    stream,
-    section,
-    day,
-    period,
-    academicYear,
-  ]);
+  }, [programme, branch, sYear, semester, stream, periodType, academicYear]);
 
-  // 6. Cascade: Fetch Lecturers and initial Student list when Subject changes
+  // 5. Cascade: Fetch Lecturers when Subject changes
   useEffect(() => {
+    if (!programme || !sYear || !semester || !subject) {
+      setLecturerList([]);
+      setLecturer("");
+      return;
+    }
+
+    const fetchLecturers = async () => {
+      setLoadingLecturers(true);
+      try {
+        const data = await getExtraLecturers({
+          department: department || "",
+          year: sYear,
+          semister: semester,
+          subcode: subject,
+          programme,
+        });
+        const list = Array.isArray(data) ? data : [];
+        setLecturerList(list);
+      } catch (error) {
+        console.error("Failed to load extra lecturers:", error);
+        toast.error("Could not load lecturers.");
+      } finally {
+        setLoadingLecturers(false);
+      }
+    };
+    fetchLecturers();
+  }, [programme, sYear, semester, subject, department]);
+
+  // 6. When Lecturer changes, auto-load their Department via GET /api/Timetable_Extrahours/faculty-dept
+  const handleLecturerChange = async (lecturerId: string) => {
+    setLecturer(lecturerId);
+    if (!lecturerId) return;
+
+    try {
+      const deptCode = await getExtraFacultyDept(lecturerId);
+      if (deptCode) {
+        setDepartment(deptCode);
+      }
+    } catch (error) {
+      console.warn("Failed to auto-fetch department for lecturer:", error);
+    }
+  };
+
+  // 7. Load Extra Timetable Grid (POST /api/Timetable_Extrahours/view-extra)
+  const loadExtraTimetable = useCallback(async () => {
     if (
       !shift ||
       !programme ||
@@ -436,179 +447,37 @@ const Batches: React.FC = () => {
       !sYear ||
       !semester ||
       !stream ||
-      !section ||
-      !day ||
-      !period ||
-      !subject
+      !section
     ) {
-      setLecturerList([]);
-      setLecturer("");
-      setStudents([]);
+      setExtraTimetable([]);
       return;
     }
 
-    const fetchLecturersAndStudents = async () => {
-      setLoadingLecturers(true);
-      setLoadingStudents(true);
-      try {
-        const [lData, sData] = await Promise.all([
-          getBatchLecturers({
-            academicYear,
-            shift,
-            programme,
-            branch,
-            sYear,
-            semester,
-            stream,
-            section,
-            day,
-            subjects: subject,
-            periodRange: period,
-          }),
-          getBatchStudents({
-            programme,
-            branch,
-            sYear,
-            semester,
-            section,
-            stream,
-            day,
-            periodRange: period,
-            academicYear,
-            subjects: subject,
-            lecturer: "",
-            isLecturerView: false,
-          }),
-        ]);
-
-        const lList = Array.isArray(lData) ? lData : [];
-        setLecturerList(lList);
-
-        // Auto-select first lecturer if available
-        if (lList.length === 1) {
-          const firstLecturerId = extractLecturerId(lList[0]);
-          setLecturer(firstLecturerId);
-        }
-
-        const sList = Array.isArray(sData) ? sData : [];
-        const initializedStudents = sList.map((st: any) => ({
-          ...st,
-          selected:
-            st.StudentActive === true ||
-            String(st.IsActive).toUpperCase() === "Y",
-        }));
-        setStudents(initializedStudents);
-      } catch (error) {
-        console.error("Failed to load lecturers or students:", error);
-        toast.error("Error loading lecturers/students.");
-      } finally {
-        setLoadingLecturers(false);
-        setLoadingStudents(false);
-      }
-    };
-    fetchLecturersAndStudents();
-  }, [
-    shift,
-    programme,
-    branch,
-    sYear,
-    semester,
-    stream,
-    section,
-    day,
-    period,
-    subject,
-    academicYear,
-  ]);
-
-  // 7. Cascade: Re-fetch students when a specific Lecturer is selected
-  const handleLecturerChange = async (lecturerId: string) => {
-    setLecturer(lecturerId);
-    if (!lecturerId || !subject || !period) return;
-
-    setLoadingStudents(true);
+    setLoadingTable(true);
     try {
-      const data = await getBatchStudents({
-        programme,
+      const data = await viewTimeTableExtra({
+        year: sYear,
+        semister: semester,
         branch,
-        sYear,
-        semester,
-        section,
         stream,
-        day,
-        periodRange: period,
-        academicYear,
-        subjects: subject,
-        lecturer: lecturerId,
-        isLecturerView: true,
+        section,
+        shiftNo: shift,
+        programme,
       });
-
-      const list = Array.isArray(data) ? data : [];
-      const updated = list.map((st: any) => ({
-        ...st,
-        selected:
-          st.StudentActive === true ||
-          String(st.IsActive).toUpperCase() === "Y",
-      }));
-      setStudents(updated);
+      setExtraTimetable(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error("Failed to refresh students for selected lecturer:", error);
-      toast.error("Could not load students for lecturer.");
+      console.error("Failed to load extra timetable records:", error);
+      setExtraTimetable([]);
     } finally {
-      setLoadingStudents(false);
+      setLoadingTable(false);
     }
-  };
+  }, [shift, programme, branch, sYear, semester, stream, section]);
 
-  // Student selection checkbox toggles
-  const handleToggleStudent = (regNo: string) => {
-    setStudents((prev) =>
-      prev.map((s) =>
-        s.RegistrationNo === regNo ? { ...s, selected: !s.selected } : s
-      )
-    );
-  };
+  useEffect(() => {
+    loadExtraTimetable();
+  }, [loadExtraTimetable]);
 
-  // Filtered students for search bar
-  const filteredStudents = useMemo(() => {
-    if (!searchQuery.trim()) return students;
-    const q = searchQuery.toLowerCase().trim();
-    return students.filter(
-      (s) =>
-        (s.RegistrationNo && s.RegistrationNo.toLowerCase().includes(q)) ||
-        (s.SName && s.SName.toLowerCase().includes(q))
-    );
-  }, [students, searchQuery]);
-
-  // Batch count equals count of currently selected/checked students
-  const batchCount = useMemo(() => {
-    return students.filter((s) => s.selected).length;
-  }, [students]);
-
-  const isAllSelected = useMemo(() => {
-    return (
-      filteredStudents.length > 0 &&
-      filteredStudents.every((s) => s.selected)
-    );
-  }, [filteredStudents]);
-
-  const isSomeSelected = useMemo(() => {
-    return (
-      filteredStudents.some((s) => s.selected) && !isAllSelected
-    );
-  }, [filteredStudents, isAllSelected]);
-
-  const handleToggleSelectAll = (checked: boolean) => {
-    const visibleRegNos = new Set(
-      filteredStudents.map((s) => s.RegistrationNo)
-    );
-    setStudents((prev) =>
-      prev.map((s) =>
-        visibleRegNos.has(s.RegistrationNo) ? { ...s, selected: checked } : s
-      )
-    );
-  };
-
-  // Save batch student assignments
+  // Save Extra Timetable Entry
   const handleSave = async () => {
     if (!programme) {
       toast.warning("Please select Programme.");
@@ -634,8 +503,8 @@ const Batches: React.FC = () => {
       toast.warning("Please select Day.");
       return;
     }
-    if (!period) {
-      toast.warning("Please select Period.");
+    if (!periodType) {
+      toast.warning("Please select Period Type.");
       return;
     }
     if (!subject) {
@@ -646,70 +515,96 @@ const Batches: React.FC = () => {
       toast.warning("Please select Lecturer.");
       return;
     }
+    if (!department) {
+      toast.warning("Please select Department.");
+      return;
+    }
+    if (!wdate) {
+      toast.warning("Please select Date.");
+      return;
+    }
+    if (!spTime) {
+      toast.warning("Please enter Period Timings.");
+      return;
+    }
 
-    const studentPayloads = students.map((s) => ({
-      regNo: s.RegistrationNo || "",
-      sName: s.SName || "",
-      selected: Boolean(s.selected),
-    }));
+    // Find readable subject name
+    const selectedSub = subjectList.find(
+      (s) => extractSubjectCode(s) === subject
+    );
+    const subNameRaw = selectedSub
+      ? extractSubjectName(selectedSub)
+      : subject;
+    // Extract clean name without code prefix if separated by '--'
+    const subName = subNameRaw.includes("--")
+      ? subNameRaw.split("--")[1].trim()
+      : subNameRaw;
 
     setIsSaving(true);
     try {
-      const res = await saveBatchStudents({
-        lecturer,
-        shift,
+      const res = await saveTimeTableExtra({
+        id: "0",
+        wdate: formatToApiDate(wdate),
+        shiftNo: shift,
+        day,
         programme,
         branch,
-        sYear,
-        semester,
-        section,
+        year: sYear,
+        semister: semester,
         stream,
-        day,
-        periodRange: period,
-        subjects: subject,
-        academicYear,
-        students: studentPayloads,
+        section,
+        subject: subName,
+        subcode: subject,
+        department,
+        lecturer,
+        spTime,
+        periodType,
+        epTime: "",
       });
 
       if (res?.success !== false) {
-        toast.success(
-          res?.message || `Successfully saved ${batchCount} student(s) to batch.`
-        );
-        // Refresh student list from server to reflect saved state
-        const refreshed = await getBatchStudents({
-          programme,
-          branch,
-          sYear,
-          semester,
-          section,
-          stream,
-          day,
-          periodRange: period,
-          academicYear,
-          subjects: subject,
-          lecturer,
-          isLecturerView: true,
-        });
-        if (Array.isArray(refreshed)) {
-          setStudents(
-            refreshed.map((st: any) => ({
-              ...st,
-              selected:
-                st.StudentActive === true ||
-                String(st.IsActive).toUpperCase() === "Y",
-            }))
-          );
-        }
+        toast.success(res?.message || "Extra timetable entry saved successfully.");
+        // Refresh grid
+        loadExtraTimetable();
       } else {
-        toast.error(res?.message || "Failed to save batch students.");
+        toast.error(res?.message || "Failed to save extra timetable entry.");
       }
     } catch (error: any) {
-      console.error("Error saving batch students:", error);
+      console.error("Error saving extra timetable entry:", error);
       toast.error(
-        error?.response?.data?.message || "Failed to save batch students."
+        error?.response?.data?.message || "Failed to save extra timetable entry."
       );
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  // Delete Extra Timetable Entry
+  const openDeleteModal = (item: ExtraTimetableItem) => {
+    setItemToDelete(item);
+    setDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!itemToDelete?.id) return;
+    setIsDeleting(true);
+    try {
+      const res = await deleteTimeTableExtra(itemToDelete.id);
+      if (res?.success !== false) {
+        toast.success(res?.message || "Extra timetable entry deleted successfully.");
+        setDeleteModalOpen(false);
+        setItemToDelete(null);
+        loadExtraTimetable();
+      } else {
+        toast.error(res?.message || "Failed to delete extra timetable entry.");
+      }
+    } catch (error: any) {
+      console.error("Error deleting extra timetable entry:", error);
+      toast.error(
+        error?.response?.data?.message || "Failed to delete extra timetable entry."
+      );
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -722,52 +617,68 @@ const Batches: React.FC = () => {
     setSemester("");
     setStream("1");
     setSection("");
-    setDay("");
-    setPeriod("");
+    setDay("Monday");
+    setPeriodType("Theory");
     setSubject("");
     setLecturer("");
+    setDepartment("");
+    setWdate(new Date().toISOString().split("T")[0]);
+    setSpTime("05.30PM");
     setBranchList([]);
     setYearList([]);
     setSectionList([]);
-    setPeriodList([]);
     setSubjectList([]);
     setLecturerList([]);
-    setStudents([]);
+    setExtraTimetable([]);
     setSearchQuery("");
     toast.info("Form filters cleared.");
   };
 
+  // Filtered Table Data
+  const filteredTable = useMemo(() => {
+    if (!searchQuery.trim()) return extraTimetable;
+    const q = searchQuery.toLowerCase().trim();
+    return extraTimetable.filter(
+      (item) =>
+        (item.Subject && item.Subject.toLowerCase().includes(q)) ||
+        (item.SUB_CODE && item.SUB_CODE.toLowerCase().includes(q)) ||
+        (item.Lecturer && item.Lecturer.toLowerCase().includes(q)) ||
+        (item.Department && item.Department.toLowerCase().includes(q)) ||
+        (item.EDATE && item.EDATE.toLowerCase().includes(q))
+    );
+  }, [extraTimetable, searchQuery]);
+
   return (
-    <div className="dbs-batches-container">
+    <div className="dbs-extrahours-container">
       {/* Header */}
-      <div className="dbs-batches-header">
-        <div className="dbs-batches-title-group">
-          <div className="dbs-batches-icon-wrapper">
-            <GraduationCap size={24} />
+      <div className="dbs-extrahours-header">
+        <div className="dbs-extrahours-title-group">
+          <div className="dbs-extrahours-icon-wrapper">
+            <CalendarPlus size={24} />
           </div>
           <div>
-            <h2>Batches</h2>
-            <p>Create & Manage Student Batches</p>
+            <h2>Timetable Extra Hours</h2>
+            <p>Create & Manage Extra Hour Timetable Allocations</p>
           </div>
         </div>
 
-        <div className="dbs-batches-badges">
-          <span className="dbs-batches-ay-badge">
+        <div className="dbs-extrahours-badges">
+          <span className="dbs-extrahours-ay-badge">
             Academic Year: <strong>{academicYear}</strong>
           </span>
-          <span className="dbs-batches-count-badge">
-            <Users size={14} />
-            Selected: <strong>{batchCount}</strong>
+          <span className="dbs-extrahours-count-badge">
+            <Clock size={14} />
+            Entries: <strong>{extraTimetable.length}</strong>
           </span>
         </div>
       </div>
 
       {/* Criteria Form Card */}
-      <div className="dbs-batches-card">
-        <div className="dbs-batches-card-header">
+      <div className="dbs-extrahours-card">
+        <div className="dbs-extrahours-card-header">
           <h3>
             <Layers size={18} />
-            Batch Details
+            Extra Hour Details
           </h3>
         </div>
 
@@ -923,7 +834,6 @@ const Batches: React.FC = () => {
           <div className="dbs-input-box">
             <label>Day</label>
             <select value={day} onChange={(e) => setDay(e.target.value)}>
-              <option value="">Select Day</option>
               {DAYS_OF_WEEK.map((d) => (
                 <option key={d} value={d}>
                   {d}
@@ -932,30 +842,18 @@ const Batches: React.FC = () => {
             </select>
           </div>
 
-          {/* Period */}
+          {/* Period Type */}
           <div className="dbs-input-box">
-            <label>
-              Period
-              {loadingPeriods && (
-                <span className="dbs-loading-inline">
-                  <Loader2 size={12} className="animate-spin" /> Loading...
-                </span>
-              )}
-            </label>
+            <label>Period Type</label>
             <select
-              value={period}
-              onChange={(e) => setPeriod(e.target.value)}
-              disabled={!section || !day || loadingPeriods}
+              value={periodType}
+              onChange={(e) => setPeriodType(e.target.value)}
             >
-              <option value="">Select Period</option>
-              {periodList.map((item, idx) => {
-                const pr = extractPeriodRange(item);
-                return (
-                  <option key={`${pr}-${idx}`} value={pr}>
-                    Period {pr}
-                  </option>
-                );
-              })}
+              {PERIOD_TYPE_OPTIONS.map((pt) => (
+                <option key={pt.code} value={pt.code}>
+                  {pt.label}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -972,7 +870,7 @@ const Batches: React.FC = () => {
             <select
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              disabled={!period || loadingSubjects}
+              disabled={!semester || loadingSubjects}
             >
               <option value="">Select Subject</option>
               {subjectList.map((item, idx) => {
@@ -980,7 +878,7 @@ const Batches: React.FC = () => {
                 const name = extractSubjectName(item);
                 return (
                   <option key={`${code}-${idx}`} value={code}>
-                    {name} ({code})
+                    {name}
                   </option>
                 );
               })}
@@ -1015,15 +913,52 @@ const Batches: React.FC = () => {
             </select>
           </div>
 
-          {/* Batch Count (Read-only representation of selected students count) */}
+          {/* Department */}
           <div className="dbs-input-box">
-            <label>Batch Count</label>
+            <label>
+              Department
+              {loadingDepartments && (
+                <span className="dbs-loading-inline">
+                  <Loader2 size={12} className="animate-spin" /> Loading...
+                </span>
+              )}
+            </label>
+            <select
+              value={department}
+              onChange={(e) => setDepartment(e.target.value)}
+              disabled={loadingDepartments}
+            >
+              <option value="">Select Department</option>
+              {departmentList.map((item, idx) => {
+                const code = extractDeptCode(item);
+                const name = extractDeptName(item);
+                return (
+                  <option key={`${code}-${idx}`} value={code}>
+                    {name} ({code})
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+
+          {/* Date */}
+          <div className="dbs-input-box">
+            <label>Date</label>
             <input
-              type="number"
-              readOnly
-              className="dbs-readonly-count"
-              value={batchCount}
-              placeholder="0"
+              type="date"
+              value={wdate}
+              onChange={(e) => setWdate(e.target.value)}
+            />
+          </div>
+
+          {/* Period(s) Timings */}
+          <div className="dbs-input-box">
+            <label>Period(s) Timings</label>
+            <input
+              type="text"
+              placeholder="e.g. 05.30PM"
+              value={spTime}
+              onChange={(e) => setSpTime(e.target.value)}
             />
           </div>
         </div>
@@ -1034,7 +969,7 @@ const Batches: React.FC = () => {
             type="button"
             className="dbs-form-save-btn"
             onClick={handleSave}
-            disabled={isSaving || students.length === 0}
+            disabled={isSaving}
           >
             {isSaving ? (
               <Loader2 size={16} className="animate-spin" />
@@ -1056,116 +991,129 @@ const Batches: React.FC = () => {
         </div>
       </div>
 
-      {/* Batch Students Table Card */}
-      <div className="dbs-students-card">
-        <div className="dbs-students-toolbar">
-          <div className="dbs-students-toolbar-title">
+      {/* Extra Timetable Grid Card */}
+      <div className="dbs-grid-card">
+        <div className="dbs-grid-toolbar">
+          <div className="dbs-grid-toolbar-title">
             <h3>
-              <Users size={18} />
-              Batch Students Grid
+              <Clock size={18} />
+              Existing Extra Timetable Allocations
             </h3>
-            {students.length > 0 && (
-              <span className="dbs-batches-ay-badge">
-                Total: <strong>{students.length}</strong> | Selected:{" "}
-                <strong>{batchCount}</strong>
-              </span>
-            )}
           </div>
 
-          {students.length > 0 && (
-            <div className="dbs-students-search-wrapper">
-              <Search size={16} className="dbs-students-search-icon" />
+          {extraTimetable.length > 0 && (
+            <div className="dbs-grid-search-wrapper">
+              <Search size={16} className="dbs-grid-search-icon" />
               <input
                 type="text"
-                placeholder="Search by Reg No or Name..."
+                placeholder="Search extra allocations..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="dbs-students-search-input"
+                className="dbs-grid-search-input"
               />
             </div>
           )}
         </div>
 
-        {/* Students Table */}
+        {/* Table */}
         <div className="dbs-table-scroll">
-          {loadingStudents ? (
+          {loadingTable ? (
             <div className="dbs-table-empty">
               <Loader2 size={32} className="animate-spin text-blue-600" />
-              <p>Loading students list...</p>
+              <p>Loading extra timetable entries...</p>
             </div>
-          ) : filteredStudents.length > 0 ? (
-            <table className="dbs-batch-table">
+          ) : filteredTable.length > 0 ? (
+            <table className="dbs-extra-table">
               <thead>
                 <tr>
-                  <th style={{ width: "80px" }} className="dbs-text-center">
-                    S.No
+                  <th style={{ width: "50px" }} className="dbs-text-center">
+                    #
                   </th>
-                  <th style={{ width: "220px" }}>Register No</th>
-                  <th>Student Name</th>
-                  <th style={{ width: "100px" }} className="dbs-text-center">
-                    <input
-                      type="checkbox"
-                      title="Select / Deselect All"
-                      checked={isAllSelected}
-                      ref={(el) => {
-                        if (el) el.indeterminate = isSomeSelected;
-                      }}
-                      onChange={(e) => handleToggleSelectAll(e.target.checked)}
-                    />
+                  <th>Date</th>
+                  <th>Shift</th>
+                  <th>Faculty</th>
+                  <th>Branch</th>
+                  <th>Year</th>
+                  <th>Sem</th>
+                  <th>Sec</th>
+                  <th>Subject</th>
+                  <th>Dept</th>
+                  <th>Timings</th>
+                  <th>Type</th>
+                  <th style={{ width: "70px" }} className="dbs-text-center">
+                    Action
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {filteredStudents.map((st, idx) => {
-                  const regNo = st.RegistrationNo || `reg-${idx}`;
-                  const isChecked = Boolean(st.selected);
-                  return (
-                    <tr
-                      key={regNo}
-                      className={isChecked ? "selected-row" : ""}
-                      onClick={() => handleToggleStudent(regNo)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <td className="dbs-text-center">
-                        {st.xNO ?? idx + 1}
-                      </td>
-                      <td>
-                        <span className="dbs-regno-badge">
-                          {st.RegistrationNo || "-"}
-                        </span>
-                      </td>
-                      <td>
-                        <strong>{st.SName || "-"}</strong>
-                      </td>
-                      <td
-                        className="dbs-text-center"
-                        onClick={(e) => e.stopPropagation()}
+                {filteredTable.map((item, idx) => (
+                  <tr key={item.id ?? idx}>
+                    <td className="dbs-text-center">{idx + 1}</td>
+                    <td>
+                      <strong>{item.EDATE || "-"}</strong>
+                    </td>
+                    <td>Shift {item.Shift || "-"}</td>
+                    <td>
+                      <span className="dbs-badge-code">
+                        {item.Lecturer || "-"}
+                      </span>
+                    </td>
+                    <td>{item.Branch || "-"}</td>
+                    <td>{item.Year || "-"}</td>
+                    <td>{item.Semister || "-"}</td>
+                    <td>{item.Section || "-"}</td>
+                    <td>
+                      {item.Subject || "-"}
+                      {item.SUB_CODE && ` (${item.SUB_CODE})`}
+                    </td>
+                    <td>{item.Department || "-"}</td>
+                    <td>{item.SPTime || "-"}</td>
+                    <td>{item.Period_type || "-"}</td>
+                    <td className="dbs-text-center">
+                      <button
+                        type="button"
+                        className="dbs-table-delete-btn"
+                        title="Delete Extra Entry"
+                        onClick={() => openDeleteModal(item)}
                       >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={() => handleToggleStudent(regNo)}
-                        />
-                      </td>
-                    </tr>
-                  );
-                })}
+                        <Trash2 size={16} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           ) : (
             <div className="dbs-table-empty">
               <AlertCircle size={32} />
               <p>
-                {subject
-                  ? "No students found matching your criteria."
-                  : "Select all timetable details and subject above to load student batch records."}
+                {section
+                  ? "No extra timetable allocations found for this class & section."
+                  : "Select Shift, Programme, Branch, Year, Semester, and Section to load allocations."}
               </p>
             </div>
           )}
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <DeleteModal
+        open={deleteModalOpen}
+        title="Delete Extra Timetable Entry"
+        itemName={
+          itemToDelete
+            ? `${itemToDelete.Subject || "Entry"} (${itemToDelete.EDATE} - ${itemToDelete.Lecturer})`
+            : "this entry"
+        }
+        loading={isDeleting}
+        onCancel={() => {
+          setDeleteModalOpen(false);
+          setItemToDelete(null);
+        }}
+        onConfirm={handleConfirmDelete}
+      />
     </div>
   );
 };
 
-export default Batches;
+export default TimetableExtraHours;

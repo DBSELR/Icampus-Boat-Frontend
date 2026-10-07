@@ -1,0 +1,904 @@
+/* ==========================================================================
+   DBS ERP - Attendance By Staff Form Styles
+   Enterprise-grade Design System mirroring Batches form
+   Adheres to DBS CSS Variables & responsive patterns
+   ========================================================================== */
+
+.dbs-batches-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  animation: dbsBatchesFadeIn 0.25s ease-out;
+}
+
+@keyframes dbsBatchesFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================
+   Page Header
+   ========================================== */
+.dbs-batches-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dbs-batches-title-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.dbs-batches-icon-wrapper {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--dbs-radius-sm, 8px);
+  background: var(--dbs-primary-light, #eff6ff);
+  color: var(--dbs-primary, #2563eb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.08);
+  flex-shrink: 0;
+}
+
+.dbs-batches-header h2 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--dbs-text, #0f172a);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.dbs-batches-header p {
+  font-size: 0.88rem;
+  color: var(--dbs-text-muted, #64748b);
+  margin: 3px 0 0 0;
+}
+
+.dbs-batches-badges {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.dbs-batches-ay-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  color: var(--dbs-text-muted, #64748b);
+  font-size: 0.82rem;
+  font-weight: 500;
+  box-shadow: var(--dbs-shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+}
+
+.dbs-batches-ay-badge strong {
+  color: var(--dbs-text, #0f172a);
+  font-weight: 700;
+}
+
+.dbs-batches-count-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+/* ==========================================
+   Filter / Form Card
+   ========================================== */
+.dbs-batches-card {
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius, 16px);
+  box-shadow: var(--dbs-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.05));
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: var(--dbs-transition, all 0.2s ease);
+}
+
+.dbs-batches-card:hover {
+  box-shadow: var(--dbs-shadow-md, 0 10px 15px -3px rgba(0, 0, 0, 0.08));
+}
+
+.dbs-batches-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dbs-batches-card-header h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dbs-text, #0f172a);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dbs-att-note-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #be123c;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ==========================================
+   Grid Layout for Inputs
+   ========================================== */
+.dbs-timetable-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 28px;
+}
+
+.dbs-input-box {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.dbs-input-box label {
+  margin-bottom: 6px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--dbs-text, #334155);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dbs-input-box label .dbs-loading-inline {
+  color: var(--dbs-primary, #2563eb);
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dbs-sub-label {
+  font-size: 0.74rem;
+  font-weight: 400;
+  color: var(--dbs-text-muted, #64748b);
+}
+
+.dbs-input-box input,
+.dbs-input-box select,
+.dbs-input-box textarea {
+  width: 100%;
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  border-radius: var(--dbs-radius-sm, 8px);
+  background: var(--dbs-surface, #ffffff);
+  font-size: 0.88rem;
+  color: var(--dbs-text, #0f172a);
+  transition: all 0.15s ease-in-out;
+}
+
+.dbs-input-box input,
+.dbs-input-box select {
+  height: 40px;
+  padding: 0 12px;
+}
+
+.dbs-input-box textarea {
+  padding: 10px 12px;
+  resize: vertical;
+  min-height: 52px;
+  line-height: 1.45;
+}
+
+.dbs-input-box input:focus,
+.dbs-input-box select:focus,
+.dbs-input-box textarea:focus {
+  outline: none;
+  border-color: var(--dbs-primary, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.dbs-input-box input:disabled,
+.dbs-input-box select:disabled,
+.dbs-input-box textarea:disabled {
+  background: #f8fafc;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.dbs-readonly-textarea {
+  background: #f8fafc !important;
+  color: #475569 !important;
+  cursor: default;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.84rem !important;
+  line-height: 1.5;
+}
+
+.dbs-double-select > div {
+  display: flex;
+  gap: 12px;
+}
+
+.dbs-double-select select,
+.dbs-double-select input {
+  flex: 1;
+}
+
+/* Quick Absent Input Group */
+.dbs-quick-absent-group {
+  display: flex;
+  gap: 8px;
+}
+
+.dbs-quick-absent-group input {
+  flex: 1;
+}
+
+.dbs-quick-absent-btn {
+  background: #f1f5f9;
+  color: var(--dbs-text, #334155);
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  border-radius: var(--dbs-radius-sm, 8px);
+  padding: 0 16px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.dbs-quick-absent-btn:hover:not(:disabled) {
+  background: #e2e8f0;
+  color: var(--dbs-text, #0f172a);
+}
+
+.dbs-quick-absent-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Custom Checkbox Container */
+.dbs-custom-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  border-radius: var(--dbs-radius-sm, 8px);
+  background: var(--dbs-surface, #ffffff);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dbs-custom-checkbox-wrapper:hover {
+  background: #f8fafc;
+}
+
+.dbs-custom-checkbox-wrapper input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--dbs-primary, #2563eb);
+  margin: 0;
+}
+
+.dbs-custom-checkbox-wrapper span {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--dbs-text, #0f172a);
+  user-select: none;
+}
+
+.dbs-full-width {
+  grid-column: 1 / -1;
+}
+
+/* ==========================================
+   Form Actions
+   ========================================== */
+.dbs-form-actions-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+.dbs-form-save-btn {
+  background: var(--dbs-primary, #2563eb);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--dbs-radius-sm, 8px);
+  padding: 9px 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+  transition: all 0.15s ease-in-out;
+}
+
+.dbs-form-save-btn:hover:not(:disabled) {
+  background: var(--dbs-primary-hover, #1d4ed8);
+  transform: translateY(-1px);
+}
+
+.dbs-form-save-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.dbs-form-cancel-btn {
+  background: var(--dbs-surface, #ffffff);
+  color: var(--dbs-text, #334155);
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  border-radius: var(--dbs-radius-sm, 8px);
+  padding: 9px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.15s ease-in-out;
+}
+
+.dbs-form-cancel-btn:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+/* ==========================================
+   Subject & Session Banner
+   ========================================== */
+.dbs-subject-banner {
+  background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+  border: 1px solid #bfdbfe;
+  border-left: 4px solid var(--dbs-primary, #2563eb);
+  padding: 14px 20px;
+  border-radius: var(--dbs-radius-sm, 10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: var(--dbs-shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+}
+
+.dbs-subject-banner-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #1e3a8a;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dbs-subject-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: #334155;
+}
+
+.dbs-subject-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dbs-subject-meta strong {
+  color: #0f172a;
+}
+
+/* ==========================================
+   Attendance Stats Overview
+   ========================================== */
+.dbs-stat-summary-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.dbs-stat-pill {
+  padding: 16px 20px;
+  border-radius: var(--dbs-radius-sm, 12px);
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  box-shadow: var(--dbs-shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: var(--dbs-transition, all 0.2s ease);
+}
+
+.dbs-stat-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--dbs-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.05));
+}
+
+.dbs-stat-pill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dbs-stat-pill-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--dbs-text-muted, #64748b);
+}
+
+.dbs-stat-pill-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--dbs-text, #0f172a);
+}
+
+.dbs-stat-pill.present {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+}
+
+.dbs-stat-pill.present .dbs-stat-pill-value {
+  color: #15803d;
+}
+
+.dbs-stat-pill.present .dbs-stat-icon {
+  color: #16a34a;
+}
+
+.dbs-stat-pill.absent {
+  border-color: #fecdd3;
+  background: #fff1f2;
+}
+
+.dbs-stat-pill.absent .dbs-stat-pill-value {
+  color: #be123c;
+}
+
+.dbs-stat-pill.absent .dbs-stat-icon {
+  color: #e11d48;
+}
+
+.dbs-stat-pill.pct {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+}
+
+.dbs-stat-pill.pct .dbs-stat-pill-value {
+  color: #1d4ed8;
+}
+
+.dbs-stat-pill.pct .dbs-stat-pill-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #dbeafe;
+  color: #1e40af;
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+/* ==========================================
+   Students Table Card (Matching Batches form)
+   ========================================== */
+.dbs-students-card {
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius, 16px);
+  box-shadow: var(--dbs-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.05));
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dbs-students-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dbs-students-toolbar-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.dbs-students-toolbar-title h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dbs-text, #0f172a);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dbs-students-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dbs-quick-mark-btns {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dbs-mark-all-btn {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--dbs-radius-sm, 6px);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dbs-mark-all-btn.present {
+  background: #f0fdf4;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+
+.dbs-mark-all-btn.present:hover {
+  background: #dcfce7;
+}
+
+.dbs-mark-all-btn.absent {
+  background: #fef2f2;
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.dbs-mark-all-btn.absent:hover {
+  background: #fee2e2;
+}
+
+.dbs-students-search-wrapper {
+  position: relative;
+  width: 270px;
+}
+
+.dbs-students-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.dbs-students-search-input {
+  width: 100%;
+  height: 36px;
+  padding: 0 12px 0 34px;
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  border-radius: var(--dbs-radius-sm, 8px);
+  background: #f8fafc;
+  font-size: 0.85rem;
+  color: var(--dbs-text, #0f172a);
+  transition: all 0.15s ease-in-out;
+}
+
+.dbs-students-search-input:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: var(--dbs-primary, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* ==========================================
+   Table Wrapper & Table
+   ========================================== */
+.dbs-table-scroll {
+  max-height: 520px;
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius-sm, 8px);
+  background: var(--dbs-surface, #ffffff);
+}
+
+.dbs-attendance-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.88rem;
+  text-align: left;
+}
+
+.dbs-attendance-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #f8fafc;
+}
+
+.dbs-attendance-table th {
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #475569;
+  border-bottom: 2px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.dbs-attendance-table td {
+  padding: 11px 16px;
+  color: #1e293b;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.dbs-attendance-table tbody tr {
+  transition: background-color 0.12s ease;
+}
+
+.dbs-attendance-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Absent Row Highlighting */
+.dbs-attendance-table tr.dbs-student-absent {
+  background-color: #fff1f2 !important;
+}
+
+.dbs-attendance-table tr.dbs-student-absent:hover {
+  background-color: #ffe4e6 !important;
+}
+
+.dbs-attendance-table tr.dbs-student-absent td {
+  color: #9f1239;
+}
+
+.dbs-attendance-table tr.dbs-student-absent .dbs-regno-badge {
+  background: #fecdd3;
+  color: #9f1239;
+}
+
+.dbs-status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.dbs-status-badge.present {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.dbs-status-badge.absent {
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+}
+
+.dbs-att-checkbox {
+  width: 17px !important;
+  height: 17px !important;
+  cursor: pointer;
+  accent-color: var(--dbs-primary, #2563eb);
+  border-radius: 4px;
+}
+
+.dbs-regno-badge {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #0369a1;
+  background: #e0f2fe;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.dbs-att-remarks-input {
+  width: 100%;
+  min-width: 140px;
+  padding: 6px 10px !important;
+  font-size: 0.84rem !important;
+  height: 34px !important;
+  border: 1px solid var(--dbs-border, #cbd5e1) !important;
+  border-radius: var(--dbs-radius-sm, 6px) !important;
+  background: #ffffff !important;
+  transition: all 0.15s ease-in-out;
+}
+
+.dbs-att-remarks-input:focus {
+  outline: none;
+  border-color: var(--dbs-primary, #2563eb) !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12) !important;
+}
+
+.dbs-text-center {
+  text-align: center;
+}
+
+/* ==========================================
+   Empty / Loading State
+   ========================================== */
+.dbs-table-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 20px;
+  color: #94a3b8;
+  gap: 12px;
+  text-align: center;
+}
+
+.dbs-table-empty p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  max-width: 440px;
+  line-height: 1.5;
+}
+
+/* Spin animation helper */
+.dbs-spin {
+  animation: dbsSpin 1s linear infinite;
+}
+
+@keyframes dbsSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================
+   Responsive Breakpoints
+   ========================================== */
+@media (max-width: 1024px) {
+  .dbs-stat-summary-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .dbs-timetable-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dbs-batches-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dbs-batches-badges {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .dbs-students-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .dbs-students-toolbar-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .dbs-quick-mark-btns {
+    width: 100%;
+  }
+
+  .dbs-quick-mark-btns button {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .dbs-students-search-wrapper {
+    width: 100%;
+  }
+
+  .dbs-form-actions-row {
+    flex-direction: column;
+  }
+
+  .dbs-form-save-btn,
+  .dbs-form-cancel-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dbs-subject-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .dbs-stat-summary-row {
+    grid-template-columns: 1fr;
+  }
+
+  .dbs-double-select > div {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .dbs-quick-absent-group {
+    flex-direction: column;
+  }
+
+  .dbs-quick-absent-btn {
+    height: 38px;
+  }
+}

@@ -1,11 +1,11 @@
 /* ==========================================================================
-   DBS ERP - Attendance Deletion Styles
+   DBS ERP - Consolidated Attendance Analysis Styles
    Enterprise-grade Design System & Ultra-Responsive UI
    Adheres to DBS CSS Variables & Mobile-First Best Practices
    ========================================================================== */
 
 /* --- Container & Animations --- */
-.dbs-attdel-container {
+.dbs-cons-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -13,11 +13,11 @@
   max-width: 100%;
   margin: 0 auto;
   padding: 0 4px;
-  animation: dbsAttDelFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: dbsConsFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
 }
 
-@keyframes dbsAttDelFadeIn {
+@keyframes dbsConsFadeIn {
   from {
     opacity: 0;
     transform: translateY(8px);
@@ -31,7 +31,7 @@
 /* ==========================================
    Page Header
    ========================================== */
-.dbs-attdel-header {
+.dbs-cons-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,27 +41,27 @@
   flex-wrap: wrap;
 }
 
-.dbs-attdel-title-group {
+.dbs-cons-title-group {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-.dbs-attdel-icon-wrapper {
+.dbs-cons-icon-wrapper {
   width: 48px;
   height: 48px;
   border-radius: var(--dbs-radius-sm, 12px);
-  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-  color: #dc2626;
+  background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
+  color: #4f46e5;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.12);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.12);
   flex-shrink: 0;
-  border: 1px solid #fecaca;
+  border: 1px solid rgba(79, 70, 229, 0.15);
 }
 
-.dbs-attdel-header-text h2 {
+.dbs-cons-header-text h2 {
   font-size: 1.5rem;
   font-weight: 800;
   color: var(--dbs-text, #0f172a);
@@ -70,21 +70,21 @@
   line-height: 1.2;
 }
 
-.dbs-attdel-header-text p {
+.dbs-cons-header-text p {
   font-size: 0.88rem;
   color: var(--dbs-text-muted, #64748b);
   margin: 4px 0 0 0;
   font-weight: 500;
 }
 
-.dbs-attdel-header-badges {
+.dbs-cons-header-badges {
   display: flex;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
 }
 
-.dbs-attdel-badge {
+.dbs-cons-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -98,57 +98,57 @@
   box-shadow: var(--dbs-shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.04));
 }
 
-.dbs-attdel-badge strong {
+.dbs-cons-badge strong {
   color: var(--dbs-text, #0f172a);
   font-weight: 700;
 }
 
-.dbs-attdel-badge.danger-badge {
-  background: #fef2f2;
-  border-color: #fecaca;
-  color: #dc2626;
+.dbs-cons-badge.active-badge {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #15803d;
   font-weight: 600;
 }
 
 /* ==========================================
-   Destructive Warning Banner
+   Information Banner
    ========================================== */
-.dbs-attdel-warning-banner {
+.dbs-cons-info-banner {
   display: flex;
   align-items: flex-start;
   gap: 14px;
   padding: 16px 20px;
-  background: linear-gradient(135deg, #fff1f2 0%, #fef2f2 100%);
-  border: 1px solid #fecdd3;
-  border-left: 4px solid #e11d48;
+  background: linear-gradient(135deg, #f0f9ff 0%, #eff6ff 100%);
+  border: 1px solid #bfdbfe;
+  border-left: 4px solid var(--dbs-primary, #2563eb);
   border-radius: var(--dbs-radius-sm, 12px);
-  box-shadow: 0 1px 3px rgba(225, 29, 72, 0.05);
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.05);
 }
 
-.dbs-attdel-warning-icon {
-  color: #e11d48;
+.dbs-cons-info-icon {
+  color: var(--dbs-primary, #2563eb);
   flex-shrink: 0;
   margin-top: 2px;
 }
 
-.dbs-attdel-warning-content h4 {
+.dbs-cons-info-content h4 {
   margin: 0 0 4px 0;
   font-size: 0.94rem;
   font-weight: 700;
-  color: #9f1239;
+  color: #1e3a8a;
 }
 
-.dbs-attdel-warning-content p {
+.dbs-cons-info-content p {
   margin: 0;
   font-size: 0.85rem;
-  color: #881337;
+  color: #334155;
   line-height: 1.5;
 }
 
 /* ==========================================
-   Filter / Form Card
+   Filter / Scope Card
    ========================================== */
-.dbs-attdel-card {
+.dbs-cons-card {
   background: var(--dbs-surface, #ffffff);
   border: 1px solid var(--dbs-border, #e2e8f0);
   border-radius: var(--dbs-radius, 16px);
@@ -160,11 +160,11 @@
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.dbs-attdel-card:hover {
+.dbs-cons-card:hover {
   box-shadow: var(--dbs-shadow-md, 0 10px 20px -3px rgba(0, 0, 0, 0.06));
 }
 
-.dbs-attdel-card-header {
+.dbs-cons-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -174,13 +174,13 @@
   flex-wrap: wrap;
 }
 
-.dbs-attdel-card-title {
+.dbs-cons-card-title {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.dbs-attdel-card-title h3 {
+.dbs-cons-card-title h3 {
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--dbs-text, #0f172a);
@@ -188,42 +188,42 @@
   letter-spacing: -0.01em;
 }
 
-.dbs-attdel-card-subtitle {
+.dbs-cons-card-subtitle {
   font-size: 0.8rem;
   color: var(--dbs-text-muted, #64748b);
   font-weight: 500;
 }
 
-.dbs-attdel-filter-tip {
+.dbs-cons-filter-tip {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 4px 12px;
   border-radius: 9999px;
-  background: #fef2f2;
-  color: #dc2626;
+  background: var(--dbs-primary-light, #eff6ff);
+  color: var(--dbs-primary, #2563eb);
   font-size: 0.78rem;
   font-weight: 600;
 }
 
 /* ==========================================
-   Responsive Grid for Inputs (3 Columns)
+   Responsive Grid for Inputs
    ========================================== */
-.dbs-attdel-grid {
+.dbs-cons-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px 22px;
   width: 100%;
 }
 
-.dbs-attdel-field {
+.dbs-cons-field {
   display: flex;
   flex-direction: column;
   position: relative;
   min-width: 0;
 }
 
-.dbs-attdel-field label {
+.dbs-cons-field label {
   margin-bottom: 7px;
   font-size: 0.82rem;
   font-weight: 600;
@@ -234,37 +234,37 @@
   gap: 6px;
 }
 
-.dbs-attdel-label-text {
+.dbs-cons-label-text {
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 
-.dbs-attdel-label-text svg {
+.dbs-cons-label-text svg {
   color: var(--dbs-text-muted, #64748b);
 }
 
-.dbs-attdel-required {
+.dbs-cons-required {
   color: #ef4444;
   font-weight: 700;
   margin-left: 2px;
 }
 
-.dbs-attdel-subtext {
+.dbs-cons-subtext {
   font-size: 0.72rem;
   font-weight: 500;
   color: var(--dbs-text-muted, #94a3b8);
 }
 
-.dbs-attdel-input-wrap {
+.dbs-cons-input-wrap {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
 }
 
-.dbs-attdel-field input,
-.dbs-attdel-field select {
+.dbs-cons-field input,
+.dbs-cons-field select {
   width: 100%;
   height: 42px;
   padding: 0 14px;
@@ -278,13 +278,13 @@
   box-sizing: border-box;
 }
 
-.dbs-attdel-field input[type="date"] {
+.dbs-cons-field input[type="date"] {
   min-height: 42px;
   cursor: pointer;
   -webkit-appearance: none;
 }
 
-.dbs-attdel-field select {
+.dbs-cons-field select {
   cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -294,21 +294,21 @@
   padding-right: 36px;
 }
 
-.dbs-attdel-field input:hover:not(:disabled),
-.dbs-attdel-field select:hover:not(:disabled) {
+.dbs-cons-field input:hover:not(:disabled),
+.dbs-cons-field select:hover:not(:disabled) {
   border-color: #94a3b8;
 }
 
-.dbs-attdel-field input:focus,
-.dbs-attdel-field select:focus {
+.dbs-cons-field input:focus,
+.dbs-cons-field select:focus {
   outline: none;
-  border-color: #dc2626;
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.14);
+  border-color: var(--dbs-primary, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
   background: #ffffff;
 }
 
-.dbs-attdel-field input:disabled,
-.dbs-attdel-field select:disabled {
+.dbs-cons-field input:disabled,
+.dbs-cons-field select:disabled {
   background: #f8fafc;
   color: #94a3b8;
   border-color: #e2e8f0;
@@ -317,9 +317,9 @@
 }
 
 /* ==========================================
-   Target Session Verification Preview Card
+   Target Class Preview Card
    ========================================== */
-.dbs-attdel-preview-card {
+.dbs-cons-preview-card {
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   border: 1px solid #e2e8f0;
   border-radius: var(--dbs-radius-sm, 12px);
@@ -327,10 +327,10 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  border-left: 4px solid #dc2626;
+  border-left: 4px solid var(--dbs-primary, #2563eb);
 }
 
-.dbs-attdel-preview-header {
+.dbs-cons-preview-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -338,7 +338,7 @@
   flex-wrap: wrap;
 }
 
-.dbs-attdel-preview-title {
+.dbs-cons-preview-title {
   font-size: 0.92rem;
   font-weight: 700;
   color: #0f172a;
@@ -347,32 +347,32 @@
   gap: 8px;
 }
 
-.dbs-attdel-preview-tag {
-  background: #fee2e2;
-  color: #b91c1c;
+.dbs-cons-preview-tag {
+  background: #eff6ff;
+  color: #1d4ed8;
   font-size: 0.74rem;
   font-weight: 700;
   padding: 3px 10px;
   border-radius: 9999px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  border: 1px solid #fca5a5;
+  border: 1px solid #bfdbfe;
 }
 
-.dbs-attdel-preview-grid {
+.dbs-cons-preview-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   width: 100%;
 }
 
-.dbs-attdel-preview-item {
+.dbs-cons-preview-item {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.dbs-attdel-preview-label {
+.dbs-cons-preview-label {
   font-size: 0.72rem;
   font-weight: 600;
   color: var(--dbs-text-muted, #64748b);
@@ -380,16 +380,121 @@
   letter-spacing: 0.03em;
 }
 
-.dbs-attdel-preview-value {
+.dbs-cons-preview-value {
   font-size: 0.88rem;
   font-weight: 700;
   color: #0f172a;
 }
 
 /* ==========================================
+   KPI Analytics Summary Cards
+   ========================================== */
+.dbs-cons-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.dbs-cons-stat-card {
+  background: var(--dbs-surface, #ffffff);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  border-radius: var(--dbs-radius, 14px);
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--dbs-shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.04));
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dbs-cons-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--dbs-shadow, 0 4px 10px rgba(0, 0, 0, 0.06));
+}
+
+.dbs-cons-stat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dbs-cons-stat-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--dbs-text-muted, #64748b);
+}
+
+.dbs-cons-stat-value {
+  font-size: 1.65rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--dbs-text, #0f172a);
+}
+
+.dbs-cons-stat-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dbs-cons-stat-card.total .dbs-cons-stat-icon-wrapper {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.dbs-cons-stat-card.eligible {
+  border-color: #bbf7d0;
+  background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+}
+
+.dbs-cons-stat-card.eligible .dbs-cons-stat-icon-wrapper {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.dbs-cons-stat-card.eligible .dbs-cons-stat-value {
+  color: #15803d;
+}
+
+.dbs-cons-stat-card.condonation {
+  border-color: #fef08a;
+  background: linear-gradient(180deg, #ffffff 0%, #fefce8 100%);
+}
+
+.dbs-cons-stat-card.condonation .dbs-cons-stat-icon-wrapper {
+  background: #fef9c3;
+  color: #ca8a04;
+}
+
+.dbs-cons-stat-card.condonation .dbs-cons-stat-value {
+  color: #a16207;
+}
+
+.dbs-cons-stat-card.detained {
+  border-color: #fecdd3;
+  background: linear-gradient(180deg, #ffffff 0%, #fff1f2 100%);
+}
+
+.dbs-cons-stat-card.detained .dbs-cons-stat-icon-wrapper {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.dbs-cons-stat-card.detained .dbs-cons-stat-value {
+  color: #dc2626;
+}
+
+/* ==========================================
    Form Actions Row
    ========================================== */
-.dbs-attdel-actions-row {
+.dbs-cons-actions-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -400,7 +505,7 @@
   flex-wrap: wrap;
 }
 
-.dbs-attdel-actions-left {
+.dbs-cons-actions-left {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -408,14 +513,14 @@
   color: var(--dbs-text-muted, #64748b);
 }
 
-.dbs-attdel-actions-right {
+.dbs-cons-actions-right {
   display: flex;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.dbs-attdel-btn {
+.dbs-cons-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -430,46 +535,46 @@
   white-space: nowrap;
 }
 
-.dbs-attdel-btn-delete {
-  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+.dbs-cons-btn-push {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   color: #ffffff;
-  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.25);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
 }
 
-.dbs-attdel-btn-delete:hover:not(:disabled) {
-  background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+.dbs-cons-btn-push:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
   transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.35);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
 }
 
-.dbs-attdel-btn-delete:active:not(:disabled) {
+.dbs-cons-btn-push:active:not(:disabled) {
   transform: translateY(0);
 }
 
-.dbs-attdel-btn-secondary {
+.dbs-cons-btn-secondary {
   background: #f8fafc;
   color: var(--dbs-text, #334155);
   border-color: var(--dbs-border, #cbd5e1);
 }
 
-.dbs-attdel-btn-secondary:hover:not(:disabled) {
+.dbs-cons-btn-secondary:hover:not(:disabled) {
   background: #f1f5f9;
   border-color: #94a3b8;
   color: var(--dbs-text, #0f172a);
 }
 
-.dbs-attdel-btn:disabled {
+.dbs-cons-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none !important;
   box-shadow: none !important;
 }
 
-.dbs-attdel-spinner {
-  animation: dbsAttDelSpin 0.9s linear infinite;
+.dbs-cons-spinner {
+  animation: dbsConsSpin 0.9s linear infinite;
 }
 
-@keyframes dbsAttDelSpin {
+@keyframes dbsConsSpin {
   from {
     transform: rotate(0deg);
   }
@@ -484,45 +589,49 @@
 
 /* Tablets (<= 1100px) */
 @media (max-width: 1100px) {
-  .dbs-attdel-grid {
+  .dbs-cons-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .dbs-attdel-preview-grid {
+  .dbs-cons-preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dbs-cons-stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* Small Tablets & Mobile Devices (<= 768px) */
 @media (max-width: 768px) {
-  .dbs-attdel-header {
+  .dbs-cons-header {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .dbs-attdel-header-badges {
+  .dbs-cons-header-badges {
     width: 100%;
   }
 
-  .dbs-attdel-card {
+  .dbs-cons-card {
     padding: 18px 16px;
   }
 
-  .dbs-attdel-actions-row {
+  .dbs-cons-actions-row {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .dbs-attdel-actions-right {
+  .dbs-cons-actions-right {
     flex-direction: column;
     width: 100%;
   }
 
-  .dbs-attdel-btn {
+  .dbs-cons-btn {
     width: 100%;
   }
 
-  .dbs-attdel-preview-grid {
+  .dbs-cons-preview-grid {
     grid-template-columns: 1fr;
     gap: 8px;
   }
@@ -530,17 +639,27 @@
 
 /* Phones (<= 576px) */
 @media (max-width: 576px) {
-  .dbs-attdel-grid {
+  .dbs-cons-grid {
     grid-template-columns: 1fr;
     gap: 14px;
   }
 
-  .dbs-attdel-header-text h2 {
+  .dbs-cons-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .dbs-cons-header-text h2 {
     font-size: 1.3rem;
   }
 
-  .dbs-attdel-icon-wrapper {
+  .dbs-cons-icon-wrapper {
     width: 42px;
     height: 42px;
   }
+}
+
+/* Legacy Alias Support */
+.dbs-groupchange-container:has(.dbs-cons-header) {
+  animation: none;
 }
