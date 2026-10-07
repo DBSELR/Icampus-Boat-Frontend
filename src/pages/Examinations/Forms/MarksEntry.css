@@ -1,0 +1,280 @@
+/* --- Marks Entry Module Styles --- */
+.marks-entry-container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: var(--dbs-font-family, system-ui, -apple-system, sans-serif);
+  color: var(--dbs-text, #1e293b);
+}
+
+.marks-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  background: var(--dbs-surface, #ffffff);
+  padding: 20px 24px;
+  border-radius: var(--dbs-radius, 12px);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.marks-entry-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dbs-text, #0f172a);
+}
+
+.marks-entry-title svg {
+  color: var(--dbs-primary, #3b82f6);
+}
+
+.marks-entry-grid {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .marks-entry-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card Container */
+.marks-card {
+  background: var(--dbs-surface, #ffffff);
+  border-radius: var(--dbs-radius, 12px);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.marks-card-header {
+  padding: 16px 20px;
+  background: var(--dbs-surface-hover, #f8fafc);
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.marks-card-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--dbs-text, #1e293b);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.marks-card-body {
+  padding: 20px;
+  flex: 1;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dbs-text-muted, #64748b);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.form-control-custom {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--dbs-radius-sm, 8px);
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  background: var(--dbs-surface, #ffffff);
+  color: var(--dbs-text, #0f172a);
+  font-size: 0.925rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.form-control-custom:focus {
+  border-color: var(--dbs-primary, #3b82f6);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.form-control-custom[readonly] {
+  background-color: var(--dbs-surface-hover, #f1f5f9);
+  cursor: not-allowed;
+  font-weight: 600;
+}
+
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Max & Min Marks Badge */
+.marks-limit-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: var(--dbs-radius-sm, 8px);
+  margin-bottom: 20px;
+}
+
+.marks-limit-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--dbs-text, #1e293b);
+}
+
+.marks-limit-value {
+  color: var(--dbs-primary, #2563eb);
+  font-weight: 700;
+}
+
+/* Table / Grid */
+.table-responsive-custom {
+  overflow-x: auto;
+  max-height: 550px;
+  overflow-y: auto;
+  border-radius: var(--dbs-radius-sm, 8px);
+  border: 1px solid var(--dbs-border, #e2e8f0);
+}
+
+.marks-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.marks-table th {
+  position: sticky;
+  top: 0;
+  background: var(--dbs-surface-hover, #f1f5f9);
+  color: var(--dbs-text-muted, #475569);
+  font-weight: 600;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--dbs-border, #cbd5e1);
+  z-index: 10;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.marks-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--dbs-border, #e2e8f0);
+  color: var(--dbs-text, #1e293b);
+  vertical-align: middle;
+}
+
+.marks-table tbody tr:hover {
+  background: rgba(59, 130, 246, 0.03);
+}
+
+.marks-input {
+  width: 90px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--dbs-border, #cbd5e1);
+  background: var(--dbs-surface, #ffffff);
+  color: var(--dbs-text, #0f172a);
+  transition: all 0.15s ease;
+}
+
+.marks-input:focus {
+  border-color: var(--dbs-primary, #3b82f6);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  outline: none;
+}
+
+.marks-input.abnormal-ab {
+  color: #dc2626 !important;
+  border-color: #fca5a5 !important;
+  background-color: #fef2f2 !important;
+  font-weight: 800;
+}
+
+.marks-input.invalid-mark {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25) !important;
+  background-color: #fff1f2 !important;
+}
+
+/* Action Buttons */
+.btn-save-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: var(--dbs-radius-sm, 8px);
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
+}
+
+.btn-save-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669, #047857);
+  box-shadow: 0 6px 12px -2px rgba(16, 185, 129, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-save-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status-badge-blue {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-badge-green {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

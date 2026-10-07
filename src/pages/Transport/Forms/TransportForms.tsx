@@ -1,8 +1,11 @@
-import React from "react";
-import VehicleMaster from "./VehicleMaster";
+import React from 'react'
 
-const TransportForms: React.FC = () => {
-  return <VehicleMaster />;
-};
+const TransportForms = () => {
+    return (
+        <div>TransportForms</div>
+    )
+}
 
-export default TransportForms;
+export default TransportForms
+
+
